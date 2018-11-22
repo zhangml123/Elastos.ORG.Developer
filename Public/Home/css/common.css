@@ -1,0 +1,119 @@
+﻿/* 公共样式 */
+ *{
+  margin:0;
+  padding:0;
+}
+body {
+	position:relative;
+	font-family: "Doppio One",sans-serif;
+    color:black;
+    background-color:#fff;
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration:none;
+}
+a:hover{
+    cursor: pointer!important;
+    text-decoration:none!important;
+}
+.body_c{
+	margin-top:20px;
+}
+.nav-title{
+   font-family: 'Abril Fatface', cursive; 
+}
+.navbar-header .nav-title:hover{
+  background:#fff;
+  color:#000;
+}
+.cative{
+  font-family:'Doppio One';
+}
+.navbar-collapse .navbar-nav li a:hover,
+.navbar-collapse .navbar-nav li a:focus{
+  color:#000;
+  /*background-color:#e5e5e5;*/
+}
+.cative:hover{
+  border-bottom:4px solid #173045;
+}
+.navbar-default {
+    background-color: #fff;
+	box-shadow: 1px 2px 2px #f6f6f1;
+}
+.navbar-nav li{
+	height:60px;
+	line-height:40px;
+	margin-top:20px;
+	padding-left:10px;
+	padding-right:10px;
+}
+.navbar-nav>li>a {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-weight:900;
+	color:#173045;
+	font-size:14px;
+	font-family: 'Doppio One';
+}
+.navbar-brand {
+height: 80px;
+padding-top: 10px;
+line-height: 80px;
+}
+.navbar {
+min-height: 80px;
+background-color:#f6f9fd；
+}
+.navbar-toggle {
+margin-top: 15px;
+margin-bottom: 4px;
+}
+#navbar_menu{
+	height:auto;    
+}
+#navbar_menu form{
+	margin-top:25px
+}
+#navbar_menu form button{
+	border: 1px solid #999;
+    border-radius: 20px;
+	width:80px;
+	color:#173045;
+	font-weight:800;
+}
+.submenu{
+	width:80px;
+}.submenu li{height:40px;}
+
+.div_footer{
+	margin-top:40px;
+}
+.div_footer div{
+	text-align:center;
+	height:30px;
+	line-height:30px;
+}
+.div_footer div a{
+	color:#434d72;
+}
+.div_footer div a:hover{
+	color:#18ffff;
+}
+.link_icon div{
+	float:left;
+	margin-left:15px;
+}
+.div_footer_f{
+	text-align:center;
+	margin-top:40px;
+}
+.link_icon{
+	overflow:hidden;
+	text-align:center;
+}
+.link_icon div a img:hover{
+	color:#18ffff;
+}.nav-login{width:100px;border-radius:100px;}

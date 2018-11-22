@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>无标题文档</title>
+<style>
+#curimg,#curvideo{width:100px;height:100px;borer:1px solid #f5f5f5;border-radius:3px 3px;}
+#uploadbtn,#uploadvideobtn{float:left;width:100px;height:30px;background-color:#226193;display:block;color:#fff;text-align:center;line-height:30px;border-radius:3px 3px;text-decoration:none;}
+</style>
+    <link href="{$Think.const.PUBLIC_F}Elafansadm/css/process.css" rel="stylesheet">
+<link href="{$Think.const.PUBLIC_F}Elafansadm/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div style="width:100%;height:300px;">
+	<ul style="width:100%;height:auto;padding:0px;margin:0px;list-style-type:none;">
+		<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+			<span style="width:50px;text-align:right;float:left;display:block;">标题：</span><input id="title" type="text" value="{$articleinfo.title}"  style="float:left;width:600px;height:30px;padding-top:2px;padding-bottom:3px;line-height:30px;" />
+		</li>
+		<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+			<span style="width:50px;text-align:right;float:left;display:block;">短标题：</span><input id="shorttitle" type="text" value="{$articleinfo.shorttitle}"  style="float:left;width:600px;height:30px;padding-top:2px;padding-bottom:3px;line-height:30px;" />
+		</li>
+		<eq name="singlecate" value="1">
+		<li style="width:80%;margin-left:10%;height:30px;padding:7px 0px;font-size:12px;line-height:30px;">
+			分类：
+		</li>
+		<li id="subcate" style="width:80%;margin-left:10%;height:auto;padding:5px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;">
+			<select  class="cate" curnum="1"  SIZE="5" style="width:120px;line-height:30px;border:1px solid #e5e5e5;">
+				<volist name="subcatelist" id="voa">
+				<option value="{$voa.id}">{$voa.catename}</option>
+				</volist>
+			</select>
+		</li>
+		</eq>
+		<li id="jumpurltop" style="width:80%;margin-left:10%;height:50px;padding:7px 0px;font-size:12px;line-height:50px;border-bottom:1px solid #e5e5e5;">
+			<span style="width:50px;text-align:right;float:left;display:block;">来源：</span><input id="source" type="text" value="{$articleinfo.source}"  style="float:left;width:600px;height:30px;padding-top:2px;padding-bottom:3px;line-height:30px;" />
+		</li>
+		<li style="width:80%;margin-left:10%;height:220px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:30px;">
+			摘要：<textarea id="summary" placeholder="&nbsp;文章摘要" style="width:100%;height:180px;padding-top:2px;padding-bottom:3px;resize:none;">{$articleinfo.summary}</textarea>
+		</li>
+		<li style="width:80%;margin-left:10%;height:160px;padding:7px 0px;font-size:12px;line-height:30px;border-bottom:1px solid #e5e5e5;">
+			<div id="uploaddiv" style="width:100%;height:160px;margin-top:10px;">
+				<div style="width:100%;height:30px;line-height:30px;">
+				<span style="float:left;width:100px;height:30px;">上传图片：</span><a href="javascript:void(0);" id="uploadbtn">上传</a><input type="file" name="imgfile" style="width:1px;height:1px;" />
+				<span style="color:red;">*上传格式：.png，.jpg，.gif 图片比例 1:1</span>
+				</div>
+				<div style="width:100%;height:120px;margin-top:10px;">
+				<input type="hidden" value="{$articleinfo.imgurl}" id="adverturl" />
+				<img src="{$Think.const.PUBLIC_F}upload/img/{$articleinfo.imgurl}" id="curimg" />
+				</div>
+			</div>
+		</li>
+		<li style="width:80%;margin-left:10%;height:160px;padding:7px 0px;font-size:12px;line-height:30px;border-bottom:1px solid #e5e5e5;">
+			<div id="uploadvideo" style="width:100%;height:160px;margin-top:10px;">
+				<div style="width:100%;height:30px;line-height:30px;">
+				<span style="float:left;width:100px;height:30px;">上传视频：</span><a href="javascript:void(0);" id="uploadvideobtn">上传</a><input type="file" name="videofile" style="width:1px;height:1px;" />
+				<span style="color:red;">*上传格式：.mp4  视频比例：640*360</span>
+				</div>
+				<div style="width:100%;height:120px;margin-top:10px;">
+				<input type="hidden" value="{$articleinfo.videourl}" id="videourl" />
+				<img src="{$Think.const.PUBLIC_F}Elafansadm/images/defaultuploadvideo.png" id="curvideo" />
+				</div>
+			</div>
+		</li>
+		<eq name="articleinfo.status" value="1">
+		<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+			状态：<input name="status" checked="checked" type="radio" value="1" />启用 <input name="status" type="radio" value="0" />停用
+		</li>
+		</eq>
+		<eq name="articleinfo.status" value="0">
+		<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+			状态：<input name="status" type="radio" value="1" />启用 <input name="status" checked="checked" type="radio" value="0" />停用
+		</li>
+		</eq>
+		<eq name="articleinfo.homeid" value="1">
+			<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+				首页显示：<input name="homeid"  checked="checked" type="radio" value="1" />显示 <input name="homeid"type="radio" value="0" />隐藏
+			</li>
+		</eq>
+		<eq name="articleinfo.homeid" value="0">
+			<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+				首页显示：<input name="homeid" type="radio" value="1" />显示 <input name="homeid" checked="checked" type="radio" value="0" />隐藏
+			</li>
+		</eq>
+		<eq name="articleinfo.subhomeid" value="1">
+			<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+				栏目首页显示：<input name="subhomeid"  checked="checked" type="radio" value="1" />显示 <input name="subhomeid"type="radio" value="0" />隐藏
+			</li>
+		</eq>
+		<eq name="articleinfo.subhomeid" value="0">
+			<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+				栏目首页显示：<input name="subhomeid" type="radio" value="1" />显示 <input name="subhomeid" checked="checked" type="radio" value="0" />隐藏
+			</li>
+		</eq>
+		<li style="width:80%;margin-left:10%;height:50px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+			编辑：<select id="author" style="width:120px;height:30px;padding-top:2px;padding-bottom:3px;line-height:30px;">
+					<option value="">选择编辑</option>
+					<volist name="userlist" id="vow">
+						<eq name="vow.userid" value="$articleinfo.author">
+						<option value="{$vow.userid}" selected="selected">{$vow.username}</option>
+						</eq>
+						<neq name="vow.userid" value="$articleinfo.author">
+						<option value="{$vow.userid}">{$vow.username}</option>
+						</neq>
+					</volist>
+			</select>
+		</li>
+		<li style="width:80%;margin-left:10%;height:500px;padding:7px 0px;border-bottom:1px solid #e5e5e5;font-size:12px;line-height:50px;">
+			文章内容：
+			<div id="editor-state" class="editor-state"></div>	
+		</li>
+		<li style="width:100%;height:30px;text-align:center;margin-top:30px;margin-bottom:30px;">
+			<div style="width:50%;margin-left:25%;height:30px;">
+			<input type="button" id="savebtn" value="保存" style="border-radius:3px 3px;float:left;width:20%;margin-left:10%;height:30px;line-height:30px;border:0px;background-color:green;color:#fff;" />
+			<input type="button" id="savedraftbtn" value="保存为草稿" style="border-radius:3px 3px;float:left;width:20%;margin-left:10%;height:30px;line-height:30px;border:0px;background-color:#aaa;color:#444;"  />
+			<input type="button" id="canclebtn" value="取消" style="border-radius:3px 3px;float:left;width:20%;margin-left:10%;height:30px;line-height:30px;border:0px;background-color:#aaa;color:#fff;"  />
+			</div>
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/custom/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/jquery.form.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/umeditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+ var state = UM.getEditor('editor-state');
+ state.setWidth("98%");
+ state.setContent('{$articleinfo.contents}', true);
+function selecttime(flag){
+    if(flag==1){
+        var endTime = $("#endtime").val();
+        if(endTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:endTime});
+        }else{
+            WdatePicker({dateFmt:'yyyy-MM-dd'});
+        }
+    }else{
+        var startTime = $("#starttime").val();
+        if(startTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd',minDate:startTime});
+        }else{
+            WdatePicker({dateFmt:'yyyy-MM-dd'});
+        }    
+    }
+}
+$(document).ready(function(){
+	$("#uploaddiv").wrap('<form id="upload" action="{$Think.const.ELAFANSADM}Upload/uploadimg" method="post"  enctype="multipart/form-data"></form>');
+	$("#uploadvideo").wrap('<form id="uploadvideo" action="{$Think.const.ELAFANSADM}Uploadvideo/uploadvideo" method="post"  enctype="multipart/form-data"></form>');
+	$("#uploadbtn").click(function(){
+		$('[name="imgfile"]').click();
+	});
+	$("#uploadvideobtn").click(function(){
+		$('[name="videofile"]').click();
+	});
+	$('[name="imgfile"]').change(function(){
+		var fname = $(this).attr("name");
+		$("#upload").append("<input type='hidden' value='"+fname+"' name='fname'><input type='hidden' value='aert' name='fcate'>");
+		$("#upload").ajaxSubmit({
+			dataType:  'json',  
+			beforeSend: function() {
+				$("#curimg").attr("src","{$Think.const.PUBLIC_F}Elafansadm/images/loading.gif");
+			},  
+			uploadProgress: function(event, position, total, percentComplete) {
+				
+			},  
+			success: function(data) {
+				$("#adverturl").val(data.hpic);
+				$("#curimg").attr("src",data.cpic);
+			},
+			error:function(xhr){
+				alert("上传失败!");
+			}
+		});	
+	});
+	$('[name="videofile"]').change(function(){
+		var fname = $(this).attr("name");
+		$("#uploadvideo").append("<input type='hidden' value='"+fname+"' name='fname'><input type='hidden' value='video' name='fcate'>");
+		$("#uploadvideo").ajaxSubmit({
+			dataType:  'json',  
+			beforeSend: function() {
+				$("#curvideo").attr("src","{$Think.const.PUBLIC_F}Elafansadm/images/loading.gif");
+			},  
+			uploadProgress: function(event, position, total, percentComplete) {
+				
+			},  
+			success: function(data) {
+				$("#videourl").val(data.hpic);
+				$("#curvideo").attr("src","{$Think.const.PUBLIC_F}Elafansadm/images/uploadedvideo.jpg");
+			},
+			error:function(xhr){
+				alert("上传失败!");
+			}
+		});	
+	});
+	$('[name="linkcate"]').click(function(){
+		if($(this).val()=="1"){
+			$("#jumpurltop").css("border-bottom","1px solid #e5e5e5");
+			$("#jumpurl").hide();
+		}else if($(this).val()=="2"){
+			$("#jumpurltop").css("border","0px");
+			$("#jumpurl").show();
+		}
+	})
+	$(document).on("change",".cate",function(){
+		if($(this).val()!=""){
+			var curval = $(this).val();
+			var html = $("#subcate").html();
+			var curnum = $(this).attr("curnum");
+			var nextnum = parseInt(curnum)+1;
+			$.post(
+				'getsubcate',
+				{cid:curval},
+				function(data){
+					if(data!=0){
+						var data = $.parseJSON(data);
+						var htmlb = '<select  class="cate" curnum="'+ nextnum +'"  SIZE="5" style="width:120px;line-height:30px;border:1px solid #e5e5e5;">';
+						for(var k=0;k<data.length;k++){
+							htmlb = htmlb +'<option value="'+ data[k]['id'] +'">'+ data[k]['catename'] +'</option>';
+						}
+						htmlb = htmlb +'</select>';
+						$(".cate").each(function(){
+							if($(this).attr("curnum")>curnum){
+								$(this).remove();
+							}
+						});
+						$("#subcate").append(htmlb);
+					}else{
+					
+						$(".cate").each(function(){
+							if($(this).attr("curnum")>curnum){
+								$(this).remove();
+							}
+						});
+					}
+				}
+			);
+		}
+	});
+   $("#savebtn").click(function(){
+		var articleid = {$articleinfo.id};
+		var singlecate = {$singlecate};
+		var title = $("#title").val();
+		var shorttitle = $("#shorttitle").val();
+		var author = $("#author").val();
+		if(singlecate==1){
+			var cateid = $("[curnum='"+ $(".cate").length +"']").val();
+			var catepid = 3;
+			var catelist = "3,"+{$cateid};
+		}else{
+			//var cateid = {$cateid};
+			var cateid = {$cateid};
+			var catepid = 3;
+			var catelist = "";
+		}
+		var summary =  $("#summary").val();
+		var source =  $("#source").val();
+		var adverturl = $("#adverturl").val();
+		var videourl = $("#videourl").val();
+		var singleyn = 1;
+		if(title==""){
+			layer.alert("文章标题不能为空！");
+			return false;
+		}
+		if(cateid==""){
+			layer.alert("所属分类不为为空！");
+			return false;
+		}
+		if(summary==""){
+			layer.alert("摘要不能为空！");
+			return false;
+		}
+		if(source==""){
+			layer.alert("来源不能为空！");
+			return false;
+		}
+		if(author==""){
+			layer.alert("编辑不能为空！");
+			return false;
+		}
+		var status = $('[name="status"]:checked').val();
+		var homeid = $('[name="homeid"]:checked').val();
+		var subhomeid = $('[name="subhomeid"]:checked').val();
+		var contents = state.getContent();
+		$.post(
+			'edit',
+			{draft:0,author:author,articleid:articleid,singleyn:singleyn,title:title,cateid:cateid,catepid:catepid,catelist:catelist,shorttitle:shorttitle,summary:summary,videourl:videourl,imgurl:adverturl,source:source,status:status,homeid:homeid,subhomeid:subhomeid,contents:contents},
+			function(data){
+				if(data==1){
+					layer.alert("更新草稿成功！",function(){
+						var index = parent.layer.getFrameIndex(window.name);
+						window.parent.location.reload();
+						parent.layer.close(index);	
+					});
+				}else{
+					layer.alert("更新草稿失败！");
+					return false;
+				}
+			}
+		);
+   });
+   $("#savedraftbtn").click(function(){
+		var articleid = {$articleinfo.id};
+		var singlecate = {$singlecate};
+		var title = $("#title").val();
+		var shorttitle = $("#shorttitle").val();
+		var author = $("#author").val();
+		if(singlecate==1){
+			var cateid = $("[curnum='"+ $(".cate").length +"']").val();
+			var catepid = 3;
+			var catelist = "3,"+{$cateid};
+		}else{
+			//var cateid = {$cateid};
+			var cateid = {$cateid};
+			var catepid = 3;
+			var catelist = "";
+		}
+		var summary =  $("#summary").val();
+		var source =  $("#source").val();
+		var adverturl = $("#adverturl").val();
+		var videourl = $("#videourl").val();
+		var singleyn = 1;
+		if(title==""){
+			layer.alert("文章标题不能为空！");
+			return false;
+		}
+		if(cateid==""){
+			layer.alert("所属分类不为为空！");
+			return false;
+		}
+		if(summary==""){
+			layer.alert("摘要不能为空！");
+			return false;
+		}
+		if(source==""){
+			layer.alert("来源不能为空！");
+			return false;
+		}
+		if(author==""){
+			layer.alert("编辑不能为空！");
+			return false;
+		}
+		var status = $('[name="status"]:checked').val();
+		var homeid = $('[name="homeid"]:checked').val();
+		var subhomeid = $('[name="subhomeid"]:checked').val();
+		var contents = state.getContent();
+		$.post(
+			'edit',
+			{draft:1,author:author,articleid:articleid,singleyn:singleyn,title:title,cateid:cateid,catepid:catepid,catelist:catelist,shorttitle:shorttitle,summary:summary,videourl:videourl,imgurl:adverturl,source:source,status:status,homeid:homeid,subhomeid:subhomeid,contents:contents},
+			function(data){
+				if(data==1){
+					layer.alert("更新成功！",function(){
+						var index = parent.layer.getFrameIndex(window.name);
+						window.parent.location.reload();
+						parent.layer.close(index);	
+					});
+				}else{
+					layer.alert("更新失败！");
+					return false;
+				}
+			}
+		);
+   });
+   $("#canclebtn").click(function(){
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+   });
+});
+
+</script>
+</body>
+</html> 
