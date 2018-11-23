@@ -1,0 +1,370 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title></title> 
+<link href="{$Think.const.PUBLIC_F}Elafansadm/css/base.css" rel="stylesheet">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}Elafansadm/custom/uimaker/easyui.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}Elafansadm/css/workbench.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}Elafansadm/fonts/iconfont.css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.STYLE1 {font-size: 12px}
+.STYLE4 {
+	font-size: 12px;
+	color: #1F4A65;
+	font-weight: bold;
+}
+
+a:link {
+	font-size: 12px;
+	color: #06482a;
+	text-decoration: none;
+
+}
+a:visited {
+	font-size: 12px;
+	color: #06482a;
+	text-decoration: none;
+}
+a:hover {
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+}
+a:active {
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+}
+.STYLE7 {font-size: 12}
+
+-->
+a{text-decoration:none;}
+/*定义滚动条轨道*/
+.layui-layer-iframe iframe::-webkit-scrollbar-track
+    {
+        background-color: #F5F5F5;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.22);
+    }
+    /*定义滚动条高宽及背景*/
+.layui-layer-iframe iframe::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: rgba(0, 0, 0, 0.34);
+    }
+    /*定义滚动条*/
+.layui-layer-iframe iframe::-webkit-scrollbar-thumb
+    {
+        background-color: #8b8b8b;
+        border-radius: 10px;
+    }
+.searchmenu{width:98%;margin-left:1%;height:50px;margin-top:10px;background-color:#f5f5f5;}
+.searchmenu div:first-child{margin-left:10px;}
+.searchmenu div{float:left;width:250px;height:30px;margin-top:10px;font-size:12px;}
+.searchmenu div select{min-width:150px;height:30px;border:1px solid #ccc;font-size:12px;}
+.searchmenu div input{min-width:100px;height:30px;border:0px;font-size:12px;background-color:#1da02b;border-radius:3px 3px;color:#fff;cursor:pointer;}
+.operatormenu{width:98%;margin-left:1%;height:50px;margin-top:2px;background-color:#f5f5f5;margin-bottom:10px;}
+.operatormenu div{float:left;width:110px;height:30px;margin-top:10px;}
+.operatormenu div button{min-width:100px;height:30px;border:0px;font-size:12px;border:1px solid #ccc;background-color:#eee;border-radius:3px 3px;color:#000;cursor:pointer;}
+.operatormenu div button:hover{background-color:#f9f9f9;border:1px solid #ccc;}
+.operatormenu div:first-child{margin-left:10px;}
+</style>
+</head> 
+<body>
+<div style="width:98%;height:auto;margin-left:1%;">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td  height="120">
+		<div class="searchmenu">
+			<form action="index" method="get">
+			<input type="hidden" name="cid" value="{$cid}">
+			<div>&nbsp;&nbsp;关键词：<input type="text" value="{$keyword}" placeholder="&nbsp;标题、编辑" style="color:#222;cursor:Auto;background-color:#fff;min-width:150px;height:30px;border:1px solid #ccc;font-size:12px;" name="keyword"></div>
+			<div>首页显示：
+			<select name="homeid">
+				<eq name="homeid" value="">
+					<option value="" selected="selected">&nbsp;&nbsp;全部</option>
+					<option value="1" >&nbsp;&nbsp;是</option>
+					<option value="0">&nbsp;&nbsp;否</option>
+				</eq>
+				<eq name="homeid" value="1">
+					<option value="">&nbsp;&nbsp;全部</option>
+					<option value="1" selected="selected">&nbsp;&nbsp;是</option>
+					<option value="0">&nbsp;&nbsp;否</option>
+				</eq>
+				<eq name="homeid" value="0">
+					<option value="">&nbsp;&nbsp;全部</option>
+					<option value="1" >&nbsp;&nbsp;是</option>
+					<option value="0" selected="selected">&nbsp;&nbsp;否</option>
+				</eq>
+			</select>
+			</div>
+			<div>状态：
+			<select name="status">
+				<eq name="status" value="">
+					<option value="" selected="selected">&nbsp;&nbsp;全部</option>
+					<option value="1" >&nbsp;&nbsp;正常</option>
+					<option value="0">&nbsp;&nbsp;停用</option>
+				</eq>
+				<eq name="status" value="1">
+					<option value="">&nbsp;&nbsp;全部</option>
+					<option value="1" selected="selected">&nbsp;&nbsp;正常</option>
+					<option value="0">&nbsp;&nbsp;停用</option>
+				</eq>
+				<eq name="status" value="0">
+					<option value="">&nbsp;&nbsp;全部</option>
+					<option value="1" >&nbsp;&nbsp;正常</option>
+					<option value="0" selected="selected">&nbsp;&nbsp;停用</option>
+				</eq>
+			</select></div>
+			<div><input type="submit" value="查询" /></div>
+			</form>
+		</div>
+		<div class="operatormenu">
+			<div><button id="addbtn" style="background-color:#1da02b;color:#fff;">新增</button></div>
+			<!--
+			<div><button id="delbtn">删除</button></div>
+			-->
+		</div>
+	</td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><table style="width:98%;margin-left:1%;" border="0" align="center" cellpadding="0" cellspacing="1">
+          <tr>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">序号</div></td>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">编辑</div></td>
+            <td width="18%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">标题</div></td>
+            <td width="7%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">栏目</div></td>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">状态</div></td>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">首页显示</div></td>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">栏目首页</div></td>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">点击数</div></td>
+            <td width="8%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">新增时间</div></td>
+            <td width="8%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">编辑时间</div></td>
+            <td width="29%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">操作</div></td>
+          </tr>
+		  <volist name="articlelist" id="vo" key="k">
+          <tr style="border-bottom:1px solid #e5e5e5;">
+            <td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">{$vo.sortid}</div></td>
+            <td  height="40"  style="background-color:#fff;"><div align="left" class="STYLE2 STYLE1">{$vo.username}</div></td>
+            <td  height="40"  style="background-color:#fff;"><div align="left" class="STYLE2 STYLE1" style="overflow:hidden;height:40px;line-height:40px;width:80%;margin-left:10%;">{$vo.title|msubstr=0,15,'utf-8',true}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">{$vo.catename}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1"><eq name="vo.status" value="1"><span style="color:green;font-weight:900;">正常</span></eq><eq name="vo.status" value="0"><span style="color:red;font-weight:900;">停用</span></eq></div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">
+			<eq name="vo.homeid" value="1"><span style="color:green;" class="homeyn" yn="0">是</span></eq><eq name="vo.homeid" value="0"><span style="color:red;" class="homeyn" yn="1">否</span></eq>
+			</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">
+			<eq name="vo.subhomeid" value="1"><span style="color:green;" class="subhomeyn" yn="0">是</span></eq><eq name="vo.subhomeid" value="0"><span style="color:red;" class="subhomeyn" yn="0">否</span></eq>
+			</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">{$vo.clicknum}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">{$vo.adddatetime}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">{$vo.editdatetime}</div></td>
+            <td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">
+			<eq name="vo.draft" value="1">
+			<a href="javascript:void(0);" class="editbtn" advtid="{$vo.id}" style="margin-top:7px;color:red;" >【编辑草稿】</a>
+			</eq>
+			<eq name="vo.draft" value="0">
+			<a href="javascript:void(0);" class="editbtn" advtid="{$vo.id}" style="margin-top:7px;" >【编辑】</a>
+			</eq>
+			<eq name="vo.status" value="1">
+			<a href="javascript:void(0);" class="statusbtn" style="margin-top:7px;" status="0" advtid="{$vo.id}">【停用】</a>
+			</eq>
+			<eq name="vo.status" value="0">
+			<a href="javascript:void(0);" class="statusbtn" style="margin-top:7px;"  status="1" advtid="{$vo.id}">【启用】</a>
+			</eq>
+			<eq name="vo.homeid" value="1">
+			<a href="javascript:void(0);" class="homestatusbtn" style="margin-top:7px;"  homeid="0" advtid="{$vo.id}">【首页隐藏】</a>
+			</eq>
+			<eq name="vo.homeid" value="0">
+			<a href="javascript:void(0);" class="homestatusbtn" style="margin-top:7px;"  homeid="1" advtid="{$vo.id}">【首页显示】</a>
+			</eq>
+			<eq name="vo.subhomeid" value="1">
+			<a href="javascript:void(0);" class="subhomestatusbtn" style="margin-top:7px;"  subhomeid="0" advtid="{$vo.id}">【栏目首页隐藏】</a>
+			</eq>
+			<eq name="vo.subhomeid" value="0">
+			<a href="javascript:void(0);" class="subhomestatusbtn" style="margin-top:7px;"  subhomeid="1" advtid="{$vo.id}">【栏目首页显示】</a>
+			</eq>
+			<a href="javascript:void(0);" class="delbtn" style="margin-top:7px;"  advtid="{$vo.id}">【删除】</a>
+			</div></td>
+          </tr>
+		  </volist>
+        </table>
+		</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="50"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="15" height="29"></td>
+        <td ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共{$pageinfo['allnum']}条记录，当前第{$pageinfo['curpage']}/{$pageinfo['pagesize']}页，每页{$pageinfo['num']}条记录</span></td>
+            <td width="75%" valign="top" class="STYLE1"><div align="right">
+              <table width="248" height="20" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="62" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urla']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;">首页</a></div></td>
+                  <td width="50" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urlb']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;margin-left:5px;">上一页</a></div></td>
+                  <td width="54" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urlc']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;margin-left:5px;">下一页</div></td>
+                  <td width="49" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urld']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;margin-left:5px;">尾页</a></div></td>
+                </tr>
+              </table>
+            </div></td>
+          </tr>
+        </table></td>
+        <td width="14"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</div>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/custom/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/custom/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/layer/2.1/layer.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#addbtn").click(function(){
+		var cateid = {$cateid};
+		var index = layer.open({
+			type: 2,
+			title: "新增文章",
+			area: ['95%', '95%'],
+			content: "addshow?cateid="+cateid
+		});	
+	});
+	$(".editbtn").click(function(){
+		var articleid = $(this).attr("advtid");
+		var cateid = {$cateid};
+		var index = layer.open({
+			type: 2,
+			title: "编辑文章",
+			area: ['95%', '95%'],
+			content: "editshow?articleid="+articleid+"&cateid="+cateid
+		});		
+	});
+	$(".statusbtn").click(function(){
+		var advertid = $(this).attr("advtid");
+		var status = $(this).attr("status");
+		layer.confirm(
+			'确定要更改状态吗？',
+			{
+				btn : [ '确定', '取消' ]
+			},
+			function(index) {
+				$.post(
+					'updatestatus',
+					{articleid:advertid,status:status},
+					function(data){
+						if(data==1){
+							layer.alert("更改成功！",function(){
+								window.location.reload();
+							});
+						}else{
+							layer.alert("更改失败！");
+						}
+					}
+				)
+			},
+			function(index) {
+				layer.close(index);
+			}
+		);		
+	});
+	$(".subhomestatusbtn").click(function(){
+		var advertid = $(this).attr("advtid");
+		var subhome = $(this).attr("subhomeid");
+		layer.confirm(
+			'确定要更改栏目首页显示状态吗？',
+			{
+				btn : [ '确定', '取消' ]
+			},
+			function(index) {
+				$.post(
+					'updatesubhomstatus',
+					{articleid:advertid,subhome:subhome},
+					function(data){
+						if(data==1){
+							layer.alert("更改成功！",function(){
+								window.location.reload();
+							});
+						}else{
+							layer.alert("更改失败！");
+						}
+					}
+				)
+			},
+			function(index) {
+				layer.close(index);
+			}
+		);		
+	});
+	$(".homestatusbtn").click(function(){
+		var advertid = $(this).attr("advtid");
+		var homeid = $(this).attr("homeid");
+		layer.confirm(
+			'确定要更改首页显示状态吗？',
+			{
+				btn : [ '确定', '取消' ]
+			},
+			function(index) {
+				$.post(
+					'updatehomestatus',
+					{articleid:advertid,homeid:homeid},
+					function(data){
+						if(data==1){
+							layer.alert("更改成功！",function(){
+								window.location.reload();
+							});
+						}else{
+							layer.alert("更改失败！");
+						}
+					}
+				)
+			},
+			function(index) {
+				layer.close(index);
+			}
+		);		
+	});
+	$(".delbtn").click(function(){
+		var advertid = $(this).attr("advtid");
+		layer.confirm(
+			'确定要删除吗？',
+			{
+				btn : [ '确定', '取消' ]
+			},
+			function(index){
+					$.post(
+						'del',
+						{articleid:advertid},
+						function(data){
+							if(data==1){
+								layer.alert("删除成功！",function(){
+									window.location.reload();
+								});
+							}else{
+								layer.alert("删除失败！");
+							}
+						}
+					)
+				},
+			function(index) {
+				layer.close(index);
+			}
+		);
+	});
+});
+</script>
+</body> 
+</html>
