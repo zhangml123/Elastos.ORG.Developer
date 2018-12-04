@@ -12,10 +12,10 @@ if(INKEY==1){
 function change(num){
     if(num==1){
         sessionStorage.setItem('internationalWords',1);
-		$.post(internationalWords.hosturl+'/index.php/Home/Index/setlang',{lang:1},function(data){});
+		$.post('http://test.eladevp.com/index.php/Home/Index/setlang',{lang:1},function(data){});
     }else{
         sessionStorage.setItem('internationalWords',2);
-		$.post(internationalWords.hosturl+'/index.php/Home/Index/setlang',{lang:2},function(data){});
+		$.post('http://test.eladevp.com/index.php/Home/Index/setlang',{lang:2},function(data){});
     }
     console.log(sessionStorage.getItem('internationalWords'));
     location.reload();
@@ -29,7 +29,10 @@ function guojihua(){
     $('.nav-login').html(internationalWords.login);
     $('.nav-cn').html(internationalWords.langcn);
     $('.nav-en').html(internationalWords.langen);
- 
+    $('.nav_develop_subdoc').html(internationalWords.navdevlopdoc);
+    $('.pcenter_myprofile').html(internationalWords.pcentersubprofile);
+    $('.pcenter_gettoken').html(internationalWords.pcentergettoken);
+    $('.pcenter_logout').html(internationalWords.logout);
 }
 guojihua();
 
@@ -43,5 +46,5 @@ $(".link_icon").find("svg").mouseout(function(){
 	$(this).children("path").attr("fill","#173045");
 	$(this).children(":first").attr("fill","#434E71");
 })
-
+$(function () { $('.tooltip-show').tooltip('show');});
  

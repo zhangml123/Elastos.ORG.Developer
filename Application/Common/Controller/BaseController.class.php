@@ -8,7 +8,7 @@ class BaseController extends Controller{
 		}else{
 			$_SESSION ['eladevp']['lang'] = "cn";
 		}
-		if(isset($_SESSION ['eladevp']['uid']) && $_SESSION ['eladevp']['uid']!=""){
+		if(isset($_SESSION ['eladevp']['userid']) && $_SESSION ['eladevp']['userid']!=""){
 		}else{
 			//$this->redirect("Error/index");
 		}

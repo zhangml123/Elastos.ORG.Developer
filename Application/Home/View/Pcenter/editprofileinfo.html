@@ -1,0 +1,98 @@
+<div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:800px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:800px;">
+                <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
+                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="loginModalLabel" style="margin-top:35px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">Edit your Profile</h4>
+				</div>
+                <div class="modal-body" style="padding:30px;">
+                    <section class="box-login v5-input-txt" id="box-login" style="height:500px;">
+                        <form id="login_form" action="" method="post" autocomplete="off">
+                            <ul style="list-style-type:none;" id="editprofileul">
+                                <li class="form-group" style="color:#173045;font-size:14px;font-family:'微软雅黑';">
+								General
+								</li>
+                                <li class="form-group">
+								<eq name="logincate" value="1">
+								<div>Email*</div><div><input type="text" id="userid" value="{$uinfo.userid}" disabled style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</eq>
+								<eq name="logincate" value="2">
+								<div>Email*</div><div><input type="text" id="userid" value="{$uinfo.rcuid}" disabled style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</eq>
+								<eq name="logincate" value="3">
+								<div>Email*</div><div><input type="text" id="userid" value="{$uinfo.email}" disabled style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</eq>
+								<eq name="logincate" value="4">
+								<div>Email*</div><div><input type="text" id="userid" value="{$uinfo.wechatuid}" disabled style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</eq>
+								</li>
+                                <li class="form-group">
+								<div>First Name</div><div><input type="text" id="firstname" value="{$uinfo.firstname}"  style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</li>
+                                <li class="form-group">
+								<div>Last Name</div><div><input type="text" id="lastname" value="{$uinfo.lastname}"  style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</li>
+                                <li class="form-group">
+								<div>Location</div><div><select  id="country" style="width:120px;height:30px;float:left;border:1px solid #e5e5e5;"><option value="China">China</option></select><input id="city" value="" style="border:1px solid #e5e5e5;float:left;width:120px;height:30px;" /></div>
+								</li>
+                                <li class="form-group">
+								<div>Company</div><div><input type="text" id="company" value="{$uinfo.company}"  style="width:100%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</li>
+                                <li class="form-group" style="height:70px;">
+								<div>Bio</div><div>
+									<textarea id="bio" style="width:100%;height:70px;border:1px solid #e5e5e5;resize:none">{$uinfo.bio}</textarea>
+								</div>
+								</li>
+                                <li class="form-group" style="height:90px;">
+								<div>URL</div><div>
+									<textarea id="moreurl" style="width:100%;height:90px;border:1px solid #e5e5e5;resize:none">{$uinfo.moreurl}</textarea>
+								</div>
+								</li>
+                             </ul>
+                        </form>
+                    </section>
+					<div class="loginbtn" style="height:55px;text-align:center;">
+						<button class="loginbtn_b" id="saveprofilebtn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:20%;border-radius:20px;height:40px;line-height:40px;">Save</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<style>
+#editprofileul li{height:30px;}
+#editprofileul li div:first-child{width:158px;float:left;}
+#editprofileul li div:last-child{width:542px;float:left;}
+</style>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script>
+function profile_popup(){
+  $("#editprofile").modal("show");
+}
+$("#saveprofilebtn").click(function(){
+	var firstname = $("#firstname").val();
+	var lastname = $("#lastname").val();
+	var company = $("#company").val();
+	var country = $("#country").val();
+	var city = $("#city").val();
+	var bio = $("#bio").val();
+	var moreurl = $("#moreurl").val();
+	$.post(
+		internationalWords.hosturl+'index.php/Home/Pcenter/editprofile',
+		{firstname:firstname,lastname:lastname,company:company,country:country,city:city,bio:bio,moreurl:moreurl},
+		function(data){
+			if(data==1){
+				profile_popup();
+				window.location.reload();
+			}else{
+				
+			}
+		}
+	)
+});
+</script>

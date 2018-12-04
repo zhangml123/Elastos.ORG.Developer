@@ -28,7 +28,7 @@
 				<div class="div_one div_one_o" id="develops">Develop your Dapps with our powerful support</div>
 				<div class="div_one_line hidden-sm hidden-xs  hidden-md"><span></span></div>
 				<div class="div_instr  hidden-sm hidden-xs  hidden-md">Clear documentation and a App store Contribute and earn rewards.</div>
-				<div class="div_one_btn"><button class="div_one_btn_one" onclick="window.location.href='{$curhost}index.php/Home/Documentation/index.html';" >Documentation</button><button class="div_one_btn_tow">Video Tutorials</button></div>
+				<div class="div_one_btn"><button class="div_one_btn_one" style="outline:none;" onclick="window.location.href='{$curhost}index.php/Home/Documentation/index.html';" >Documentation</button><button class="div_one_btn_tow" style="outline:none;"  onclick="javascript:window.open('https://www.youtube.com/channel/UCy5AjgpQIQq3bv8oy_L5WTQ/');">Video Tutorials</button></div>
 			</div>
 		</div>
 	</div>
@@ -40,7 +40,7 @@
 				  <div class="four_icon_all"><img src="{$Think.const.PUBLIC_H}Home/images/1.png" /></div>
 				  <div class="four_icon_t">Learn Infrastructure</div>
 				  <div class="four_icon_c">Get to know:Elastos<br>Carrier,Blockchain,DID<br>chain,Side chain</div>
-				  <div class="four_icon_btn"><button>GO</button></div>
+				  <div class="four_icon_btn"><button  style="outline:none;" data-toggle="tooltip" data-placement="top"  title="Planned" class="tooltip-show" >GO</button></div>
 			  </div>
 			</div>
 			<div class="col-md-3">
@@ -48,7 +48,7 @@
 				  <div class="four_icon_all"><img src="{$Think.const.PUBLIC_H}Home/images/2.png" /></div>
 				  <div class="four_icon_t">Elastos Wallet</div>
 				  <div class="four_icon_c">We support lightweight<br>SPV,Full Node wallet,and<br>hardware wallet</div>
-				  <div class="four_icon_btn"><button>GO</button></div>
+				  <div class="four_icon_btn"><button  style="outline:none;"  data-toggle="tooltip" data-placement="top"  title="Planned" class="tooltip-show" >GO</button></div>
 			  </div>
 			</div>
 			<div class="col-md-3">
@@ -56,7 +56,7 @@
 				  <div class="four_icon_all"><img src="{$Think.const.PUBLIC_H}Home/images/3.png" /></div>
 				  <div class="four_icon_t">Exchange Integration </div>
 				  <div class="four_icon_c">Learn how to integrate with<br>Exchange<br>&nbsp;</div>
-				  <div class="four_icon_btn"><button>GO</button></div>
+				  <div class="four_icon_btn"><button  style="outline:none;"  data-toggle="tooltip" data-placement="top"  title="Planned" class="tooltip-show" >GO</button></div>
 			  </div>
 			</div>
 			<div class="col-md-3">
@@ -64,7 +64,7 @@
 			  <div class="four_icon_all"><img src="{$Think.const.PUBLIC_H}Home/images/4.png" /></div>
 			  <div class="four_icon_t">Elastos Services</div>
 			  <div class="four_icon_c">Integrate with Elastos<br>services like DID and Side<br>Chain</div>
-			  <div class="four_icon_btn"><button>GO</button></div>
+			  <div class="four_icon_btn"><button  style="outline:none;"  data-toggle="tooltip" data-placement="top"  title="Planned" class="tooltip-show" >GO</button></div>
 				</div>
 			</div>
 		</div>
@@ -79,7 +79,7 @@
 				<div class="div_three_instr">- Just get started to code without dev environment <br>set up</div>
 				<div class="div_three_instr">- Walk-through the sample Dapps in a second</div>
 				<div class="div_three_instr">- Learn specific courses form experts</div>
-				<div class="div_three_btn"><button class="div_three_btn_one">GO</button></div>
+				<div class="div_three_btn"><button class="div_three_btn_one tooltip-show"  style="outline:none;"  data-toggle="tooltip" data-placement="bottom"  title="Planned" >GO</button></div>
 			</div>
 			<div class="col-md-7 col-md-pull-5">
 				<img src="{$Think.const.PUBLIC_H}Home/images/onlinepic.png" class="img-responsive" />
@@ -105,7 +105,7 @@
 				</div>
 				<div class="div_four_f">
 					<div class="div_four_f_l">Community</div>
-					<div class="div_four_f_r visible-lg-block"><button>ENTER</button></div>
+					<div class="div_four_f_r visible-lg-block"><button  style="outline:none;">ENTER</button></div>
 				</div>
 				<button class="visible-xs-block" style="background-color:#173045;border:0px;color:#18ffff;text-align:center;height:50px;line-height:50px;width:96%;margin-left:2%;">ENTER</button>
 		
@@ -203,6 +203,9 @@
 <include file="Index/loginsid" />
 <include file="Index/signup" />
 <include file="Index/emailsid" />
+<include file="Index/forgetpwd" />
+<include file="Index/confirmemailcode" />
+<include file="Index/resetpwd" />
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>

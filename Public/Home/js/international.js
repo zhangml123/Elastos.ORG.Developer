@@ -1,10 +1,12 @@
 var internationalWordsZH = new Object();
 var internationalWordsEN = new Object();
-internationalWordsZH.hosturl='http://test.eladevp.com/';
-internationalWordsEN.hosturl='http://test.eladevp.com/';
-//导航
+internationalWordsZH.hosturl='https://test.eladevp.com/';
+internationalWordsEN.hosturl='https://test.eladevp.com/';
+//导航部分
 internationalWordsZH.home='开发者';
 internationalWordsEN.home='Develop';
+internationalWordsZH.navdevlopdoc='开发者文档';
+internationalWordsEN.navdevlopdoc='Documentation';
 internationalWordsZH.dapp='Dapp市场';
 internationalWordsEN.dapp='Dapp Store';
 internationalWordsZH.community='社区';
@@ -15,3 +17,9 @@ internationalWordsZH.langcn='中文';
 internationalWordsEN.langcn='中文';
 internationalWordsZH.langen='English';
 internationalWordsEN.langen='English';
+internationalWordsZH.pcentersubprofile='我的资料';
+internationalWordsEN.pcentersubprofile='My profile';
+internationalWordsZH.pcentergettoken='获取测试币';
+internationalWordsEN.pcentergettoken='Get Test Token';
+internationalWordsZH.logout='退出';
+internationalWordsEN.logout='Log out';

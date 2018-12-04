@@ -12,7 +12,11 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "mailgun/mailgun-php": "dev-master",
+        "php-http/curl-client": "1.7.x-dev",
+        "guzzlehttp/psr7": "^1.5@dev",
+        "sendgrid/sendgrid": "~7"
     },
     "minimum-stability": "dev"
 }

@@ -17,8 +17,9 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 define('APP_DEBUG',True);
 // 定义应用目录
 define('APP_PATH','./Application/');
-define('PUBLIC_H','http://'.$_SERVER['HTTP_HOST'].'/Public/');
-define('HOMEADM','http://'.$_SERVER['HTTP_HOST'].'/index.php/');
+define('PUBLIC_H','https://'.$_SERVER['HTTP_HOST'].'/Public/');
+define('HOMEADM','https://'.$_SERVER['HTTP_HOST']);
 define('HTML_PATH','./htm');
+require_once './vendor/autoload.php';
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
