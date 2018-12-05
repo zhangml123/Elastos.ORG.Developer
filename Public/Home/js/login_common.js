@@ -71,7 +71,7 @@ $("#sendemailbtn").on("click",function(){
 		return false;
 	}
 	$.post(
-		internationalWords.hosturl+'index.php/Home/Emailinfo/sendgun',
+		internationalWords.hosturl+'index.php/Home/Emailinfo/send',
 		{tomail:$("#forgetemail").val()},
 		function(data){
 			if(data==1){
@@ -84,7 +84,7 @@ $("#sendemailbtn").on("click",function(){
 });
 $("#resendemailbtn").click(function(){
 	$.post(
-		internationalWords.hosturl+'index.php/Home/Emailinfo/sendgun',
+		internationalWords.hosturl+'index.php/Home/Emailinfo/send',
 		{tomail:window.localStorage.elaemail},
 		function(data){
 			if(data==1){
