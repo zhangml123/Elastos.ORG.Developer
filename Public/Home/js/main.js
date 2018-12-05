@@ -12,10 +12,10 @@ if(INKEY==1){
 function change(num){
     if(num==1){
         sessionStorage.setItem('internationalWords',1);
-		$.post('http://test.eladevp.com/index.php/Home/Index/setlang',{lang:1},function(data){});
+		$.post(internationalWords.hosturl+'index.php/Home/Index/setlang',{lang:1},function(data){});
     }else{
         sessionStorage.setItem('internationalWords',2);
-		$.post('http://test.eladevp.com/index.php/Home/Index/setlang',{lang:2},function(data){});
+		$.post(internationalWords.hosturl+'index.php/Home/Index/setlang',{lang:2},function(data){});
     }
     console.log(sessionStorage.getItem('internationalWords'));
     location.reload();
