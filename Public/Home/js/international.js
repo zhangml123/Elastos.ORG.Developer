@@ -1,7 +1,7 @@
 var internationalWordsZH = new Object();
 var internationalWordsEN = new Object();
-internationalWordsZH.hosturl='https://test.eladevp.com/';
-internationalWordsEN.hosturl='https://test.eladevp.com/';
+internationalWordsZH.hosturl='';
+internationalWordsEN.hosturl='';
 //导航部分
 internationalWordsZH.home='开发者';
 internationalWordsEN.home='Develop';
