@@ -4,7 +4,8 @@ use Elafansadm\Model\ColumnModel;
 use Think\Controller;
 class DevelopdocController extends Controller {
 	public function index(){
-/* 		$jsonstr =  $this->viewsite("https://api.github.com/repos/elastos/Elastos.Developer.Doc/contents/Doc");
+		/* 		
+		$jsonstr =  $this->viewsite("https://api.github.com/repos/elastos/Elastos.Developer.Doc/contents/Doc");
 		$arr = json_decode($jsonstr,true);
 		$j = 0;
 		$k = 0;
@@ -112,12 +113,16 @@ class DevelopdocController extends Controller {
    
    public function getper(){
 	   $this->getpers("");
-	   $this->display();
+	   //$this->display();
    }
    //从Github上同步数据
    public function getpers($ndir){
-		$jsonstr =  $this->viewsite("https://api.github.com/repos/elastos/Elastos.Developer.Doc/contents/Doc".$ndir);
-		$arr = json_decode($jsonstr,true);
+	   if(strpos($ndir,'/CN') !== false){ 
+			 $jsonstr =  $this->viewsite("https://api.github.com/repos/elastos/Elastos.Developer.Doc/contents".urlencode($ndir));
+		}else{
+			 $jsonstr =  $this->viewsite("https://api.github.com/repos/elastos/Elastos.Developer.Doc/contents".rawurlencode($ndir));
+		}
+	    $arr = json_decode($jsonstr,true);
 		$j = 0;
 		$k = 0;
 		for($i=0;$i<count($arr);$i++){
@@ -126,13 +131,13 @@ class DevelopdocController extends Controller {
 				$arrall1[$j]['html_url'] = $arr[$i]['html_url'];
 				$arrall1[$j]['dirpath'] = $arr[$i]['path'];
 				$dir = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$arrall1[$j]['dirpath'];
-				if (is_dir($dir)){  
+				if (is_dir($dir)){
 					echo "[".date("Y-m-d H:i:s")."]对不起！目录 " . $dir . " 已经存在！<br>";
 				}else{
-					$res=mkdir(iconv("UTF-8", "GBK", $dir),0777,true); 
+					$res=mkdir($dir,0777,true); 
 					if ($res){
 						echo "[".date("Y-m-d H:i:s")."]创建目录: $dir !<br>";
-						$this->getper("/".$arrall1[$j]['dirpath']);
+						$this->getpers("/".$arrall1[$j]['dirpath']);
 					}else{
 						echo "[".date("Y-m-d H:i:s")."]目录: $dir 创建失败!<br>";
 					}
@@ -147,7 +152,6 @@ class DevelopdocController extends Controller {
 					$stra = file_get_contents($arrall2[$k]['html_url']);
 					$preg= '/<article class="markdown-body entry-content" itemprop="text">[\s\S]*?<\/article>/i';
 					preg_match_all($preg,$stra,$res);
-					//var_dump($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/Doc/".$arrall2[$k]['dirpath']);
 					$myfile = fopen($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$arrall2[$k]['dirpath'], "w") or die("Unable to open file!");
 					fwrite($myfile, $res[0][0]);
 					fclose($myfile);
@@ -173,7 +177,6 @@ class DevelopdocController extends Controller {
 				$k = $k+1;
 			}
 		}
-		//echo 1;
    }
 }
 ?>

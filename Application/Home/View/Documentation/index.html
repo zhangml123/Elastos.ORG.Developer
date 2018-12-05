@@ -57,6 +57,10 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 .doc_content_c ol{padding-left:5%;font-weight:400;}
 .doc_content_c ul{list-style-type:none;}
 .doc_content_c ul li{font-weight:300;}
+.starout{width:300px;height:60px;line-height:55px;}
+.starout div{float:left;width:18px;height:18px;margin-left:4px;}
+.staroutm{width:300px;height:60px;line-height:55px;}
+.staroutm div{float:left;width:18px;height:18px;margin-left:4px;}
 </style>
 </head>
 <body>
@@ -74,27 +78,18 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 				<ul class="dropdown-menu" style="background-color:#F6F9FD;z-index:1000;height:400px;margin-top:-60px;overflow:scroll;width:100%;">
 					<li class="doc_menu_l_li_t_m" style="background-color:#ECEFF3;color:#222;line-height:40px;height:40px;">Overview</li>
 					<volist name="localdirfile" id="voa">
-							<eq name="curlang" value="en">
-								<eq name="voa.filelang" value="EN">
-									<eq name="voa.type" value="dir">
-										<li class="doc_menu_l_li_m_m" style="background-color:#ECEFF3;color:#222;line-height:40px;height:40px;">&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
-									</eq>
-									<eq name="voa.type" value="file">
-										<li class="doc_menu_l_li_subm_m" style="color:#222;line-height:40px;height:40px;" shortname="{$voa.shortname}"  hosturl="{$voa.hostfile}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
-									</eq>
-								</eq>
+						<eq name="voa.type" value="dir">
+							<li class="doc_menu_l_li_m_m" style="background-color:#ECEFF3;color:#222;line-height:40px;height:40px;">&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
+						</eq>
+						<eq name="voa.type" value="file">
+							<eq name="voa.localdir" value="$curf">
+								<li class="doc_menu_l_li_subm_m" style="background-color:#173045;color:#fff;line-height:40px;height:40px;" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}" >&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
 							</eq>
-							<eq name="curlang" value="cn">
-								<eq name="voa.filelang" value="CN">
-									<eq name="voa.type" value="dir">
-										<li class="doc_menu_l_li_m_m" style="background-color:#ECEFF3;color:#222;line-height:40px;height:40px;">&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
-									</eq>
-									<eq name="voa.type" value="file">
-										<li class="doc_menu_l_li_subm_m"  style="color:#222;line-height:40px;height:40px;" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
-									</eq>
-								</eq>
-							</eq>
-						</volist>
+							<neq name="voa.localdir" value="$curf">
+								<li class="doc_menu_l_li_subm_m"  style="color:#222;line-height:40px;height:40px;" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
+							</neq>
+						</eq>
+					</volist>
 				</ul>
 			</li>
 		</ul>
@@ -105,12 +100,12 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 	<div class="div_one_line hidden-sm hidden-xs  hidden-md" style="height:95px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs  hidden-md">
 		<ul class="breadcrumb">
-		<li><a href="#">Develop</a></li>
+		<li><a href="{$curhost}">Develop</a></li>
 		<li class="active">Documentation</li>
 		</ul>
 		<div class="doc_search">
 			<span class="glyphicon glyphicon-search"></span>
-			<input type="text" placeholder="&nbsp;Search" />
+			<input type="text" placeholder="&nbsp;Search" id="searchc" />
 		</div>
 	</div>		
 	<div class="container">
@@ -120,27 +115,17 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 				<div class="doc_menu_l_li_t">Overview</div>
 				<ul class="doc_menu_l_ul">
 					<volist name="localdirfile" id="voa">
-						<eq name="curlang" value="en">
-							<eq name="voa.filelang" value="EN">
-								<eq name="voa.type" value="dir">
-									<li class="doc_menu_l_li_m">&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
-								</eq>
-								<eq name="voa.type" value="file">
-									<li class="doc_menu_l_li_subm"  hosturl="{$voa.hostfile}" shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
-								</eq>
+							<eq name="voa.type" value="dir">
+								<li class="doc_menu_l_li_m" style="padding-top:1px;padding-bottom:10px;height:50px;line-height:50px;">&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
 							</eq>
-						</eq>
-						<eq name="curlang" value="cn">
-							<eq name="voa.filelang" value="CN">
-								<eq name="voa.type" value="dir">
-									<li class="doc_menu_l_li_m" >&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
+							<eq name="voa.type" value="file">
+								<eq name="voa.localdir" value="$curf">
+									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" hosturl="{$voa.hostfile}" shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
 								</eq>
-								<eq name="voa.type" value="file">
-									<li class="doc_menu_l_li_subm" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
-								</eq>
+								<neq name="voa.localdir" value="$curf">
+									<li class="doc_menu_l_li_subm"  hosturl="{$voa.hostfile}" shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
+								</neq>
 							</eq>
-						</eq>
-						
 					</volist>
 				</ul>
 				</div>
@@ -150,12 +135,64 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 				<div class="doc_content_t visible-xs-block" style="color:#173045;height:auto;word-break:break-all;font-size:36px;text-align:center;" id="curdocnamem">Elastos.Developer.Documentation</div>
 				<div class="doc_content_c" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;">{$firstc}</div>
 					<div class=" div_one_line hidden-sm hidden-xs  hidden-md" style="width:95%;padding-left:5%;height:50px;line-height:50px;margin-bottom:60px;margin-top:30px;">
-									<label for="comment" style="float:left;">How do you like it?&nbsp;&nbsp;</label>
-									<input id="comment" style="float:left;" name="comment" class="rating"  min="0" max="5" step="1" data-size="xs" value="1" >
+									<label for="comment" style="float:left;">How do you like it?&nbsp;&nbsp;&nbsp;&nbsp;</label>
+									<div class="starout">
+									<div curstarn="1">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M15.9657 6.05806C15.8884 5.81135 15.6951 5.62438 15.4538 5.5627L11.0049 4.43898L8.60729 0.356584C8.47655 0.134923 8.24637 0 7.99961 0C7.75102 0 7.52083 0.134923 7.39193 0.356584L4.9962 4.43898L0.547242 5.5627C0.306011 5.62438 0.112659 5.81135 0.0353174 6.05806C-0.0420237 6.30478 0.00953704 6.57656 0.171585 6.77316L3.14001 10.42L2.78645 15.1962C2.76804 15.4545 2.87852 15.7051 3.07924 15.8574C3.20262 15.9518 3.34994 16 3.4991 16C3.59117 16 3.68324 15.9807 3.77163 15.9441L8.00145 14.1149L12.2331 15.9441C12.3215 15.9827 12.4136 16 12.5057 16C12.6548 16 12.8003 15.9518 12.9255 15.8574C13.1262 15.7051 13.2367 15.4545 13.2183 15.1962L12.8647 10.42L15.8332 6.77316C15.9897 6.57656 16.0413 6.30478 15.9657 6.05806Z" fill="#F7B75D"/>
+										</svg>
+									</div>
+									<div curstarn="2">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+										</svg>
+									</div>
+									<div curstarn="3">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+										</svg>
+									</div>
+									<div curstarn="4">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+										</svg>
+									</div>
+									<div curstarn="5">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+										</svg>
+									</div>
+								</div>
 					</div>
-					<div class="visible-xs-block" style="width:100%;height:80px;margin-bottom:50px;margin-top:30px;background-color:#F7F7F7;text-align:center;">
+					<div class="visible-xs-block" style="width:100%;height:80px;margin-bottom:50px;margin-top:30px;background-color:#F7F7F7;text-align:center;padding-left:20%;padding-right:20%;">
 						<p style="height:30px;line-height:30px;margin-bottom:0px;padding-bottom:0px;"><label for="comment">How do you like it?</label></p>
-						<input id="comments" name="comments" class="rating"  min="0" max="5" step="1" data-size="xs" value="1" >
+						<div class="staroutm" style="width:100%;">
+							<div curstarn="1" style="width:20%;margin-left:0px;">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M15.9657 6.05806C15.8884 5.81135 15.6951 5.62438 15.4538 5.5627L11.0049 4.43898L8.60729 0.356584C8.47655 0.134923 8.24637 0 7.99961 0C7.75102 0 7.52083 0.134923 7.39193 0.356584L4.9962 4.43898L0.547242 5.5627C0.306011 5.62438 0.112659 5.81135 0.0353174 6.05806C-0.0420237 6.30478 0.00953704 6.57656 0.171585 6.77316L3.14001 10.42L2.78645 15.1962C2.76804 15.4545 2.87852 15.7051 3.07924 15.8574C3.20262 15.9518 3.34994 16 3.4991 16C3.59117 16 3.68324 15.9807 3.77163 15.9441L8.00145 14.1149L12.2331 15.9441C12.3215 15.9827 12.4136 16 12.5057 16C12.6548 16 12.8003 15.9518 12.9255 15.8574C13.1262 15.7051 13.2367 15.4545 13.2183 15.1962L12.8647 10.42L15.8332 6.77316C15.9897 6.57656 16.0413 6.30478 15.9657 6.05806Z" fill="#F7B75D"/>
+								</svg>
+							</div>
+							<div curstarn="2" style="width:20%;margin-left:0px;">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+								</svg>
+							</div>
+							<div curstarn="3" style="width:20%;margin-left:0px;">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+								</svg>
+							</div>
+							<div curstarn="4" style="width:20%;margin-left:0px;">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+								</svg>
+							</div>
+							<div curstarn="5" style="width:20%;margin-left:0px;">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M16.478 6.14205C16.4006 5.89533 16.2073 5.70837 15.966 5.64669L11.5171 4.52297L9.1195 0.440568C8.98876 0.218908 8.75857 0.0839844 8.51182 0.0839844C8.26322 0.0839844 8.03304 0.218908 7.90414 0.440568L5.50841 4.52297L1.05945 5.64669C0.818218 5.70837 0.624866 5.89533 0.547524 6.14205C0.470183 6.38877 0.521744 6.66054 0.683792 6.85714L3.65222 10.5039L3.29866 15.2802C3.28024 15.5385 3.39073 15.7891 3.59145 15.9414C3.71483 16.0358 3.86214 16.084 4.0113 16.084C4.10338 16.084 4.19545 16.0647 4.28384 16.0281L8.51366 14.1989L12.7453 16.0281C12.8337 16.0666 12.9258 16.084 13.0179 16.084C13.167 16.084 13.3125 16.0358 13.4377 15.9414C13.6384 15.7891 13.7489 15.5385 13.7305 15.2802L13.3769 10.5039L16.3454 6.85714C16.5019 6.66054 16.5535 6.38877 16.478 6.14205Z" fill="#EBEBEB"/>
+								</svg>
+							</div>
+						</div>
 						
 					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
@@ -294,6 +331,10 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 <include file="Index/loginsid" />
 <include file="Index/signup" />
 <include file="Index/emailsid" />
+<include file="Index/forgetpwd" />
+<include file="Index/confirmemailcode" />
+<include file="Index/resetpwd" />
+<include file="Documentation/commenttip" />
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
@@ -303,11 +344,15 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script>
+function applyelatip_popup(){
+  $("#commenttip").modal("show");
+  setTimeout(function(){$("#commenttip").modal("hide")},3000)
+}
 $(document).ready(function(){
-	$("#doc_menu_out_l").css("height",($(window).height()-260)+"px");
+	$("#doc_menu_out_l").css("height",($(window).height()-300)+"px");
 	$(".doc_menu_l_ul").css("height",($(window).height()-382)+"px");
 	$(".doc_menu_l_li_subm").click(function(){
-		var filename = $(this).attr("filename");
+		var filename = $(this).attr("filecname");
 		var githuburl = $(this).attr("githuburl");
 		var hosturl = $(this).attr("hosturl");
 		var shortname = $(this).attr("shortname");
@@ -316,11 +361,14 @@ $(document).ready(function(){
 		$(this).css("background-color","#173045");
 		$(this).css("color","#fff");
 		arrw = filename.split(".");
-		if(arrw[1]!="md"){
+		
+			//alert(arrw[arrw.length-1]);
+		if(arrw[arrw.length-1]!="md"){
 			var htmla = "<a href='"+ hosturl +"' target='__blank' style='margin-top:50px;font-size:20px;text-align:center;'>Download View Detial</a>";
 			$(".doc_content_c").css("text-align","center");
 			$(".doc_content_c").html("&nbsp;&nbsp;"+htmla+"&nbsp;&nbsp;&nbsp;&nbsp;");
 		}else{
+			//alert(filename);
 			$.post(
 				'getcontents',
 				{fname:filename},
@@ -378,7 +426,7 @@ $(document).ready(function(){
 		
 	});
 	$(".doc_menu_l_li_subm_m").click(function(){
-		var filename = $(this).attr("filename");
+		var filename = $(this).attr("filecname");
 		var githuburl = $(this).attr("githuburl");
 		var hosturl = $(this).attr("hosturl");
 		var shortname = $(this).attr("shortname");
@@ -387,7 +435,7 @@ $(document).ready(function(){
 		$(this).css("background-color","#173045");
 		$(this).css("color","#F6F9FD");
 		arrw = filename.split(".");
-		if(arrw[1]!="md"){
+		if(arrw[arrw.length-1]!="md"){
 			var htmla = "<a href='"+ hosturl +"' target='__blank' style='margin-top:50px;font-size:20px;text-align:center;'>Download View Detial</a>";
 			$(".doc_content_c").css("text-align","center");
 			$(".doc_content_c").html("&nbsp;&nbsp;"+htmla+"&nbsp;&nbsp;&nbsp;&nbsp;");
@@ -418,7 +466,6 @@ $(document).ready(function(){
 						$("#commentlists").html("");
 					}else{
 					var dataa = data[1];
-					console.log("评论："+dataa.length);
 					for(var j=0;j<dataa.length;j++){
 						var htmlc = ""
 						htmlc = '<li><div class="c_c_list"><div class="c_c_list_l headimg"><img src="{$Think.const.PUBLIC_H}Home/images/head.png"  />'
@@ -476,21 +523,30 @@ $(document).ready(function(){
 	$("#sendcomment").click(function(){
 		var githuburl = $("#curgiturl").attr("href");
 		var contents = $("#comment_contents").val();
-		var stars = $(".caption").children("span").html();
-		if(stars=="One Star"){
-			var star = 1;
-		}else if(stars=="Tow Stars"){
-			var star = 2;
-		}else if(stars=="Three Stars"){
-			var star = 3;
-		}else if(stars=="Four Stars"){
-			var star = 4;
-		}else if(stars=="Five Stars"){
-			var star = 5;
+		var star = 1;
+		if(window.localStorage.curstarcate==1){
+			$(".starout div").each(function(){
+				if($(this).find("path").attr("fill")=="#F7B75D"){
+					star = star+1;
+				}
+			});
+			//star = star -1;
+		}else{
+			$(".staroutm div").each(function(){
+				if($(this).find("path").attr("fill")=="#F7B75D"){
+					star = star+1;
+				}
+			});
+			//star = star -1;
 		}
+		if(star>1){
+			star = star -1;
+		}
+		//console.log("star:"+star);
 		var commentid = "";
 		if(contents==""){
-			BootstrapDialog.alert('评论内容不能为空！');
+			//BootstrapDialog.alert('评论内容不能为空！');
+			applyelatip_popup();
 			return false;
 		}
 		$.post(
@@ -500,7 +556,7 @@ $(document).ready(function(){
 				if(data==1){
 					window.location.reload();
 					$("#comment_contents").val("");
-					BootstrapDialog.alert('评论成功！');
+					//BootstrapDialog.alert('评论成功！');
 				}
 			}
 		)
@@ -509,26 +565,31 @@ $(document).ready(function(){
 		var githuburl = $("#curgiturl").attr("href");
 		var contents = $(this).parent("div").prev("textarea").val();
 		var commentid = $(this).attr("commentid");
-		var stars = $(".caption").children("span").html();
-		if(stars=="One Star"){
-			var star = 1;
-		}else if(stars=="Tow Stars"){
-			var star = 2;
-		}else if(stars=="Three Stars"){
-			var star = 3;
-		}else if(stars=="Four Stars"){
-			var star = 4;
-		}else if(stars=="Five Stars"){
-			var star = 5;
+		var star = 1;
+		if(window.localStorage.curstarcate==1){
+			$(".starout div").each(function(){
+				if($(this).find("path").attr("fill")=="#F7B75D"){
+					star = star+1;
+				}
+			});
+		}else{
+			$(".staroutm div").each(function(){
+				if($(this).find("path").attr("fill")=="#F7B75D"){
+					star = star+1;
+				}
+			});
+		}
+		if(star>1){
+			star = star -1;
 		}
 		var obj = $(this);
 		if(contents==""){
-			BootstrapDialog.alert('评论内容不能为空！');
+			applyelatip_popup();
 			return false;
 		}
 		$.post(
 			'{$curhost}index.php/Home/Comment/addcomment',
-			{contents:contents,githuburl:githuburl,star:star,commentid:commentid},
+			{contents:contents,githuburl:githuburl,star:star-1,commentid:commentid},
 			function(data){
 				window.location.reload();
 				$(this).parent("div").prev("textarea").val("");
@@ -539,7 +600,7 @@ $(document).ready(function(){
 })
 var a = 0;
 var b = 0;
-  var lwith = $("#doc_menu_out_l").css("width");
+var lwith = $("#doc_menu_out_l").css("width");
 function ab(){
 	if(a==0){
 		$("#doc_menu_out_l").css("position","fixed");
@@ -586,7 +647,39 @@ $(window).scroll(function(e){
 	}
 	setTimeout(function(){t = p;},0);		
 });
-
+$("#searchc").keypress(function (e) {
+	if (e.which == 13) {
+		window.location.href='{$curhost}index.php/Home/Documentation/search.html?sw='+$(this).val();
+	}
+});
+$(".starout div").mouseover(function(){
+    window.localStorage.curstarcate = 1;
+	var curn = $(this).attr("curstarn");
+	$(".starout div").each(function(){
+		var urn = $(this).attr("curstarn"); 
+		if(curn>=urn && urn>1){
+			$(this).find("path").attr("fill","#F7B75D");
+		}else if(urn==1){
+			$(this).find("path").attr("fill","#F7B75D");
+		}else{
+			$(this).find("path").attr("fill","#EBEBEB");
+		}
+	})
+})
+$(".staroutm div").mouseover(function(){
+    window.localStorage.curstarcate = 2;
+	var curn = $(this).attr("curstarn");
+	$(".staroutm div").each(function(){
+		var urn = $(this).attr("curstarn"); 
+		if(curn>=urn && urn>1){
+			$(this).find("path").attr("fill","#F7B75D");
+		}else if(urn==1){
+			$(this).find("path").attr("fill","#F7B75D");
+		}else{
+			$(this).find("path").attr("fill","#EBEBEB");
+		}
+	})
+})
 </script>
 </body>
 </html>

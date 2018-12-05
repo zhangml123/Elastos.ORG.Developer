@@ -14,18 +14,28 @@
 	  </a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbar-menu">
-        <div class="navbar-form navbar-right" style="margin-top:20px;" action="" role="search">
-			<eq name="curuid" value="">
+        <div class="navbar-form navbar-right" style="margin-top:22px;" action="" role="search">
+			<eq name="logincate" value="">
             <button  class="btn btn-default nav-login  globalLoginBtn" style="outline:none;"></button>
 			</eq>
-			<neq name="curuid" value="">
-            <a  class="btn btn-default" style="outline:none;border:0px;margin-top:3px;">{$curuid}</a>
-			</neq>
         </div>
+		<neq name="logincate" value="">
+		  <ul class="nav navbar-nav navbar-right">
+			<li class="dropdown" style="margin-top:10px;">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="background-color:#173045;line-height:25px;outline:none;border:0px;margin-top:3px;display:block;width:46px;height:45px;border-radius:40px;background-color:#173045;">
+				  <img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png" style="width:18px;height:17px;"/>
+				  </a>
+			  <ul class="dropdown-menu">
+				<li style="height:25px;line-height:25px;"><a href="{$curhost}index.php/Home/Pcenter/index.html" class="pcenter_myprofile"></a></li>
+				<li style="height:25px;line-height:25px;"><a href="{$curhost}index.php/Home/Pcenter/tokeninfo.html" class="pcenter_gettoken"></a></li>
+				<li style="height:25px;line-height:25px;"><a href="{$curhost}index.php/Home/Pcenter/logout.html" class="pcenter_logout"></a></li>
+			  </ul>
+			</li>
+		  </ul>
+		</neq>
 	  <ul class="nav navbar-nav navbar-right"  id="nav_ul">
-		<li class="cative"><a href="#" class="nav-home" style="color:#173045;"></a></li>
-		<li class="cative"><a href="#" class="nav-dapps" style="color:#173045;"></a></li>
-		<li class="cative"><a href="#" class="nav-community" style="color:#173045;"></a></li>
+		<li class="cative"><a href="#" data-toggle="tooltip" data-placement="bottom"  title="Planned" class="tooltip-show nav-dapps" style="color:#173045;"></a></li>
+		<li class="cative"><a href="#" data-toggle="tooltip" data-placement="bottom"  title="Planned" class="tooltip-show nav-community" style="color:#173045;"></a></li>
 		<li class="cative">
 		<a href="#" class="dropdown-toggle nav-lang" id="setlang" data-toggle="dropdown" style="color:#173045;background-color:#fff;"><b class="caret"></b></a>
 		<ul class="submenu dropdown-menu">
@@ -34,6 +44,29 @@
 		</ul>
 		</li>
 	  </ul>
+	  <ul class="nav navbar-nav navbar-right"  id="nav_ul">
+		<li class="cative">
+		<a href="#" class="dropdown-toggle nav-lang nav-home" id="setlang" data-toggle="dropdown" style="color:#173045;background-color:#fff;"><b class="caret"></b></a>
+		<ul class="submenu dropdown-menu">
+			<li><a href="{$curhost}index.php/Home/Documentation/index.html" class="nav_develop_subdoc" style="color:#173045;"></a></li>
+		</ul>
+		</li>
+	  </ul>
 	</div>
   </div>
 </nav>
+<style>
+.tooltip-inner{
+	width:66px;
+	height:25px;
+    background-color: #fff;
+	color:#222;
+	border:1px solid #aaa;
+	border-radius:5px 15px;
+	font-weight:400;
+}
+
+.tooltip.top .tooltip-arrow{
+    border-top-color: #aaa;
+}
+</style>
