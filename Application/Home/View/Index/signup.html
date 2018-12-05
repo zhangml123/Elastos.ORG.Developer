@@ -78,7 +78,7 @@ $("#regbtns").click(function(){
 	window.localStorage.reguid = reguid;
 	window.localStorage.regpwd = regpwd;
 	$.post(
-		internationalWords.hosturl+'index.php/Home/Emailinfo/checkusersendgun',
+		internationalWords.hosturl+'index.php/Home/Emailinfo/checkusersend',
 		{tomail:reguid},
 		function(data){
 			if(data==1){
