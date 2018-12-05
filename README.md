@@ -16,10 +16,16 @@ Elastos开发者网站
       WEIXIN_APP_ID    =>  '',    设置微信登录APP ID  
       WEIXIN_SECRET   =>  ‘’,     设置SECRET  
       GITHUB_CLIENT_ID   =>  '',     设置github APIKEY  
-      GITHUB_CLIENT_SECRET   =>  '',  设置 github登录SECRET  
-    (2) ThinkPHP\Library\Org\ThinkSDK\sdk 目录下GithubSDK.class.php文件  
-		  ![image text](https://github.com/yunyouming/Elastos.ORG.Developer/blob/master/docs/githubclass.png)  
-      修改上图红色方框中的: user-agent的值。  
-    (3) Public\Home\js 目录下：international.js文件  
+      GITHUB_CLIENT_SECRET   =>  '',  设置 github登录SECRET 
+      'GITHUB_API_UID'		=> '', //githu账号  
+      'MAILGUN_KEY'			=> '', //mailgun对应KEY_API  
+      'MAIlGUN_DOMAIN'		=> '', //mailgun对应域名  
+      'FROM_MAIlGUN_DOMAIN'		=> '', //mailgun对应发送邮件地址  
+       'SENDGRID_KEY'			=> '', //sendgrid对应KEY_API  
+       'FROM_SENDGRID_MAIL'		=> '', //sendgrid对应发送邮件地址  
+       'CR_LOGIN_URL' =>'https://ebp-api-beta.elastos.org/api/user/login', //CR登录URL  
+       'APPLY_TESTELA_SECRET' =>'',//申请测试币的密码  
+       'APPLY_TESTELA_URL' =>'http://faucetbackendtest-env.x434v2aka4.ap-northeast-1.elasticbeanstalk.com/ela/testCoin/issue',    //申请测试币地址   
+    (2) Public\Home\js 目录下：international.js文件  
 		  ![image text](https://github.com/yunyouming/Elastos.ORG.Developer/blob/master/docs/inter.png)  
       修改上图红色方框中为当前站点对应域名。  
