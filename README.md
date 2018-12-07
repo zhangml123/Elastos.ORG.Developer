@@ -25,7 +25,7 @@ Elastos开发者网站
        'FROM_SENDGRID_MAIL'		=> '', //sendgrid对应发送邮件地址  
        'CR_LOGIN_URL' =>'https://ebp-api-beta.elastos.org/api/user/login', //CR登录URL  
        'APPLY_TESTELA_SECRET' =>'',//申请测试币的密码  
-       'APPLY_TESTELA_URL' =>'http://faucetbackendtest-env.x434v2aka4.ap-northeast-1.elasticbeanstalk.com/ela/testCoin/issue',    //申请测试币地址   
+       'APPLY_TESTELA_URL' =>'https://faucet-backend.elastos.org/ela/testCoin/issue',    //申请测试币地址   
     (2) Public\Home\js 目录下：international.js文件  
 		  ![image text](https://github.com/yunyouming/Elastos.ORG.Developer/blob/master/docs/inter.png)  
       修改上图红色方框中为当前站点对应域名。  
