@@ -14,10 +14,10 @@ class IndexController extends Controller {
 	}
 	//顶部导航
 	public function topnav(){
-		if(isset($_SESSION ['eladevp']['uid']) && $_SESSION ['eladevp']['uid']!=""){
-			$this->assign("curuid",$_SESSION ['eladevp']['uid']);
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 		}else{
-			$this->assign("curuid","");
+			$this->assign("logincate","");
 		}
 		$this->display();
 	}

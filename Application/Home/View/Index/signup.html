@@ -6,35 +6,36 @@
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:470px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
                     <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="loginModalLabel" style="margin-top:35px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Sign up</h4>
+                    <h4 class="modal-title signtitle" id="loginModalLabel" style="margin-top:35px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Sign up</h4>
 					<div style="height:4px;width:90%;margin-left:5%;">
 						<div style="width:48px;float:left;height:4px;background-color:#173045;">&nbsp;</div>
 						<div style="width:48px;float:left;height:4px;background-color:#18C8FF;">&nbsp;</div>
 						<div style="width:48px;float:left;height:4px;background-color:#18FFFF;">&nbsp;</div>
 						<div style="width:48px;float:left;height:4px;"></div>
 					</div>
-					<div style="height:30px;line-height:30px;width:90%;margin-left:5%;font-size:12px;color:#A7B2BC;">You can log in with your Cyber Republic crendentials</div>
+					<div class="logintitletip" style="height:30px;line-height:30px;width:90%;margin-left:5%;font-size:12px;color:#A7B2BC;">You can log in with your Cyber Republic crendentials</div>
 				</div>
                 <div class="modal-body">
                     <section class="box-login v5-input-txt" id="box-login" style="height:150px;">
                         <form id="login_form" action="" method="post" autocomplete="off">
                             <ul style="list-style-type:none;">
                                 <li class="form-group">
-								<input class="form-control" id="id_account_reg_l" maxlength="50" name="account_l" placeholder="Email" type="text">
+								<input class="form-control signupemail" id="id_account_reg_l" maxlength="50" name="account_l" placeholder="Email" type="text">
 								<span class="reg_tip" style="display:block;color: red;margin-top: 7px;height: 20px;line-height: 15px;text-align:left;"></span>
 								</li>
                                 <li class="form-group">
-								<input class="form-control" id="id_password_reg_l" name="password_l" placeholder="Password" type="password">
+								<input class="form-control signupepwd" id="id_password_reg_l" name="password_l" placeholder="Password" type="password">
 								<span class="reg_p_tip" style="display:block;color: red;margin-top: 7px;height: 20px;line-height: 15px;text-align:left;"></span>
 								</li>
                              </ul>
                         </form>
                     </section>
+					
 					<div class="loginbtn" style="height:55px;">
-						<button class="loginbtn_b" id="regbtns" style="outline:none;background-color:#CED6E3;color:#fff;width:40%;float:left;border-radius:20px;height:40px;line-height:40px;">Sign up</button>
-						<div style="width:54%;height:40px;line-height:40px;text-align:right;float:left;font-size:12px;color:#b2b2b2;">Have an account?&nbsp;&nbsp;<a href="javascript:void(0);" id="jumploginsa" style="color:#173045;">Log in</a>&nbsp;&nbsp;&nbsp;</div>
+						<button class="loginbtn_b signtitle" id="regbtns" style="outline:none;background-color:#CED6E3;color:#fff;width:40%;float:left;border-radius:20px;height:40px;line-height:40px;">Sign up</button>
+						<div style="width:54%;height:40px;line-height:40px;text-align:right;float:left;font-size:12px;color:#b2b2b2;"><span class="signhavaaaccount" style="display:inline;">Have an account?</span>&nbsp;&nbsp;<a href="javascript:void(0);" class="logintitle" id="jumploginsa" style="color:#173045;">Log in</a>&nbsp;&nbsp;&nbsp;</div>
 					</div>
-					<div style="width:90%;margin-left:5%;text-align:center;line-height:40px;height:40px;color:#b2b2b2;">Or continue with</div>
+					<div class="logincontinue" style="width:90%;margin-left:5%;text-align:center;line-height:40px;height:40px;color:#b2b2b2;">Or continue with</div>
 					<div class="other_login">
 						<a class="git_loginbtn_b" style="line-height:40px;font-size:12px;color:#5E6D82;width:35%;margin-left:10%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}">
 							<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,14 +64,14 @@ $("#regbtns").click(function(){
 	var reg1 = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)/;
     if(reg1.test(reguid) == false ) {
 		$(".reg_tip").show();
-		$(".reg_tip").html("电子邮箱格式不正确!");
+		$(".reg_tip").html(internationalWords.forgetpwdemailtip);
 		return false;
 	}else{
 		$(".reg_tip").hide();
 	}
 	if(regpwd==""){
 		$(".reg_p_tip").show();
-		$(".reg_p_tip").html("登录密码不能为空或含有空格!");
+		$(".reg_p_tip").html(internationalWords.loginepasswordtip);
 		return false;
 	}else{
 		$(".reg_p_tip").hide();
@@ -87,7 +88,7 @@ $("#regbtns").click(function(){
 				email_popup();
 			}else{
 				$(".reg_tip").show();
-				$(".reg_tip").html("该电子邮箱已经被注册了!");
+				$(".reg_tip").html(internationalWords.signupemailreged);
 			}
 		}
 	)

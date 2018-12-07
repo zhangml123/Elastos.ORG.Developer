@@ -24,6 +24,7 @@ class DocumentationController extends Controller {
 			$stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
 			$contents = str_replace($stra,"",$contents);
 			$this->assign("commentlist",$commentlist);
+			$this->assign("commentnum",count($commentlist));
 			$this->assign("firstc",$contents);
 			$this->assign("firstgiturl","https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc);
 			$this->assign("curlang",$_SESSION ['eladevp']['lang']);
@@ -32,6 +33,7 @@ class DocumentationController extends Controller {
 			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
 			$this->display();
 		}else{
+			//var_dump($_SESSION ['eladevp']['lang']);
 			 if($_SESSION ['eladevp']['lang']=="en"){
 				$doc = "EN/Dev environment/Get API key and secret.md";
 			}else{
@@ -45,6 +47,7 @@ class DocumentationController extends Controller {
 			$stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
 			$contents = str_replace($stra,"",$contents);
 			$this->assign("commentlist",$commentlist);
+			$this->assign("commentnum",count($commentlist));
 			$this->assign("firstc",$contents);
 			$this->assign("firstgiturl","https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc);
 			$this->assign("curlang",$_SESSION ['eladevp']['lang']);
@@ -54,6 +57,26 @@ class DocumentationController extends Controller {
 			$this->display();
 		}
 	}
+	//获取初始评论列表
+	public function commentlistlimit(){
+		$where['githuburl'] = $_POST['githuburl'];;
+		$where['commentid'] = array('exp','is null');
+		$start = $_POST['start'];
+		$comment = new CommentModel;
+		$commentlist = $comment->commentlist($where,$start,10);
+		if($commentlist){
+			for($i=0;$i<count($commentlist);$i++){
+				$commentlist[$i]['subcommentlist'] = $this->subcommentlist($commentlist[$i]['id']);
+				if($_SESSION ['eladevp']['lang']=="cn"){
+					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
+				}else{
+					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+				}
+			}
+		}
+		echo json_encode($commentlist);
+	}
+	
 	//搜索页面
 	public function search(){
 		
@@ -220,7 +243,7 @@ class DocumentationController extends Controller {
 				$arr = explode("/",$result[$i]);
 				$arra[$i]['filename'] = $arr[count($arr)-1];
 				$arra[$i]['localdir'] = $result[$i];
-				$arra[$i]['hostfile'] = "http://ela.chat/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "dir";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$arr[count($arr)-1];
 				$arra[$i]['shortname'] = "";
@@ -233,7 +256,7 @@ class DocumentationController extends Controller {
 					$arrw = explode(".",$arr[count($arr)-1]);
 					$arra[$i]['filename'] = $arr[count($arr)-1];
 					$arra[$i]['localdir'] = $result[$i];
-					$arra[$i]['hostfile'] = "http://ela.chat/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
+					$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
 					$arra[$i]['type'] = "file";
 					$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/".$arr[count($arr)-1];
 					$arra[$i]['shortname'] = $arrw[0];
@@ -248,7 +271,7 @@ class DocumentationController extends Controller {
 				$arrw = explode(".",$arr[count($arr)-1]);
 				$arra[$i]['filename'] = $arr[count($arr)-1];
 				$arra[$i]['localdir'] = $result[$i];
-				$arra[$i]['hostfile'] = "http://ela.chat/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "file";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/".$arr[count($arr)-1];
 				$arra[$i]['shortname'] = $arrw[0];
@@ -278,13 +301,20 @@ class DocumentationController extends Controller {
 		//return $arr_file;
 		$arra = array();
 		for($i=0;$i<count($arr_file);$i++){
+			if($_SESSION ['eladevp']['lang']=="en"){
+				$patharr = explode("/EN/",$path."/".$arr_file[$i]);
+			}else{
+				$patharr = explode("/CN/",$path."/".$arr_file[$i]);
+			}
 			if(is_dir($path."/".$arr_file[$i])){
 				$arr = explode("/",$arr_file[$i]);
 				//$arrw = explode(".",$arr[count($arr)-1]);
-				$arra[$i]['filecname'] = $path."/".$arr_file[$i];
-				$arra[$i]['filename'] = $arr[count($arr)-1];
+				//$arra[$i]['filecname'] = $path."/".$arr_file[$i];
+				$arra[$i]['filecname'] =str_replace("/","|||",$patharr[1]);
+				$arra[$i]['filename'] = $patharr[1];
 				$arra[$i]['localdir'] = $path."/".$arr_file[$i];
-				$arra[$i]['hostfile'] = "http://test.eladevp.com/Public/developerdoc/".$arr[count($arr)-1];
+				//$arra[$i]['localdir'] = str_replace("/","|||",$arr_file[$i]);
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/Public/developerdoc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "dir";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$arr[count($arr)-1];
 				$arra[$i]['shortname'] = "";
@@ -296,10 +326,12 @@ class DocumentationController extends Controller {
 			}else{
 				$arr = explode("/",$arr_file[$i]);
 				$arrw = explode(".",$arr[count($arr)-1]);
-				$arra[$i]['filecname'] = $path.$arr_file[$i];
-				$arra[$i]['filename'] = $arr[count($arr)-1];
+				$arra[$i]['filecname'] = str_replace("/","|||",$patharr[1]);
+				//$arra[$i]['filecname'] = $path.$arr_file[$i];
+				$arra[$i]['filename'] = $patharr[1];
+				//$arra[$i]['localdir'] = str_replace("/","|||",$arr_file[$i]);
 				$arra[$i]['localdir'] = $path.$arr_file[$i];
-				$arra[$i]['hostfile'] = "http://ela.chat/eladevp/developerdoc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "file";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$lang.$arr_file[$i];
 				$arra[$i]['shortname'] = $arrw[0];
@@ -347,7 +379,15 @@ class DocumentationController extends Controller {
 	}
 	public function getcontents(){
 		if($_POST['fname']!="" ){
-			 $str = file_get_contents($_POST['fname']);
+				//取得当前文件所在目录
+				if($_SESSION ['eladevp']['lang']=="en"){
+					$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/EN";
+					$lang = "EN";
+				}else{
+					$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/CN";
+					$lang = "CN";
+				}
+			 $str = file_get_contents($path.str_replace("|||","/",$_POST['fname']));
 			 $stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
 			 $contents = str_replace('<img src="','<img src="https://github.com',$str);
 			 $contents = str_replace($stra,"",$contents);

@@ -6,38 +6,38 @@
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:470px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
                     <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="loginModalLabel" style="margin-top:25px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Log in</h4>
+                    <h4 class="modal-title logintitle" id="loginModalLabel" style="margin-top:25px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Log in</h4>
 					<div style="height:4px;width:90%;margin-left:5%;">
 						<div style="width:48px;float:left;height:4px;background-color:#173045;">&nbsp;</div>
 						<div style="width:48px;float:left;height:4px;background-color:#18C8FF;">&nbsp;</div>
 						<div style="width:48px;float:left;height:4px;background-color:#18FFFF;">&nbsp;</div>
 						<div style="width:48px;float:left;height:4px;"></div>
 					</div>
-					<div style="height:30px;line-height:30px;width:90%;margin-left:5%;font-size:12px;color:#A7B2BC;">You can log in with your Cyber Republic crendentials</div>
+					<div class="logintitletip" style="height:30px;line-height:30px;width:90%;margin-left:5%;font-size:12px;color:#A7B2BC;">You can log in with your Cyber Republic crendentials</div>
 				</div>
                 <div class="modal-body" style="padding-top:0px;">
                     <section class="box-login v5-input-txt" id="box-login" style="height:190px;">
                         <form id="login_form" action="" method="post" autocomplete="off">
                             <ul style="list-style-type:none;">
                                 <li class="form-group">
-								<input class="form-control" id="id_account_l" maxlength="50" name="account_l" placeholder="Email" type="text">
+								<input class="form-control loginemail" id="id_account_l" maxlength="50" name="account_l" placeholder="Email" type="text">
 								<span class="login_tip" style="display:block;"></span>
 								</li>
                                 <li class="form-group">
-								<input class="form-control" id="id_password_l" name="password_l" placeholder="Password" type="password">
+								<input class="form-control loginepassword" id="id_password_l" name="password_l" placeholder="Password" type="password">
 								<span class="login_p_tip"  style="display:block;color: red;margin-top: 7px;height: 20px;line-height: 15px;"></span>
 								</li>
                              </ul>
                         </form>
                         <p class="good-tips marginB10" style="height:30px;line-height:25px;">
-						<a href="javascript:void(0);" style="color:#5E6D82;float:left;" id="forgetpwdbtn">Forgot password?</a>
+						<a href="javascript:void(0);" style="color:#5E6D82;float:left;" class="logineforgetpwd" id="forgetpwdbtn">Forgot password?</a>
 						</p>
                     </section>
 					<div class="loginbtn" style="height:55px;">
-						<button class="loginbtn_b" id="loginbtns" style="outline:none;background-color:#CED6E3;color:#fff;width:40%;float:left;border-radius:20px;height:40px;line-height:40px;">Log In</button>
-						<div style="width:54%;height:40px;line-height:40px;text-align:right;float:left;font-size:12px;">No account? <a href="javascript:void(0);" id="jumpreg" style="color:#173045;">Create one</a>&nbsp;&nbsp;&nbsp;</div>
+						<button class="loginbtn_b logintitle" id="loginbtns" style="outline:none;background-color:#CED6E3;color:#fff;width:40%;float:left;border-radius:20px;height:40px;line-height:40px;">Log In</button>
+						<div style="width:54%;height:40px;line-height:40px;text-align:right;float:left;font-size:12px;"><span class="loginenoaccount" style="display:inline;">No account?</span> <a href="javascript:void(0);" class="logincreatone" id="jumpreg" style="color:#173045;">Create one</a>&nbsp;&nbsp;&nbsp;</div>
 					</div>
-					<div style="width:90%;margin-left:5%;text-align:center;line-height:40px;height:40px;">Or continue with</div>
+					<div class="logincontinue" style="width:90%;margin-left:5%;text-align:center;line-height:40px;height:40px;">Or continue with</div>
 					<div class="other_login">
 						<a class="git_loginbtn_b" style="line-height:40px;font-size:12px;color:#5E6D82;width:35%;margin-left:10%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}">
 							<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,12 +63,15 @@
 $("#loginbtns").click(function(){
 	var reguid = $("#id_account_l").val();
 	var regpwd = $("#id_password_l").val();
-	if(reguid==""){
-		BootstrapDialog.alert('账号不能为空！');
+	var reg1 = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)/;
+    if(reg1.test(reguid) == false ) {
+		$(".login_tip").show();
+		$(".login_tip").html(internationalWords.loginemailtip);
 		return false;
 	}
-	if(regpwd==""){
-		BootstrapDialog.alert('密码不能为空！');
+	if(isNull(regpwd)){
+		$(".login_p_tip").show();
+		$(".login_p_tip").html(internationalWords.loginepasswordtip);
 		return false;
 	}
 	$.post(
@@ -78,7 +81,7 @@ $("#loginbtns").click(function(){
 			if(data==1){
 				window.location.href=internationalWords.hosturl+"/index.php/Home/Pcenter/index.html";
 			}else{
-				BootstrapDialog.alert('登录失败！');
+				//BootstrapDialog.alert('登录失败！');
 			}
 		}
 	);
