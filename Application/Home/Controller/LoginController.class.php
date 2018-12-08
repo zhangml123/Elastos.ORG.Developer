@@ -13,9 +13,13 @@ class LoginController extends BaseController {
 	// 第三方平台登录
 	public function oauth_login(){
 		$type=I('get.type');  //获取登录的方法
-		import("Org.ThinkSDK.ThinkOauth");  ////加载ThinkOauth类
-		$sdk=\ThinkOauth::getInstance($type); //实例化一个对象
-		redirect($sdk->getRequestCodeURL());  //重定向到第三方登录授权页面
+		//if($type=="GITHUB"){
+			import("Org.ThinkSDK.ThinkOauth");  ////加载ThinkOauth类
+			$sdk=\ThinkOauth::getInstance($type); //实例化一个对象
+			redirect($sdk->getRequestCodeURL());  //重定向到第三方登录授权页面
+		//}elseif($type=="weixin"){
+			//var_dump($_REQUEST);
+		//}
 	}
 	public function complateuinfo(){
 		if(isset($_SESSION ['eladevp']['gituid']) && $_SESSION ['eladevp']['gituid']!=""){
@@ -47,6 +51,8 @@ class LoginController extends BaseController {
 		//var_dump($url);
 		//存在
 		if($data['message']=="ok"){
+			$_SESSION ['eladevp']['userid'] = $uid;
+			$_SESSION['eladevp']['logincate'] = 1;
 			//判断是否存储了CR信息，如果存储了更新必要信息，如果没存储新增
 			$rcinfo = M("rcinfo");
 			$where['rcuid'] = $uid;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-12-05 10:07:49
+-- Generation Time: 2018-12-07 23:15:05
 -- 服务器版本： 5.5.60-log
 -- PHP Version: 5.6.36
 
@@ -41,7 +41,8 @@ CREATE TABLE `ela_applytestela` (
 --
 
 INSERT INTO `ela_applytestela` (`id`, `userid`, `amount`, `status`, `addtime`) VALUES
-(1, '602986973@qq.com', 10, 1, '1543804832');
+(1, '602986973@qq.com', 10, 1, '1543804832'),
+(2, '602986973@qq.com', 10, 1, '1544100611');
 
 -- --------------------------------------------------------
 
@@ -151,7 +152,16 @@ INSERT INTO `ela_comment` (`id`, `contents`, `addtime`, `sender`, `githuburl`, `
 (68, '反馈信息！', '1543920105', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', 64, 0, '106.117.53.197', 0, 0),
 (69, '新评论！', '1543930506', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.85.62', 3, 2),
 (70, '我来回复！', '1543930519', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', 69, 0, '106.117.85.62', 0, 0),
-(71, 'ceshi', '1543932629', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.85.62', 1, 0);
+(71, 'ceshi', '1543932629', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.85.62', 1, 0),
+(72, 'ceshiaaa!', '1544193353', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.113.7.201', 1, 0),
+(73, '这是第一个评论！', '1544193373', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
+(74, '不错！', '1544194204', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
+(75, '不错！', '1544194477', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
+(76, '不错！', '1544194635', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 2, 0),
+(77, '不错！', '1544194687', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
+(78, '不错！', '1544194757', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
+(79, '不错！', '1544195070', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
+(80, '好！', '1544195166', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/DID链.md', NULL, 0, '106.113.7.201', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -196,8 +206,8 @@ CREATE TABLE `ela_githubinfo` (
 --
 
 INSERT INTO `ela_githubinfo` (`githubid`, `githubuid`, `githubappid`, `githubtoken`, `headimg`, `firstname`, `lastname`, `company`, `country`, `city`, `bio`, `moreurl`, `username`, `email`) VALUES
-(2, 'elachating', '43022721', 'db97ba772feb73f6ae14a564261d89cab03f17cb', 'https://avatars0.githubusercontent.com/u/43022721?v=4', 'liu', 'ming', 'kongte.inc', 'China', 'Beijing', 'elachat is a p2p im!', 'http://ela.chat', NULL, '103306946@qq.com'),
-(3, 'yunyouming', '5235349', '94c8acb8c8e0d0c27895b03be8ab21a1e944bb21', 'https://avatars3.githubusercontent.com/u/5235349?v=4', 'liou', 'ming', 'apple.inc', 'China', 'beiig', 'this is test code!', 'http://ela.chat', NULL, NULL);
+(2, 'elachating', '43022721', '255c9c96ddfe3ff14069a724314d29cdf237ef7f', 'https://avatars0.githubusercontent.com/u/43022721?v=4', 'liu', 'ming', 'kongte.inc', 'China', 'Beijing', 'elachat is a p2p im!', 'http://ela.chat', NULL, '103306946@qq.com'),
+(3, 'yunyouming', '5235349', 'db96b49bb60b5c2404d7bec01e6168d8aa094ce4', 'https://avatars3.githubusercontent.com/u/5235349?v=4', 'liou', 'ming', 'apple.inc', 'China', 'beiig', 'this is test code!', 'http://ela.chat', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,15 +257,16 @@ CREATE TABLE `ela_rcinfo` (
   `city` char(240) NOT NULL,
   `bio` varchar(5000) NOT NULL,
   `moreurl` varchar(5000) NOT NULL,
-  `headimg` varchar(2000) NOT NULL
+  `headimg` varchar(2000) NOT NULL,
+  `email` char(240) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `ela_rcinfo`
 --
 
-INSERT INTO `ela_rcinfo` (`rcid`, `rcuid`, `rcupwd`, `rcnickname`, `firstname`, `lastname`, `company`, `country`, `city`, `bio`, `moreurl`, `headimg`) VALUES
-(1, '602986973@qq.com', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO `ela_rcinfo` (`rcid`, `rcuid`, `rcupwd`, `rcnickname`, `firstname`, `lastname`, `company`, `country`, `city`, `bio`, `moreurl`, `headimg`, `email`) VALUES
+(1, '602986973@qq.com', '', '', '', '', '', '', '', '', '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -296,7 +307,8 @@ CREATE TABLE `ela_user` (
 INSERT INTO `ela_user` (`id`, `userid`, `userpwd`, `username`, `addtime`, `phone`, `status`, `roleid`, `githubuid`, `wechatuid`, `rcuid`, `linkedinuid`, `logintime`, `loginip`, `qq`, `firstname`, `lastname`, `company`, `bio`, `moreurl`, `country`, `city`, `headimg`) VALUES
 (1, 'admin', '96e79218965eb72c92a549dd5a330112', '超级管理员', '1513059115', '18931150152', 1, 1, NULL, '', '', '', '', '', NULL, 'Mike', 'Hou', 'ELA', 'Let\'s rock rock rock', 'www.ela.com', 'China', 'Beijing', ''),
 (3, 'admin2', '96e79218965eb72c92a549dd5a330112', '管理员3', '1515306567', '1889777887', 1, 1, NULL, '', '', '', '', '', NULL, '', '', '', '', '', '', '', ''),
-(13, '602986973@qq.com', '65d8d6ff97feaccbf624d5dcb6bd0087', NULL, '1543930262', NULL, 1, NULL, '', '', '', '', '1543930262', '', NULL, 'liu', 'ming', 'apple.lnc', 'none', 'http://ela.chat', 'China', 'shijiazhuang', '');
+(13, '103306949@qq.com', '86ec994523cff6a25f1426a57d987af0', NULL, '1543930262', NULL, 1, NULL, '', '', '', '', '1543930262', '', NULL, 'liu', 'ming', 'apple.lnc', 'none', 'http://ela.chat', 'China', 'shijiazhuang', ''),
+(15, '602986973@qq.com', '2ac663a399809dc0f17e059320b506c1', NULL, '1544189034', NULL, 1, NULL, 'elachating', '', NULL, '', '1544189034', NULL, NULL, 'liu', 'ming', '空特科技', '无', 'http://ela.chat', '中华人民共和国', '石家庄', NULL);
 
 -- --------------------------------------------------------
 
@@ -316,7 +328,8 @@ CREATE TABLE `ela_wechatinfo` (
   `city` char(240) NOT NULL,
   `bio` varchar(5000) NOT NULL,
   `moreurl` varchar(5000) NOT NULL,
-  `headimg` varchar(2000) NOT NULL
+  `headimg` varchar(2000) NOT NULL,
+  `email` char(240) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -385,7 +398,7 @@ ALTER TABLE `ela_wechatinfo`
 -- 使用表AUTO_INCREMENT `ela_applytestela`
 --
 ALTER TABLE `ela_applytestela`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `ela_column`
@@ -397,7 +410,7 @@ ALTER TABLE `ela_column`
 -- 使用表AUTO_INCREMENT `ela_comment`
 --
 ALTER TABLE `ela_comment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- 使用表AUTO_INCREMENT `ela_githubinfo`
@@ -421,7 +434,7 @@ ALTER TABLE `ela_rcinfo`
 -- 使用表AUTO_INCREMENT `ela_user`
 --
 ALTER TABLE `ela_user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- 使用表AUTO_INCREMENT `ela_wechatinfo`

@@ -38,5 +38,5 @@ return array(
 	'FROM_SENDGRID_MAIL'		=> '', //mailgun对应发送邮件地址
 	'CR_LOGIN_URL' =>'https://ebp-api-beta.elastos.org/api/user/login',
 	'APPLY_TESTELA_SECRET' =>'',
-	'APPLY_TESTELA_URL' =>'http://faucetbackendtest-env.x434v2aka4.ap-northeast-1.elasticbeanstalk.com/ela/testCoin/issue',
+	'APPLY_TESTELA_URL' =>'https://faucet-backend.elastos.org/ela/testCoin/issue',
 );

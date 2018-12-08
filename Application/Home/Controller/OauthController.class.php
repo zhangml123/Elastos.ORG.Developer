@@ -17,14 +17,14 @@ class OauthController extends BaseController{
 			//var_dump($token);
         $user_info = $this->$type($token);
         //获取当前登录用户信息
-        if(is_array($token)){
+		if(is_array($token)){
             // 获取第三方账号数据
 			if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate'] = 1){
 				$where['githubuid'] = $user_info['name'];
 				$rsa=M('user')->where($where)->find();
 				//var_dump($rsa);
 				 if($rsa){
-					redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 				}else{
 					//加入到User表和githubinfo表
 					//先判断是否存在
@@ -48,7 +48,7 @@ class OauthController extends BaseController{
 					$datau['githubuid'] = $user_info['name'];
 					$rsc=M('user')->where($wherea)->save($datau);
 					//var_dump(M('user')->getlastsql());
-					redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 				}
 			}else{
 				//先判断是否之前登陆过
@@ -63,7 +63,7 @@ class OauthController extends BaseController{
 					if($rsb){
 						$_SESSION ['eladevp']['userid'] = $rsb['userid'];
 						$_SESSION ['eladevp']['logincate'] = 1;
-						redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}else{
 						//按照github方式登录
 						$wherec['githubuid'] = $user_info['name'];
@@ -77,7 +77,7 @@ class OauthController extends BaseController{
 						$rsc = $githubinfo->where($wherec)->save($datagit);
 						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
 						$_SESSION ['eladevp']['logincate'] = 3;
-						redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}
 				}else{
 					$datagit['githubuid'] = $user_info['name'];
@@ -93,59 +93,12 @@ class OauthController extends BaseController{
 					//var_dump($githubinfo->getlastsql());
 					$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
 					$_SESSION ['eladevp']['logincate'] = 3;
-					redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 				}
-				//如果登录过，判断是否与User有关联
-					//如果有关联，则按照User表登录
-					//如果没有关联，则更新信息到User表，获取的方式按照github登录的账号
-				//如果没有登录过，则更新githubinfo表，更新User表
-				       /* 
-				$data=array(
-					'githubid'      =>  $user_info['name'],
-					'githubopenid'        =>  $token['openid'],
-					'githubaccesstoken'  =>  $token['access_token'],
-					);
-				// 获取本地数据库的用户数据
-				$where['githubid'] = $data['githubid'];
-				$user_data=M('User')->where($where)->find();
-				// 如果登录过 则覆盖；没有登录这添加数据
-				 if(empty($user_data)){
-					//$data['roleid'] = 2;
-					//$data['addtime'] = time();
-					//$data['logintime'] = time();
-				   // $data['loginip'] = getIP();
-				   
-					$id=M('User')->add($data);
-				}else{
-					$data['logintime'] = time();
-					//$data['loginip'] = getIP();
-					$id=M('User')->where($where)->save($data);
-					$user_data=M('User')->where($where)->find();
-					
-				}
-				if($user_data['userid']==""){
-					$_SESSION ['eladevp']['gituid'] = $data['githubid'];
-					$_SESSION ['eladevp']['logincate'] = 3;
-					//redirect("http://test.eladevp.com/index.php/Home/Login/complateuinfo?githubopenid=".$token['openid']);
-					redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				}else{
-					$_SESSION ['eladevp']['uid'] = $user_data['userid'];
-					$_SESSION ['eladevp']['username'] = $user_data['nickname'];
-					$_SESSION ['eladevp']['logincate'] = 1;
-					redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				}
-			}
-    $login_info=array(
-                'userid'=>$user_data['userid'],
-                'nickname'=>$user_data['nickname'],
-                );
-            session('user',$login_info);   //存数SESSION中，用于登陆后的一些操作
-
-            $_COOKIE['this_url']=empty($_COOKIE['this_url']) ? 'http://www.xxxx.com' : cookie('this_url');  //获取登陆前的URL,获取不到则返回首页
-            redirect(cookie('this_url')); 
-			*/
+				
         }
 	 }
+	 //var_dump($user_info);
     }
 
     //登录成功，获取腾讯QQ用户信息

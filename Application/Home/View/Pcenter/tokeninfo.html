@@ -36,8 +36,8 @@
 			<div class="col-md-3">
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs  hidden-md" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
-							<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
+							<li class="doc_menu_l_li_subm leftmenmyprofile" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
+							<li class="doc_menu_l_li_subm leftmengettesttoken" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
 					</ul>
 				</div>
 			</div>
@@ -45,22 +45,22 @@
 				<div style="width:95%;margin-left:5%;height:1100px;">
 					<div style="background-color:#F6F9FD;height:350px;margin-bottom:40px;padding-left:5%;padding-right:5%;padding-top:50px;">
 							<div style="height:90px;line-height:90px;font-size:36px;width:100%;">
-							Test ELA Wallet Address 
-							<a href="https://wallet-beta.elastos.org/" target="__blank" style="text-decoration:none;margin-top:24px;line-height:30px;text-align:center;border:1px solid #A7B2BC;display:block;float:right;height:30px;width:80px;border-radius:15px;font-size:12px;display:block;color:#173045;">&nbsp;&nbsp;+create&nbsp;&nbsp;</a>
+							<span class="applytokentip">Test ELA Wallet Address </span>
+							<a href="https://wallet-beta.elastos.org/" target="__blank" class="applytokencreatbtn" style="text-decoration:none;margin-top:24px;line-height:30px;text-align:center;border:1px solid #A7B2BC;display:block;float:right;height:30px;width:100px;border-radius:15px;font-size:12px;display:block;color:#173045;">&nbsp;&nbsp;+create&nbsp;&nbsp;</a>
 							</div>
 							<div style="width:100%;height:80px;">
 								<textarea style="width:100%;height:70px;resize:none;border:1px solid #e5e5e5;padding:15px;" id="testelaadr"></textarea>
 							</div>
 							<div style="width:100%;height:60px;margin-top:20px;">
-								<button id="applytestelabtn" style="width:120px;height:40px;line-height:40px;background-color:#173045;border:1px solid #e5e5e5;color:#18FFFF;border-radius:30px;">Apply</button>
+								<button id="applytestelabtn" class="applytokenapplybtn" style="width:120px;height:40px;line-height:40px;background-color:#173045;border:1px solid #e5e5e5;color:#18FFFF;border-radius:30px;">Apply</button>
 							</div>
 					</div>
-					<div style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;">My Applications</div>
+					<div class="applytokenlisttip" style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;">My Applications</div>
 						<div style="width:100%;height:610px;">
 							<div style="width:100%;height:50px;background-color:#173045;">
-							<div style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Date</div>
-							<div style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Amount</div>
-							<div style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Status</div>
+							<div class="applytokenlisttitleone"  style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Date</div>
+							<div class="applytokenlisttitletow" style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Amount</div>
+							<div class="applytokenlisttitlethree" style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Status</div>
 							</div>
 							<ul id="token-list" style="list-style-type:none;background-color:#F6F9FD;margin:0px;">
 								<volist name="applylist" id="vob">
@@ -181,18 +181,18 @@ $("#applytestelabtn").click(function(){
 		applyelatip_popup();
 		return false;
 	}
-	/*$.post(
+	$.post(
 		'tokeapply',
 		{testelaadr:testelaadr},
 		function(data){
 			if(data==1){
+				$("#testelaadr").val("");
 				applyelasuccful_popup();
 			}else{
 			
 			}
 		}
 	);
-	*/
 });
 //$("#editprofilebtn").on("click",editprofile_popup);
 $('#pageLimit').bootstrapPaginator({

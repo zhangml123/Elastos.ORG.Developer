@@ -48,7 +48,8 @@ $("#forgetemail").keyup(function(){
 	var reg1 = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)/;
     if(reg1.test($(this).val()) == false ) {
 		$(".forgetemail_tip").show();
-		$(".forgetemail_tip").html("邮箱格式不正确!");
+		//$(".forgetemail_tip").html("邮箱格式不正确!");
+		$(".forgetemail_tip").html(internationalWords.forgetpwdemailtip);
 	}else{
 		$(".forgetemail_tip").html("");
 		$("#sendemailbtn").css("background-color","#173045");
@@ -67,7 +68,8 @@ $("#sendemailbtn").on("click",function(){
 	var reg1 = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)/;
     if(reg1.test($("#forgetemail").val()) == false ) {
 		$(".forgetemail_tip").show();
-		$(".forgetemail_tip").html("验证码不能为空!");
+		//$(".forgetemail_tip").html("验证码不能为空!");
+		$(".forgetemail_tip").html(internationalWords.forgetpwdemailtip);
 		return false;
 	}
 	$.post(
@@ -78,6 +80,9 @@ $("#sendemailbtn").on("click",function(){
 				window.localStorage.elaemail = $("#forgetemail").val();
 				$("#forgetemail").val("");
 				confirmemail_popup();
+			}else{
+				
+				
 			}
 		}
 	)
@@ -88,6 +93,7 @@ $("#resendemailbtn").click(function(){
 		{tomail:window.localStorage.elaemail},
 		function(data){
 			if(data==1){
+				
 			}
 		}
 	)
@@ -97,7 +103,8 @@ $("#resetbtn").click(function(){
 	var confirmpwd = $("#confirmpwd").val();
 	if(newpwdd!=confirmpwd && newpwdd!=""){
 		$("#email_tip").show();
-		$("#email_tip").html("两次输入密码不一致！");
+		//$("#email_tip").html("两次输入密码不一致！");
+		$("#email_tip").html(internationalWords.resetpwdtip);
 		return false;
 	}else{
 		$("#email_tip").hide();
@@ -117,7 +124,7 @@ $("#resetbtn").click(function(){
 $("#emailcode").keyup(function(){
 	if(isNull($(this).val())){
 		$(".forgetemailcode_tip").show();
-		$(".forgetemailcode_tip").html("登录账号不能为空或含有空格!");
+		$(".forgetemailcode_tip").html(internationalWords.forgetpwdemailtip);
 	}else{
 		$(".forgetemailcode_tip").html("");
 		if(isNull($(this).val()) || isNull($("#id_password_l").val())){
@@ -139,7 +146,7 @@ $("#confirmemailcodebtn").on("click",function(){
 				restpwd_popup();
 			}else{
 				$(".forgetemailcode_tip").show();
-				$(".forgetemailcode_tip").html("邮箱验证码错误！");
+				$(".forgetemailcode_tip").html(internationalWords.forgetpwdcodetip);
 			}
 		}
 	)
@@ -151,7 +158,7 @@ $("#confirmemailcodebtn").on("click",function(){
 $("#id_account_l").keyup(function(){
 	if(isNull($(this).val())){
 		$(".login_tip").show();
-		$(".login_tip").html("登录账号不能为空或含有空格!");
+		$(".login_tip").html(internationalWords.loginemailtip);
 	}else{
 		$(".login_tip").html("");
 		if(isNull($(this).val()) || isNull($("#id_password_l").val())){
@@ -167,9 +174,9 @@ $("#id_account_l").keyup(function(){
 $("#id_password_l").keyup(function(){
 	if(isNull($(this).val())){
 		$(".login_p_tip").show();
-		$(".login_p_tip").html("登录密码不能为空或含有空格!");
+		$(".login_p_tip").html(internationalWords.forgetpwdemailtip);
 	}else{
-		    $(".login_p_tip").html("");
+		$(".login_p_tip").html("");
 		if(isNull($(this).val()) || isNull($("#id_account_l").val())){
 			$("#loginbtns").css("background-color","#CED6E3");
 			$("#loginbtns").css("color","#fff");
@@ -187,11 +194,10 @@ function isNull(str) {
   var re = new RegExp(regu);
   return re.test(str);
 }
-
 $("#id_account_reg_l").keyup(function(){
 	if(isNull($(this).val())){
 		$(".reg_tip").show();
-		$(".reg_tip").html("注册账号不能为空或含有空格!");
+		$(".reg_tip").html(internationalWords.loginemailtip);
 	}else{
 		$(".reg_tip").html("");
 		if(isNull($(this).val()) || isNull($("#id_password_reg_l").val())){
@@ -207,7 +213,7 @@ $("#id_account_reg_l").keyup(function(){
 $("#id_password_reg_l").keyup(function(){
 	if(isNull($(this).val())){
 		$(".reg_p_tip").show();
-		$(".reg_p_tip").html("注册密码不能为空或含有空格!");
+		$(".reg_p_tip").html(internationalWords.loginepasswordtip);
 	}else{
 		$(".reg_p_tip").html("");
 		if(isNull($(this).val()) || isNull($("#id_account_reg_l").val())){

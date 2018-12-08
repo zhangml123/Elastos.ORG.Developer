@@ -51,8 +51,20 @@ class CommentController extends Controller {
 	public function addcomment(){
 		$data['contents'] = $_POST['contents'];
 		$data['addtime'] = time();
-		if(isset($_SESSION ['eladevp']['userid']) && $_SESSION ['eladevp']['userid']!=""){
+	/* 	if(isset($_SESSION ['eladevp']['userid']) && $_SESSION ['eladevp']['userid']!=""){
 			$data['sender'] = $_SESSION ['eladevp']['userid'];
+		}else{
+			$data['sender'] = "匿名";
+		} */
+		
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$data['sender'] = $_SESSION['eladevp']['userid'];
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$data['sender'] = $_SESSION['eladevp']['rcuid'];
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$data['sender'] = $_SESSION['eladevp']['githubuid'];
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$data['sender'] = $_SESSION['eladevp']['wechatuid'];
 		}else{
 			$data['sender'] = "匿名";
 		}
