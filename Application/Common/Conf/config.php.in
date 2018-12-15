@@ -23,7 +23,7 @@ return array(
 	'MAIL_HOST' =>'@@',//smtp服务器的名称
 	'MAIL_SMTPAUTH' =>TRUE, //启用smtp认证
 	'MAIL_USERNAME' =>'@@',//发件人的邮箱名
-	'MAIL_PASSWORD' =>'@@',//163邮箱发件人授权密码
+	'MAIL_PASSWORD' =>'@@',//邮箱发件人授权密码
 	'MAIL_FROM' =>'@@',//发件人邮箱地址
 	'MAIL_FROMNAME'=>'elastos developer',//发件人姓名
 	'MAIL_CHARSET' =>'utf-8',//设置邮件编码
