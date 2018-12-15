@@ -14,18 +14,22 @@ Elastos开发者网站
 ​    (1)	Application\Common\Conf目录下，拷贝配置模版config.php.in为config.php文件，编辑config.php文件  
 ​      设置DB_PWD =>’’，将数据库密码完善（搭建WEB环境时初始化的数据库密码）；  
 ​      WEIXIN_APP_ID    =>  '',    设置微信登录APP ID  
-​      WEIXIN_SECRET   =>  ‘’,     设置SECRET  
+​      WEIXIN_SECRET   =>  '',     设置SECRET  
+	    'WECHAT_CALLBACK_URL'	=>  'https://**/index.php/Home/Login/wechat', 微信回调URL  
 ​      GITHUB_CLIENT_ID   =>  '',     设置github APIKEY  
 ​      GITHUB_CLIENT_SECRET   =>  '',  设置 github登录SECRET 
 ​      'GITHUB_API_UID'		=> '', //githu账号  
-​      'MAILGUN_KEY'			=> '', //mailgun对应KEY_API  
-​      'MAIlGUN_DOMAIN'		=> '', //mailgun对应域名  
-​      'FROM_MAIlGUN_DOMAIN'		=> '', //mailgun对应发送邮件地址  
-​       'SENDGRID_KEY'			=> '', //sendgrid对应KEY_API  
-​       'FROM_SENDGRID_MAIL'		=> '', //sendgrid对应发送邮件地址  
+      'MAIL_HOST' =>'',//smtp服务器的名称  
+      'MAIL_SMTPAUTH' =>TRUE, //启用smtp认证  
+      'MAIL_USERNAME' =>'',//发件人的邮箱名  
+      'MAIL_PASSWORD' =>'',//163邮箱发件人授权密码  
+      'MAIL_FROM' =>'',//发件人邮箱地址  
+      'MAIL_FROMNAME'=>'elastos developer',//发件人姓名  
+      'MAIL_CHARSET' =>'utf-8',//设置邮件编码  
+      'MAIL_ISHTML' =>TRUE, // 是否HTML格式邮件
 ​       'CR_LOGIN_URL' =>'https://ebp-api-beta.elastos.org/api/user/login', //CR登录URL  
 ​       'APPLY_TESTELA_SECRET' =>'',//申请测试币的密码  
 ​       'APPLY_TESTELA_URL' =>'https://faucet-backend.elastos.org/ela/testCoin/issue',    //申请测试币地址   
 ​    (2) Public\Home\js 目录下：international.js文件  
-​		  ![image text](https://github.com/yunyouming/Elastos.ORG.Developer/blob/master/docs/inter.png)  
-​      修改上图红色方框中为当前站点对应域名。  
+    internationalWordsZH.hosturl='';  
+    internationalWordsEN.hosturl='';
