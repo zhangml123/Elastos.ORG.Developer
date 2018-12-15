@@ -6,7 +6,7 @@
 <p>默认情况下提供API。</p>
 <p>打开文档，进入到html目录，找到index.html并单击，可以在浏览器中打开API文档。</p>
 <ul>
-<li><a href="/elastos/Elastos.Developer.Doc/blob/master/CN/%E4%BA%86%E8%A7%A3%E5%9F%BA%E7%A1%80/SDK/Elastos.NET.Carrier.Native.SDK_API.zip">Carrier_API</a></li>
+<li><a href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/SDK/Elastos.NET.Carrier.Native.SDK_API.zip">Carrier_API</a></li>
 </ul>
 <p>请参阅以下文档的最后一部分来导出最新的API文档：</p>
 <ul>

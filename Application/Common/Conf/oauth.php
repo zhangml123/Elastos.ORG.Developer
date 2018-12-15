@@ -11,7 +11,7 @@
 // config.php 2013-02-25
 
 //定义回调URL通用的URL
-define('URL_CALLBACK', 'http://'.$_SERVER['HTTP_HOST'].'/index.php/Home/Oauth/oauth/type/');
+define('URL_CALLBACK', 'https://'.$_SERVER['HTTP_HOST'].'/index.php/Home/Oauth/oauth/type/');
 
 return array(
     //腾讯QQ登录配置

@@ -87,7 +87,7 @@ class EmailinfoController extends BaseController {
 		  'subject' => 'Elastos developer reset password code',
 		  'text'    => 'The code:'.$_SESSION['eladevp']['mailsession']
 		]);
-		*/
+		
 		$email = new \SendGrid\Mail\Mail(); 
 		$email->setFrom(C('FROM_SENDGRID_MAIL'), "F User");
 		$email->setSubject("Elastos developer Email code");
@@ -97,8 +97,8 @@ class EmailinfoController extends BaseController {
 		try {
 			$response = $sendgrid->send($email);
 		} catch (Exception $e) {
-			//echo 'Caught exception: '. $e->getMessage() ."\n";
-		}
+		}*/
+		$rs = SendMail($tomail,"elastos developer","The checkcode：".$_SESSION['eladevp']['mailsession']);
 	}
 	public function checkmailcode(){
 		$mailcode = $_POST['mailcode'];

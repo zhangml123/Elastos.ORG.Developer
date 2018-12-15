@@ -38,17 +38,17 @@
 		<li class="cative"><a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-community planned" style="color:#173045;"></a></li>
 		<li class="cative">
 		<a href="#" class="dropdown-toggle nav-lang" id="setlang" data-toggle="dropdown" style="color:#173045;background-color:#fff;"><b class="caret"></b></a>
-		<ul class="submenu dropdown-menu">
-			<li style="margin-top:10px;"><a href="#" class="nav-cn" onclick="change(1)" style="color:#173045;">简体中文</a></li>
-			<li style="margin-top:10px;"><a href="#" class="nav-en" onclick="change(2)" style="color:#173045;">English</a></li>
+		<ul class="submenu dropdown-menu" style="min-width: 124px;">
+			<li style="margin-top:0px;"><a href="#" class="nav-cn" onclick="change(1)" style="color:#173045;">简体中文</a></li>
+			<li style="margin-top:0px;"><a href="#" class="nav-en" onclick="change(2)" style="color:#173045;">English</a></li>
 		</ul>
 		</li>
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right"  id="nav_ul">
 		<li class="cative">
 		<a href="#" class="dropdown-toggle nav-lang nav-home" id="setlang" data-toggle="dropdown" style="color:#173045;background-color:#fff;"><b class="caret"></b></a>
-		<ul class="submenu dropdown-menu">
-			<li style="margin-top:10px;"><a href="{$curhost}index.php/Home/Documentation/index.html" class="nav_develop_subdoc" style="color:#173045;"></a></li>
+		<ul class="submenu dropdown-menu" style="left:-22px;min-width: 124px;">
+			<li style="margin-top:0px;text-align:center;"><a href="{$curhost}index.php/Home/Documentation/index.html" class="nav_develop_subdoc" style="color:#173045;"></a></li>
 		</ul>
 		</li>
 	  </ul>
@@ -75,4 +75,22 @@
 .tooltip.top .tooltip-arrow{
     border-top-color: #aaa;
 }
+.dropdown-menu li{
+	padding-left:0px;
+	padding-right:0px;
+	margin-top:2px;
+	height:30px;
+}
+.dropdown-menu li a:hover{
+	background-color:#F6F9FD;
+	line-height: 1.928571;
+}
 </style>
+<script>
+$(".navbar-nav li").click(function(){
+	$(this).removeClass("cative ");
+});
+$(".submenu li").mouseover(function(){
+	$(this).parent("li").removeClass("cative ");
+});
+</script>

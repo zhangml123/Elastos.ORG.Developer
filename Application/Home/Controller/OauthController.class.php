@@ -100,7 +100,6 @@ class OauthController extends BaseController{
 	 }
 	 //var_dump($user_info);
     }
-
     //登录成功，获取腾讯QQ用户信息
     public function qq($token){
         import("Org.ThinkSDK.ThinkOauth");

@@ -439,7 +439,17 @@ class PcenterController extends BaseController {
 	}
 	//加入信息到Token表
 	public function addtestela(){
-		$data['userid'] = $_SESSION ['eladevp']['userid'];
+		//$wherea['userid'] = $_SESSION ['eladevp']['userid'];
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$data['userid'] = $_SESSION ['eladevp']['userid'];
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$data['userid'] = $_SESSION ['eladevp']['rcuid'];
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$data['userid'] = $_SESSION ['eladevp']['githubuid'];
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$data['userid'] = $_SESSION ['eladevp']['wechatuid'];
+		}
+		//$data['userid'] = $_SESSION ['eladevp']['userid'];
 		$data['addtime'] = time();
 		$data['amount'] = 10;
 		$data['status'] = 1;

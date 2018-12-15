@@ -4,7 +4,7 @@ use Elafansadm\Model\LoginModel;
 use Think\Controller;
 class IndexController extends Controller {
  public function index(){
-	   $this->assign("curhost","http://".$_SERVER['HTTP_HOST']."/elafansadm.php/");
+	   $this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/elafansadm.php/");
 		$this->display();
 	}
 	//登录验证

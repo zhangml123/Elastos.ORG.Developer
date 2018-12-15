@@ -34,7 +34,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs  hidden-md" id="doc_menu_out_l">
+				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm leftmenmyprofile" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
 							<li class="doc_menu_l_li_subm leftmengettesttoken" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
@@ -168,7 +168,7 @@ $("#token-list li").mouseout(function(){
 });
 function applyelasuccful_popup(){
   $("#applyelasuccful").modal("show");
-  setTimeout(function(){$("#applyelasuccful").modal("hide")},3000)
+  setTimeout(function(){$("#applyelasuccful").modal("hide");window.location.reload()},3000)
 }
 function applyelatip_popup(){
   $("#applyelatip").modal("show");
@@ -187,7 +187,9 @@ $("#applytestelabtn").click(function(){
 		function(data){
 			if(data==1){
 				$("#testelaadr").val("");
+				///window.reload();
 				applyelasuccful_popup();
+				//setTimeout(function(){$("#applyelatip").modal("hide")},3000)
 			}else{
 			
 			}

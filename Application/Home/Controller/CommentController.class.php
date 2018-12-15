@@ -51,7 +51,7 @@ class CommentController extends Controller {
 	public function addcomment(){
 		$data['contents'] = $_POST['contents'];
 		$data['addtime'] = time();
-	/* 	if(isset($_SESSION ['eladevp']['userid']) && $_SESSION ['eladevp']['userid']!=""){
+/* 		if(isset($_SESSION ['eladevp']['userid']) && $_SESSION ['eladevp']['userid']!=""){
 			$data['sender'] = $_SESSION ['eladevp']['userid'];
 		}else{
 			$data['sender'] = "匿名";
