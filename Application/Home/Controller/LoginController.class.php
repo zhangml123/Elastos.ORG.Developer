@@ -27,6 +27,54 @@ class LoginController extends BaseController {
 		}
 		$this->display();
 	}
+	
+	//微信公众号登录，获取相关信息
+	public function wechat(){
+		$code = $_GET['code'];
+		$state = $_GET['state'];
+		$appid = C("WEIXIN_APP_ID");
+		$secret = C("WEIXIN_SECRET");
+		//更新数据库
+		$staywechat = M("staywechat");
+		$data['code'] = $code;
+		$where['wechatrand'] = $state;
+		$rs = $staywechat->where($where)->save($data);
+		if($rs){
+			$rsa = $this->gettoken($code,$appid,$secret);
+			echo $rsa;
+		}else{
+			echo 0;
+		}
+	}
+	//换取token
+	public function gettoken($code,$appid,$secret){
+		$token = file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid.'secret='.$secret.'&code='.$code.'&grant_type=authorization_code');
+		$tokeninfo = json_decode($token,true);
+		$rsb = $this->getinfo($code,$tokeninfo['access_token'],$tokeninfo['openid']);
+		if($rsb){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	//获取用户信息,更新数据库
+	public function getuinfo($code,$token,$openid){
+		$useri = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token='.$token.'&openid='.$openid.'&lang=zh_CN');
+		$userinfo = json_decode($useri,true);
+		$staywechat = M("staywechat");
+		$where['code'] = $code;
+		$data['nickname'] = $userinfo['nickname'];
+		$data['province'] = $userinfo['province'];
+		$data['city'] = $userinfo['city'];
+		$data['headimg'] = $userinfo['headimgurl'];
+		$data['openid'] = $userinfo['openid'];
+		$rsc = $staywechat->where($where)->save($data);
+		if($rsc){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 	//登录
 	public function login(){
 		$where['userid'] = $_POST['uid'];

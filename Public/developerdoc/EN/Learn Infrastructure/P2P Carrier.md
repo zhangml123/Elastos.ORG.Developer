@@ -6,7 +6,7 @@
 <p>The API is provided by default.</p>
 <p>Open the document, go to the html directory, find index.html and click it to open the API document in the browser.</p>
 <ul>
-<li><a href="/elastos/Elastos.Developer.Doc/blob/master/EN/Learn%20Infrastructure/SDK/Elastos.NET.Carrier.Native.SDK_API.zip">Carrier_API</a></li>
+<li><a href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/SDK/Elastos.NET.Carrier.Native.SDK_API.zip">Carrier_API</a></li>
 </ul>
 <p>Refer to the last part of the documentation below to export the latest API documentation:</p>
 <ul>

@@ -3,12 +3,7 @@
 <li>
 <p>Java offline signature</p>
 <ul>
-<li>
-<p><a href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/Doc/Java_offline_signature.md">EN</a></p>
-</li>
-<li>
-<p><a href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/Doc/Java_offline_signature_CN.pdf">PDF_CN</a></p>
-</li>
+<li><a href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/Doc/Java_offline_signature.md">EN</a></li>
 </ul>
 </li>
 <li>

@@ -154,7 +154,7 @@ class DocumentationController extends Controller {
 				$searcword = str_replace(".md","",$arr_files[$i]);
 				$docname = explode("/",$searcword);
 				$arr[$j]['contents'] = str_replace($sw,"<span style='color:#000;background-color:#FFFCAB;display:inline;height:30px;font-size:16px;font-weight:600;'>&nbsp;".$sw."&nbsp;</span>",mb_substr($reststr,0,210,'utf-8'));
-				$arr[$j]['searchurl'] = "http://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
+				$arr[$j]['searchurl'] = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
 				$arr[$j]['docname'] = $docname[count($docname)-1];
 				$j = $j+1;
 			}

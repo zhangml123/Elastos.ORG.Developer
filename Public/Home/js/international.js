@@ -1,7 +1,7 @@
 var internationalWordsZH = new Object();
 var internationalWordsEN = new Object();
-internationalWordsZH.hosturl='@BASE_URL@';
-internationalWordsEN.hosturl='@BASE_URL@';
+internationalWordsZH.hosturl='';
+internationalWordsEN.hosturl='';
 //导航部分
 internationalWordsZH.home='开发';
 internationalWordsEN.home='Develop';
@@ -173,11 +173,11 @@ internationalWordsEN.signupemailreged="This email has been registered!";
 internationalWordsZH.signupconfirmtitle ='电子邮箱确认';
 internationalWordsEN.signupconfirmtitle="Email Confirmation";
 internationalWordsZH.signupconfirmsendmail ='我们发送了一个确认代码';
-internationalWordsEN.signupconfirmsendmail="We hava sent a confirmation code to";
+internationalWordsEN.signupconfirmsendmail="We hava sent a confirmation code to"; 
 internationalWordsZH.signupconfirmnorececode ='如果你没有收到确认码，点击这里';
-internationalWordsEN.signupconfirmnorececode="if you don't receive a code,click here to";
+internationalWordsEN.signupconfirmnorececode="if you don't receive a code,click here to"; 
 internationalWordsZH.signupconfirmcode ='确认验证码';
-internationalWordsEN.signupconfirmcode="Confirmation code";
+internationalWordsEN.signupconfirmcode="Confirmation code";  
 
 
 

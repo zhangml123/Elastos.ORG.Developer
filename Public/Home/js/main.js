@@ -116,6 +116,7 @@ function guojihua(){
     $('.docpageresearch').attr("placeholder",internationalWords.docpageresearch);
     $('.docpagedevlopdoc').html(internationalWords.docpagedevlopdoc);
     $('.docpagehome').html(internationalWords.docpagehome);
+    $('.emailconfirmation').html(internationalWords.signupconfirmtitle);
 }
 guojihua();
 

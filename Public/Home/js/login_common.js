@@ -36,6 +36,16 @@ function restpwd_popup(){
   $("#resetpwdModal").modal("show");
 }
 
+function wechatqrcode_popup(){
+  $("#emailModal").modal("hide");
+  $("#regModal").modal("hide");
+  $("#loginModal").modal("hide");
+  $("#forgetpwdModal").modal("hide");
+  $("#confirmemailcodeModal").modal("hide");
+  $("#resetpwdModal").modal("hide");
+  $("#wechatqrcodeModal").modal("show");
+}
+
 $(".globalLoginBtn").on("click",login_popup);
 $("#jumplogin").on("click",login_popup);
 $("#jumplogins").on("click",login_popup);
@@ -174,7 +184,7 @@ $("#id_account_l").keyup(function(){
 $("#id_password_l").keyup(function(){
 	if(isNull($(this).val())){
 		$(".login_p_tip").show();
-		$(".login_p_tip").html(internationalWords.forgetpwdemailtip);
+		$(".login_p_tip").html(internationalWords.loginepasswordtip);
 	}else{
 		$(".login_p_tip").html("");
 		if(isNull($(this).val()) || isNull($("#id_account_l").val())){
