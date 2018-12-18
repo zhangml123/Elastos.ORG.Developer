@@ -10,12 +10,13 @@
 function sendMail($to, $title, $content) {
     Vendor('PHPMailer.PHPMailerAutoload');
     $mail = new PHPMailer(); //实例化
-	//var_dump($mail);
     $mail->IsSMTP(); // 启用SMTP
-    $mail->Host=C('MAIL_HOST'); //smtp服务器的名称（这里以QQ邮箱为例）
+    $mail->Host=C('MAIL_HOST'); //smtp服务器的名称
+    $mail->SMTPSecure = C('MAIL_SSL'); //加密方式
+    $mail->Port = C('MAIL_PORT'); //SMTP服务器端口
     $mail->SMTPAuth = C('MAIL_SMTPAUTH'); //启用smtp认证
     $mail->Username = C('MAIL_USERNAME'); //发件人邮箱名
-    $mail->Password = C('MAIL_PASSWORD') ; //163邮箱发件人授权密码
+    $mail->Password = C('MAIL_PASSWORD') ; //邮箱发件人授权密码
     $mail->From = C('MAIL_FROM'); //发件人地址（也就是你的邮箱地址）
     $mail->FromName = C('MAIL_FROMNAME'); //发件人姓名
     $mail->AddAddress($to,"尊敬的客户");
@@ -26,5 +27,12 @@ function sendMail($to, $title, $content) {
     $mail->Body = $content; //邮件内容
     $mail->AltBody = "这是一个纯文本的身体在非营利的HTML电子邮件客户端"; //邮件正文不支持HTML的备用显示
     return($mail->Send());
+}
+function is_weixin() { 
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+        return true; 
+    }else{
+		return false;
+	}
 }
 ?>

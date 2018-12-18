@@ -235,3 +235,12 @@ $("#id_password_reg_l").keyup(function(){
 		}
 	}
 });
+function loginoutscuff_popup(){
+  setTimeout(function(){$("#loginoutscuff").modal("hide");window.location.href=internationalWords.hosturl},3000);
+}
+function loginouterror_popup(){
+ setTimeout(function(){$("#loginoutfail").modal("hide");window.location.reload();},3000);
+}
+$("#loginoutbtn").click(function(){
+	$.post(internationalWords.hosturl+'index.php/Home/Pcenter/logout',{s:1},function(data){if(data==1){loginoutscuff_popup();}else{loginouterror_popup();}})
+});

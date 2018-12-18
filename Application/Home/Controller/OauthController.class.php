@@ -62,6 +62,7 @@ class OauthController extends BaseController{
 					$rsb=M('user')->where($whereb)->find();
 					if($rsb){
 						$_SESSION ['eladevp']['userid'] = $rsb['userid'];
+						$_SESSION ['eladevp']['userheadimg'] = $rsb['headimg'];
 						$_SESSION ['eladevp']['logincate'] = 1;
 						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}else{
@@ -76,8 +77,9 @@ class OauthController extends BaseController{
 						$datagit['email'] = $user_info['email'];
 						$rsc = $githubinfo->where($wherec)->save($datagit);
 						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
+						$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
 						$_SESSION ['eladevp']['logincate'] = 3;
-						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+						redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}
 				}else{
 					$datagit['githubuid'] = $user_info['name'];
@@ -92,6 +94,7 @@ class OauthController extends BaseController{
 					//var_dump();
 					//var_dump($githubinfo->getlastsql());
 					$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
+					$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
 					$_SESSION ['eladevp']['logincate'] = 3;
 					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 				}
