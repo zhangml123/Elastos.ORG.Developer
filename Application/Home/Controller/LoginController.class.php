@@ -19,6 +19,7 @@ class LoginController extends BaseController {
 			redirect($sdk->getRequestCodeURL());  //重定向到第三方登录授权页面
 		//}elseif($type=="weixin"){
 			//var_dump($_REQUEST);
+			
 		//}
 	}
 	public function complateuinfo(){
@@ -35,33 +36,40 @@ class LoginController extends BaseController {
 		$appid = C("WEIXIN_APP_ID");
 		$secret = C("WEIXIN_SECRET");
 		//更新数据库
-		$staywechat = M("staywechat");
+ 		$staywechat = M("staywechat");
 		$data['code'] = $code;
 		$where['wechatrand'] = $state;
 		$rs = $staywechat->where($where)->save($data);
 		if($rs){
-			$rsa = $this->gettoken($code,$appid,$secret);
+			$rsa = $this->gettoken($state,$code,$appid,$secret);
 			echo $rsa;
 		}else{
-			echo 0;
+			echo "<div style='width:100%;height:400px;line-height:400px;color:#222;text-align:center;font-weight:900;'>授权失败！!</div>";
 		}
 	}
 	//换取token
-	public function gettoken($code,$appid,$secret){
-		$token = file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid.'secret='.$secret.'&code='.$code.'&grant_type=authorization_code');
+	public function gettoken($state,$code,$appid,$secret){
+		$token = file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid.'&secret='.$secret.'&code='.$code.'&grant_type=authorization_code');
 		$tokeninfo = json_decode($token,true);
-		$rsb = $this->getinfo($code,$tokeninfo['access_token'],$tokeninfo['openid']);
-		if($rsb){
-			return 1;
-		}else{
-			return 0;
-		}
+		$rsb = $this->getuinfo($code,$tokeninfo['access_token'],$tokeninfo['openid']);
+		 if($rsb){
+			 $str = substr($state,0,1);
+			 if($str=="W"){
+				$this->updatewechatinfo();
+				$hurl = 'https://'.$_SERVER['HTTP_HOST'].'/';
+				return  "<script>window.location.href='".$hurl."';</script>";
+			 }else{
+				return  "<div style='width:100%;height:400px;line-height:400px;color:red;text-align:center;font-weight:900;'>授权成功！</div><script>setTimeout(function(){window.close();},3000);</script>";
+			 }
+		 }else{
+			 return "<div style='width:100%;height:400px;line-height:400px;color:#222;text-align:center;font-weight:900;'>授权失败！</div>";
+		 }
 	}
 	//获取用户信息,更新数据库
 	public function getuinfo($code,$token,$openid){
 		$useri = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token='.$token.'&openid='.$openid.'&lang=zh_CN');
 		$userinfo = json_decode($useri,true);
-		$staywechat = M("staywechat");
+	 	$staywechat = M("staywechat");
 		$where['code'] = $code;
 		$data['nickname'] = $userinfo['nickname'];
 		$data['province'] = $userinfo['province'];
@@ -83,6 +91,7 @@ class LoginController extends BaseController {
 		$rs = $user->where($where)->find();
 		if($rs){
 			$_SESSION ['eladevp']['userid'] = $_POST['uid'];
+			$_SESSION ['eladevp']['userheadimg'] = $_POST['headimg'];
 			$_SESSION['eladevp']['logincate'] = 1;
 		    echo 1;
 		}else{
@@ -121,6 +130,7 @@ class LoginController extends BaseController {
 			}
 			$_SESSION['eladevp']['rcuid'] = $uid;
 			$_SESSION['eladevp']['logincate'] = 2;
+			$_SESSION ['eladevp']['userheadimg'] = "";
 		}else{
 			return 0;
 		}
@@ -183,4 +193,52 @@ class LoginController extends BaseController {
         // 返回数据
         return $data;
     }
+	//查询并更新
+	public function updatewechatinfo(){
+		if(isset($_SESSION ['eladevp']['wechatrand']) && $_SESSION ['eladevp']['wechatrand']!=""){
+		//首先判断是否存在
+		$where['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
+		$staywechat = M('staywechat');
+		$wechatinfo = M('wechatinfo');
+		$user = M('user');
+		$staychat  = $staywechat->where($where)->find();
+		$dataa['wechatuid'] = $staychat['openid'];
+		$dataa['wechatappid'] = $staychat['openid'];
+		$dataa['nickname'] = $staychat['nickname'];
+		$dataa['headimg'] = $staychat['headimg'];
+		$dataa['city'] = $staychat['city'];
+		//var_dump($staychat);
+		if($staychat['openid']!=""){
+			$wherea['wechatappid'] = $staychat['openid'];
+			$rsinfo = $wechatinfo->where($wherea)->find();
+			if($rsinfo){
+				//判断是否与User表关联
+				$whereb['wechatuid'] = $staychat['openid'];
+				$rsbinfo = $user->where($whereb)->find();
+				if($rsbinfo){
+					//构造User登录
+					$_SESSION['eladevp']['userid'] = $rsbinfo['userid'];
+					$_SESSION ['eladevp']['logincate'] = 1;
+					$backrs = 1;
+				}else{
+					//Wechat登录
+					$_SESSION['eladevp']['wechatuid'] = $staychat['openid'];
+					$_SESSION ['eladevp']['logincate'] = 4;
+					$backrs = 1;
+				}
+			}else{
+				//新增到wechatinfo表
+				$rsainfo = $wechatinfo->add($dataa);
+				$_SESSION['eladevp']['wechatuid'] = $staychat['openid'];
+				$_SESSION ['eladevp']['logincate'] = 4;
+				$backrs = 1;
+			}
+		}else{
+			$backrs = 0;
+		}
+		echo $backrs;
+	}else{
+		echo 0;
+	}
+  }
 }

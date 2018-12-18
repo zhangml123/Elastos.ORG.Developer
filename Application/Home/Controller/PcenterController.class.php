@@ -7,6 +7,7 @@ class PcenterController extends BaseController {
 	public function index(){
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
 		}else{
 			$this->assign("logincate","");
 		}
@@ -269,6 +270,7 @@ class PcenterController extends BaseController {
 			$where['wechatuid'] = $_SESSION['eladevp']['wechatuid'];
 			$wechatinfo = M("wechatinfo");
 			$userinfo=$wechatinfo->where($where)->find();
+		//var_dump($wechatinfo->getlastsql());
 		}
 		return $userinfo;
 	}
@@ -331,6 +333,7 @@ class PcenterController extends BaseController {
 	//测试Token
 	public function tokeninfo(){
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 		}else{
 			$this->assign("logincate","");
@@ -353,8 +356,10 @@ class PcenterController extends BaseController {
 					$rslist[$i]['adddate'] = date("Y-m-d",$rslist[$i]['addtime']);
 					if($rslist[$i]['status'] ==3){
 						$rslist[$i]['curstatus'] = "成功";
+					}elseif($rslist[$i]['status'] ==1){
+						$rslist[$i]['curstatus'] = "未确认";
 					}else{
-						$rslist[$i]['curstatus'] = "进行中";
+						$rslist[$i]['curstatus'] = "失败";
 					}
 				}
 			}else{
@@ -362,8 +367,10 @@ class PcenterController extends BaseController {
 					$rslist[$i]['adddate'] = date("M d,Y",$rslist[$i]['addtime']);
 					if($rslist[$i]['status'] ==3){
 						$rslist[$i]['curstatus'] = "Success";
+					}elseif($rslist[$i]['status'] ==1){
+						$rslist[$i]['curstatus'] = "Unconfirmed";
 					}else{
-						$rslist[$i]['curstatus'] = "In Progress 7/12";
+						$rslist[$i]['curstatus'] = "Fail";
 					}
 				}
 			}
@@ -401,8 +408,10 @@ class PcenterController extends BaseController {
 					$rslist[$i]['adddate'] = date("Y-m-d",$rslist[$i]['addtime']);
 					if($rslist[$i]['status'] ==3){
 						$rslist[$i]['curstatus'] = "成功";
+					}elseif($rslist[$i]['status'] ==1){
+						$rslist[$i]['curstatus'] = "未确认";
 					}else{
-						$rslist[$i]['curstatus'] = "进行中";
+						$rslist[$i]['curstatus'] = "失败";
 					}
 				}
 			}else{
@@ -410,8 +419,10 @@ class PcenterController extends BaseController {
 					$rslist[$i]['adddate'] = date("M d,Y",$rslist[$i]['addtime']);
 					if($rslist[$i]['status'] ==3){
 						$rslist[$i]['curstatus'] = "Success";
+					}elseif($rslist[$i]['status'] ==1){
+						$rslist[$i]['curstatus'] = "Unconfirmed";
 					}else{
-						$rslist[$i]['curstatus'] = "In Progress 7/12";
+						$rslist[$i]['curstatus'] = "Fail";
 					}
 				}
 			}
@@ -431,14 +442,14 @@ class PcenterController extends BaseController {
 		$data = '{"status":0,"error":"","info":{}}';
 		$aw = json_decode($data,true);
 		if($aw['status']==0){
-			$rs = $this->addtestela();
+			$rs = $this->addtestela($_POST['testelaadr']);
 		}else{
 			$rs = 0;
 		}
 		echo $rs;
 	}
 	//加入信息到Token表
-	public function addtestela(){
+	public function addtestela($eladr){
 		//$wherea['userid'] = $_SESSION ['eladevp']['userid'];
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$data['userid'] = $_SESSION ['eladevp']['userid'];
@@ -451,6 +462,7 @@ class PcenterController extends BaseController {
 		}
 		//$data['userid'] = $_SESSION ['eladevp']['userid'];
 		$data['addtime'] = time();
+		$data['eladr'] = $eladr;
 		$data['amount'] = 10;
 		$data['status'] = 1;
 		$applyela = M("applytestela");
@@ -479,7 +491,8 @@ class PcenterController extends BaseController {
 	//退出
 	public function logout(){
 		session_destroy();
-		redirect("https://".$_SERVER['HTTP_HOST']);
+		//redirect("http://".$_SERVER['HTTP_HOST']);
+		echo 1;
 	}
 }
 ?>

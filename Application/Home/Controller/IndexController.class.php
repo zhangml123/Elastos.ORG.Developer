@@ -6,8 +6,17 @@ class IndexController extends Controller {
     public function index(){
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+			
 		}else{
 			$this->assign("logincate","");
+			if(is_weixin()){
+				$state = "W".time().$this->getRandomString(5);
+				$_SESSION['eladevp']['wechatrand'] = $state;
+				$this->add($state);
+				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
+				header('Location: '.$url);
+			}
 		}
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
@@ -76,7 +85,7 @@ class IndexController extends Controller {
     }
 	public function getRandomString($len, $chars=null)  {  
 		if (is_null($chars)) {  
-			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  
+			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		}  
 		mt_srand(10000000*(double)microtime());  
 		for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {  
@@ -84,6 +93,7 @@ class IndexController extends Controller {
 		}  
 		return $str;  
 	}
+	
 	//新增到数据库
 	public function add($state){
 		$data['wechatrand'] = $state;
@@ -99,9 +109,11 @@ class IndexController extends Controller {
 		$wechatinfo = M('wechatinfo');
 		$user = M('user');
 		$staychat  = $staywechat->where($where)->find();
+		$dataa['wechatuid'] = $staychat['openid'];
 		$dataa['wechatappid'] = $staychat['openid'];
 		$dataa['nickname'] = $staychat['nickname'];
 		$dataa['headimg'] = $staychat['headimg'];
+		$dataa['city'] = $staychat['city'];
 		//var_dump($staychat);
 		if($staychat['openid']!=""){
 			$wherea['wechatappid'] = $staychat['openid'];
@@ -113,11 +125,13 @@ class IndexController extends Controller {
 				if($rsbinfo){
 					//构造User登录
 					$_SESSION['eladevp']['userid'] = $rsbinfo['userid'];
+					$_SESSION['eladevp']['userheadimg'] = $rsbinfo['headimg'];
 					$_SESSION ['eladevp']['logincate'] = 1;
 					$backrs = 1;
 				}else{
 					//Wechat登录
 					$_SESSION['eladevp']['wechatuid'] = $staychat['openid'];
+					$_SESSION['eladevp']['userheadimg'] = $staychat['headimg'];
 					$_SESSION ['eladevp']['logincate'] = 4;
 					$backrs = 1;
 				}
@@ -125,6 +139,7 @@ class IndexController extends Controller {
 				//新增到wechatinfo表
 				$rsainfo = $wechatinfo->add($dataa);
 				$_SESSION['eladevp']['wechatuid'] = $staychat['openid'];
+				$_SESSION['eladevp']['userheadimg'] = $staychat['headimg'];
 				$_SESSION ['eladevp']['logincate'] = 4;
 				$backrs = 1;
 			}

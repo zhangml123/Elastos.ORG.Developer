@@ -8,8 +8,16 @@ class DocumentationController extends Controller {
 
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
 		}else{
 			$this->assign("logincate","");
+			if(is_weixin()){
+				$state = "W".time().$this->getRandomString(5);
+				$_SESSION['eladevp']['wechatrand'] = $state;
+				$this->add($state);
+				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
+				header('Location: '.$url);
+			}
 		}
 		if(isset($_GET['doc']) && $_GET['doc']!=""){
 			if($_SESSION ['eladevp']['lang']=="en"){
@@ -82,8 +90,16 @@ class DocumentationController extends Controller {
 		
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
 		}else{
 			$this->assign("logincate","");
+			if(is_weixin()){
+				$state = "W".time().$this->getRandomString(5);
+				$_SESSION['eladevp']['wechatrand'] = $state;
+				$this->add($state);
+				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
+				header('Location: '.$url);
+			}
 		}
 		$searchword = $_GET['sw'];
 		$searchrs = $this->searchfilecontents($searchword);
@@ -110,6 +126,12 @@ class DocumentationController extends Controller {
 		$this->assign("rsnum",count($searchrs));
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
+	}
+	//新增到数据库
+	public function add($state){
+		$data['wechatrand'] = $state;
+		$staywechat = M('staywechat');
+		$rs = $staywechat->add($data);
 	}
 	//获取指定页面的列表
 	public function searchlimit(){

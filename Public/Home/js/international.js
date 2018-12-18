@@ -7,12 +7,12 @@ internationalWordsZH.home='开发';
 internationalWordsEN.home='Develop';
 internationalWordsZH.navdevlopdoc='开发者文档';
 internationalWordsEN.navdevlopdoc='Documentation';
-internationalWordsZH.dapp='dApp商店';
-internationalWordsEN.dapp='dApp Store';
+internationalWordsZH.dapp='dApps';
+internationalWordsEN.dapp='dApps';
 internationalWordsZH.community='开发者社区';
 internationalWordsEN.community='Community';
 internationalWordsZH.login='登录';
-internationalWordsEN.login='Login';
+internationalWordsEN.login='LOG IN';
 internationalWordsZH.langcn='简体中文';
 internationalWordsEN.langcn='简体中文';
 internationalWordsZH.langen='English';
@@ -23,7 +23,7 @@ internationalWordsZH.pcentergettoken='获取测试币';
 internationalWordsEN.pcentergettoken='Get Test Token';
 internationalWordsZH.logout='安全退出';
 internationalWordsEN.logout='Log out';
-internationalWordsZH.planned='规划';
+internationalWordsZH.planned='规划中';
 internationalWordsEN.planned='Planned';
 /*
 	首页部分
@@ -31,7 +31,7 @@ internationalWordsEN.planned='Planned';
 //第一部分
 internationalWordsZH.oneparttitle='基于我们强大的公链开发你的dApp';
 internationalWordsEN.oneparttitle='Develop your dApps with our powerful platform';
-internationalWordsZH.onepartsummary='清晰的文档和dApp商店分发，贡献社区获得奖励';
+internationalWordsZH.onepartsummary='清晰的文档和dApp市场，贡献社区获得奖励';
 internationalWordsEN.onepartsummary='Clear documentation and dApp store, contribute and earn rewards.';
 internationalWordsZH.onepartdocbtn='开发文档';
 internationalWordsEN.onepartdocbtn='Documentation';
@@ -44,11 +44,11 @@ internationalWordsZH.towparttitle='猜你喜欢';
 internationalWordsEN.towparttitle='What you may like';
 internationalWordsZH.towpartsubonetitle='学习基础设施';
 internationalWordsEN.towpartsubonetitle='Learn Infrastructure';
-internationalWordsZH.towpartsubonesummary='进一步了解：亦来云<br>运营商，主链，<br>DID链，侧链';
+internationalWordsZH.towpartsubonesummary='进一步了解：亦来云<br>Carrier，主链，<br>DID链，侧链';
 internationalWordsEN.towpartsubonesummary='Get to know: Elastos <br>Carrier, Blockchain,<br> DID chain, Side chain';
 internationalWordsZH.towpartsubtowtitle='亦来云钱包';
 internationalWordsEN.towpartsubtowtitle='Elastos Wallet';
-internationalWordsZH.towpartsubtowsummary='我们支持轻量级<br>SPV、全结点和<br>硬件钱包';
+internationalWordsZH.towpartsubtowsummary='我们支持轻量级<br>SPV、全节点和<br>硬件钱包';
 internationalWordsEN.towpartsubtowsummary='We support lightweight <br>SPV, Full Node wallet, and <br>hardware wallet';
 internationalWordsZH.towpartsubthreetitle='交易所对接';
 internationalWordsEN.towpartsubthreetitle='Exchange Integration';
@@ -61,18 +61,18 @@ internationalWordsEN.towpartsubfoursummary='Integrate with Elastos<br> services 
 //第三部分
 internationalWordsZH.threeparttitle='在线学习';
 internationalWordsEN.threeparttitle='Online Learning';
-internationalWordsZH.threepartone='-在这里，你可以';
+internationalWordsZH.threepartone='在这里，你可以';
 internationalWordsEN.threepartone='Here, you can';
-internationalWordsZH.threeparttow='- 不需要设置复杂的开发环境，立刻开始编程';
-internationalWordsEN.threeparttow=' - Just get started to code without dev environment';
+internationalWordsZH.threeparttow='- 不需要配置复杂的开发环境，立刻开始编程';
+internationalWordsEN.threeparttow='- Just get started to code without dev environment';
 internationalWordsZH.threepartthree='';
 internationalWordsEN.threepartthree='Set up';
 internationalWordsZH.threepartfour='- 快速查看编程案例';
-internationalWordsEN.threepartfour=' - Walk-through the sample dApps in a second';
+internationalWordsEN.threepartfour=' - Walk through the sample dApps in a second';
 internationalWordsZH.threepartfive='- 跟专家学习具体课程';
 internationalWordsEN.threepartfive=' - Learn specific courses form experts';
 //第四部分
-internationalWordsZH.fourpartcontents='请教其他开发者，分享你的知识赚取奖励';
+internationalWordsZH.fourpartcontents='请教其他开发者，分享你的知识，赚取奖励';
 internationalWordsEN.fourpartcontents='Ask other developers, share your knowledge and earn rewards';
 internationalWordsZH.fourparttitle='开发者社区';
 internationalWordsEN.fourparttitle='Community';
@@ -85,30 +85,38 @@ internationalWordsEN.fourpartbtn='Enter';
 internationalWordsZH.docpagecomments='评论';
 internationalWordsEN.docpagecomments='Comments';
 internationalWordsZH.docpagecommentstip='你告诉我们的越多，帮助得越多。';
-internationalWordsEN.docpagecommentstip='The more you tell us,the more we can help.';
-internationalWordsZH.docpagesendbtn='发送';
+internationalWordsEN.docpagecommentstip='The more you tell us, the more we can help.';
+internationalWordsZH.docpagesendbtn='提交';
 internationalWordsEN.docpagesendbtn='Send';
 internationalWordsZH.docpageresendbtn='回复';
-internationalWordsEN.docpageresendbtn='Replay';
+internationalWordsEN.docpageresendbtn='Reply';
 internationalWordsZH.docpagerecancelbtn='取消';
 internationalWordsEN.docpagerecancelbtn='Cancel';
-internationalWordsZH.docpagerehowlike='你认为它怎么样？';
+internationalWordsZH.docpagerehowlike='你喜欢这篇文档吗？';
 internationalWordsEN.docpagerehowlike='How do you like it?';
 internationalWordsZH.docpageresearch='搜索';
 internationalWordsEN.docpageresearch='Search';
-internationalWordsZH.docpagereimporve='Imporve on github';
-internationalWordsEN.docpagereimporve='Imporve on github';
+internationalWordsZH.docpagereimporve='去Github上优化';
+internationalWordsEN.docpagereimporve='Imporve on Github';
 internationalWordsZH.docpagehome='开发';
 internationalWordsEN.docpagehome='Develop';
 internationalWordsZH.docpagedevlopdoc='开发者文档';
 internationalWordsEN.docpagedevlopdoc='Documentation';
+
+
+internationalWordsZH.docpagecommenttipc='评论内容不能为空.';
+internationalWordsEN.docpagecommenttipc='The comment contents is required.';
+internationalWordsZH.docpagecommenttipscuf='评论成功.';
+internationalWordsEN.docpagecommenttipscuf='Comment added.';
+internationalWordsZH.docpagecommenterror='评论失败,请稍后再试.';
+internationalWordsEN.docpagecommenterror='Failed to add comment, please try again later.';
 
 /*
 	登录注册相关页面
 */
 //登录页面
 internationalWordsZH.logintitle='登录';
-internationalWordsEN.logintitle='Log in';
+internationalWordsEN.logintitle='Log In';
 internationalWordsZH.logintitletip='如何你有Cyber Republic网站的账号，可以直接登录';
 internationalWordsEN.logintitletip='You can log in with your Cyber Republic crendentials';
 internationalWordsZH.loginemail='电子邮箱';
@@ -117,7 +125,7 @@ internationalWordsZH.loginemailtip='请输入有效的电子邮箱';
 internationalWordsEN.loginemailtip='Please input valid Email!';
 internationalWordsZH.loginepassword='密码';
 internationalWordsEN.loginepassword='Password';
-internationalWordsZH.loginepasswordtip='请输入有效的密码';
+internationalWordsZH.loginepasswordtip='请输入密码';
 internationalWordsEN.loginepasswordtip='Please input valid passwrod!';
 internationalWordsZH.logineforgetpwd='忘记密码？';
 internationalWordsEN.logineforgetpwd='Forgot password?';
@@ -127,6 +135,13 @@ internationalWordsZH.logincreatone='创建一个';
 internationalWordsEN.logincreatone='Create one';
 internationalWordsZH.logincontinue ='或者直接登录';
 internationalWordsEN.logincontinue='Or continue with';
+
+internationalWordsZH.loginwechat ='微信';
+internationalWordsEN.loginwechat='Wechat';
+internationalWordsZH.loginscanqrcode ='扫码授权';
+internationalWordsEN.loginscanqrcode='Scan code';
+
+
 //忘记密码页面
 internationalWordsZH.forgetpwd ='忘记密码';
 internationalWordsEN.forgetpwd='Forget Password';
@@ -157,27 +172,27 @@ internationalWordsEN.resetpwdconfirmpwd="Confirm password";
 internationalWordsZH.resetpwdbtn ='重置';
 internationalWordsEN.resetpwdbtn="Reset";
 internationalWordsZH.resetpwdtip ='两次输入密码不一致！';
-internationalWordsEN.resetpwdtip="Two inconsistent passwords!";
+internationalWordsEN.resetpwdtip="Password does not match!";
 //注册页面
 internationalWordsZH.signuptitle ='注册';
-internationalWordsEN.signuptitle="Sign up";
+internationalWordsEN.signuptitle="Sign Up";
 internationalWordsZH.signemail ='电子邮箱';
 internationalWordsEN.signemail="Email";
 internationalWordsZH.signpwd ='密码';
 internationalWordsEN.signpwd="Password";
 internationalWordsZH.signhavaaaccount ='有账户';
-internationalWordsEN.signhavaaaccount="havaaccount";
+internationalWordsEN.signhavaaaccount="Hava an account";
 internationalWordsZH.signupemailreged ='该电子邮箱已经被注册了!';
 internationalWordsEN.signupemailreged="This email has been registered!";
 //注册确认码页面
 internationalWordsZH.signupconfirmtitle ='电子邮箱确认';
 internationalWordsEN.signupconfirmtitle="Email Confirmation";
-internationalWordsZH.signupconfirmsendmail ='我们发送了一个确认代码';
-internationalWordsEN.signupconfirmsendmail="We hava sent a confirmation code to"; 
+internationalWordsZH.signupconfirmsendmail ='我们发送了一个确认代码到';
+internationalWordsEN.signupconfirmsendmail="We hava sent a confirmation code to";
 internationalWordsZH.signupconfirmnorececode ='如果你没有收到确认码，点击这里';
-internationalWordsEN.signupconfirmnorececode="if you don't receive a code,click here to"; 
+internationalWordsEN.signupconfirmnorececode="if you don't receive a code, click here to";
 internationalWordsZH.signupconfirmcode ='确认验证码';
-internationalWordsEN.signupconfirmcode="Confirmation code";  
+internationalWordsEN.signupconfirmcode="Confirmation code";
 
 
 
@@ -193,11 +208,11 @@ internationalWordsEN.leftmengettesttoken='Get Test Token';
 //my profile page
 internationalWordsZH.profileedit='编辑我的信息';
 internationalWordsEN.profileedit='Edit Profile';
-internationalWordsZH.profilebottomtip='青春逝去，智慧永存。';
-internationalWordsEN.profilebottomtip='When youth departs, may wisdom prove enouth.';
+internationalWordsZH.profilebottomtip='';
+internationalWordsEN.profilebottomtip='';
 //edit profile
-internationalWordsZH.profileedittitle='编辑你的信息';
-internationalWordsEN.profileedittitle='Edit your Profile';
+internationalWordsZH.profileedittitle='编辑我的信息';
+internationalWordsEN.profileedittitle='Edit My Profile';
 internationalWordsZH.profileeditgeneral='通用';
 internationalWordsEN.profileeditgeneral='General';
 internationalWordsZH.profileeditemail='电子邮箱';
@@ -206,16 +221,20 @@ internationalWordsZH.profileeditfirstname='姓';
 internationalWordsEN.profileeditfirstname='First Name';
 internationalWordsZH.profileeditlastname='名';
 internationalWordsEN.profileeditlastname='Last Name';
-internationalWordsZH.profileeditlocation='位置';
+internationalWordsZH.profileeditlocation='坐标';
 internationalWordsEN.profileeditlocation='Location';
 internationalWordsZH.profileeditbio='简介';
 internationalWordsEN.profileeditbio='Bio';
 internationalWordsZH.profileediturl='网址';
-internationalWordsEN.profileediturl='Url';
+internationalWordsEN.profileediturl='URL';
 internationalWordsZH.profileeditcompany='公司';
 internationalWordsEN.profileeditcompany='Company';
 internationalWordsZH.profileeditsave='保存';
 internationalWordsEN.profileeditsave='Save';
+internationalWordsZH.profileeditsavesuccfully='更新成功';
+internationalWordsEN.profileeditsavesuccfully='Profile updated.';
+internationalWordsZH.profileeditsavesfail='更新失败，请重试';
+internationalWordsEN.profileeditsavesfail='Failed to update your profile, please try again later.';
 
 //get test token
 internationalWordsZH.applytokentip='测试ELA钱包地址';
@@ -232,8 +251,14 @@ internationalWordsZH.applytokenlisttitletow='数量';
 internationalWordsEN.applytokenlisttitletow='Amount';
 internationalWordsZH.applytokenlisttitlethree='状态';
 internationalWordsEN.applytokenlisttitlethree='Status';
+internationalWordsZH.applytokensuccfully='申请已提交,大约5分钟后收到你的测试币.';
+internationalWordsEN.applytokensuccfully='Application submitted, it will take around 5 minutes to receive your test token.';
+internationalWordsZH.applytokenfail='测试币申请提交失败，请重试.';
+internationalWordsEN.applytokenfail='Failed to submit your application, please try again later.';
 
-
-
-
+//登录与退出
+internationalWordsZH.logouttipsuccful='登出成功';
+internationalWordsEN.logouttipsuccful='Logged out successfully.';
+internationalWordsZH.logouttipfail='登出失败，请重试.';
+internationalWordsEN.logouttipfail='Failed to log out, please try again later.';
 

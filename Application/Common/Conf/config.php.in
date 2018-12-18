@@ -18,14 +18,18 @@ return array(
     'QQ_APP_KEY'            =>  '',     // QQ登录APP KEY
     'WEIXIN_APP_ID'         =>  '@WEIXIN_APP_ID@',     // 微信登录APP ID
     'WEIXIN_SECRET'         =>  '@WEIXIN_APP_SECRET@',     // 微信登录SECRET
-    'SINA_API_KEY'          =>  '',     // 新浪登录API KEY
-    'SINA_SECRET'           =>  '',     // 新浪登录SECRET
-    'DOUBAN_API_KEY'        =>  '',     // 豆瓣登录API KEY
-    'DOUBAN_SECRET'         =>  '',     // 豆瓣登录SECRET
-    'RENREN_API_KEY'        =>  '',     // 人人登录API KEY
-    'RENREN_SECRET'         =>  '',     // 人人登录SECRET
-    'KAIXIN_API_KEY'        =>  '',     // 开心网登录API KEY
-    'KAIXIN_SECRET'         =>  '',     // 开心网登录SECRET
+	'WECHAT_CALLBACK_URL'	=>  'https://**/index.php/Home/Login/wechat',	  // 微信回调URL	
+    
+	'MAIL_HOST' =>'@@',//smtp服务器的名称
+	'MAIL_SMTPAUTH' =>TRUE, //启用smtp认证
+	'MAIL_USERNAME' =>'@@',//发件人的邮箱名
+	'MAIL_PASSWORD' =>'@@',//邮箱发件人授权密码
+	'MAIL_FROM' =>'@@',//发件人邮箱地址
+	'MAIL_FROMNAME'=>'elastos developer',//发件人姓名
+	'MAIL_CHARSET' =>'utf-8',//设置邮件编码
+	'MAIL_ISHTML' =>TRUE, // 是否HTML格式邮件
+
+
     'GITHUB_CLIENT_ID'      =>  '@GITHUB_CLIENT_ID@',     // github登录API KEY
     'GITHUB_CLIENT_SECRET'  =>  '@GITHUB_CLIENT_SECRET@',     // github登录SECRET
     'SOHU_API_KEY'          =>  '',     // 搜狐网登录API KEY

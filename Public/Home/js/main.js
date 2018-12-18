@@ -117,6 +117,12 @@ function guojihua(){
     $('.docpagedevlopdoc').html(internationalWords.docpagedevlopdoc);
     $('.docpagehome').html(internationalWords.docpagehome);
     $('.emailconfirmation').html(internationalWords.signupconfirmtitle);
+    $('.loginwechat').html(internationalWords.loginwechat);
+    $('.commenttipc').html(internationalWords.docpagecommenttipc);
+    $('.commenterror').html(internationalWords.docpagecommenterror);
+    $('.loginscanqrcode').html(internationalWords.loginscanqrcode);
+    $('.logouttipcuccful').html(internationalWords.logouttipsuccful);
+    $('.logouttipfail').html(internationalWords.logouttipfail);
 }
 guojihua();
 

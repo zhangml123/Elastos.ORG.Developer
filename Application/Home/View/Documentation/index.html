@@ -15,9 +15,10 @@
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <style>
 @media (min-width: 1200px)
 .container {
@@ -116,8 +117,8 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs " id="doc_menu_out_l">
-				<div class="doc_menu_l_li_t">Overview</div>
+				<div style="height:500px;overflow-x: hidden;overflow-y: auto;" class="div_one_line hidden-sm hidden-xs " id="doc_menu_out_l">
+				<div class="doc_menu_l_li_t"></div>
 				<ul class="doc_menu_l_ul">
 					<volist name="localdirfile" id="voa">
 							<eq name="voa.type" value="dir">
@@ -136,7 +137,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;"><span id="curdocname" style="font-size:24px;">Elastos.Developer.Documentation</span><a id="curgiturl" style="" target="__blank" href="{$firstgiturl}"><span style="font-size:12px;float:right;" class="hidden-sm hidden-xs hidden-md">&nbsp;Improve on GitHub</span><img src="{$Think.const.PUBLIC_H}Home/images/githublogo.svg" style="float:right;" /></a></div>
+				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;"><span id="curdocname" style="font-size:24px;">Elastos.Developer.Documentation</span><a id="curgiturl" style="" target="__blank" href="{$firstgiturl}"><span style="font-size:12px;float:right;width:130px;" class="hidden-sm hidden-xs hidden-md">&nbsp;Improve on GitHub</span><img src="{$Think.const.PUBLIC_H}Home/images/githublogo.svg" style="float:right;" /></a></div>
 				<div class="doc_content_t visible-xs-block" style="color:#173045;height:auto;word-break:break-all;font-size:28px;text-align:center;" id="curdocnamem">Elastos.Developer.Documentation</div>
 				<div class="doc_content_c" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;">{$firstc}</div>
 					<div class=" div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;height:50px;line-height:50px;margin-bottom:60px;margin-top:30px;">
@@ -144,7 +145,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 									<div class="starout">
 									<div curstarn="1">
 										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M15.9657 6.05806C15.8884 5.81135 15.6951 5.62438 15.4538 5.5627L11.0049 4.43898L8.60729 0.356584C8.47655 0.134923 8.24637 0 7.99961 0C7.75102 0 7.52083 0.134923 7.39193 0.356584L4.9962 4.43898L0.547242 5.5627C0.306011 5.62438 0.112659 5.81135 0.0353174 6.05806C-0.0420237 6.30478 0.00953704 6.57656 0.171585 6.77316L3.14001 10.42L2.78645 15.1962C2.76804 15.4545 2.87852 15.7051 3.07924 15.8574C3.20262 15.9518 3.34994 16 3.4991 16C3.59117 16 3.68324 15.9807 3.77163 15.9441L8.00145 14.1149L12.2331 15.9441C12.3215 15.9827 12.4136 16 12.5057 16C12.6548 16 12.8003 15.9518 12.9255 15.8574C13.1262 15.7051 13.2367 15.4545 13.2183 15.1962L12.8647 10.42L15.8332 6.77316C15.9897 6.57656 16.0413 6.30478 15.9657 6.05806Z" fill="#F7B75D"/>
+										<path d="M15.9657 6.05806C15.8884 5.81135 15.6951 5.62438 15.4538 5.5627L11.0049 4.43898L8.60729 0.356584C8.47655 0.134923 8.24637 0 7.99961 0C7.75102 0 7.52083 0.134923 7.39193 0.356584L4.9962 4.43898L0.547242 5.5627C0.306011 5.62438 0.112659 5.81135 0.0353174 6.05806C-0.0420237 6.30478 0.00953704 6.57656 0.171585 6.77316L3.14001 10.42L2.78645 15.1962C2.76804 15.4545 2.87852 15.7051 3.07924 15.8574C3.20262 15.9518 3.34994 16 3.4991 16C3.59117 16 3.68324 15.9807 3.77163 15.9441L8.00145 14.1149L12.2331 15.9441C12.3215 15.9827 12.4136 16 12.5057 16C12.6548 16 12.8003 15.9518 12.9255 15.8574C13.1262 15.7051 13.2367 15.4545 13.2183 15.1962L12.8647 10.42L15.8332 6.77316C15.9897 6.57656 16.0413 6.30478 15.9657 6.05806Z" fill="#EBEBEB"/>
 										</svg>
 									</div>
 									<div curstarn="2">
@@ -174,7 +175,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 						<div class="staroutm" style="width:100%;">
 							<div curstarn="1" style="width:20%;margin-left:0px;">
 								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M15.9657 6.05806C15.8884 5.81135 15.6951 5.62438 15.4538 5.5627L11.0049 4.43898L8.60729 0.356584C8.47655 0.134923 8.24637 0 7.99961 0C7.75102 0 7.52083 0.134923 7.39193 0.356584L4.9962 4.43898L0.547242 5.5627C0.306011 5.62438 0.112659 5.81135 0.0353174 6.05806C-0.0420237 6.30478 0.00953704 6.57656 0.171585 6.77316L3.14001 10.42L2.78645 15.1962C2.76804 15.4545 2.87852 15.7051 3.07924 15.8574C3.20262 15.9518 3.34994 16 3.4991 16C3.59117 16 3.68324 15.9807 3.77163 15.9441L8.00145 14.1149L12.2331 15.9441C12.3215 15.9827 12.4136 16 12.5057 16C12.6548 16 12.8003 15.9518 12.9255 15.8574C13.1262 15.7051 13.2367 15.4545 13.2183 15.1962L12.8647 10.42L15.8332 6.77316C15.9897 6.57656 16.0413 6.30478 15.9657 6.05806Z" fill="#F7B75D"/>
+								<path d="M15.9657 6.05806C15.8884 5.81135 15.6951 5.62438 15.4538 5.5627L11.0049 4.43898L8.60729 0.356584C8.47655 0.134923 8.24637 0 7.99961 0C7.75102 0 7.52083 0.134923 7.39193 0.356584L4.9962 4.43898L0.547242 5.5627C0.306011 5.62438 0.112659 5.81135 0.0353174 6.05806C-0.0420237 6.30478 0.00953704 6.57656 0.171585 6.77316L3.14001 10.42L2.78645 15.1962C2.76804 15.4545 2.87852 15.7051 3.07924 15.8574C3.20262 15.9518 3.34994 16 3.4991 16C3.59117 16 3.68324 15.9807 3.77163 15.9441L8.00145 14.1149L12.2331 15.9441C12.3215 15.9827 12.4136 16 12.5057 16C12.6548 16 12.8003 15.9518 12.9255 15.8574C13.1262 15.7051 13.2367 15.4545 13.2183 15.1962L12.8647 10.42L15.8332 6.77316C15.9897 6.57656 16.0413 6.30478 15.9657 6.05806Z" fill="#EBEBEB"/>
 								</svg>
 							</div>
 							<div curstarn="2" style="width:20%;margin-left:0px;">
@@ -202,7 +203,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
-						<textarea id="comment_contents" class="docpagecommentstip"  placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>
+						<textarea id="comment_contents" class="docpagecommentstip" style="padding:20px;font-family: Roboto;"  placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>
 						<div class="senddiv"><button id="sendcomment" class="docpagesendbtn">Send</button></div>
 						<div class="commentlist">
 							<ul id="commentlists">
@@ -220,12 +221,12 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.sender}, {$vob.adddatetime}</div>
 												<div class="comment_bottom_icon_r">
 													<span class="glyphicon glyphicon-heart like" curid="{$vob.id}" style="cursor:pointer;padding:4px;">{$vob.likes} </span>
-													<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Replay</span>
+													<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span>
 												</div>
 											</div>
 												<div class="replay_comment">
-													<textarea class="docpagecommentstip"  placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>
-													<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="{$vob.id}" >Replay</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div>
+													<textarea class="docpagecommentstip"   style="padding:20px;font-family: Roboto;"   placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>
+													<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="{$vob.id}" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div>
 												</div>
 												<eq name="vob.subcommentlist" value="0">
 												<div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">
@@ -272,7 +273,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 			<a  target="__blank" href="https://elastos.org/">Elastos</a>
 		</div>
 		<div class="col-md-2">
-			<a  target="__blank" href="https://www.cyberrepublic.org">Cyber Replbublic</a>
+			<a  target="__blank" href="https://www.cyberrepublic.org">Cyber Republic</a>
 		</div>
 		<div class="col-md-2">
 			<a  target="__blank" href="https://github.com/elastos">Github</a>
@@ -340,7 +341,11 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 <include file="Index/confirmemailcode" />
 <include file="Index/resetpwd" />
 <include file="Documentation/commenttip" />
-<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<include file="Documentation/commentsuccful" />
+<include file="Documentation/commenterror" />
+<include file="Index/wechatqrcode" />
+<include file="Pcenter/loginoutscuff" />
+<include file="Pcenter/loginoutfail" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -352,6 +357,14 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 function applyelatip_popup(){
   $("#commenttip").modal("show");
   setTimeout(function(){$("#commenttip").modal("hide")},3000)
+}
+function commentsuccful_popup(jumpurl){
+  $("#commentsuccful").modal("show");
+  setTimeout(function(){$("#commentsuccful").modal("hide");window.location.href=jumpurl},3000)
+}
+function commenterror_popup(){
+  $("#commenterror").modal("show");
+  setTimeout(function(){$("#commenterror").modal("hide");},3000)
 }
 $(document).ready(function(){
 	$("#doc_menu_out_l").css("height",($(window).height()-300)+"px");
@@ -401,10 +414,10 @@ $(document).ready(function(){
 								+'<div class="comment_bottom_icon_l  hidden-sm hidden-xs  hidden-md">'+ dataa[j]['sender'] +', '+ dataa[j]['adddatetime'] +'</div>'
 								+'<div class="comment_bottom_icon_r">'
 								+'<span class="glyphicon glyphicon-heart like" curid="'+ dataa[j]['id'] +'" style="cursor:pointer;padding:4px;">'+ dataa[j]['likes'] +' </span>'
-								+'<span class="glyphicon glyphicon-comment showrepaly" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Replay</span>'
+								+'<span class="glyphicon glyphicon-comment showrepaly" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span>'
 								+'</div></div><div class="replay_comment">'
 								+'<textarea placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>'
-								+'<div class="replay_senddiv"><button class="replaybtn" commentid="'+ dataa[j]['id'] +'">Replay</button><button class="canclebtn">Cancel</button></div>';
+								+'<div class="replay_senddiv"><button class="replaybtn" commentid="'+ dataa[j]['id'] +'">Reply</button><button class="canclebtn">Cancel</button></div>';
 								if(dataa[j]['subcommentlist']==0){
 									htmlc = htmlc +'</div><div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">';
 								}else{
@@ -485,10 +498,10 @@ $(document).ready(function(){
 								+'<div class="comment_bottom_icon_l  hidden-sm hidden-xs  hidden-md">'+ dataa[j]['sender'] +', '+ dataa[j]['adddatetime'] +'</div>'
 								+'<div class="comment_bottom_icon_r">'
 								+'<span class="glyphicon glyphicon-heart like" curid="'+ dataa[j]['id'] +'" style="cursor:pointer;padding:4px;">'+ dataa[j]['likes'] +' </span>'
-								+'<span class="glyphicon glyphicon-comment showrepaly" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Replay</span>'
+								+'<span class="glyphicon glyphicon-comment showrepaly" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span>'
 								+'</div></div><div class="replay_comment">'
 								+'<textarea placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>'
-								+'<div class="replay_senddiv"><button class="replaybtn" commentid="'+ dataa[j]['id'] +'">Replay</button><button class="canclebtn">Cancel</button></div>'
+								+'<div class="replay_senddiv"><button class="replaybtn" commentid="'+ dataa[j]['id'] +'">Reply</button><button class="canclebtn">Cancel</button></div>'
 								if(dataa[j]['subcommentlist']==0){
 									htmlc = htmlc +'</div><div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">';
 								}else{
@@ -516,22 +529,27 @@ $(document).ready(function(){
 		
 	});	
 	$(document).on("click",".like",function(){
-		var id = $(this).attr("curid");
-		var like = $(this);
-		$.post(
-			'{$curhost}index.php/Home/Comment/addlike',
-			{id:id},
-			function(data){
-				if(data==1){
-					like.html(parseInt(like.html())+1);
+		var loginstatus = '{$logincate}';
+		if(loginstatus!=""){
+			var id = $(this).attr("curid");
+			var like = $(this);
+			$.post(
+				'{$curhost}index.php/Home/Comment/addlike',
+				{id:id},
+				function(data){
+					if(data==1){
+						like.html(parseInt(like.html())+1);
+					}
 				}
-			}
-		)
+			)
+		}else{
+			login_popup();
+		}
 	});
 	$("#sendcomment").click(function(){
 		var githuburl = $("#curgiturl").attr("href");
 		var contents = $("#comment_contents").val();
-		var star = 1;
+		var star = 0;
 		if(window.localStorage.curstarcate==1){
 			$(".starout div").each(function(){
 				if($(this).find("path").attr("fill")=="#F7B75D"){
@@ -565,8 +583,11 @@ $(document).ready(function(){
 			function(data){
 				if(data==1){
 					$("#comment_contents").val("");
-					window.location.href=jumpurl;
+					commentsuccful_popup(jumpurl);
+					//window.location.href=jumpurl;
 					//BootstrapDialog.alert('评论成功！');
+				}else{
+					commenterror_popup();
 				}
 			}
 		)
@@ -575,7 +596,7 @@ $(document).ready(function(){
 		var githuburl = $("#curgiturl").attr("href");
 		var contents = $(this).parent("div").prev("textarea").val();
 		var commentid = $(this).attr("commentid");
-		var star = 1;
+		var star = 0;
 		if(window.localStorage.curstarcate==1){
 			$(".starout div").each(function(){
 				if($(this).find("path").attr("fill")=="#F7B75D"){
@@ -603,10 +624,16 @@ $(document).ready(function(){
 			'{$curhost}index.php/Home/Comment/addcomment',
 			{contents:contents,githuburl:githuburl,star:star-1,commentid:commentid},
 			function(data){
-				$(this).parent("div").prev("textarea").val("");
-				obj.parent(".replay_senddiv").parent(".replay_comment").hide();
+				if(data==1){
+					$(this).parent("div").prev("textarea").val("");
+					obj.parent(".replay_senddiv").parent(".replay_comment").hide();
+					commentsuccful_popup(jumpurl);
+				}else{
+				
+					commenterror_popup();
+				}
 				//window.location.reload();
-				window.location.href=jumpurl;
+				//window.location.href=jumpurl;
 			}
 		)
 	})
