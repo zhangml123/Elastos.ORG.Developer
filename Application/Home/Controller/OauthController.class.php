@@ -14,15 +14,135 @@ class OauthController extends BaseController{
             $extend = array('openid' => $this->_get('openid'), 'openkey' => $this->_get('openkey'));
         }
         $token = $sns->getAccessToken($code , $extend);
-			//var_dump($token);
         $user_info = $this->$type($token);
         //获取当前登录用户信息
 		if(is_array($token)){
             // 获取第三方账号数据
-			if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate'] = 1){
+				$userrelation = M("userrelation");
+				//判断关联表是否有关联
+				$rsbinfo = $this->getuserrelation("","",$user_info['name'],"");
+				//var_dump($rsbinfo);
+				if($rsbinfo=="0"){
+				//var_dump($rsbinfo);
+					//没有绑定，则直接绑定,判断当前是否是登录状态
+					if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate'] != ""){
+						if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+							$whereb['reguserid'] = $_SESSION ['eladevp']['userid'];
+							$rsa = $userrelation->where($whereb)->find();
+							if($rsa){
+								$datab['githubuserid'] = $user_info['name'];
+								$rsb = $userrelation->where($whereb)->save($datab);
+							}else{
+								$datab['mainuser'] = $_SESSION ['eladevp']['userid'];
+								$datab['reguserid'] = $_SESSION ['eladevp']['userid'];
+								$datab['githubuserid'] = $user_info['name'];
+								$datab['ustatus'] = 1;
+								$this->adduserrelation($datab);
+							}
+						}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+							$whereb['rcuserid'] = $_SESSION ['eladevp']['rcuid'];
+							$rsa = $userrelation->where($whereb)->find();
+							if($rsa){
+								$datab['githubuserid'] = $user_info['name'];
+								$rsb = $userrelation->where($whereb)->save($datab);
+							}else{
+								$datab['mainuser'] = $_SESSION ['eladevp']['rcuid'];
+								$datab['rcuserid'] = $_SESSION ['eladevp']['rcuid'];
+								$datab['githubuserid'] = $user_info['name'];
+								$datab['ustatus'] = 2;
+								$this->adduserrelation($datab);
+							}
+						}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+							$whereb['wechatuserid'] = $_SESSION ['eladevp']['wechatuid'];
+							$rsa = $userrelation->where($whereb)->find();
+							if($rsa){
+								$datab['githubuserid'] =$user_info['name'];
+								$rsb = $userrelation->where($whereb)->save($datab);
+							}else{
+								$datab['mainuser'] = $_SESSION ['eladevp']['wechatuid'];
+								$datab['wechatuserid'] = $_SESSION ['eladevp']['wechatuid'];
+								$datab['githubuserid'] = $user_info['name'];
+								$datab['ustatus'] = 4;
+								$this->adduserrelation($datab);
+							}
+						}
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+					}else{
+						$githubinfo = M("githubinfo");
+						$whereb['githubuid'] = $user_info['name'];
+						$rsb=$githubinfo->where($whereb)->find();
+						if($rsb){
+							
+						}else{
+							$datagit['githubuid'] = $user_info['name'];
+							$datagit['githubappid'] = $user_info['openid'];
+							$datagit['githubtoken'] = $user_info['access_token'];
+							$datagit['headimg'] = $user_info['head_img'];
+							$datagit['company'] = $user_info['company'];
+							$datagit['bio'] = $user_info['bio'];
+							$datagit['moreurl'] = $user_info['moreurl'];
+							$datagit['email'] = $user_info['email'];
+							$rsb = $githubinfo->add($datagit);
+						}
+						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
+						$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
+						$_SESSION ['eladevp']['logincate'] = 3;
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+					}
+				}elseif($rsbinfo=="1"){
+					//主账号
+					if(isset($_SESSION['eladevp']['logincate']) && $_SESSION['eladevp']['logincate']!=""){
+						//返回JSON：arr['mainuser'] = $user_info['name'] ;
+						//echo $user_info['name'];
+						//授权 让用户判断是解除绑定还是怎么处理？
+						
+					}else{
+						//主账号是wechat,且用wechat登录
+						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
+						$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
+						$_SESSION ['eladevp']['logincate'] = 3;
+						$backrs = 1;
+					}
+					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html?mainuser=".$user_info['name']);
+				}else{
+					$urelation = json_decode($rsbinfo,true);
+					if(isset($_SESSION['eladevp']['logincate']) && $_SESSION['eladevp']['logincate']!=""){
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html?mainuser=".$urelation['mainuid']);
+					}else{
+						if($urelation['ustatus']==1){
+							//主账号是注册的Userid
+							$uinfo = $this->userinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['userid'] = $uinfo['userid'];
+							$_SESSION ['eladevp']['logincate'] = 1;
+						//$backrs = 1;
+						}elseif($urelation['ustatus']==2){
+							//主账号是注册的RCuid
+							$uinfo = $this->rcinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['rcuid'] = $uinfo['rcuid'];
+							$_SESSION['eladevp']['logincate'] = 2;
+						//$backrs = 1;
+						}elseif($urelation['ustatus']==3){
+							//主账号是注册的githuuid
+							$uinfo = $this->githubinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['githubuid'] = $uinfo['githubuid'];
+							$_SESSION['eladevp']['logincate'] = 3;
+						//$backrs = 1;
+						}elseif($urelation['ustatus']==4){
+							//主账号是注册的wechatuid
+							$uinfo = $this->wechatinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['wechatuid'] = $uinfo['wechatuid'];
+							$_SESSION['eladevp']['logincate'] = 4;
+							//$backrs = 1;
+						}
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+					}
+				}
+			//if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate'] != ""){
+				
+				
+				/* 
 				$where['githubuid'] = $user_info['name'];
 				$rsa=M('user')->where($where)->find();
-				//var_dump($rsa);
 				 if($rsa){
 					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 				}else{
@@ -49,10 +169,10 @@ class OauthController extends BaseController{
 					$rsc=M('user')->where($wherea)->save($datau);
 					//var_dump(M('user')->getlastsql());
 					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				}
-			}else{
+				} */
+			//}else{
 				//先判断是否之前登陆过
-				$githubinfo = M("githubinfo");
+				/* $githubinfo = M("githubinfo");
 				$wherea['githubuid'] = $user_info['name'];
 				$rsa=$githubinfo->where($wherea)->find();
 				//var_dump($githubinfo->getlastsql());
@@ -79,7 +199,7 @@ class OauthController extends BaseController{
 						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
 						$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
 						$_SESSION ['eladevp']['logincate'] = 3;
-						redirect("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}
 				}else{
 					$datagit['githubuid'] = $user_info['name'];
@@ -97,9 +217,9 @@ class OauthController extends BaseController{
 					$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
 					$_SESSION ['eladevp']['logincate'] = 3;
 					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				}
+				} */
 				
-        }
+        //}
 	 }
 	 //var_dump($user_info);
     }
@@ -357,6 +477,97 @@ class OauthController extends BaseController{
         }
     }
 
+  //检测用户关系表中相关信息中，是否存在，存在的话是否是主账号
+  public function getuserrelation($reguid,$rcuid,$gituid,$wechatuid){
+	  if($reguid!=""){
+		  $where['reguid'] = $reguid;
+	  }
+	  if($rcuid!=""){
+		  $where['rcuserid'] = $rcuid;
+	  }
+	  if($gituid!=""){
+		  $where['githubuserid'] = $gituid;
+	  }
+	  if($wechatuid!=""){
+		  $where['wechatuserid'] = $wechatuid;
+	  }
+	  $userrelation = M("userrelation");
+	  $userrelationinfo = $userrelation->where($where)->find();
+	 // var_dump($userrelationinfo);
+	  if($userrelationinfo){
+		  if($userrelationinfo['mainuser']==$reguid){
+			  return 1;
+		  }elseif($userrelationinfo['mainuser']==$rcuid){
+			  return 1;
+		  }elseif($userrelationinfo['mainuser']==$gituid){
+			  return 1;
+		  }elseif($userrelationinfo['mainuser']==$wechatuid){
+			  return 1; 
+		  }else{
+			  $arr['ustatus'] = $userrelationinfo['ustatus'];
+			  $arr['mainuid'] = $userrelationinfo['mainuser'];
+			  return json_encode($arr);
+		  }
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取githuinfo相关信息
+  public function githubinfo($githubuid){
+	  $where['githubuid'] = $githubuid;
+	  $githubinfo = M("githubinfo");
+	  $info = $githubinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取userinfo相关信息
+  public function userinfo($uid){
+	  $where['userid'] = $uid;
+	  $user = M("user");
+	  $info = $user->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  
+  //获取rcinfo相关信息
+  public function rcinfo($uid){
+	  $where['rcuid'] = $uid;
+	  $rcinfo = M("rcinfo");
+	  $info = $rcinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  
+  //获取wechat相关信息
+  public function wechatinfo($uid){
+	  $where['wechatuid'] = $uid;
+	  $wechatinfo = M("wechatinfo");
+	  $info = $wechatinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  //新增用户关系表
+  public function adduserrelation($data){
+	  $userrelation = M("userrelation");
+	  $rs = $userrelation->add($data);
+	  if($rs){
+		  return 1;
+	  }else{
+		  return 0;
+	  }
+  }
 
 
 }

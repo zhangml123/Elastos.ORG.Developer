@@ -12,8 +12,8 @@ function sendMail($to, $title, $content) {
     $mail = new PHPMailer(); //实例化
     $mail->IsSMTP(); // 启用SMTP
     $mail->Host=C('MAIL_HOST'); //smtp服务器的名称
-    $mail->SMTPSecure = C('MAIL_SSL'); //加密方式
-    $mail->Port = C('MAIL_PORT'); //SMTP服务器端口
+   // $mail->SMTPSecure = C('MAIL_SSL'); //加密方式
+    //$mail->Port = C('MAIL_PORT'); //SMTP服务器端口
     $mail->SMTPAuth = C('MAIL_SMTPAUTH'); //启用smtp认证
     $mail->Username = C('MAIL_USERNAME'); //发件人邮箱名
     $mail->Password = C('MAIL_PASSWORD') ; //邮箱发件人授权密码
@@ -25,8 +25,9 @@ function sendMail($to, $title, $content) {
     $mail->CharSet=C('MAIL_CHARSET'); //设置邮件编码
     $mail->Subject =$title; //邮件主题
     $mail->Body = $content; //邮件内容
-    $mail->AltBody = "这是一个纯文本的身体在非营利的HTML电子邮件客户端"; //邮件正文不支持HTML的备用显示
-    return($mail->Send());
+    $mail->AltBody = "这是一个纯文本的身体在非营利的HTML电子邮件客户端"; 
+	$mailrs = $mail->Send();
+	return($mailrs);
 }
 function is_weixin() { 
     if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {

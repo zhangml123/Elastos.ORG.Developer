@@ -105,7 +105,7 @@
 					</div>
 				</div>
 				<div class="div_four_f">
-					<div class="div_four_f_l fourparttitle">Community</div>
+					<div class="div_four_f_l fourparttitle" style="font-size:33px;">Community</div>
 					<div class="div_four_f_r visible-lg-block "><button  style="outline:none;"  data-toggle="tooltip" data-placement="bottom"  title="Planned" data-original-title="show" class="planned fourpartbtn tooltip-show">ENTER</button></div>
 				</div>
 				<button class="visible-xs-block" style="background-color:#173045;border:0px;color:#18ffff;text-align:center;height:50px;line-height:50px;width:96%;margin-left:2%;">ENTER</button>
@@ -208,8 +208,8 @@
 <include file="Index/confirmemailcode" />
 <include file="Index/resetpwd" />
 <include file="Index/wechatqrcode" />
-<include file="Pcenter/loginoutscuff" />
-<include file="Pcenter/loginoutfail" />
+<include file="Index/loginoutscuff" />
+<include file="Index/loginoutfail" />
 <style>
 .div_four_f_r .tooltip{
 	width:150px;
@@ -219,6 +219,7 @@
 	width:10px;
 	height:10px;
 	margin-top:-7px;
+	display:none;
 }
 .div_four_f_r .tooltip .tooltip-inner{
 	 clear:both;
@@ -226,7 +227,9 @@
     margin-left: 40%;
 	margin-top:-2px;
 }
-
+.div_three_btn .tooltip-arrow{
+	display:none;
+}
 </style>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>

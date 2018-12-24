@@ -17,6 +17,19 @@ class CommentController extends Controller {
 				}else{
 					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
 				}
+				$uinfo = $this->findcommenthead($commentlist[$i]['userid'],$commentlist[$i]['cate']);
+				if($uinfo){
+					$commentlist[$i]['uheadimg'] = $uinfo['headimg'];
+				}else{
+					$commentlist[$i]['uheadimg'] = "";
+				}
+				
+				$zanyn = $this->findcommenthistory($commentlist[$i]['id']);
+				if($zanyn){
+					$commentlist[$i]['zanyn'] = 1;
+				}else{
+					$commentlist[$i]['zanyn'] = 0;
+				}
 			}
 		}
 		echo json_encode($commentlist);
@@ -26,7 +39,29 @@ class CommentController extends Controller {
 		$where['commentid'] = $commentid;
 		$comment = new CommentModel;
 		$commentlist = $comment->commentlist($where,0,5);
-		//var_dump($commentlist);
+		if($commentlist){
+			for($i=0;$i<count($commentlist);$i++){
+				//$commentlist[$i]['subcommentlist'] = $this->subcommentlist($commentlist[$i]['id']);
+				if($_SESSION ['eladevp']['lang']=="cn"){
+					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
+				}else{
+					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+				}
+				$uinfo = $this->findcommenthead($commentlist[$i]['userid'],$commentlist[$i]['cate']);
+				if($uinfo){
+					$commentlist[$i]['uheadimg'] = $uinfo['headimg'];
+				}else{
+					$commentlist[$i]['uheadimg'] = "";
+				}
+				
+				$zanyn = $this->findcommenthistory($commentlist[$i]['id']);
+				if($zanyn){
+					$commentlist[$i]['zanyn'] = 1;
+				}else{
+					$commentlist[$i]['zanyn'] = 0;
+				}
+			}
+		}
 		return $commentlist;
 	}
 	//获取子评论列表
@@ -34,17 +69,142 @@ class CommentController extends Controller {
 		$where['commentid'] = $_POST['commentid'];
 		$comment = new CommentModel;
 		$commentlist = $comment->commentlist($where,$_POST['startnum'],5);
+		if($commentlist){
+			for($i=0;$i<count($commentlist);$i++){
+				if($_SESSION ['eladevp']['lang']=="cn"){
+					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
+				}else{
+					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+				}
+				$uinfo = $this->findcommenthead($commentlist[$i]['userid'],$commentlist[$i]['cate']);
+				if($uinfo){
+					$commentlist[$i]['uheadimg'] = $uinfo['headimg'];
+				}else{
+					$commentlist[$i]['uheadimg'] = "";
+				}
+				
+				$zanyn = $this->findcommenthistory($commentlist[$i]['id']);
+				if($zanyn){
+					$commentlist[$i]['zanyn'] = 1;
+				}else{
+					$commentlist[$i]['zanyn'] = 0;
+				}
+			}
+		}
 		echo json_encode($commentlist);
 	}
 	//点赞
 	public function addlike(){
 		$where['id'] = $_POST['id'];
 		$comment = M("comment");
-		$rs = $comment->where($where)->setInc("likes");
+		if($this->findcommenthistory($_POST['id'])){
+			$this->delcommenthistory($_POST['id']);
+			$rs = $comment->where($where)->setDec("likes");
+			if($rs){
+				echo 2;
+			}else{
+				echo 0;
+			}
+		}else{ 
+			$this->addcommenthistory($_POST['id']);
+			$rs = $comment->where($where)->setInc("likes");
+			if($rs){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}
+	}
+	//根据cate判断使用的是哪个头像
+	public function findcommenthead($userid,$cate){
+		if($cate=="1"){
+			$where['userid'] = $userid;
+			$user = M("user");
+			$userinfo = $user->where($where)->find();
+		}elseif($cate=="2"){
+			$where['rcuid'] = $userid;
+			$rcinfo = M("rcinfo");
+			$userinfo = $rcinfo->where($where)->find();
+		}elseif($cate=="3"){
+			$where['githubuid'] = $userid;
+			$githubinfo = M("githubinfo");
+			$userinfo=$githubinfo->where($where)->find();
+		}elseif($cate=="4"){
+			$where['wechatuid'] = $userid;
+			$wechatinfo = M("wechatinfo");
+			$userinfo=$wechatinfo->where($where)->find();
+		}
+		return $userinfo;
+	}
+	//判断是否点过赞
+	public function findcommenthistory($commentid){
+		$where['commentid'] = $commentid;
+		$commenthistory = M("commenthistory");
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$where['userid'] = $_SESSION['eladevp']['userid'];
+			$rs = $commenthistory->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$where['userid'] = $_SESSION['eladevp']['rcuid'];
+			$rs = $commenthistory->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$where['userid'] = $_SESSION['eladevp']['githubuid'];
+			$rs = $commenthistory->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$rs = $commenthistory->where($where)->find();
+		}
 		if($rs){
-			echo 1;
+			return 1;
 		}else{
-			echo 0;
+			return 0;
+		}
+	}
+	public function addcommenthistory($commentid){
+		$data['commentid'] = $commentid;
+		$commenthistory = M("commenthistory");
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$data['userid'] = $_SESSION['eladevp']['userid'];
+			$data['cate'] = 1;
+			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$data['userid'] = $_SESSION['eladevp']['rcuid'];
+			$data['cate'] = 2;
+			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$data['userid'] = $_SESSION['eladevp']['githubuid'];
+			$data['cate'] = 3;
+			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$data['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$data['cate'] = 4;
+			$rs = $commenthistory->add($data);
+		}
+		if($rs){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	public function delcommenthistory($commentid){
+		$where['commentid'] = $commentid;
+		$commenthistory = M("commenthistory");
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$where['userid'] = $_SESSION['eladevp']['userid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$where['userid'] = $_SESSION['eladevp']['rcuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$where['userid'] = $_SESSION['eladevp']['githubuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}
+		if($rs){
+			return 1;
+		}else{
+			return 0;
 		}
 	}
 	//发布评论
@@ -59,12 +219,16 @@ class CommentController extends Controller {
 		
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$data['sender'] = $_SESSION['eladevp']['userid'];
+			$data['cate'] = 1;
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
 			$data['sender'] = $_SESSION['eladevp']['rcuid'];
+			$data['cate'] = 2;
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
 			$data['sender'] = $_SESSION['eladevp']['githubuid'];
+			$data['cate'] = 3;
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$data['sender'] = $_SESSION['eladevp']['wechatuid'];
+			$data['cate'] = 4;
 		}else{
 			$data['sender'] = "匿名";
 		}

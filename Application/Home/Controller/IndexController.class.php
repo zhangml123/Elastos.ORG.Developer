@@ -62,6 +62,14 @@ class IndexController extends Controller {
 	public function resetpwd(){
 		$this->display();
 	}
+	//
+	public function loginoutscuff(){
+		$this->display();
+	}
+	//
+	public function loginoutfail(){
+		$this->display();
+	}
 	//设置语言
 	public function setlang(){
 		if($_POST['lang']==1){
@@ -97,6 +105,7 @@ class IndexController extends Controller {
 	//新增到数据库
 	public function add($state){
 		$data['wechatrand'] = $state;
+		$data['addtime'] = time();
 		$staywechat = M('staywechat');
 		$rs = $staywechat->add($data);
 	}
@@ -151,4 +160,10 @@ class IndexController extends Controller {
 		echo 0;
 	}
   }
+	//退出
+	public function logout(){
+		session_destroy();
+		echo 1;
+		//redirect("http://".$_SERVER['HTTP_HOST']);
+	}
 }
