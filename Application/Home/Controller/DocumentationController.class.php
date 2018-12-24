@@ -28,10 +28,14 @@ class DocumentationController extends Controller {
 			$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc;
 			$where['commentid'] = array('exp','is null');
 			$commentlist = $this->initcommentlist($where);
+				
 			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
 			$stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
 			$contents = str_replace($stra,"",$contents);
-			$this->assign("commentlist",$commentlist);
+			$contents = str_replace('<img src="','<img src="https://github.com',$contents);
+			 //$contents = str_replace($stra,"",$contents);
+			 $contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
+			 $this->assign("commentlist",$commentlist);
 			$this->assign("commentnum",count($commentlist));
 			$this->assign("firstc",$contents);
 			$this->assign("firstgiturl","https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc);
@@ -50,10 +54,13 @@ class DocumentationController extends Controller {
 			$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc;
 			$where['commentid'] = array('exp','is null');
 			$commentlist = $this->initcommentlist($where);
-			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
-			//var_dump($contents);
 			$stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
+			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
 			$contents = str_replace($stra,"",$contents);
+			$contents = str_replace('<img src="','<img src="https://github.com',$contents);
+			 //$contents = str_replace($stra,"",$contents);
+			 $contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
+			 //var_dump($contents);
 			$this->assign("commentlist",$commentlist);
 			$this->assign("commentnum",count($commentlist));
 			$this->assign("firstc",$contents);
@@ -176,7 +183,7 @@ class DocumentationController extends Controller {
 				$searcword = str_replace(".md","",$arr_files[$i]);
 				$docname = explode("/",$searcword);
 				$arr[$j]['contents'] = str_replace($sw,"<span style='color:#000;background-color:#FFFCAB;display:inline;height:30px;font-size:16px;font-weight:600;'>&nbsp;".$sw."&nbsp;</span>",mb_substr($reststr,0,210,'utf-8'));
-				$arr[$j]['searchurl'] = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
+				$arr[$j]['searchurl'] = "http://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
 				$arr[$j]['docname'] = $docname[count($docname)-1];
 				$j = $j+1;
 			}
@@ -305,6 +312,7 @@ class DocumentationController extends Controller {
 			}
 		}
 		//var_dump($arra);
+		array_multisort($arra,SORT_DESC,SORT_NUMERIC);//按名字排序
 		return $arra;
 	}
 	
@@ -330,10 +338,11 @@ class DocumentationController extends Controller {
 			}
 			if(is_dir($path."/".$arr_file[$i])){
 				$arr = explode("/",$arr_file[$i]);
-				//$arrw = explode(".",$arr[count($arr)-1]);
+				$arrw = explode(".",$arr[count($arr)-1]);
 				//$arra[$i]['filecname'] = $path."/".$arr_file[$i];
 				$arra[$i]['filecname'] =str_replace("/","|||",$patharr[1]);
 				$arra[$i]['filename'] = $patharr[1];
+				$arra[$i]['pai'] = $this->pjnum($arrw[0],0);
 				$arra[$i]['localdir'] = $path."/".$arr_file[$i];
 				//$arra[$i]['localdir'] = str_replace("/","|||",$arr_file[$i]);
 				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/Public/developerdoc/".$arr[count($arr)-1];
@@ -348,15 +357,18 @@ class DocumentationController extends Controller {
 			}else{
 				$arr = explode("/",$arr_file[$i]);
 				$arrw = explode(".",$arr[count($arr)-1]);
+				$arrya = explode(".",$patharr[1]);
 				$arra[$i]['filecname'] = str_replace("/","|||",$patharr[1]);
 				//$arra[$i]['filecname'] = $path.$arr_file[$i];
 				$arra[$i]['filename'] = $patharr[1];
 				//$arra[$i]['localdir'] = str_replace("/","|||",$arr_file[$i]);
+				//$arra[$i]['pai'] = substr($patharr[1],1);
+				$arra[$i]['pai'] = $this->pjnum(substr($arrya[0],1),$arrw[0]);
 				$arra[$i]['localdir'] = $path.$arr_file[$i];
 				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "file";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$lang.$arr_file[$i];
-				$arra[$i]['shortname'] = $arrw[0];
+				$arra[$i]['shortname'] = $arrw[0].".".$arrw[1];
 				////if(substr($arra[$i]['shortname'],-3)=="_CN"){
 				//	$arra[$i]['filelang'] = "CN";
 				//}else{
@@ -365,8 +377,38 @@ class DocumentationController extends Controller {
 			}
 		}
 		//var_dump($arra);
+		$arra = $this->my_sort($arra,"pai",SORT_ASC,SORT_NUMERIC);
 		return $arra;
 	}
+	//拼接两个字符串
+	public function pjnum($stra,$strb){
+		if(strlen($stra)==1){
+			$straa = $stra."000";
+		}elseif(strlen($stra)==2){
+			$straa = $stra."00";
+		}elseif(strlen($stra)==3){
+			$straa = $stra."0";
+		}elseif(strlen($stra)==4){
+			$straa = $stra;
+		}
+		 return (int)$straa+(int)$strb;
+	}
+	
+    function my_sort($arrays,$sort_key,$sort_order=SORT_ASC,$sort_type=SORT_NUMERIC ){  
+        if(is_array($arrays)){  
+            foreach ($arrays as $array){  
+                if(is_array($array)){  
+                    $key_arrays[] = $array[$sort_key];  
+                }else{  
+                    return false;  
+                }  
+            }  
+        }else{  
+            return false;  
+        } 
+        array_multisort($key_arrays,$sort_order,$sort_type,$arrays);  
+        return $arrays;  
+    } 
 	function tree(&$arr_file, $directory, $dir_name=''){
 		$mydir = dir($directory);
 		while($file = $mydir->read())
@@ -425,7 +467,7 @@ class DocumentationController extends Controller {
 	}
 	//获取初始评论列表
 	public function initcommentlist($where){
-		//$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md";
+		//$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md";/elastos/Elastos.Developer.Doc/raw/master/Ignore/images/
 		//$where['commentid'] = array('exp','is null');
 		$comment = new CommentModel;
 		$commentlist = $comment->commentlist($where,0,10);

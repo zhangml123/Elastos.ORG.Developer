@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-12-07 23:15:05
+-- Generation Time: 2018-12-24 11:07:13
 -- 服务器版本： 5.5.60-log
 -- PHP Version: 5.6.36
 
@@ -33,16 +33,9 @@ CREATE TABLE `ela_applytestela` (
   `userid` char(240) NOT NULL,
   `amount` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `addtime` char(50) NOT NULL
+  `addtime` char(50) NOT NULL,
+  `eladr` char(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `ela_applytestela`
---
-
-INSERT INTO `ela_applytestela` (`id`, `userid`, `amount`, `status`, `addtime`) VALUES
-(1, '602986973@qq.com', 10, 1, '1543804832'),
-(2, '602986973@qq.com', 10, 1, '1544100611');
 
 -- --------------------------------------------------------
 
@@ -94,74 +87,22 @@ CREATE TABLE `ela_comment` (
   `status` int(11) DEFAULT '0' COMMENT '状态：0不显示 1 显示',
   `ip` char(60) DEFAULT NULL COMMENT '评论IP地址',
   `star` int(11) DEFAULT NULL COMMENT '星级',
-  `likes` bigint(20) DEFAULT '0' COMMENT '赞'
+  `likes` bigint(20) DEFAULT '0' COMMENT '赞',
+  `cate` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- 转存表中的数据 `ela_comment`
+-- 表的结构 `ela_commenthistory`
 --
 
-INSERT INTO `ela_comment` (`id`, `contents`, `addtime`, `sender`, `githuburl`, `commentid`, `status`, `ip`, `star`, `likes`) VALUES
-(1, '带一路”倡议自2013年秋天提出以来，中国就此召开的规格最高的国际会议，也是今年我国主场外交的重头戏', '1514083288', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 1, NULL, 1, 7),
-(2, 'ddsa', '1514795985', 'dsa', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 1, '106.114.164.224', 4, 9),
-(3, 'dsad', '1514815460', 'dsa', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 1, 1, '106.114.164.224', 1, 1),
-(4, '测试评论', '1514817454', '测试人', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 1, 0, '106.114.164.224', 1, 1),
-(5, '测试啊！', '1514817500', '存储', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 1, 0, '106.114.164.224', 1, 1),
-(6, '这是测试评论', '1514853428', '测试', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 2, 0, '106.114.164.224', 1, 1),
-(7, 'rerer', '1514853801', 'dsa', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 1, 1, '106.114.164.224', 1, 1),
-(10, 'dsadsa', '1514854007', 'dsa', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 2, 1, '106.114.164.224', 1, 1),
-(29, '新评论！', '1542017229', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '127.0.0.1', 1, 1),
-(30, '新子评论！', '1542017240', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 29, 0, '127.0.0.1', 1, 0),
-(31, '第二次评论！', '1542017328', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', NULL, 0, '127.0.0.1', 3, 0),
-(32, '额', '1542017368', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', NULL, 0, '127.0.0.1', 1, 0),
-(33, '子评论！', '1542017681', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', NULL, 0, '127.0.0.1', 1, 0),
-(34, '发', '1542017702', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', NULL, 0, '127.0.0.1', 1, 0),
-(35, 'dsa', '1542017775', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', NULL, 0, '127.0.0.1', 1, 0),
-(36, 'dsadsa', '1542017830', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', 35, 0, '127.0.0.1', 1, 0),
-(37, '90r456', '1542017845', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android.md', 35, 0, '127.0.0.1', 1, 0),
-(38, '566', '1542017896', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Contribution_Award_Assessment.md', NULL, 0, '127.0.0.1', 1, 0),
-(39, 'ddsdsadsads', '1542017909', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Connect_to_SideChain_of_testnet.md', NULL, 0, '127.0.0.1', 1, 0),
-(40, 'd', '1542017920', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Connect_to_SideChain_of_testnet.md', 39, 0, '127.0.0.1', 1, 0),
-(41, 'dsadsaavcvv', '1542017964', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Connect_to_SideChain_of_testnet.md', NULL, 0, '127.0.0.1', 1, 0),
-(42, 'a', '1542017974', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Connect_to_SideChain_of_testnet.md', 41, 0, '127.0.0.1', 1, 0),
-(43, 'Join up to two circles you are good at. A circle is a simple closed shape. It is the set of all points in a plane that are at a given distance from a given point', '1542018619', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '127.0.0.1', 1, 0),
-(44, 'Join up to two circles you are good at. A circle is a simple closed shape. It is the set of all points in a plane that are at a given distance from a given point', '1542018626', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 43, 0, '127.0.0.1', 1, 0),
-(45, 'ddsddfs', '1542018756', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android_CN.md', NULL, 0, '127.0.0.1', 3, 0),
-(46, 'x', '1542089479', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android_CN.md', NULL, 0, '124.236.182.80', 1, 0),
-(47, '444', '1542091876', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/DApp_DID.md', NULL, 0, '124.236.182.80', 1, 1),
-(48, 'test', '1542094673', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '58.220.98.25', 1, 0),
-(49, 'hello', '1542094690', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Carrier_For_Android_CN.md', NULL, 0, '58.220.98.25', 1, 0),
-(50, 'hey', '1542329045', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/DApp_DID.md', NULL, 0, '50.97.232.186', 1, 0),
-(51, 'hey who I am?', '1542329069', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '50.97.232.186', 1, 0),
-(52, 'again', '1542329089', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 51, 0, '50.97.232.186', 1, 0),
-(53, 'reply 2', '1542329102', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', 51, 0, '50.97.232.186', 1, 0),
-(54, 'This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment This is a test comment Th', '1542330592', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '110.87.98.82', 1, 0),
-(55, '', '1542330691', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '110.87.98.82', 1, 0),
-(56, '4', '1542356449', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '124.236.181.188', 1, 0),
-(57, '', '1542356456', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '124.236.181.188', 1, 0),
-(58, '8', '1542356716', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md', NULL, 0, '124.236.181.188', 1, 0),
-(59, 'h', '1543389326', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/EN/Dev environment/Get API key and secret.md', NULL, 0, '110.87.98.82', 1, 0),
-(60, 'jj', '1543389334', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/EN/Dev environment/Get API key and secret.md', 59, 0, '110.87.98.82', 1, 0),
-(61, '不错', '1543890860', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.53.197', 6, 0),
-(62, '不错', '1543890879', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.53.197', 6, 0),
-(63, 'y', '1543892044', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.53.197', 3, 0),
-(64, 'uuu', '1543892921', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.53.197', 4, 0),
-(65, 'this is good', '1543906132', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/EN/Dev environment/Get test token.md', NULL, 0, '110.87.98.82', 5, 0),
-(66, 'I love it', '1543906140', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/EN/Dev environment/Get API key and secret.md', NULL, 0, '110.87.98.82', 1, 0),
-(67, '测试评论！', '1543919989', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/交易所对接/如何与交易所对接.md', NULL, 0, '106.117.53.197', 3, 0),
-(68, '反馈信息！', '1543920105', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', 64, 0, '106.117.53.197', 0, 0),
-(69, '新评论！', '1543930506', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.85.62', 3, 2),
-(70, '我来回复！', '1543930519', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', 69, 0, '106.117.85.62', 0, 0),
-(71, 'ceshi', '1543932629', '匿名', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.117.85.62', 1, 0),
-(72, 'ceshiaaa!', '1544193353', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/侧链.md', NULL, 0, '106.113.7.201', 1, 0),
-(73, '这是第一个评论！', '1544193373', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
-(74, '不错！', '1544194204', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
-(75, '不错！', '1544194477', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
-(76, '不错！', '1544194635', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 2, 0),
-(77, '不错！', '1544194687', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
-(78, '不错！', '1544194757', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
-(79, '不错！', '1544195070', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/P2P Carrier.md', NULL, 0, '106.113.7.201', 1, 0),
-(80, '好！', '1544195166', '602986973@qq.com', 'https://github.com/elastos/Elastos.Developer.Doc/tree/master/CN/了解基础/DID链.md', NULL, 0, '106.113.7.201', 2, 0);
+CREATE TABLE `ela_commenthistory` (
+  `id` bigint(20) NOT NULL,
+  `commentid` bigint(20) NOT NULL,
+  `userid` char(240) NOT NULL,
+  `cate` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -200,14 +141,6 @@ CREATE TABLE `ela_githubinfo` (
   `username` char(240) DEFAULT NULL,
   `email` char(240) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `ela_githubinfo`
---
-
-INSERT INTO `ela_githubinfo` (`githubid`, `githubuid`, `githubappid`, `githubtoken`, `headimg`, `firstname`, `lastname`, `company`, `country`, `city`, `bio`, `moreurl`, `username`, `email`) VALUES
-(2, 'elachating', '43022721', '255c9c96ddfe3ff14069a724314d29cdf237ef7f', 'https://avatars0.githubusercontent.com/u/43022721?v=4', 'liu', 'ming', 'kongte.inc', 'China', 'Beijing', 'elachat is a p2p im!', 'http://ela.chat', NULL, '103306946@qq.com'),
-(3, 'yunyouming', '5235349', 'db96b49bb60b5c2404d7bec01e6168d8aa094ce4', 'https://avatars3.githubusercontent.com/u/5235349?v=4', 'liou', 'ming', 'apple.inc', 'China', 'beiig', 'this is test code!', 'http://ela.chat', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,12 +194,24 @@ CREATE TABLE `ela_rcinfo` (
   `email` char(240) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- 转存表中的数据 `ela_rcinfo`
+-- 表的结构 `ela_staywechat`
 --
 
-INSERT INTO `ela_rcinfo` (`rcid`, `rcuid`, `rcupwd`, `rcnickname`, `firstname`, `lastname`, `company`, `country`, `city`, `bio`, `moreurl`, `headimg`, `email`) VALUES
-(1, '602986973@qq.com', '', '', '', '', '', '', '', '', '', '', NULL);
+CREATE TABLE `ela_staywechat` (
+  `id` bigint(20) NOT NULL,
+  `wechatid` char(240) NOT NULL,
+  `code` char(200) NOT NULL,
+  `headimg` varchar(2000) NOT NULL,
+  `nickname` char(240) NOT NULL,
+  `province` char(200) NOT NULL,
+  `city` char(200) NOT NULL,
+  `openid` char(240) NOT NULL,
+  `wechatrand` char(100) NOT NULL,
+  `addtime` char(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -305,10 +250,23 @@ CREATE TABLE `ela_user` (
 --
 
 INSERT INTO `ela_user` (`id`, `userid`, `userpwd`, `username`, `addtime`, `phone`, `status`, `roleid`, `githubuid`, `wechatuid`, `rcuid`, `linkedinuid`, `logintime`, `loginip`, `qq`, `firstname`, `lastname`, `company`, `bio`, `moreurl`, `country`, `city`, `headimg`) VALUES
-(1, 'admin', '96e79218965eb72c92a549dd5a330112', '超级管理员', '1513059115', '18931150152', 1, 1, NULL, '', '', '', '', '', NULL, 'Mike', 'Hou', 'ELA', 'Let\'s rock rock rock', 'www.ela.com', 'China', 'Beijing', ''),
-(3, 'admin2', '96e79218965eb72c92a549dd5a330112', '管理员3', '1515306567', '1889777887', 1, 1, NULL, '', '', '', '', '', NULL, '', '', '', '', '', '', '', ''),
-(13, '103306949@qq.com', '86ec994523cff6a25f1426a57d987af0', NULL, '1543930262', NULL, 1, NULL, '', '', '', '', '1543930262', '', NULL, 'liu', 'ming', 'apple.lnc', 'none', 'http://ela.chat', 'China', 'shijiazhuang', ''),
-(15, '602986973@qq.com', '2ac663a399809dc0f17e059320b506c1', NULL, '1544189034', NULL, 1, NULL, 'elachating', '', NULL, '', '1544189034', NULL, NULL, 'liu', 'ming', '空特科技', '无', 'http://ela.chat', '中华人民共和国', '石家庄', NULL);
+(1, 'admin', '96e79218965eb72c92a549dd5a330112', '超级管理员', '1513059115', '18931150152', 1, 1, NULL, '', '', '', '', '', NULL, 'Mike', 'Hou', 'ELA', 'Let\'s rock rock rock', 'www.ela.com', 'China', 'Beijing', '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ela_userrelation`
+--
+
+CREATE TABLE `ela_userrelation` (
+  `id` bigint(20) NOT NULL,
+  `mainuser` char(200) NOT NULL,
+  `rcuserid` char(200) NOT NULL,
+  `githubuserid` char(200) NOT NULL,
+  `wechatuserid` char(200) NOT NULL,
+  `reguserid` char(200) NOT NULL,
+  `ustatus` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -329,7 +287,8 @@ CREATE TABLE `ela_wechatinfo` (
   `bio` varchar(5000) NOT NULL,
   `moreurl` varchar(5000) NOT NULL,
   `headimg` varchar(2000) NOT NULL,
-  `email` char(240) DEFAULT NULL
+  `email` char(240) DEFAULT NULL,
+  `nickname` char(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -352,6 +311,12 @@ ALTER TABLE `ela_column`
 -- Indexes for table `ela_comment`
 --
 ALTER TABLE `ela_comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ela_commenthistory`
+--
+ALTER TABLE `ela_commenthistory`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -379,9 +344,21 @@ ALTER TABLE `ela_rcinfo`
   ADD PRIMARY KEY (`rcid`);
 
 --
+-- Indexes for table `ela_staywechat`
+--
+ALTER TABLE `ela_staywechat`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ela_user`
 --
 ALTER TABLE `ela_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ela_userrelation`
+--
+ALTER TABLE `ela_userrelation`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -398,7 +375,7 @@ ALTER TABLE `ela_wechatinfo`
 -- 使用表AUTO_INCREMENT `ela_applytestela`
 --
 ALTER TABLE `ela_applytestela`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- 使用表AUTO_INCREMENT `ela_column`
@@ -410,13 +387,19 @@ ALTER TABLE `ela_column`
 -- 使用表AUTO_INCREMENT `ela_comment`
 --
 ALTER TABLE `ela_comment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+
+--
+-- 使用表AUTO_INCREMENT `ela_commenthistory`
+--
+ALTER TABLE `ela_commenthistory`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用表AUTO_INCREMENT `ela_githubinfo`
 --
 ALTER TABLE `ela_githubinfo`
-  MODIFY `githubid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `githubid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用表AUTO_INCREMENT `ela_logininfo`
@@ -428,19 +411,31 @@ ALTER TABLE `ela_logininfo`
 -- 使用表AUTO_INCREMENT `ela_rcinfo`
 --
 ALTER TABLE `ela_rcinfo`
-  MODIFY `rcid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `rcid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- 使用表AUTO_INCREMENT `ela_staywechat`
+--
+ALTER TABLE `ela_staywechat`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=916;
 
 --
 -- 使用表AUTO_INCREMENT `ela_user`
 --
 ALTER TABLE `ela_user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- 使用表AUTO_INCREMENT `ela_userrelation`
+--
+ALTER TABLE `ela_userrelation`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- 使用表AUTO_INCREMENT `ela_wechatinfo`
 --
 ALTER TABLE `ela_wechatinfo`
-  MODIFY `wechatid` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `wechatid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

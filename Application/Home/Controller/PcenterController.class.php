@@ -15,10 +15,45 @@ class PcenterController extends BaseController {
 		$user = M("user");
 		$userinfo = $user->where($where)->find(); */
 		$userinfo = $this->profileinfo();
+		$info = $this->relationuinfo();
+		if($info!=0){
+			$this->assign("info",$info);
+		}else{
+			$this->assign("info",0);
+		}
+		//var_dump($info);
+		if(isset($_GET['mainuser']) && $_GET['mainuser']!=""){
+			$this->assign("mainuser",$_GET['mainuser']);
+		}else{
+			$this->assign("mainuser","");
+		}
+		//var_dump($_SESSION ['eladevp']['logincate']);
 		$this->assign("countrylist",$this->countrylist());
 		$this->assign("uinfo",$userinfo);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
+	}
+	//判断关联的用户表
+	public function relationuinfo(){
+		$userrelation = M("userrelation");
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$where['reguserid'] = $_SESSION['eladevp']['userid'];
+			$info = $userrelation->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$where['rcuserid'] = $_SESSION['eladevp']['rcuid'];
+			$info = $userrelation->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$where['githubuserid'] = $_SESSION['eladevp']['githubuid'];
+			$info=$userrelation->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$where['wechatuserid'] = $_SESSION['eladevp']['wechatuid'];
+			$info=$userrelation->where($where)->find();
+		}
+		if($info){
+			return $info;
+		}else{
+			return 0;
+		}
 	}
 	//世界主要城市数组
 	public function countrylist(){
@@ -353,7 +388,7 @@ class PcenterController extends BaseController {
 		if($rslist){
 			if($_SESSION ['eladevp']['lang']=="cn"){
 				for($i=0;$i<count($rslist);$i++){
-					$rslist[$i]['adddate'] = date("Y-m-d",$rslist[$i]['addtime']);
+					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
 					if($rslist[$i]['status'] ==3){
 						$rslist[$i]['curstatus'] = "成功";
 					}elseif($rslist[$i]['status'] ==1){
@@ -364,7 +399,7 @@ class PcenterController extends BaseController {
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
-					$rslist[$i]['adddate'] = date("M d,Y",$rslist[$i]['addtime']);
+					$rslist[$i]['adddate'] = date("M d,Y h:i A",$rslist[$i]['addtime']);
 					if($rslist[$i]['status'] ==3){
 						$rslist[$i]['curstatus'] = "Success";
 					}elseif($rslist[$i]['status'] ==1){
@@ -491,8 +526,156 @@ class PcenterController extends BaseController {
 	//退出
 	public function logout(){
 		session_destroy();
-		//redirect("http://".$_SERVER['HTTP_HOST']);
 		echo 1;
+		//redirect("http://".$_SERVER['HTTP_HOST']);
+	}
+	//解绑账户
+	public function removeuserrelation(){
+		$cate = $_POST['cate'];
+		$relationuinfo = $this->relationuinfo();
+		if($relationuinfo!="0"){
+			$str = "";
+			if($relationuinfo['reguserid']!=""){
+				$str = $str."1";
+			}else{
+				$str = $str."0";
+			}
+			if($relationuinfo['rcuserid']!=""){
+				$str = $str."2";
+			}else{
+				$str = $str."0";
+			}
+			if($relationuinfo['githubuserid']!=""){
+				$str = $str."3";
+			}else{
+				$str = $str."0";
+			}
+			if($relationuinfo['wechatuserid']!=""){
+				$str = $str."4";
+			}else{
+				$str = $str."0";
+			}
+			if($cate=="3"){
+				$uid = $relationuinfo['githubuserid'];
+			}else if($cate=="4"){
+				$uid = $relationuinfo['wechatuserid'];
+			}
+		}else{
+			exit();
+		}
+		$userrelation = M("userrelation");
+		if($cate=="3"){
+			//判断是否是github账号
+			$where['githubuserid'] = $uid;
+			$data['githubuserid'] = "";
+			$userrelationinfo = $userrelation->where($where)->find();
+		}else if($cate=="4"){
+			//判断是否是github账号
+			$where['wechatuserid'] = $uid;
+			$data['wechatuserid'] = "";
+		}
+		$userrelationinfo = $userrelation->where($where)->find();
+		if($userrelationinfo){
+			if($userrelationinfo['mainuser']==$userrelationinfo['githubuserid'] || $userrelationinfo['mainuser']==$userrelationinfo['wechatuserid']){
+				//存在并且是主账号，则删除
+				$rs = $userrelation->where($where)->delete();
+				if($rs){
+					echo 1;
+				}else{
+					echo 0;
+				}
+			}else{
+				//存在不是主账号，判断是否是RC账号或者注册账号
+				if($userrelationinfo['mainuser']==$userrelationinfo['rcuserid']){
+					if(substr($str,1,3)=="234"){
+						$rs = $userrelation->where($where)->save($data);
+						if($rs){
+							echo 1;
+						}else{
+							echo 0;
+						}
+						
+					}else{
+						$rs = $userrelation->where($where)->delete();
+						if($rs){
+							echo 1;
+						}else{
+							echo 0;
+						}
+					}
+					
+					
+				}
+				if($userrelationinfo['mainuser']==$userrelationinfo['reguserid']){
+					if($str=="1034"){
+						$rs = $userrelation->where($where)->save($data);
+						if($rs){
+							echo 1;
+						}else{
+							echo 0;
+						}
+						
+					}else{
+						$rs = $userrelation->where($where)->delete();
+						if($rs){
+							echo 1;
+						}else{
+							echo 0;
+						}
+					}
+					
+					
+				}
+			}
+		}
+	}
+	public function addcommenthistory(){
+		$data['commentid'] = $_POST['commentid'];
+		$commenthistory = M("commenthistory");
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$data['userid'] = $_SESSION['eladevp']['userid'];
+			$data['cate'] = 1;
+			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$data['userid'] = $_SESSION['eladevp']['rcuid'];
+			$data['cate'] = 2;
+			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$data['userid'] = $_SESSION['eladevp']['githubuid'];
+			$data['cate'] = 3;
+			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$data['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$data['cate'] = 4;
+			$rs = $commenthistory->add($data);
+		}
+		if($rs){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	public function delcommenthistory(){
+		$where['commentid'] = $_POST['commentid'];
+		$commenthistory = M("commenthistory");
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+			$where['userid'] = $_SESSION['eladevp']['userid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
+			$where['userid'] = $_SESSION['eladevp']['rcuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==3){
+			$where['userid'] = $_SESSION['eladevp']['githubuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
+			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}
+		if($rs){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 }
 ?>

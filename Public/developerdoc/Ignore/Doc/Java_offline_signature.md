@@ -45,13 +45,13 @@ Web service default port: 8989, can be modified
 <li>
 <p>Parameter Description</p>
 <ul>
-<li>The java program amount is the smallest unit of 1 sela (1 ela = 100000000 sela (100 million sela)), can only be a positive integer.</li>
 <li>The <code>java-config.json</code> file needs to be placed in the same directory of the java program, in order to connect to the node to get utxo.</li>
 <li>Host: Server ip and rpc port where the node program is located.</li>
 <li>Fee: The transaction fee stipulated by both parties is the same for a single output or multiple output transaction fees for a transaction.</li>
 <li>Confirmation: The number of times the block confirms the transaction, that is, the number of blocks; 16 confirmed numbers are recommended.</li>
 <li>PrivateKey: Input (transfer) requires the private key of the address, the java program internally obtains utxo.</li>
 <li>Outputs: Recharge address and amount</li>
+<li>Amount:The unit is ELA,Namely:289.1ELA</li>
 <li>ChangeAddress: Change the address after the transfer, the change amount is automatically processed by the java program</li>
 <li>The input amount is less than the output amount, and the prompt amount is insufficient.</li>
 </ul>
@@ -63,7 +63,7 @@ Web service default port: 8989, can be modified
 <p>java-config.json</p>
 <div class="highlight highlight-source-json"><pre>{
     <span class="pl-s"><span class="pl-pds">"</span>Host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1:11336<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>Fee<span class="pl-pds">"</span></span>:<span class="pl-c1">5000</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>Fee<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>0.0005<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>Confirmation<span class="pl-pds">"</span></span>:<span class="pl-c1">16</span>
 }</pre></div>
 </li>
@@ -87,11 +87,11 @@ Web service default port: 8989, can be modified
                     "Outputs":[
                         {
                             "address":"Eazj14ifau5eH1SP5F8MJRuiSsPMiGbJV1",
-                            "amount":28900000
+                            "amount":"289.1"
                         },
                         {
                             "address":"EQSpUzE4XYJhBSx5j7Tf2cteaKdFdixfVB",
-                            "amount":60000000
+                            "amount":"2.1"
                         }
                     ],
                     "ChangeAddress":"Edi5WWMFBsEL2qgggrFhnJe1HTjDnw447H"
@@ -128,13 +128,12 @@ Web service default port: 8989, can be modified
 <li>
 <p>Parameter Description</p>
 <ul>
-<li>The java program amount is the smallest unit of 1 sela (1 ela = 100000000 sela (100 million sela)), can only be a positive integer.</li>
 <li>Need to calculate the change address balance, change the balance = inputs-outputs-fee, write the change address and balance in the last line of outputs.</li>
 <li>txid: The transaction where the available balance of the address is located, the information returned by the following interface txid is written here.</li>
 <li>index: The serial number in the transaction where the balance is available, the information returned by the interface vout is <code>index</code>.</li>
 <li>address: The address of outputs is the outgoing address.</li>
 <li>privateKey: Private key corresponding to the address.</li>
-<li>amount: Transferred amount, long type.</li>
+<li>amount: The unit is ELA,Namely:289.1ELA</li>
 </ul>
 </li>
 <li>
@@ -148,7 +147,7 @@ Web service default port: 8989, can be modified
 
  {
      "method":"listunspent",
-     "params":{"addresses": ["8ZNizBf4KhhPjeJRGpox6rPcHE5Np6tFx3", "EeEkSiRMZqg5rd9a2yPaWnvdPcikFtsrjE"]}
+     "params":{"addresses": ["EQSpUzE4XYJhBSx5j7Tf2cteaKdFdixfVB"]}
  }
 
  response
@@ -161,7 +160,7 @@ Web service default port: 8989, can be modified
              "assetid": "a3d0eaa466df74983b5d7c543de6904f4c9418ead5ffd6d25814234a96db37b0",
              "txid": "9132cf82a18d859d200c952aec548d7895e7b654fd1761d5d059b91edbad1768",
              "vout": 0,
-             "address": "8ZNizBf4KhhPjeJRGpox6rPcHE5Np6tFx3",
+             "address": "EQSpUzE4XYJhBSx5j7Tf2cteaKdFdixfVB",
              "amount": "33000000",
              "confirmations": 1102
          },
@@ -169,7 +168,7 @@ Web service default port: 8989, can be modified
              "assetid": "a3d0eaa466df74983b5d7c543de6904f4c9418ead5ffd6d25814234a96db37b0",
              "txid": "3edbcc839fd4f16c0b70869f2d477b56a006d31dc7a10d8cb49bd12628d6352e",
              "vout": 0,
-             "address": "8ZNizBf4KhhPjeJRGpox6rPcHE5Np6tFx3",
+             "address": "EQSpUzE4XYJhBSx5j7Tf2cteaKdFdixfVB",
              "amount": "0.01255707",
              "confirmations": 846
          }
@@ -191,25 +190,24 @@ Web service default port: 8989, can be modified
                 {
                     "UTXOInputs":[
                         {
-                            "txid":"61c22a83bb96d958f473148fa64f3b2be02653c66ede506e83b82e522200d446",
+                            "txid":"9132cf82a18d859d200c952aec548d7895e7b654fd1761d5d059b91edbad1768",
                             "index":0,
                             "privateKey":"5FA927E5664E563F019F50DCD4D7E2D9404F2D5D49E31F9482912E23D6D7B9EB"
                         },
                         {
-                            "txid":"a91b63ba6ffdb13379451895c51abd25c54678bc89268db6e6c3dcbb7bb07062",
+                            "txid":"3edbcc839fd4f16c0b70869f2d477b56a006d31dc7a10d8cb49bd12628d6352e",
                             "index":0,
-                            "privateKey":"A65E9FB6735C5FD33F839036B15D2DA373E15AED38054B69386E322C6BE52994",
-                            "address":"EgSph8GNaNSMwpv6UseAihsAc5sqSrA7ga"
+                            "privateKey":"A65E9FB6735C5FD33F839036B15D2DA373E15AED38054B69386E322C6BE52994"
                         }
                     ],
                     "Outputs":[
                         {
                             "address":"ERz34iKa4nGaGYVtVpRWQZnbavJEe6PRDt",
-                            "amount":200
+                            "amount":"30000000"
                         },
                         {
                             "address":"EKjeZEmLSXyyJ42xxjJP4QsKJYWwEXabuC",
-                            "amount":240
+                            "amount":"240"
                         }
                     ]
                 }
@@ -248,7 +246,6 @@ Web service default port: 8989, can be modified
 <li>
 <p>Parameter Description</p>
 <ul>
-<li>java program amount is the smallest unit 1 Serra (1 ela = 100000000 sela (100 million sela)), can only be a positive integer</li>
 <li>java-config.json file needs to be placed in the same directory of the java program, the purpose is to connect the node to get utxo</li>
 <li>Host: server ip and rpc port where the node program is located</li>
 <li>Fee: The transaction fee specified by both parties is the same for a single output or multiple output transaction fees for a transaction.</li>
@@ -267,21 +264,21 @@ Web service default port: 8989, can be modified
 </ul>
 </li>
 <li>
-<p>Interface name: genCrossChainRawTransactionByPrivateKey</p>
+<p>Interface name: genCrossChainTxByPrivateKey</p>
 <ul>
 <li>
 <p>java-config.json</p>
 <pre><code>{
-"Host": "127.0.0.1:11336",
-"Fee":5000,
-"Confirmation":16
+    "Host": "127.0.0.1:11336",
+    "Fee":"0.0005",
+    "Confirmation":16
 }
 </code></pre>
 </li>
 <li>
 <p>Request</p>
 <pre><code>{
-    "method":"genCrossChainRawTransactionByPrivateKey",
+    "method":"genCrossChainTxByPrivateKey",
     "id":0,
     "params":[
         {
@@ -295,13 +292,13 @@ Web service default port: 8989, can be modified
                     "Outputs":[
                         {
                             "address":"XLC69K4932zZf1SRwJCDbv5HGk7DbDYZ9H",
-                            "amount":100000
+                            "amount":"1000"
                         }
                     ],
                     "CrossChainAsset":[
                         {
                             "address":"ESH5SrT7GZ4uxTH6aQF3ne7X8AUzWdREzz",
-                            "amount":20000
+                            "amount":"20.1"
                         }
                     ],
 
@@ -317,7 +314,7 @@ Web service default port: 8989, can be modified
 <p>Response</p>
 <pre><code>{
     "Desc": "SUCCESS",
-    "Action": "genCrossChainRawTransactionByPrivateKey",
+    "Action": "genCrossChainTxByPrivateKey",
     "Result": {
         "rawTx": "02000100132D39353032333632323639300001B037DB964A033990D77CBFD9E9BE08651456BB7C2A0854AE",
         "txHash": "0605EE84FA7C28B353806E00CC40477487586A9A03AAAD7154DBE0AD4197E15F"
@@ -355,12 +352,12 @@ Web service default port: 8989, can be modified
 </ul>
 </li>
 <li>
-<p>Interface name: genRawTransaction</p>
+<p>Interface name: genCrossChainTx</p>
 <ul>
 <li>
 <p>Request</p>
 <pre><code>{
-    "method":"genCrossChainRawTransaction",
+    "method":"genCrossChainTx",
     "id":0,
     "params":[
         {
@@ -376,11 +373,11 @@ Web service default port: 8989, can be modified
                     "Outputs":[
                         {
                             "address":"XKUh4GLhFJiqAMTF6HyWQrV9pK9HcGUdfJ",
-                            "amount":70000
+                            "amount":"200.123"
                         },
                         {
                             "address":"EQSpUzE4XYJhBSx5j7Tf2cteaKdFdixfVB",
-                            "amount":999800000
+                            "amount":"23.1"
                         }
                     ],
                     "PrivateKeySign":[
@@ -391,7 +388,7 @@ Web service default port: 8989, can be modified
                     "CrossChainAsset":[
                         {
                             "address":"EQSpUzE4XYJhBSx5j7Tf2cteaKdFdixfVB",
-                            "amount":60000
+                            "amount":"200.12"
                         }
                     ]
                 }
@@ -405,7 +402,7 @@ Web service default port: 8989, can be modified
 <p>Response</p>
 <pre><code>{
     "Desc": "SUCCESS",
-    "Action": "genCrossChainRawTransaction",
+    "Action": "genCrossChainTx",
     "Result": {
         "rawTx": "02000100132D39353032333632323639300001B037DB964A033990D77CBFD9E9BE08651456BB7C2A0854AE",
         "txHash": "0605EE84FA7C28B353806E00CC40477487586A9A03AAAD7154DBE0AD4197E15F"

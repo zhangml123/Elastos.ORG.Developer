@@ -123,6 +123,14 @@ function guojihua(){
     $('.loginscanqrcode').html(internationalWords.loginscanqrcode);
     $('.logouttipcuccful').html(internationalWords.logouttipsuccful);
     $('.logouttipfail').html(internationalWords.logouttipfail);
+    $('#githubbinderror').html(internationalWords.githubbinderror);
+    $('#bindsuc').html(internationalWords.bindsuc);
+    $('#confirmunbind').html(internationalWords.confirmunbind);
+    $('#removeuserbtnc').html(internationalWords.removeuserbtnc);
+    $('#removeuserbtncan').html(internationalWords.removeuserbtncan);
+    $('#removeuserbtncwechat').html(internationalWords.removeuserbtnc);
+    $('#removeuserbtncanwechat').html(internationalWords.removeuserbtncan);
+    $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
 }
 guojihua();
 

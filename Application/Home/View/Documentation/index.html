@@ -69,7 +69,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 </head>
 <body>
 <include file="Index/topnav" />
-<nav class="navbar navbar-default visible-xs-block" role="navigation" style="height:60px;border:0px;margin-top:74px;z-index:100;">
+<nav class="navbar navbar-default visible-xs-block" role="navigation" style="height:60px;border:0px;margin-top:100px;z-index:100;">
 	<div class="container"> 
 	<div style="height:auto;">
 		<ul class="nav navbar-nav" style="border:0px;">
@@ -88,7 +88,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 						</eq>
 						<eq name="voa.type" value="file">
 							<eq name="voa.localdir" value="$curf">
-								<li class="doc_menu_l_li_subm_m" style="background-color:#173045;color:#fff;line-height:40px;height:40px;" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}" >&nbsp;&nbsp;{$voa.filename}&nbsp;&nbsp;</li>
+								<li class="doc_menu_l_li_subm_m" style="background-color:#173045;color:#fff;line-height:40px;height:40px;" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}" >&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
 							</eq>
 							<neq name="voa.localdir" value="$curf">
 								<li class="doc_menu_l_li_subm_m"  style="color:#222;line-height:40px;height:40px;" hosturl="{$voa.hostfile}"  shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
@@ -126,10 +126,10 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 							</eq>
 							<eq name="voa.type" value="file">
 								<eq name="voa.localdir" value="$curf">
-									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" hosturl="{$voa.hostfile}" shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
+									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" hosturl="{$voa.hostfile}" pai="{$voa.pai}"   shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}"  filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
 								</eq>
 								<neq name="voa.localdir" value="$curf">
-									<li class="doc_menu_l_li_subm"  hosturl="{$voa.hostfile}" shortname="{$voa.shortname}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
+									<li class="doc_menu_l_li_subm"  hosturl="{$voa.hostfile}" shortname="{$voa.shortname}" pai="{$voa.pai}"  localdir="{$voa.localdir}" githuburl="{$voa.githuburl}" filecname="{$voa.filecname}" filename="{$voa.filename}">&nbsp;&nbsp;{$voa.shortname}&nbsp;&nbsp;</li>
 								</neq>
 							</eq>
 					</volist>
@@ -170,7 +170,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 									</div>
 								</div>
 					</div>
-					<div class="visible-xs-block" style="width:100%;height:80px;margin-bottom:50px;margin-top:30px;background-color:#F7F7F7;text-align:center;padding-left:20%;padding-right:20%;">
+					<div class="visible-xs-block" style="width:90%;margin-left:4%;height:80px;margin-bottom:50px;margin-top:30px;background-color:#F7F7F7;text-align:center;padding-left:20%;padding-right:20%;">
 						<p style="height:30px;line-height:30px;margin-bottom:0px;padding-bottom:0px;"><label for="comment" class="docpagerehowlike">How do you like it?</label></p>
 						<div class="staroutm" style="width:100%;">
 							<div curstarn="1" style="width:20%;margin-left:0px;">
@@ -203,15 +203,22 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
-						<textarea id="comment_contents" class="docpagecommentstip" style="padding:20px;font-family: Roboto;"  placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>
+						<textarea id="comment_contents" class="docpagecommentstip" style="padding:15px;padding-left:10px;font-family: Roboto;"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
 						<div class="senddiv"><button id="sendcomment" class="docpagesendbtn">Send</button></div>
 						<div class="commentlist">
 							<ul id="commentlists">
 								<volist name="commentlist" id="vob">
 								<li>
 									<div class="c_c_list">
-										<div class="c_c_list_l headimg">
-											<img src="{$Think.const.PUBLIC_H}Home/images/head.png"  />
+										<div class="c_c_list_l headimg" style="text-align:center;">
+											<eq name="vob.uheadimg" value="">
+											<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+											<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+											</eq>
+											<neq name="vob.uheadimg" value="">
+											<img class="hidden-sm hidden-xs" src="{$vob.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
+											<img class="visible-xs-block" src="{$vob.uheadimg}" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" />
+											</neq>
 										</div>
 										<div class="c_c_list_r comment_r_c">
 											<div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">{$vob.sender}, {$vob.adddatetime}</div>
@@ -220,12 +227,17 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 											<div class="comment_bottom_icon">
 												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.sender}, {$vob.adddatetime}</div>
 												<div class="comment_bottom_icon_r">
+													<eq name="vob.zanyn" value="1">
+													<span class="glyphicon glyphicon-heart like" curid="{$vob.id}" style="cursor:pointer;padding:4px;color:#333;">{$vob.likes} </span>
+													</eq>
+													<eq name="vob.zanyn" value="0">
 													<span class="glyphicon glyphicon-heart like" curid="{$vob.id}" style="cursor:pointer;padding:4px;">{$vob.likes} </span>
+													</eq>
 													<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span>
 												</div>
 											</div>
 												<div class="replay_comment">
-													<textarea class="docpagecommentstip"   style="padding:20px;font-family: Roboto;"   placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>
+													<textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family: Roboto;"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
 													<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="{$vob.id}" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div>
 												</div>
 												<eq name="vob.subcommentlist" value="0">
@@ -237,7 +249,14 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 													<volist name="vob.subcommentlist" id="voc">
 													<div class="replay_c_list">
 														<div class="replay_c_list_l">
-															<img src="{$Think.const.PUBLIC_H}Home/images/head.png"  />
+															<eq name="voc.uheadimg" value="">
+															<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+															<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+															</eq>
+															<neq name="voc.uheadimg" value="">
+															<img  class="hidden-sm hidden-xs" src="{$voc.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
+															<img class="visible-xs-block" src="{$voc.uheadimg}" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />
+															</neq>
 														</div>
 														<div class="replay_c_list_r">
 																<div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">{$voc.sender}, {$voc.adddatetime}</div>
@@ -344,8 +363,8 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 <include file="Documentation/commentsuccful" />
 <include file="Documentation/commenterror" />
 <include file="Index/wechatqrcode" />
-<include file="Pcenter/loginoutscuff" />
-<include file="Pcenter/loginoutfail" />
+<include file="Index/loginoutscuff" />
+<include file="Index/loginoutfail" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -358,17 +377,25 @@ function applyelatip_popup(){
   $("#commenttip").modal("show");
   setTimeout(function(){$("#commenttip").modal("hide")},3000)
 }
-function commentsuccful_popup(jumpurl){
+function commentsuccful_popup(){
   $("#commentsuccful").modal("show");
-  setTimeout(function(){$("#commentsuccful").modal("hide");window.location.href=jumpurl},3000)
+  setTimeout(function(){$("#commentsuccful").modal("hide");window.location.reload();},3000)
 }
 function commenterror_popup(){
   $("#commenterror").modal("show");
   setTimeout(function(){$("#commenterror").modal("hide");},3000)
 }
 $(document).ready(function(){
-	$("#doc_menu_out_l").css("height",($(window).height()-300)+"px");
-	$(".doc_menu_l_ul").css("height",($(window).height()-382)+"px");
+	//$("#doc_menu_out_l").css("height",($(window).height()-300)+"px");
+	//$(".doc_menu_l_ul").css("height",($(window).height()-382)+"px");
+	$(".doc_menu_l_li_subm").click(function(){
+		var filename = $(this).attr("filecname");
+		var doc = filename.replace(/\|\|\|/g,"/");
+		var docc = doc.replace('.md','');
+		console.log(doc.substring(1));
+		window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
+	});
+	/*
 	$(".doc_menu_l_li_subm").click(function(){
 		var filename = $(this).attr("filecname");
 		var githuburl = $(this).attr("githuburl");
@@ -381,13 +408,11 @@ $(document).ready(function(){
 		arrw = filename.split(".");
 		arrq = $(this).attr("filename").split(".");
 		$("#jumpfilename").val(arrq[0]);
-			//alert(arrw[arrw.length-1]);
 		if(arrw[arrw.length-1]!="md"){
 			var htmla = "<a href='"+ hosturl +"' target='__blank' style='margin-top:50px;font-size:20px;text-align:center;'>Download View Detial</a>";
 			$(".doc_content_c").css("text-align","center");
 			$(".doc_content_c").html("&nbsp;&nbsp;"+htmla+"&nbsp;&nbsp;&nbsp;&nbsp;");
 		}else{
-			//alert(filename);
 			$.post(
 				'getcontents',
 				{fname:filename},
@@ -416,7 +441,7 @@ $(document).ready(function(){
 								+'<span class="glyphicon glyphicon-heart like" curid="'+ dataa[j]['id'] +'" style="cursor:pointer;padding:4px;">'+ dataa[j]['likes'] +' </span>'
 								+'<span class="glyphicon glyphicon-comment showrepaly" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span>'
 								+'</div></div><div class="replay_comment">'
-								+'<textarea placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>'
+								+'<textarea style="padding:15px;padding-left:10px;" placeholder="&nbsp;The more you tell us,the more we can help."></textarea>'
 								+'<div class="replay_senddiv"><button class="replaybtn" commentid="'+ dataa[j]['id'] +'">Reply</button><button class="canclebtn">Cancel</button></div>';
 								if(dataa[j]['subcommentlist']==0){
 									htmlc = htmlc +'</div><div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">';
@@ -444,6 +469,15 @@ $(document).ready(function(){
 		}
 		
 	});
+	*/
+	$(".doc_menu_l_li_subm_m").click(function(){
+			var filename = $(this).attr("filecname");
+			var doc = filename.replace(/\|\|\|/g,"/");
+			var docc = doc.replace('.md','');
+			console.log(doc.substring(1));
+			window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
+		});
+	/*
 	$(".doc_menu_l_li_subm_m").click(function(){
 		var filename = $(this).attr("filecname");
 		var githuburl = $(this).attr("githuburl");
@@ -461,18 +495,6 @@ $(document).ready(function(){
 			$(".doc_content_c").css("text-align","center");
 			$(".doc_content_c").html("&nbsp;&nbsp;"+htmla+"&nbsp;&nbsp;&nbsp;&nbsp;");
 		}else{
-			/*
-			$.post(
-				'getcontents',
-				{fname:filename},
-				function(data){
-					$(".doc_content_c").css("text-align","left");
-					$(".doc_content_c").html(data);
-					$("#curdocnamem").html(shortname);
-					$("#curgiturl").attr("href",githuburl);
-				}
-			)
-			*/
 			$.post(
 				'getcontents',
 				{fname:filename},
@@ -480,7 +502,7 @@ $(document).ready(function(){
 					var data = $.parseJSON(data);
 					$(".doc_content_c").css("text-align","left");
 					$(".doc_content_c").html(data[0]);
-					$("#curdocname").html(shortname);
+					$("#curdocnamem").html(shortname);
 					$("#curgiturl").attr("href",githuburl);
 					var htmla = "";
 					if(data[1]=="0"){
@@ -500,7 +522,7 @@ $(document).ready(function(){
 								+'<span class="glyphicon glyphicon-heart like" curid="'+ dataa[j]['id'] +'" style="cursor:pointer;padding:4px;">'+ dataa[j]['likes'] +' </span>'
 								+'<span class="glyphicon glyphicon-comment showrepaly" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span>'
 								+'</div></div><div class="replay_comment">'
-								+'<textarea placeholder="&nbsp;&nbsp;The more you tell us,the more we can help."></textarea>'
+								+'<textarea style="padding:15px;padding-left:10px;"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>'
 								+'<div class="replay_senddiv"><button class="replaybtn" commentid="'+ dataa[j]['id'] +'">Reply</button><button class="canclebtn">Cancel</button></div>'
 								if(dataa[j]['subcommentlist']==0){
 									htmlc = htmlc +'</div><div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">';
@@ -528,6 +550,7 @@ $(document).ready(function(){
 		}
 		
 	});	
+	*/
 	$(document).on("click",".like",function(){
 		var loginstatus = '{$logincate}';
 		if(loginstatus!=""){
@@ -538,7 +561,11 @@ $(document).ready(function(){
 				{id:id},
 				function(data){
 					if(data==1){
+						like.css("color","#333");
 						like.html(parseInt(like.html())+1);
+					}else if(data==2){
+						like.css("color","#CED6E3");
+						like.html(parseInt(like.html())-1);
 					}
 				}
 			)
@@ -565,8 +592,9 @@ $(document).ready(function(){
 			});
 			//star = star -1;
 		}
-		if(star>1){
-			star = star -1;
+		if(hasIllegalChar(contents)){
+			applyelatip_popup();
+			return false;
 		}
 		//console.log("star:"+star);
 		var commentid = "";
@@ -575,23 +603,24 @@ $(document).ready(function(){
 			applyelatip_popup();
 			return false;
 		}
-		var jumpfilename = $("#jumpfilename").val();
-		var jumpurl = internationalWordsZH.hosturl+"index.php/Home/Documentation/index.html?doc="+jumpfilename.substr(1);
+		//var jumpfilename = $("#jumpfilename").val();
+		//var jumpurl = internationalWordsZH.hosturl+"index.php/Home/Documentation/index.html?doc="+jumpfilename.substr(1);
 		$.post(
 			'{$curhost}index.php/Home/Comment/addcomment',
 			{contents:contents,githuburl:githuburl,star:star,commentid:commentid},
 			function(data){
 				if(data==1){
 					$("#comment_contents").val("");
-					commentsuccful_popup(jumpurl);
-					//window.location.href=jumpurl;
-					//BootstrapDialog.alert('评论成功！');
+					commentsuccful_popup();
 				}else{
 					commenterror_popup();
 				}
 			}
 		)
 	});
+	function hasIllegalChar(str) {
+        return new RegExp(".*?script[^>]*?.*?(<\/.*?script.*?>)*", "ig").test(str);
+    }
 	$(document).on("click",".replaybtn",function(){
 		var githuburl = $("#curgiturl").attr("href");
 		var contents = $(this).parent("div").prev("textarea").val();
@@ -610,16 +639,17 @@ $(document).ready(function(){
 				}
 			});
 		}
-		if(star>1){
-			star = star -1;
+		if(hasIllegalChar(contents)){
+			applyelatip_popup();
+			return false;
 		}
 		var obj = $(this);
 		if(contents==""){
 			applyelatip_popup();
 			return false;
 		}
-		var jumpfilename = $("#jumpfilename").val();
-		var jumpurl = internationalWordsZH.hosturl+"index.php/Home/Documentation/index.html?doc="+jumpfilename.replace("|||","/");
+		//var jumpfilename = $("#jumpfilename").val();
+		//var jumpurl = internationalWordsZH.hosturl+"index.php/Home/Documentation/index.html?doc="+jumpfilename.replace("|||","/");
 		$.post(
 			'{$curhost}index.php/Home/Comment/addcomment',
 			{contents:contents,githuburl:githuburl,star:star-1,commentid:commentid},
@@ -627,13 +657,11 @@ $(document).ready(function(){
 				if(data==1){
 					$(this).parent("div").prev("textarea").val("");
 					obj.parent(".replay_senddiv").parent(".replay_comment").hide();
-					commentsuccful_popup(jumpurl);
+					commentsuccful_popup();
 				}else{
 				
 					commenterror_popup();
 				}
-				//window.location.reload();
-				//window.location.href=jumpurl;
 			}
 		)
 	})
@@ -644,7 +672,7 @@ var lwith = $("#doc_menu_out_l").css("width");
 function ab(){
 	if(a==0){
 		$("#doc_menu_out_l").css("position","fixed");
-		$("#doc_menu_out_l").css("top","78px");
+		$("#doc_menu_out_l").css("top","182px");
 		//$(".doc_menu_l_ul").removeClass("showopall");
 		//$(".doc_menu_l_ul").addClass("showophalf");
 		　$(".doc_menu_l_ul").animate(

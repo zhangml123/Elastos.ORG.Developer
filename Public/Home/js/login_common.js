@@ -112,12 +112,12 @@ $("#resetbtn").click(function(){
 	var newpwdd = $("#newpwdd").val();
 	var confirmpwd = $("#confirmpwd").val();
 	if(newpwdd!=confirmpwd && newpwdd!=""){
-		$("#email_tip").show();
+		$(".crestpwd_tip").show();
 		//$("#email_tip").html("两次输入密码不一致！");
-		$("#email_tip").html(internationalWords.resetpwdtip);
+		$(".crestpwd_tip").html(internationalWords.resetpwdtip);
 		return false;
 	}else{
-		$("#email_tip").hide();
+		$(".crestpwd_tip").hide();
 	}
 	$.post(
 		internationalWords.hosturl+'index.php/Home/Emailinfo/resetpwd',
@@ -236,11 +236,25 @@ $("#id_password_reg_l").keyup(function(){
 	}
 });
 function loginoutscuff_popup(){
-  setTimeout(function(){$("#loginoutscuff").modal("hide");window.location.href=internationalWords.hosturl},3000);
+	$("#loginoutscuff").modal("show");
+	setTimeout(function(){window.location.href=internationalWords.hosturl},3000);
 }
 function loginouterror_popup(){
- setTimeout(function(){$("#loginoutfail").modal("hide");window.location.reload();},3000);
+	$("#loginoutfail").modal("show")
+	setTimeout(function(){;window.location.reload();},3000);
 }
 $("#loginoutbtn").click(function(){
 	$.post(internationalWords.hosturl+'index.php/Home/Pcenter/logout',{s:1},function(data){if(data==1){loginoutscuff_popup();}else{loginouterror_popup();}})
 });
+if(window.sessionStorage.getItem('internationalWords')==1){
+	$(".logouttipcuccful").css("line-height","50px");
+	$(".logouttipfail").css("line-height","50px");
+}else{
+	$(".logouttipcuccful").css("line-height","30px");
+	$(".logouttipfail").css("line-height","24px");
+}
+
+
+
+
+
