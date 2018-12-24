@@ -27,9 +27,7 @@ return array(
     'MAIL_FROM' =>'@SMTP_SENDER@',//发件人邮箱地址
     'MAIL_FROMNAME'=>'elastos developer',//发件人姓名
     'MAIL_CHARSET' =>'utf-8',//设置邮件编码 
-    'MAIL_ISHTML' =>TRUE, // 是否HTML格式邮件  
-    'MAIL_SSL'=>'SSL', //加密方式    
-    'MAIL_PORT'=>465,  //链接SMTP端口    
+    'MAIL_ISHTML' =>TRUE, // 是否HTML格式邮件 
 
 
     'GITHUB_CLIENT_ID'      =>  '@GITHUB_CLIENT_ID@',     // github登录API KEY
