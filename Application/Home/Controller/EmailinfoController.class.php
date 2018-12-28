@@ -1,8 +1,9 @@
 <?php
 namespace Home\Controller;
 use Common\Controller\BaseController;
+use Think\Controller;
 use Mailgun\Mailgun;
-class EmailinfoController extends BaseController {
+class EmailinfoController extends Controller {
 	public function send(){
 		$tomail = $_POST['tomail'];
 		$curtime = time();
@@ -21,6 +22,15 @@ class EmailinfoController extends BaseController {
 		$this->sendmail($tomail);
 		echo 1;
 	}
+	//发送邮件
+	public function sendmailing(){
+		$tomail = $_POST['tomail'];
+		$curtime = time();
+		$_SESSION['eladevp']['mailsession'] = rand('100000','999999');
+		$this->sendmail($tomail);
+		echo 1;
+	}
+	
 	public function sendgun(){
 		$tomail = $_POST['tomail'];
 		$curtime = time();
@@ -60,12 +70,14 @@ class EmailinfoController extends BaseController {
 		if($rs){
 			echo 0;
 		}else{
-			$curtime = time();
-			$_SESSION['eladevp']['mailsession'] = rand('100000','999999');
-			$this->sendmail($_POST['tomail']);
+			//$curtime = time();
+			//$_SESSION['eladevp']['mailsession'] = rand('100000','999999');
+			//$this->sendmail($_POST['tomail']);
 			echo 1;
 		}
 	}
+	//直接发送邮件
+	//public function 
 	public function sendmailgun($tomail){
 	/* 	var_dump(C('MAILGUN_KEY'));
 		var_dump(C('MAIlGUN_DOMAIN'));
@@ -113,6 +125,8 @@ class EmailinfoController extends BaseController {
 		$mailcode = $_POST['mailcode'];
 		$uid = $_POST['uid'];
 		$upwd = $_POST['upwd'];
+		///var_dump($_POST);
+		///var_dump($_SESSION['eladevp']['mailsession']);
 		if($_SESSION['eladevp']['mailsession']==$mailcode){
 			//echo 1;
 			$data['userid'] = $uid;
@@ -121,6 +135,7 @@ class EmailinfoController extends BaseController {
 			$data['addtime'] = time();
 			$user = M("user");
 			$rs = $user->add($data);
+			//var_dump($user->getlastsql());
 			if($rs){
 				$_SESSION ['eladevp']['logincate'] = 1;
 				$_SESSION ['eladevp']['userid'] = $_POST['uid'];

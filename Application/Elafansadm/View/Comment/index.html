@@ -1,0 +1,312 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title></title> 
+<link href="{$Think.const.PUBLIC_F}financeadm/css/base.css" rel="stylesheet">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}financeadm/custom/uimaker/easyui.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}financeadm/css/workbench.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}financeadm/fonts/iconfont.css">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.STYLE1 {font-size: 12px}
+.STYLE2 {height:40px;line-height:40px;overflow:hidden;}
+.STYLE4 {
+	font-size: 12px;
+	color: #1F4A65;
+	font-weight: bold;
+}
+
+a:link {
+	font-size: 12px;
+	color: #06482a;
+	text-decoration: none;
+
+}
+a:visited {
+	font-size: 12px;
+	color: #06482a;
+	text-decoration: none;
+}
+a:hover {
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+}
+a:active {
+	font-size: 12px;
+	color: #FF0000;
+	text-decoration: none;
+}
+.STYLE7 {font-size: 12}
+
+-->
+a{text-decoration:none;}
+/*定义滚动条轨道*/
+.layui-layer-iframe iframe::-webkit-scrollbar-track
+    {
+        background-color: #F5F5F5;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.22);
+    }
+    /*定义滚动条高宽及背景*/
+.layui-layer-iframe iframe::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: rgba(0, 0, 0, 0.34);
+    }
+    /*定义滚动条*/
+.layui-layer-iframe iframe::-webkit-scrollbar-thumb
+    {
+        background-color: #8b8b8b;
+        border-radius: 10px;
+    }
+.searchmenu{width:98%;margin-left:1%;height:50px;margin-top:10px;background-color:#f5f5f5;}
+.searchmenu div:first-child{margin-left:10px;}
+.searchmenu div{float:left;width:250px;height:30px;margin-top:10px;font-size:12px;}
+.searchmenu div select{min-width:150px;height:30px;border:1px solid #ccc;font-size:12px;}
+.searchmenu div input{min-width:100px;height:30px;border:0px;font-size:12px;background-color:#1da02b;border-radius:3px 3px;color:#fff;cursor:pointer;}
+.operatormenu{width:98%;margin-left:1%;height:50px;margin-top:2px;background-color:#f5f5f5;margin-bottom:10px;}
+.operatormenu div{float:left;width:110px;height:30px;margin-top:10px;}
+.operatormenu div button{min-width:100px;height:30px;border:0px;font-size:12px;border:1px solid #ccc;background-color:#eee;border-radius:3px 3px;color:#000;cursor:pointer;}
+.operatormenu div button:hover{background-color:#f9f9f9;border:1px solid #ccc;}
+.operatormenu div:first-child{margin-left:10px;}
+</style>
+</head> 
+<body>
+<div style="width:98%;height:auto;margin-left:1%;">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td  height="120">
+		<div class="searchmenu">
+			<form action="index" method="get">
+			<div style="width:240px;line-height:35px;display:none;">
+			<span style="float:left;">所属分类：</span>
+			<select name="catepid" style="float:left;height:35px;">
+				<option value="">&nbsp;&nbsp;全部</option>
+				<volist name="advthomemenu" id="voa">
+					<eq name="voa.id" value="$catepid">
+					<option value="{$voa.id}" selected="selected">&nbsp;&nbsp;{$voa.catename}</option>
+					</eq>
+					<neq name="voa.id" value="$catepid">
+					<option value="{$voa.id}">&nbsp;&nbsp;{$voa.catename}</option>
+					</neq>
+				</volist>
+			</select>
+			</div>
+			<div style="float:left;width:340px;line-height:30px;">
+			<span style="float:left;">&nbsp;&nbsp;评论时间：</span>
+				<input id="starttime"  type="text" style="border:1px solid #ccc;float:left;width:120px;height:30px;background-color:#fff;cursor:default;color:#333;padding-left:5px;" class="Wdate" placeholder="&nbsp;&nbsp;开始时间" onfocus="selecttime(1)" /><span style="float:left;">--</span><input id="endtime" style="border:1px solid #ccc;padding-left:5px;color:#333;cursor:default;float:left;width:120px;height:30px;background-color:#fff;" type="text" class="Wdate"  onfocus="selecttime(2)"  placeholder="&nbsp;&nbsp;结束时间" />
+			</div>
+			<div><input type="submit" value="查询" /></div>
+			</form>
+		</div>
+		<div class="operatormenu">
+			<div style="width:60px;height:40px;float:left;line-height:30px;"><input type="checkbox" id="chckall" style="float:left;margin-top:10px;" /><span  style="float:left;" >全选</span></div><button id="delbtn"  style="float:left;width:80px;height:30px;line-height:30px;color:#fff;border-radius:3px 3px;background-color:#1da02b;text-align:center;border:0px;margin-top:10px;" >删除选中</button>
+		</div>
+	
+	</td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><table style="width:98%;margin-left:1%;table-layout:fixed;" border="0" align="center" cellpadding="0" cellspacing="1">
+          <tr>
+            <td width="5%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">序号</div></td>
+            <td width="10%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">评论时间</div></td>
+            <td width="10%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">评论人</div></td>
+            <td width="10%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">文档目录</div></td>
+            <td width="10%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">文档</div></td>
+            <td width="30%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">内容</div></td>
+            <td width="5%"  height="40"   style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">评论者IP</div></td>
+            <td width="20%"  height="40"  style="background-color:#f1f1f1;" class="STYLE1"><div align="center" style="font-weight:900;">操作</div></td>
+          </tr>
+		  <volist name="commentlist" id="vo" key="k">
+          <tr style="border-bottom:1px solid #e5e5e5;">
+            <td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1"><input type="checkbox" class="ccls" commentid="{$vo.id}" />{$vo.sortid}</div></td>
+            <td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1">{$vo.adddatetime}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1" title="{$vo.sender}">{$vo.sender}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1" title="{$vo.dirname}">{$vo.dirname}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" style="width:80%;margin-left:10%;" class="STYLE2 STYLE1" title="{$vo.docname}">{$vo.docname}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="left" class="STYLE2 STYLE1" style="width:80%;margin-left:10%;" title="{$vo.contents}">{$vo.contents|msubstr=0,28,'utf-8',true}</div></td>
+			<td  height="40"  style="background-color:#fff;"><div align="center" class="STYLE2 STYLE1"><span style="color:green">{$vo.ip}</span></div></td>
+            <td  height="40"  style="background-color:#fff;">
+			<div align="center" class="STYLE2 STYLE1">
+			<a href="javascript:void(0);" class="delbtn" commentid="{$vo.id}">【删除】</a>
+			
+			</div>
+			</td>
+          </tr>
+		  </volist>
+        </table>
+		</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="50"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="15" height="29"></td>
+        <td ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="25%" height="29" nowrap="nowrap"><span class="STYLE1">共{$pageinfo['allnum']}条记录，当前第{$pageinfo['curpage']}/{$pageinfo['pagesize']}页，每页{$pageinfo['num']}条记录</span></td>
+            <td width="75%" valign="top" class="STYLE1"><div align="right">
+              <table width="248" height="20" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="62" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urla']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;">首页</a></div></td>
+                  <td width="50" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urlb']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;margin-left:5px;">上一页</a></div></td>
+                  <td width="54" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urlc']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;margin-left:5px;">下一页</div></td>
+                  <td width="49" height="22" valign="middle"><div align="right"><a href="{$curhost}{$pageinfo['urld']}" style="border:1px solid #e5e5e5;display:block;width:60px;height:30px;line-height:30px;text-align:center;margin-left:5px;">尾页</a></div></td>
+                </tr>
+              </table>
+            </div></td>
+          </tr>
+        </table></td>
+        <td width="14"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</div>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}financeadm/custom/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}financeadm/custom/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}financeadm/js/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}financeadm/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}financeadm/js/layer/2.1/layer.js"></script>
+<script type="text/javascript">
+$(".detailbtn").click(function(){
+	var commentid = $(this).attr("commentid");
+	var index = layer.open({
+			type: 2,
+			title: "详细信息",
+			area: ['60%', '60%'],
+			content: "detail?commentid="+commentid
+		});	
+});
+$("#chckall").click(function(){
+	if($(this).prop("checked")){
+		$(".ccls").prop("checked",true);
+	}else{
+		$(".ccls").prop("checked",false);
+	}
+});
+function selecttime(flag){
+    if(flag==1){
+        var endTime = $("#endtime").val();
+        if(endTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:endTime});
+        }else{
+            WdatePicker({dateFmt:'yyyy-MM-dd'});
+        }
+    }else{
+        var startTime = $("#starttime").val();
+        if(startTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd',minDate:startTime});
+        }else{
+            WdatePicker({dateFmt:'yyyy-MM-dd'});
+        }    
+    }
+}
+$(document).ready(function(){
+	$("#delbtn").click(function(){
+		var idlist = "";
+		$(".ccls").each(function(){
+			if($(this).prop("checked")){
+				idlist = idlist+";"+$(this).attr("commentid");
+			}
+		});
+		if(idlist==""){
+			layer.alert("至少选中一条评论！");
+			return false;
+		}
+		$.post(
+			'batchdel',
+			{idlist:idlist},
+			function(data){
+				if(data==1){
+					layer.alert("删除成功！",function(){
+						window.location.reload();
+					});
+				}else{
+					layer.alert("删除失败！");
+					return false;
+				}
+			}
+		)
+	});
+	$(".detail").click(function(){
+		var id = $(this).attr("id");
+		var index = layer.open({
+			type: 2,
+			title: "评论详细",
+			area: ['60%', '60%'],
+			content: "detail?id="+id
+		});		
+	});
+	$(".statusbtn").click(function(){
+		var id = $(this).attr("commentid");
+		var status = $(this).attr("status");
+		layer.confirm(
+			'确定要更改状态吗？',
+			{
+				btn : [ '确定', '取消' ]
+			},
+			function(index) {
+				$.post(
+					'setcstatus',
+					{id:id,status:status},
+					function(data){
+						if(data==1){
+							layer.alert("状态更改成功！",function(){
+								window.location.reload();
+							});
+						}else{
+							layer.alert("状态更改失败！");
+							return false;
+						}
+					}
+				)
+			},
+			function(index) {
+				layer.close(index);
+			}
+		);		
+	});
+	$(".delbtn").click(function(){
+		var id = $(this).attr("commentid");
+		layer.confirm(
+			'确定要删除吗？',
+			{
+				btn : [ '确定', '取消' ]
+			},
+			function(index) {
+				$.post(
+					'delcomment',
+					{id:id},
+					function(data){
+						if(data==1){
+							layer.alert("删除成功！",function(){
+								window.location.reload();
+							});
+						}else{
+							layer.alert("删除失败！");
+							return false;
+						}
+					}
+				)
+			},
+			function(index) {
+				layer.close(index);
+			}
+		);
+	});
+});
+</script>
+</body> 
+</html>

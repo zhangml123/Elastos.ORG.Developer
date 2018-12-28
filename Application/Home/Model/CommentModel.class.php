@@ -8,6 +8,7 @@ class CommentModel extends Model{
 		$rs = $comment->where($where)->order("addtime desc")->limit($start,$num)->select();
 		if($rs){
 			for($i=0;$i<count($rs);$i++){
+				$rs[$i]['contents'] = str_replace(" "," ",str_replace("\n","<br/>",$rs[$i]['contents']));
 				$uinfo = $this->findcommenthead($rs[$i]['sender'],$rs[$i]['cate']);
 				if($uinfo){
 					$rs[$i]['uheadimg'] = $uinfo['headimg'];

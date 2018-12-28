@@ -1,7 +1,8 @@
 <?php
 namespace Home\Controller;
+use Think\Controller;
 use Common\Controller\BaseController;
-class OauthController extends BaseController{
+class OauthController extends Controller{
     public function oauth(){
         $type=I('get.type');
         $code=I('get.code');
@@ -15,6 +16,8 @@ class OauthController extends BaseController{
         }
         $token = $sns->getAccessToken($code , $extend);
         $user_info = $this->$type($token);
+		//var_dump($token);
+		//var_dump($user_info);
         //获取当前登录用户信息
 		if(is_array($token)){
             // 获取第三方账号数据
@@ -75,14 +78,15 @@ class OauthController extends BaseController{
 							
 						}else{
 							$datagit['githubuid'] = $user_info['name'];
-							$datagit['githubappid'] = $user_info['openid'];
-							$datagit['githubtoken'] = $user_info['access_token'];
+							$datagit['githubappid'] = $token['openid'];
+							$datagit['githubtoken'] = $token['access_token'];
 							$datagit['headimg'] = $user_info['head_img'];
 							$datagit['company'] = $user_info['company'];
 							$datagit['bio'] = $user_info['bio'];
 							$datagit['moreurl'] = $user_info['moreurl'];
 							$datagit['email'] = $user_info['email'];
 							$rsb = $githubinfo->add($datagit);
+							//var_dump($githubinfo->getlastsql());
 						}
 						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
 						$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
@@ -137,91 +141,7 @@ class OauthController extends BaseController{
 						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}
 				}
-			//if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate'] != ""){
-				
-				
-				/* 
-				$where['githubuid'] = $user_info['name'];
-				$rsa=M('user')->where($where)->find();
-				 if($rsa){
-					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				}else{
-					//加入到User表和githubinfo表
-					//先判断是否存在
-					$githubinfo = M("githubinfo");
-					$whereb['githubuid'] = $user_info['name'];
-					$rsb=$githubinfo->where($whereb)->find();
-					if($rsb){
-						
-					}else{
-						$datagit['githubuid'] = $user_info['name'];
-						$datagit['githubappid'] = $user_info['openid'];
-						$datagit['githubtoken'] = $user_info['access_token'];
-						$datagit['headimg'] = $user_info['head_img'];
-						$datagit['company'] = $user_info['company'];
-						$datagit['bio'] = $user_info['bio'];
-						$datagit['moreurl'] = $user_info['moreurl'];
-						$datagit['email'] = $user_info['email'];
-						$rsb = $githubinfo->add($datagit);
-					}
-					$wherea['userid'] = $_SESSION ['eladevp']['userid'];
-					$datau['githubuid'] = $user_info['name'];
-					$rsc=M('user')->where($wherea)->save($datau);
-					//var_dump(M('user')->getlastsql());
-					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				} */
-			//}else{
-				//先判断是否之前登陆过
-				/* $githubinfo = M("githubinfo");
-				$wherea['githubuid'] = $user_info['name'];
-				$rsa=$githubinfo->where($wherea)->find();
-				//var_dump($githubinfo->getlastsql());
-				 if($rsa){
-					//判断是否与User有关联
-					$whereb['githubuid'] = $user_info['name'];
-					$rsb=M('user')->where($whereb)->find();
-					if($rsb){
-						$_SESSION ['eladevp']['userid'] = $rsb['userid'];
-						$_SESSION ['eladevp']['userheadimg'] = $rsb['headimg'];
-						$_SESSION ['eladevp']['logincate'] = 1;
-						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-					}else{
-						//按照github方式登录
-						$wherec['githubuid'] = $user_info['name'];
-						$datagit['githubappid'] = $token['openid'];
-						$datagit['githubtoken'] = $token['access_token'];
-						$datagit['headimg'] = $user_info['head_img'];
-						$datagit['company'] = $user_info['company'];
-						$datagit['bio'] = $user_info['bio'];
-						$datagit['moreurl'] = $user_info['moreurl'];
-						$datagit['email'] = $user_info['email'];
-						$rsc = $githubinfo->where($wherec)->save($datagit);
-						$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
-						$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
-						$_SESSION ['eladevp']['logincate'] = 3;
-						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-					}
-				}else{
-					$datagit['githubuid'] = $user_info['name'];
-					$datagit['githubappid'] = $token['openid'];
-					$datagit['githubtoken'] = $token['access_token'];
-					$datagit['headimg'] = $user_info['head_img'];
-					$datagit['company'] = $user_info['company'];
-					$datagit['bio'] = $user_info['bio'];
-					$datagit['moreurl'] = $user_info['moreurl'];
-					$datagit['email'] = $user_info['email'];
-					$rsc = $githubinfo->add($datagit);
-					//var_dump();
-					//var_dump($githubinfo->getlastsql());
-					$_SESSION ['eladevp']['githubuid'] = $user_info['name'];
-					$_SESSION ['eladevp']['userheadimg'] = $user_info['head_img'];
-					$_SESSION ['eladevp']['logincate'] = 3;
-					redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-				} */
-				
-        //}
 	 }
-	 //var_dump($user_info);
     }
     //登录成功，获取腾讯QQ用户信息
     public function qq($token){
@@ -238,7 +158,6 @@ class OauthController extends BaseController{
             throw_exception("获取腾讯QQ用户信息失败：{$data['msg']}");
         }
     }
-
     //登录成功，获取微信用户信息
     public function weixin($token){
         import("Org.ThinkSDK.ThinkOauth");

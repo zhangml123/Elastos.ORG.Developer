@@ -25,21 +25,5 @@ $(document).ready(function(){
 		var wcurl = internationalWords.hosturl+'/index.php/Home/Index/qrcode';
 		$("#wcqrcode").attr("src",wcurl);
 	}
-	if($("#loginstatus").val()==""){
-		setInterval(getwcrs,"2000");
-	}
-	function getwcrs(){
-		$.post(
-			internationalWords.hosturl+'/index.php/Home/Index/updatewechatinfo',
-			{d:2},
-			function(data){
-				if(data==1){
-					$("#scanrs").html("授权成功");
-					setTimeout(function(){$("#wechatqrcodeModal").modal("hide"); window.location.reload();},1500);
-					//$("#wechatqrcodeModal").modal("show");
-				}
-			}
-		);
-	}
 });
 </script>

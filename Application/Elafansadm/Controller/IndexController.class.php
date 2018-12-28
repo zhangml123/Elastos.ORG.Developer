@@ -53,10 +53,10 @@ class IndexController extends Controller {
 	}
 	//注销
 	public function logout(){
-		unset($_SESSION ['gz']['userid']);
-		unset($_SESSION ['gz']['username']);
-		unset($_SESSION ['gz']['role']);
-		echo "<script>window.location.href='http://".$_SERVER['HTTP_HOST']."/elafansadm.php';</script>";
+		unset($_SESSION ['ela']['userid']);
+		unset($_SESSION ['ela']['username']);
+		unset($_SESSION ['ela']['role']);
+		echo "<script>window.location.href='https://".$_SERVER['HTTP_HOST']."/elafansadm.php';</script>";
 	}
 	//更新信息到登录信息表
 	public function addlogininfo(){

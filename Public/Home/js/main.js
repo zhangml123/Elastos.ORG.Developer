@@ -5,9 +5,11 @@ INKEY0?INKEY=INKEY0:INKEY0=1;
 if(INKEY==1){
     internationalWords=internationalWordsZH;
 	document.getElementById("setlang").innerHTML = "简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
 }else{
     internationalWords=internationalWordsEN;
 	document.getElementById("setlang").innerHTML = "English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
 }
 function change(num){
     if(num==1){
@@ -131,6 +133,8 @@ function guojihua(){
     $('#removeuserbtncwechat').html(internationalWords.removeuserbtnc);
     $('#removeuserbtncanwechat').html(internationalWords.removeuserbtncan);
     $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
+    $('#loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
+    $('#loadmorebtn').html(internationalWords.docpagecommentloadmore);
 }
 guojihua();
 

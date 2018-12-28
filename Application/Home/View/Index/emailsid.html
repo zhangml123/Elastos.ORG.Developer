@@ -5,7 +5,7 @@
         <div class="modal-content" style="border: none;border-radius:10px;">
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:470px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
-                    <button type="button" id="jump_reg" style="outline:none;float:left;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">&lt;</span></button>
+                    <button type="button" id="jump_reg" style="outline:none;float:left;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><img src="{$Think.const.PUBLIC_H}Home/images/left-arrow.png" style="width:35px;height:23px;" /></button>
 					<button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title emailconfirmation" id="loginModalLabel" style="margin-top:35px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Email Confirmation</h4>
 					<div style="height:4px;width:90%;margin-left:5%;">
@@ -52,7 +52,6 @@
 </div>
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script>
-	$("#reguids").html(window.localStorage.reguid);
 	$("#checkemailbtn").click(function(){
 		var id_mailcode_l = $("#id_mailcode_l").val();
 		if(id_mailcode_l==""){
@@ -79,16 +78,7 @@
 		)
 	});
 	$("#resendbtn").click(function(){
-		$.post(
-			internationalWords.hosturl+'index.php/Home/Emailinfo/send',
-			{tomail:window.localStorage.reguid},
-			function(data){
-				if(data==1){
-					$("#id_account_reg_l").val("");
-					$("#id_password_reg_l").val("");
-				}
-			}
-		)
+		$.post(internationalWords.hosturl+'index.php/Home/Emailinfo/sendmailing',{tomail:window.localStorage.reguid},function(data){if(data==1){}});
 	});
 $("#wechatqcodemail").click(function(){
 	wechatqrcode_popup();
