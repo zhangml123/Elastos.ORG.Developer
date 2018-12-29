@@ -73,15 +73,16 @@ $("#regbtns").click(function(){
 	}else{
 		$(".reg_p_tip").hide();
 	}
-	window.localStorage.reguid = reguid;
-	window.localStorage.regpwd = regpwd;
 	$.post(
 		internationalWords.hosturl+'index.php/Home/Emailinfo/checkusersend',
 		{tomail:reguid},
 		function(data){
 			if(data==1){
+				window.localStorage.reguid = reguid;
+				window.localStorage.regpwd = regpwd;
 				$("#id_account_reg_l").val("");
 				$("#id_password_reg_l").val("");
+				$("#reguids").html(window.localStorage.reguid);
 				email_popup();
 			}else{
 				$(".reg_tip").show();

@@ -12,6 +12,7 @@ function email_popup(){
   $("#loginModal").modal("hide");
   $("#regModal").modal("hide");
   $("#emailModal").modal("show");
+  $.post(internationalWords.hosturl+'index.php/Home/Emailinfo/sendmailing',{tomail:window.localStorage.reguid},function(data){if(data==1){}});
 }
 function forgetpwd_popup(){
   $("#emailModal").modal("hide");
@@ -44,6 +45,22 @@ function wechatqrcode_popup(){
   $("#confirmemailcodeModal").modal("hide");
   $("#resetpwdModal").modal("hide");
   $("#wechatqrcodeModal").modal("show");
+	if($("#loginstatus").val()==""){
+		setInterval(getwcrs,"2000");
+	}
+	function getwcrs(){
+		$.post(
+			internationalWords.hosturl+'/index.php/Home/Index/updatewechatinfo',
+			{d:2},
+			function(data){
+				if(data==1){
+					$("#scanrs").html("授权成功");
+					setTimeout(function(){$("#wechatqrcodeModal").modal("hide"); window.location.reload();},1500);
+					//$("#wechatqrcodeModal").modal("show");
+				}
+			}
+		);
+	}
 }
 
 $(".globalLoginBtn").on("click",login_popup);

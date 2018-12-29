@@ -15,6 +15,7 @@ class PcenterController extends BaseController {
 		$user = M("user");
 		$userinfo = $user->where($where)->find(); */
 		$userinfo = $this->profileinfo();
+		//var_dump($userinfo);
 		$info = $this->relationuinfo();
 		if($info!=0){
 			$this->assign("info",$info);
@@ -346,6 +347,7 @@ class PcenterController extends BaseController {
 			$where['githubuid'] = $_SESSION['eladevp']['githubuid'];
 			$githubinfo = M("githubinfo");
 			$rs = $githubinfo->where($where)->save($data);
+			
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$data['firstname'] = $_POST['firstname'];
 			$data['lastname'] = $_POST['lastname'];

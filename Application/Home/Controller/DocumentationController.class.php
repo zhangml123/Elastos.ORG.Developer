@@ -25,6 +25,7 @@ class DocumentationController extends Controller {
 			}else{
 				$doc = "CN/".$_GET['doc'].".md";
 			}
+			//var_dump($doc);
 			$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc;
 			$where['commentid'] = array('exp','is null');
 			$commentlist = $this->initcommentlist($where);
@@ -43,14 +44,16 @@ class DocumentationController extends Controller {
 			$this->assign("localdirfile",$this->getlocalfile());
 			$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
+			$this->assign("dirdocname",str_replace("/","|",$doc));
 			$this->display();
 		}else{
 			//var_dump($_SESSION ['eladevp']['lang']);
 			 if($_SESSION ['eladevp']['lang']=="en"){
-				$doc = "EN/Dev environment/Get API key and secret.md";
+				$doc = "EN/1.Before you start/1.Contribute and earn ELA.md";
 			}else{
-				$doc = "CN/了解基础/侧链.md";
+				$doc = "CN/1.开始之前/1.做贡献赢取ELA.md";
 			}
+			//var_dump($doc);
 			$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc;
 			$where['commentid'] = array('exp','is null');
 			$commentlist = $this->initcommentlist($where);
@@ -58,17 +61,17 @@ class DocumentationController extends Controller {
 			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
 			$contents = str_replace($stra,"",$contents);
 			$contents = str_replace('<img src="','<img src="https://github.com',$contents);
-			 //$contents = str_replace($stra,"",$contents);
-			 $contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
-			 //var_dump($contents);
+			$contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
 			$this->assign("commentlist",$commentlist);
 			$this->assign("commentnum",count($commentlist));
+			//$this->assign("allcommentnum",count($allcommentlist));
 			$this->assign("firstc",$contents);
 			$this->assign("firstgiturl","https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc);
 			$this->assign("curlang",$_SESSION ['eladevp']['lang']);
 			$this->assign("localdirfile",$this->getlocalfile());
 			$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
+			$this->assign("dirdocname",str_replace("/","|",$doc));
 			$this->display();
 		}
 	}
@@ -183,7 +186,7 @@ class DocumentationController extends Controller {
 				$searcword = str_replace(".md","",$arr_files[$i]);
 				$docname = explode("/",$searcword);
 				$arr[$j]['contents'] = str_replace($sw,"<span style='color:#000;background-color:#FFFCAB;display:inline;height:30px;font-size:16px;font-weight:600;'>&nbsp;".$sw."&nbsp;</span>",mb_substr($reststr,0,210,'utf-8'));
-				$arr[$j]['searchurl'] = "http://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
+				$arr[$j]['searchurl'] = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
 				$arr[$j]['docname'] = $docname[count($docname)-1];
 				$j = $j+1;
 			}
@@ -467,8 +470,6 @@ class DocumentationController extends Controller {
 	}
 	//获取初始评论列表
 	public function initcommentlist($where){
-		//$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/Build_test_Chain.md";/elastos/Elastos.Developer.Doc/raw/master/Ignore/images/
-		//$where['commentid'] = array('exp','is null');
 		$comment = new CommentModel;
 		$commentlist = $comment->commentlist($where,0,10);
 		if($commentlist){
@@ -482,5 +483,44 @@ class DocumentationController extends Controller {
 			}
 		}
 		return $commentlist;
+	}
+	//获取初始评论列表
+	public function morecommentlist(){
+		$where['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".str_replace("|","/",$_POST['dirdocname']);
+		$where['commentid'] = array('exp','is null');
+		$comment = new CommentModel;
+		$commentlist = $comment->commentlist($where,$_POST['startn'],10);
+		if($commentlist){
+			for($i=0;$i<count($commentlist);$i++){
+				$commentlist[$i]['subcommentlist'] = $this->subcommentlist($commentlist[$i]['id']);
+				if($_SESSION ['eladevp']['lang']=="cn"){
+					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
+				}else{
+					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+				}
+			}
+			echo json_encode($commentlist);
+		}else{
+			echo 0;
+		}
+	}
+	//获取子评论列表
+	public function moresubcommentlist(){
+		$where['commentid'] = $_POST['curcommentid'];
+		$comment = new CommentModel;
+		$commentlist = $comment->commentlist($where,$_POST['startn'],10);
+		if($commentlist){
+			for($i=0;$i<count($commentlist);$i++){
+				$commentlist[$i]['subcommentlist'] = $this->subcommentlist($commentlist[$i]['id']);
+				if($_SESSION ['eladevp']['lang']=="cn"){
+					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
+				}else{
+					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+				}
+			}
+			echo json_encode($commentlist);
+		}else{
+			echo 0;
+		}
 	}
 }

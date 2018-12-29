@@ -10,7 +10,7 @@ class LoginModel extends Model{
 	//监测账户
 	public function checklogin($userid,$userpwd){
 		$user = M("user");
-		$rs = $user->where("userid='$userid' and userpwd='".md5($userpwd)."' and status=1")->find();
+		$rs = $user->where("userid='$userid' and userpwd='".md5($userpwd)."' and roleid=1 and status=1")->find();
 		if($rs){
 			return $rs;
 		}else{

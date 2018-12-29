@@ -31,7 +31,7 @@ internationalWordsEN.planned='Planned';
 //第一部分
 internationalWordsZH.oneparttitle='基于我们强大的公链开发你的dApp';
 internationalWordsEN.oneparttitle='Develop your dApps with our powerful platform';
-internationalWordsZH.onepartsummary='清晰的文档和dApp分发，贡献社区获得奖励';
+internationalWordsZH.onepartsummary='清晰的文档和dApp市场，贡献社区获得奖励';
 internationalWordsEN.onepartsummary='Clear documentation and dApp store, contribute and earn rewards.';
 internationalWordsZH.onepartdocbtn='开发文档';
 internationalWordsEN.onepartdocbtn='Documentation';
@@ -44,11 +44,11 @@ internationalWordsZH.towparttitle='猜你喜欢';
 internationalWordsEN.towparttitle='What you may like';
 internationalWordsZH.towpartsubonetitle='学习基础设施';
 internationalWordsEN.towpartsubonetitle='Learn Infrastructure';
-internationalWordsZH.towpartsubonesummary='进一步了解：亦来云<br>运营商，主链，<br>DID链，侧链';
+internationalWordsZH.towpartsubonesummary='进一步了解：亦来云<br>Carrier，主链，<br>DID链，侧链';
 internationalWordsEN.towpartsubonesummary='Get to know: Elastos <br>Carrier, Blockchain,<br> DID chain, Side chain';
 internationalWordsZH.towpartsubtowtitle='亦来云钱包';
 internationalWordsEN.towpartsubtowtitle='Elastos Wallet';
-internationalWordsZH.towpartsubtowsummary='我们支持轻量级<br>SPV、全结点和<br>硬件钱包';
+internationalWordsZH.towpartsubtowsummary='我们支持轻量级<br>SPV、全节点和<br>硬件钱包';
 internationalWordsEN.towpartsubtowsummary='We support lightweight <br>SPV, Full Node wallet, and <br>hardware wallet';
 internationalWordsZH.towpartsubthreetitle='交易所对接';
 internationalWordsEN.towpartsubthreetitle='Exchange Integration';
@@ -102,14 +102,18 @@ internationalWordsZH.docpagehome='开发';
 internationalWordsEN.docpagehome='Develop';
 internationalWordsZH.docpagedevlopdoc='开发者文档';
 internationalWordsEN.docpagedevlopdoc='Documentation';
-
-
-internationalWordsZH.docpagecommenttipc='评论内容必须，且不能还有非法字符.';
+internationalWordsZH.docpagecommenttipc='评论内容不能为空，且不能有非法字符.';
 internationalWordsEN.docpagecommenttipc='The comment contents is required and must not have illegal characters.';
 internationalWordsZH.docpagecommenttipscuf='评论成功.';
 internationalWordsEN.docpagecommenttipscuf='Comment added.';
 internationalWordsZH.docpagecommenterror='评论失败,请稍后再试.';
 internationalWordsEN.docpagecommenterror='Failed to add comment, please try again later.';
+internationalWordsZH.docpagecommentloadmore='加载更多';
+internationalWordsEN.docpagecommentloadmore='load more';
+internationalWordsZH.docpagecommentsubloadmore='加载更多';
+internationalWordsEN.docpagecommentsubloadmore='load more';
+
+
 
 /*
 	登录注册相关页面
