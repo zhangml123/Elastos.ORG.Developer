@@ -28,6 +28,8 @@ return array(
     'MAIL_FROMNAME'=>'elastos developer',//发件人姓名
     'MAIL_CHARSET' =>'utf-8',//设置邮件编码
     'MAIL_ISHTML' =>TRUE, // 是否HTML格式邮件
+    'MAIL_SSL' =>TRUE, // 是否使用加密连接
+    'MAIL_PORT' =>465, // SMTP端口
 
 
     'GITHUB_CLIENT_ID'      =>  '@GITHUB_CLIENT_ID@',     // github登录API KEY
