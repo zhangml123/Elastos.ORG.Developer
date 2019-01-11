@@ -28,7 +28,7 @@ class CommentController extends Controller {
 		$this->assign("commentlist",$commentlist);
 		$this->assign("ucount",$ucount);
 		$this->assign("pageinfo",$pageinfo);
-		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/elafansadm.php/Comment/allindex");
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/elafansadm.php/Comment/index");
 		$this->display();
 	}
 	
