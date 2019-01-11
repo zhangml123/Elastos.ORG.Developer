@@ -65,6 +65,11 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 .starout div{float:left;width:18px;height:18px;margin-left:4px;}
 .staroutm{width:300px;height:60px;line-height:55px;}
 .staroutm div{float:left;width:18px;height:18px;margin-left:4px;}
+
+textarea::-webkit-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
+textarea:-moz-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
+textarea::-moz-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
+textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
 </style>
 </head>
 <body>
@@ -204,7 +209,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
-						<textarea id="comment_contents" class="docpagecommentstip" style="padding:15px;padding-left:10px;font-family: Roboto;"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
+						<textarea id="comment_contents" class="docpagecommentstip" style="padding:15px;padding-left:10px;font-family:'HelveticaNeue-Light'"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
 						<div class="senddiv"><button id="sendcomment" class="docpagesendbtn">Send</button></div>
 						<div class="commentlist">
 							<ul id="commentlists">
@@ -238,7 +243,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 												</div>
 											</div>
 												<div class="replay_comment">
-													<textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family: Roboto;"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
+													<textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:'HelveticaNeue-Light'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
 													<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="{$vob.id}" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div>
 												</div>
 												<eq name="vob.subcommentlist" value="0">
@@ -373,6 +378,7 @@ h3{font-size:18px;font-weight:600;padding-bottom:10px;}
 <include file="Index/wechatqrcode" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
+<include file="Index/resendtip" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -566,7 +572,7 @@ $("#searchc").keypress(function (e) {
 		window.location.href='{$curhost}index.php/Home/Documentation/search.html?sw='+$(this).val();
 	}
 });
-$(".starout div").mouseover(function(){
+$(".starout div").click(function(){
     window.localStorage.curstarcate = 1;
 	var curn = $(this).attr("curstarn");
 	$(".starout div").each(function(){
@@ -580,7 +586,7 @@ $(".starout div").mouseover(function(){
 		}
 	})
 })
-$(".staroutm div").mouseover(function(){
+$(".staroutm div").click(function(){
     window.localStorage.curstarcate = 2;
 	var curn = $(this).attr("curstarn");
 	$(".staroutm div").each(function(){
@@ -632,7 +638,7 @@ $("#loadmorebtn").click(function(){
 						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;">'+data[i]['likes']+' </span>';
 					}
 						htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span></div></div>';
-						htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family: Roboto;"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
+						htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
 						htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
 					if(data[i]['subcommentlist']=="0"){
 						htmla = htmla +'<div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;"></div></div></div></li>';

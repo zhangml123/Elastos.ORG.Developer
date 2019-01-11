@@ -30,6 +30,10 @@ class IndexController extends Controller {
 		}
 		$this->display();
 	}
+	//右侧
+	public function resendtip(){
+		$this->display();
+	}
 	//底部
 	public function footer(){
 		$this->display();
@@ -68,6 +72,30 @@ class IndexController extends Controller {
 	}
 	//
 	public function loginoutfail(){
+		$this->display();
+	}
+	//移动端登录页面
+	public function weblogin(){
+		$this->display();
+	}
+	//移动端注册页面
+	public function webreg(){
+		$this->display();
+	}
+	//移动端注册验证码
+	public function regcheckmailcode(){
+		$this->display();
+	}
+	//移动端忘记密码邮箱webresetpwd
+	public function webforgetpwdone(){
+		$this->display();
+	}
+	//移动端重置密码验证码
+	public function webforgetpwdtow(){
+		$this->display();
+	}
+	//移动端重置密码
+	public function webresetpwd(){
 		$this->display();
 	}
 	//设置语言

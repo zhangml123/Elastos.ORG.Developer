@@ -135,6 +135,8 @@ function guojihua(){
     $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
     $('#loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
     $('#loadmorebtn').html(internationalWords.docpagecommentloadmore);
+    $('#checkemailbtn').html(internationalWords.checkemailbtn);
+    $('.resendtip').html(internationalWords.resendtip);
 }
 guojihua();
 

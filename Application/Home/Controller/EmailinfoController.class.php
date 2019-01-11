@@ -110,7 +110,7 @@ class EmailinfoController extends Controller {
 			$response = $sendgrid->send($email);
 		} catch (Exception $e) {
 		}*/
-		$rs = SendMail($tomail,"elastos developer","The checkcode：".$_SESSION['eladevp']['mailsession']);
+		$rs = SendMail($tomail,"Confirmation Code","Confirmation Code：".$_SESSION['eladevp']['mailsession']."<p></p><p></p><p>Thanks<br>Elastos team</p>");
 	}
 	public function checkmailcode(){
 		$mailcode = $_POST['mailcode'];
