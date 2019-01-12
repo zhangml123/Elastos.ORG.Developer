@@ -144,11 +144,13 @@ internationalWordsZH.loginwechat ='微信';
 internationalWordsEN.loginwechat='Wechat';
 internationalWordsZH.loginscanqrcode ='扫码授权';
 internationalWordsEN.loginscanqrcode='Scan code';
+internationalWordsZH.loginerror ='账户或密码无效';
+internationalWordsEN.loginerror='valid username or valid password.';
 
 
 //忘记密码页面
 internationalWordsZH.forgetpwd ='忘记密码';
-internationalWordsEN.forgetpwd='Forget Password';
+internationalWordsEN.forgetpwd='Forgot Password';
 internationalWordsZH.forgetpwdtip ='请输入你注册时使用的邮箱，我们会发送一个验证码到你的电子邮箱。';
 internationalWordsEN.forgetpwdtip='Please enter the email you registered, and we will send a confirmation code to you.';
 internationalWordsZH.forgetpwdemail ='邮箱';
@@ -199,8 +201,6 @@ internationalWordsZH.signupconfirmcode ='验证码';
 internationalWordsEN.signupconfirmcode="Confirmation code";
 internationalWordsZH.checkemailbtn ='提交';
 internationalWordsEN.checkemailbtn="Submit";
-internationalWordsZH.resendtip ='验证码已重新发送到您的邮箱';
-internationalWordsEN.resendtip="Confirmation email resent";
 
 
 

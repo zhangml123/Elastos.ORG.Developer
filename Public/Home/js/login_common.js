@@ -121,7 +121,7 @@ function daojishi(){
 	  if(i>0){
 		  i = i-1; 
 		  $(".resendcode").html("(已发送 "+i+"s)");
-		  $(".resendcode").css("color","#e5e5e5");
+		  $(".resendcode").css("color","#A7B2BC");
 		  if(i==57){
 			$("#resendtip").modal("hide");
 		  }
@@ -132,13 +132,14 @@ function daojishi(){
 			}else{
 				$(".resendcode").html("resend");
 			}
+			$(".resendcode").removeAttr("disabled");
 		    $(".resendcode").css("color","#18FFFF");
-			$(".resendcode").attr("id","resendemailbtn");
 	  }
   }, 1000);
 }
 $("#resendemailbtn").click(function(){
-	$(this).removeAttr("id");
+	//$(this).removeAttr("id");
+		$(this).attr("disabled","disabled");
 	$("#resendtip").modal("show");
 	daojishi();
 	$.post(

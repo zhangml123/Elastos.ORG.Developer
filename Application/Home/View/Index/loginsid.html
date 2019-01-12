@@ -78,7 +78,8 @@ $("#loginbtns").click(function(){
 			if(data==1){
 				window.location.href=internationalWords.hosturl+"/index.php/Home/Pcenter/index.html";
 			}else{
-				//BootstrapDialog.alert('登录失败！');
+				$(".login_p_tip").show();
+				$(".login_p_tip").html(internationalWords.loginerror);
 			}
 		}
 	);
