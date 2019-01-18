@@ -13,8 +13,9 @@ class IndexController extends Controller {
 			if(is_weixin()){
 				$state = "W".time().$this->getRandomString(5);
 				$_SESSION['eladevp']['wechatrand'] = $state;
+				$cururl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 				$this->add($state);
-				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
+				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'||'.urlencode($cururl).'#wechat_redirect';
 				header('Location: '.$url);
 			}
 		}
@@ -111,10 +112,11 @@ class IndexController extends Controller {
         $object = new \QRcode();
 		$state = time().$this->getRandomString(5);
 		$_SESSION['eladevp']['wechatrand'] = $state;
+		$cururl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$this->add($state);
-		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
+		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'||'.urlencode($cururl).'#wechat_redirect';
         $level=3;
-        $size=3;
+        $size=2.6;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
         $object->png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);

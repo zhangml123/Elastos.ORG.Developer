@@ -32,32 +32,32 @@ class LoginController extends Controller {
 	//微信公众号登录，获取相关信息
 	public function wechat(){
 		$code = $_GET['code'];
-		$state = $_GET['state'];
+		$state = explode("||",$_GET['state']);
 		$appid = C("WEIXIN_APP_ID");
 		$secret = C("WEIXIN_SECRET");
 		//更新数据库
  		$staywechat = M("staywechat");
 		$data['code'] = $code;
-		$where['wechatrand'] = $state;
+		$where['wechatrand'] = $state[0];
 		$rs = $staywechat->where($where)->save($data);
 		if($rs){
-			$rsa = $this->gettoken($state,$code,$appid,$secret);
+			$rsa = $this->gettoken($state[0],$state[1],$code,$appid,$secret);
 			echo $rsa;
 		}else{
 			echo "<div style='width:100%;height:400px;line-height:400px;color:#222;text-align:center;font-weight:900;font-size:26px'>授权失败！!</div>";
 		}
 	}
 	//换取token
-	public function gettoken($state,$code,$appid,$secret){
+	public function gettoken($statea,$stateb,$code,$appid,$secret){
 		$token = file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.$appid.'&secret='.$secret.'&code='.$code.'&grant_type=authorization_code');
 		$tokeninfo = json_decode($token,true);
 		$rsb = $this->getuinfo($code,$tokeninfo['access_token'],$tokeninfo['openid']);
 		 if($rsb){
-			 $str = substr($state,0,1);
+			 $str = substr($statea,0,1);
 			 if($str=="W"){
 				$this->updatewechatinfo();
-				$hurl = 'https://'.$_SERVER['HTTP_HOST'].'/';
-				return  "<script>window.location.href='".$hurl."';</script>";
+				//$hurl = 'https://'.$_SERVER['HTTP_HOST'].'/';
+				return  "<script>window.location.href='".$stateb."';</script>";
 			 }else{
 				return  "<div style='width:100%;height:400px;line-height:400px;font-size:26pxcolor:red;text-align:center;font-weight:900;'>授权成功！</div><script>setTimeout(function(){window.close();},3000);</script>";
 			 }
