@@ -34,10 +34,6 @@ class BaseController extends Controller{
 		$staywechat = M('staywechat');
 		$rs = $staywechat->add($data);
 	}
-	 public function _empty(){
-		$this->redirect("Empty/index");
-    } 
-	
 	function is_weixin() { 
 		if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
 			return true; 
