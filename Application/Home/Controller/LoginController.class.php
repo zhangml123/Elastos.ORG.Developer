@@ -105,7 +105,6 @@ class LoginController extends Controller {
 		//判断登录信息
 		$url = C('CR_LOGIN_URL').'?username='.$uid.'&password='.$upwd;
 		$rs = $this->curl_file_get_contents($url);
-		 var_dump($rs);
 		$data = json_decode($rs,true);
 		//存在
 		if($data['message']=="ok"){
