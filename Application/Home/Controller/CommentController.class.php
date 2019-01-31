@@ -133,6 +133,10 @@ class CommentController extends Controller {
 			$where['wechatuid'] = $userid;
 			$wechatinfo = M("wechatinfo");
 			$userinfo=$wechatinfo->where($where)->find();
+		}elseif($cate=="5"){
+			$where['didid'] = $userid;
+			$didinfo = M("didinfo");
+			$userinfo=$didinfo->where($where)->find();
 		}
 		return $userinfo;
 	}
@@ -151,6 +155,9 @@ class CommentController extends Controller {
 			$rs = $commenthistory->where($where)->find();
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$rs = $commenthistory->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$where['userid'] = $_SESSION['eladevp']['diduid'];
 			$rs = $commenthistory->where($where)->find();
 		}
 		if($rs){
@@ -178,6 +185,10 @@ class CommentController extends Controller {
 			$data['userid'] = $_SESSION['eladevp']['wechatuid'];
 			$data['cate'] = 4;
 			$rs = $commenthistory->add($data);
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$data['userid'] = $_SESSION['eladevp']['diduid'];
+			$data['cate'] = 5;
+			$rs = $commenthistory->add($data);
 		}
 		if($rs){
 			return 1;
@@ -199,6 +210,9 @@ class CommentController extends Controller {
 			$rs = $commenthistory->where($where)->delete();
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
+			$rs = $commenthistory->where($where)->delete();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$where['userid'] = $_SESSION['eladevp']['diduid'];
 			$rs = $commenthistory->where($where)->delete();
 		}
 		if($rs){
@@ -229,6 +243,9 @@ class CommentController extends Controller {
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$data['sender'] = $_SESSION['eladevp']['wechatuid'];
 			$data['cate'] = 4;
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$data['sender'] = $_SESSION['eladevp']['diduid'];
+			$data['cate'] = 5;
 		}else{
 			$data['sender'] = "匿名";
 		}

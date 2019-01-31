@@ -1,9 +1,9 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-use Common\Controller\BaseController;
+use Common\Controller\CommonbaseController;
 use Home\Model\CommentModel;
-class DocumentationController extends Controller {
+class DocumentationController extends CommonbaseController {
     public function index(){
 
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
@@ -11,14 +11,15 @@ class DocumentationController extends Controller {
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
 		}else{
 			$this->assign("logincate","");
-			if(is_weixin()){
+			/* if(is_weixin()){
 				$state = "W".time().$this->getRandomString(5);
 				$_SESSION['eladevp']['wechatrand'] = $state;
 				$cururl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 				$this->add($state);
 				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'||'.urlencode($cururl).'#wechat_redirect';
-				header('Location: '.$url);
-			}
+				//header('Location: '.$url);
+				echo "<script>window.location.href='".$url."';</script>";
+			} */
 		}
 		if(isset($_GET['doc']) && $_GET['doc']!=""){
 			if($_SESSION ['eladevp']['lang']=="en"){
@@ -95,6 +96,7 @@ class DocumentationController extends Controller {
 		}
 		echo json_encode($commentlist);
 	}
+	
 	public function getRandomString($len, $chars=null)  {  
 		if (is_null($chars)) {  
 			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -105,7 +107,6 @@ class DocumentationController extends Controller {
 		}  
 		return $str;  
 	}
-	
 	//搜索页面
 	public function search(){
 		
@@ -114,14 +115,14 @@ class DocumentationController extends Controller {
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
 		}else{
 			$this->assign("logincate","");
-			if(is_weixin()){
+			/* if(is_weixin()){
 				$state = "W".time().$this->getRandomString(5);
 				$_SESSION['eladevp']['wechatrand'] = $state;
 				$cururl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 				$this->add($state);
 				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'||'.urlencode($cururl).'#wechat_redirect';
 				header('Location: '.$url);
-			}
+			} */
 		}
 		$searchword = $_GET['sw'];
 		$searchrs = $this->searchfilecontents($searchword);
@@ -198,7 +199,7 @@ class DocumentationController extends Controller {
 				$searcword = str_replace(".md","",$arr_files[$i]);
 				$docname = explode("/",$searcword);
 				$arr[$j]['contents'] = str_replace($sw,"<span style='color:#000;background-color:#FFFCAB;display:inline;height:30px;font-size:16px;font-weight:600;'>&nbsp;".$sw."&nbsp;</span>",mb_substr($reststr,0,210,'utf-8'));
-				$arr[$j]['searchurl'] = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
+				$arr[$j]['searchurl'] = "http://".$_SERVER['HTTP_HOST']."/index.php/Home/Documentation/index.html?doc=".substr($searcword,1);
 				$arr[$j]['docname'] = $docname[count($docname)-1];
 				$j = $j+1;
 			}

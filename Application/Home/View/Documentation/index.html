@@ -70,6 +70,7 @@ textarea::-webkit-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"H
 textarea:-moz-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
 textarea::-moz-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
 textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"HelveticaNeue-Light"}
+.doc_content_c li,.doc_content_c a,.doc_content_c p,.doc_content_c h1,.doc_content_c h2,.doc_content_c h3,.doc_content_c h4{word-break: break-word;}
 </style>
 </head>
 <body>
@@ -82,9 +83,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 				<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;font-size:20px;line-height:40px;background-color:#173045;">
 					 
 					<span class="docpagedevlopdoc">Documentation</span>
-					<b class="caret"></b>
+					
 				</a>
-					<span class="glyphicon glyphicon-search" style="float:right;margin-top: -40px;font-size: 20px;margin-right: 20px;"></span>
 				<ul class="dropdown-menu" style="background-color:#F6F9FD;z-index:1000;height:570px;margin-top:-60px;overflow:scroll;width:100%;">
 					<li class="doc_menu_l_li_t_m" style="background-color:#ECEFF3;color:#222;line-height:40px;height:40px;"></li>
 					<volist name="localdirfile" id="voa">
@@ -227,11 +227,11 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 											</neq>
 										</div>
 										<div class="c_c_list_r comment_r_c">
-											<div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">{$vob.sender}, {$vob.adddatetime}</div>
+											<div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">{$vob.nickname}, {$vob.adddatetime}</div>
 											<div class="comment_c" style="word-break: break-all;">{$vob.contents}</div>
 											<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 											<div class="comment_bottom_icon">
-												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.sender}, {$vob.adddatetime}</div>
+												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.nickname}, {$vob.adddatetime}</div>
 												<div class="comment_bottom_icon_r">
 													<eq name="vob.zanyn" value="1">
 													<span class="glyphicon glyphicon-heart like" curid="{$vob.id}" style="cursor:pointer;padding:4px;color:#333;">{$vob.likes} </span>
@@ -265,11 +265,11 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 															</neq>
 														</div>
 														<div class="replay_c_list_r">
-																<div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">{$voc.sender}, {$voc.adddatetime}</div>
+																<div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">{$voc.nickname}, {$voc.adddatetime}</div>
 															<div class="comment_c"  style="word-break: break-all;">{$voc.contents}</div>
 															<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 															<div class="comment_bottom_icon  hidden-sm hidden-xs">
-																<div class="comment_bottom_icon_l">{$voc.sender}, {$voc.adddatetime}</div>
+																<div class="comment_bottom_icon_l">{$voc.nickname}, {$voc.adddatetime}</div>
 															</div>
 														</div>
 													</div>
@@ -379,6 +379,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
 <include file="Index/resendtip" />
+<include file="Index/didqrcode" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -406,7 +407,9 @@ $(document).ready(function(){
 		var doc = filename.replace(/\|\|\|/g,"/");
 		var docc = doc.replace('.md','');
 		console.log(doc.substring(1));
+		//console.log("跳转地址："+);
 		window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
+		
 	});
 	$(".doc_menu_l_li_subm_m").click(function(){
 			var filename = $(this).attr("filecname");
@@ -629,9 +632,9 @@ $("#loadmorebtn").click(function(){
 						htmla = htmla +'<img class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
 						htmla = htmla +'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" /></div>';
 					}
-						htmla = htmla +'<div class="c_c_list_r comment_r_c"><div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">'+data[i]['sender']+','+data[i]['adddatetime']+'</div>';
+						htmla = htmla +'<div class="c_c_list_r comment_r_c"><div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div>';
 						htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
-						htmla = htmla +'<div class="comment_bottom_icon"><div class="comment_bottom_icon_l  hidden-sm hidden-xs">'+data[i]['sender']+','+data[i]['adddatetime']+'</div><div class="comment_bottom_icon_r">';
+						htmla = htmla +'<div class="comment_bottom_icon"><div class="comment_bottom_icon_l  hidden-sm hidden-xs">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div><div class="comment_bottom_icon_r">';
 					if(data[i]['zanyn']=="1"){
 						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;color:#333;"> '+data[i]['likes']+'</span>';
 					}else if(data[i]['zanyn']=="0"){
@@ -654,9 +657,9 @@ $("#loadmorebtn").click(function(){
 									htmla = htmla +'<img  class="hidden-sm hidden-xs" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
 									htmla = htmla +'<img class="visible-xs-block" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 							}							
-							htmla = htmla +'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+dataa[j]['sender']+', '+dataa[j]['adddatetime']+'</div>';
+							htmla = htmla +'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
 							htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+dataa[j]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
-							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['sender']+', '+dataa[j]['adddatetime']+'</div></div></div></div>';
+							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div></div></div></div>';
 						}
 					htmla = htmla +'<div style="width:100%;height:70px;text-align:center;line-height:70px;"><a href="javascript:void(0);" curcommentid="'+data[i]['id']+'" id="loadsubmorebtn" style="color:#333;font-size:14px;">加载更多</a></div>';
 					htmla = htmla +'</div></div></div></li>';
@@ -693,8 +696,8 @@ $("#loadsubmorebtn").click(function(){
 						htmla = htmla+'<img  class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
 						htmla = htmla+'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 					}
-						htmla = htmla+'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+data[i]['sender']+', '+data[i]['adddatetime']+'</div>';
-						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['sender']+', '+data[i]['adddatetime']+'</div></div></div></div>';
+						htmla = htmla+'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div>';
+						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div></div></div>';
 				}
 				$(".repaly"+curcommentid).append(htmla);
 				

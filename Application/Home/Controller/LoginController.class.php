@@ -56,7 +56,7 @@ class LoginController extends Controller {
 			 $str = substr($statea,0,1);
 			 if($str=="W"){
 				$this->updatewechatinfo();
-				//$hurl = 'https://'.$_SERVER['HTTP_HOST'].'/';
+				$hurl = 'https://'.$_SERVER['HTTP_HOST'].'/';
 				return  "<script>window.location.href='".$stateb."';</script>";
 			 }else{
 				return  "<div style='width:100%;height:400px;line-height:400px;font-size:26pxcolor:red;text-align:center;font-weight:900;'>授权成功！</div><script>setTimeout(function(){window.close();},3000);</script>";
@@ -105,7 +105,7 @@ class LoginController extends Controller {
 		//判断登录信息
 		$url = C('CR_LOGIN_URL').'?username='.$uid.'&password='.$upwd;
 		$rs = $this->curl_file_get_contents($url);
-		 
+		 var_dump($rs);
 		$data = json_decode($rs,true);
 		//存在
 		if($data['message']=="ok"){
@@ -206,6 +206,7 @@ class LoginController extends Controller {
 		$dataa['wechatuid'] = $staychat['openid'];
 		$dataa['wechatappid'] = $staychat['openid'];
 		$dataa['nickname'] = $staychat['nickname'];
+		$dataa['firstname'] = $staychat['nickname'];
 		$dataa['headimg'] = $staychat['headimg'];
 		$dataa['city'] = $staychat['city'];
 		if($staychat['openid']!=""){
@@ -259,7 +260,20 @@ class LoginController extends Controller {
 								$datab['ustatus'] = 3;
 								$this->adduserrelation($datab);
 							}
-						}
+						}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+								$whereb['wechatuserid'] = $staychat['openid'];
+								$rsa = $userrelation->where($whereb)->find();
+								if($rsa){
+									$datab['wechatuserid'] = $staychat['openid'];
+									$rsb = $userrelation->where($whereb)->save($datab);
+								}else{
+									$datab['mainuser'] = $_SESSION ['eladevp']['diduid'];
+									$datab['didid'] = $_SESSION ['eladevp']['diduid'];
+									$datab['wechatuserid'] = $staychat['openid'];
+									$datab['ustatus'] = 5;
+									$this->adduserrelation($datab);
+								}
+							}
 						$backrs = 1;
 					}else{
 						$_SESSION['eladevp']['wechatuid'] = $staychat['openid'];
@@ -288,21 +302,27 @@ class LoginController extends Controller {
 						$backrs = 1;
 						}elseif($urelation['ustatus']==2){
 							//主账号是注册的RCuid
-							$uinfo = $this->userinfo($urelation['mainuid']);
+							$uinfo = $this->rcinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['rcuid'] = $uinfo['rcuid'];
 							$_SESSION['eladevp']['logincate'] = 2;
 						$backrs = 1;
 						}elseif($urelation['ustatus']==3){
 							//主账号是注册的githuuid
-							$uinfo = $this->userinfo($urelation['mainuid']);
+							$uinfo = $this->githubinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['githubuid'] = $uinfo['githubuid'];
 							$_SESSION['eladevp']['logincate'] = 3;
 						$backrs = 1;
 						}elseif($urelation['ustatus']==4){
 							//主账号是注册的wechatuid
-							$uinfo = $this->userinfo($urelation['mainuid']);
+							$uinfo = $this->wechatinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['wechatuid'] = $uinfo['wechatuid'];
 							$_SESSION['eladevp']['logincate'] = 4;
+							$backrs = 1;
+						}elseif($urelation['ustatus']==5){
+							//主账号是注册的didid
+							$uinfo = $this->didinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['diduid'] = $uinfo['didid'];
+							$_SESSION['eladevp']['logincate'] = 5;
 							$backrs = 1;
 						}
 					}
@@ -391,12 +411,22 @@ class LoginController extends Controller {
 		  return 0;
 	  }
   }
-  
   //获取wechat相关信息
   public function wechatinfo($uid){
 	  $where['wechatuid'] = $uid;
 	  $wechatinfo = M("wechatinfo");
 	  $info = $wechatinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取didinfo相关信息
+  public function didinfo($uid){
+	  $where['didid'] = $uid;
+	  $didinfo = M("didinfo");
+	  $info = $didinfo->where($where)->find();
 	  if($info){
 		  return $info;
 	  }else{
@@ -413,6 +443,23 @@ class LoginController extends Controller {
 		  return 0;
 	  }
   }
+ //验证DID
+ public function didlogin(){
+	 //Callback://identity?AppID="123"&SerialNumber="123456ef"&NickName="elephantela"&DID="xxxxxxxxxxxx"&PublicKey="asdfsadfsfsdf"&Description="developerSite"&RandomNumber="1345678"&ELAAddress="0xEdfwesfffffww"&ExpirationDate="20190201"&Signature="xxxxxxsssseeee"
+	 $nickname = $_GET['NickName']; 
+	 $pubkey = $_GET['PublicKey'];
+	 $did = $_GET['DID'];
+	 $Signature = $_GET['Signature'];
+	 $myfile = fopen("/home/wwwroot/devsite.matrixyz.cn/newfile.txt", "w") or die("Unable to open file!");
+	 fwrite($myfile, $Signature);
+	 fclose($myfile);
+	/*  $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
+	 $parm = "?didpubkey=".$didpubkey."&msg=".$did."&sig=".$Signature;
+	 $rs = file_get_contents($url."".$parm);
+	 if($rs){
+		 
+	 }	 */
+ }
   
   
 }

@@ -12,8 +12,21 @@ class CommentModel extends Model{
 				$uinfo = $this->findcommenthead($rs[$i]['sender'],$rs[$i]['cate']);
 				if($uinfo){
 					$rs[$i]['uheadimg'] = $uinfo['headimg'];
+					if($uinfo['firstname']!=""){
+						$rs[$i]['nickname'] = $uinfo['firstname'];
+					}else{
+						$rs[$i]['nickname'] = $rs[$i]['sender'];
+					}
+					
 				}else{
 					$rs[$i]['uheadimg'] = "";
+					if($rs[$i]['sender']=="匿名"){
+						$rs[$i]['nickname'] = "匿名";
+					}else{
+						$rs[$i]['nickname'] = "";
+					}
+					
+					
 				}
 				$zanyn = $this->findcommenthistory($rs[$i]['id']);
 				if($zanyn){
@@ -53,6 +66,9 @@ class CommentModel extends Model{
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
 			$rs = $commenthistory->where($where)->find();
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$where['userid'] = $_SESSION['eladevp']['diduid'];
+			$rs = $commenthistory->where($where)->find();
 		}
 		if($rs){
 			return 1;
@@ -74,10 +90,17 @@ class CommentModel extends Model{
 			$where['githubuid'] = $userid;
 			$githubinfo = M("githubinfo");
 			$userinfo=$githubinfo->where($where)->find();
+			if($userinfo){
+				$userinfo['nickname']=$userinfo['rcnickname'];
+			}
 		}elseif($cate=="4"){
 			$where['wechatuid'] = $userid;
 			$wechatinfo = M("wechatinfo");
 			$userinfo=$wechatinfo->where($where)->find();
+		}elseif($cate=="5"){
+			$where['didid'] = $userid;
+			$didinfo = M("didinfo");
+			$userinfo=$didinfo->where($where)->find();
 		}
 		return $userinfo;
 	}

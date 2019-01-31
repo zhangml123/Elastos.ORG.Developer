@@ -38,12 +38,16 @@
 						<div style="width:54%;height:40px;line-height:40px;text-align:right;float:left;font-size:12px;"><span class="loginenoaccount" style="display:inline;">No account?</span> <a href="javascript:void(0);" class="logincreatone" id="jumpreg" style="color:#173045;">Create one</a>&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="logincontinue" style="width:90%;margin-left:5%;text-align:center;line-height:40px;height:40px;">Or continue with</div>
-					<div class="other_login">
-						<a class="git_loginbtn_b" style="line-height:40px;font-size:12px;color:#5E6D82;width:35%;margin-left:10%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}">
+					<div class="other_login" style="width:90%;margin-left:5%;">
+						<a class="git_loginbtn_b" style="line-height:40px;font-size:12px;color:#5E6D82;width:25%;margin-left:0%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}">
 							<img src="{$Think.const.PUBLIC_H}Home/images/githublogo_login.png" style="width: 18px;height: 19px;margin-top: -3px;" />
 							Github
 						</a>
-						<a class="chat_loginbtn_b" id="wechatqcode" style="line-height:40px;font-size:12px;color:#5E6D82;width:35%;margin-left:10%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="javascript:void(0);" >
+						<a class="did_loginbtn_b" id="didqcode" style="line-height:40px;font-size:12px;color:#5E6D82;width:25%;margin-left:12.5%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="javascript:void(0);" >
+							<img src="{$Think.const.PUBLIC_H}Home/images/didlogin.png" style="width: 18px;height: 19px;margin-top: -3px;" />
+							<span class="logindid">DID</span>
+						</a>
+						<a class="chat_loginbtn_b" id="wechatqcode" style="line-height:40px;font-size:12px;color:#5E6D82;width:25%;margin-left:12.5%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="javascript:void(0);" >
 							<img src="{$Think.const.PUBLIC_H}Home/images/wechat_login.png" style="width: 18px;height: 19px;margin-top: -3px;" />
 							<span class="loginwechat">WeChat</span>
 						</a>
@@ -86,5 +90,8 @@ $("#loginbtns").click(function(){
 });
 $("#wechatqcode").click(function(){
 	wechatqrcode_popup();
+});
+$("#didqcode").click(function(){
+	didqcode_popup();
 });
 </script>

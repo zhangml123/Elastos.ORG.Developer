@@ -19,7 +19,7 @@ internationalWordsZH.langen='English';
 internationalWordsEN.langen='English';
 internationalWordsZH.pcentersubprofile='我的';
 internationalWordsEN.pcentersubprofile='My Profile';
-internationalWordsZH.pcentergettoken='获取测试币';
+internationalWordsZH.pcentergettoken='申请测试币';
 internationalWordsEN.pcentergettoken='Get Test Token';
 internationalWordsZH.logout='安全退出';
 internationalWordsEN.logout='Log out';
@@ -145,7 +145,7 @@ internationalWordsEN.loginwechat='Wechat';
 internationalWordsZH.loginscanqrcode ='扫码授权';
 internationalWordsEN.loginscanqrcode='Scan code';
 internationalWordsZH.loginerror ='账户或密码无效';
-internationalWordsEN.loginerror='valid username or valid password.';
+internationalWordsEN.loginerror='Invalid email or password.';
 
 
 //忘记密码页面
@@ -255,6 +255,12 @@ internationalWordsZH.removeuserbtncan='取消';
 internationalWordsEN.removeuserbtncan='Cancel';
 internationalWordsZH.wechatbindedtip='该微信账户已经绑定，请先解绑后绑定';
 internationalWordsEN.wechatbindedtip='This Wechat account is already associated. Please un-associate it and associate again.';
+internationalWordsZH.bindgittip='绑定github';
+internationalWordsEN.bindgittip='Associate with Github';
+internationalWordsZH.bindwechattip='绑定微信';
+internationalWordsEN.bindwechattip='Associate with wechat';
+internationalWordsZH.binddidtip='绑定DID';
+internationalWordsEN.binddidtip='Associate with did';
 
 //get test token
 internationalWordsZH.applytokentip='测试ELA钱包地址';
@@ -275,6 +281,9 @@ internationalWordsZH.applytokensuccfully='申请已提交,大约5分钟后收到
 internationalWordsEN.applytokensuccfully='Application submitted, it will take around 5 minutes to receive your test token.';
 internationalWordsZH.applytokenfail='测试币申请提交失败，请重试.';
 internationalWordsEN.applytokenfail='Failed to submit your application, please try again later.';
+internationalWordsZH.applytokentips='测试ELA钱包地址必须填写';
+internationalWordsEN.applytokentips='Test ELA wallet address is required.';
+
 
 //登录与退出
 internationalWordsZH.logouttipsuccful='登出成功';

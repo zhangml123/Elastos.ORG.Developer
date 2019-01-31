@@ -68,6 +68,19 @@ class OauthController extends Controller{
 								$datab['ustatus'] = 4;
 								$this->adduserrelation($datab);
 							}
+						}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+							$whereb['didid'] = $_SESSION ['eladevp']['didid'];
+							$rsa = $userrelation->where($whereb)->find();
+							if($rsa){
+								$datab['githubuserid'] =$user_info['name'];
+								$rsb = $userrelation->where($whereb)->save($datab);
+							}else{
+								$datab['mainuser'] = $_SESSION ['eladevp']['didid'];
+								$datab['didid'] = $_SESSION ['eladevp']['didid'];
+								$datab['githubuserid'] = $user_info['name'];
+								$datab['ustatus'] = 5;
+								$this->adduserrelation($datab);
+							}
 						}
 						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}else{
@@ -81,6 +94,8 @@ class OauthController extends Controller{
 							$datagit['githubappid'] = $token['openid'];
 							$datagit['githubtoken'] = $token['access_token'];
 							$datagit['headimg'] = $user_info['head_img'];
+							$datagit['nickname'] = $user_info['name'];
+							$datagit['firstname'] = $user_info['name'];
 							$datagit['company'] = $user_info['company'];
 							$datagit['bio'] = $user_info['bio'];
 							$datagit['moreurl'] = $user_info['moreurl'];
@@ -136,6 +151,12 @@ class OauthController extends Controller{
 							$uinfo = $this->wechatinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['wechatuid'] = $uinfo['wechatuid'];
 							$_SESSION['eladevp']['logincate'] = 4;
+							//$backrs = 1;
+						}elseif($urelation['ustatus']==5){
+							//主账号是注册的wechatuid
+							$uinfo = $this->didinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['didid'] = $uinfo['didid'];
+							$_SESSION['eladevp']['logincate'] = 5;
 							//$backrs = 1;
 						}
 						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
@@ -471,6 +492,17 @@ class OauthController extends Controller{
 	  $where['wechatuid'] = $uid;
 	  $wechatinfo = M("wechatinfo");
 	  $info = $wechatinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取wechat相关信息
+  public function didinfo($uid){
+	  $where['didid'] = $uid;
+	  $didinfo = M("didinfo");
+	  $info = $didinfo->where($where)->find();
 	  if($info){
 		  return $info;
 	  }else{

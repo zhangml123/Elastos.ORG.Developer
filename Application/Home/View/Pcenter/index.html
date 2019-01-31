@@ -30,7 +30,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm" id="doc_menu_out_l">
+				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm leftmenmyprofile" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
 							<li class="doc_menu_l_li_subm leftmengettesttoken" style="background-color:#F6F9FD;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
@@ -61,14 +61,19 @@
 					<div id="prelicon" style="width:160px;height:50px;line-height:50px;">
 							<eq name="info" value="0">
 								<neq name="logincate" value="3">
-									<a href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}" data-toggle="tooltip" data-placement="right" title="Associate with Github"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<a href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}" data-toggle="tooltip" data-placement="right" class="bindgittip" title="Associate with Github"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M10 0C4.4751 0 0 4.47754 0 10C0 14.4189 2.86621 18.1665 6.83838 19.4873C7.33887 19.5825 7.52197 19.2725 7.52197 19.0063C7.52197 18.7695 7.51465 18.1397 7.50977 17.3071C4.729 17.9102 4.14062 15.9644 4.14062 15.9644C3.68408 14.812 3.02734 14.502 3.02734 14.502C2.12158 13.8818 3.09814 13.894 3.09814 13.894C4.10156 13.9648 4.62891 14.9243 4.62891 14.9243C5.52002 16.4526 6.97021 16.0107 7.5415 15.7568C7.63184 15.1099 7.88818 14.6704 8.17383 14.4189C5.95215 14.1699 3.61816 13.3081 3.61816 9.47754C3.61816 8.38623 4.00635 7.49512 4.64844 6.79443C4.53613 6.54297 4.19922 5.5249 4.73633 4.14795C4.73633 4.14795 5.57373 3.87939 7.48535 5.17334C8.28613 4.95117 9.13574 4.84131 9.98535 4.83643C10.835 4.84131 11.6846 4.95117 12.4854 5.17334C14.3848 3.87939 15.2222 4.14795 15.2222 4.14795C15.7593 5.5249 15.4224 6.54297 15.3223 6.79443C15.9595 7.49512 16.3477 8.38623 16.3477 9.47754C16.3477 13.3203 14.0112 14.165 11.7847 14.4116C12.1338 14.7119 12.4585 15.3247 12.4585 16.2622C12.4585 17.6001 12.4463 18.6768 12.4463 19.0015C12.4463 19.2651 12.6221 19.5776 13.1348 19.4775C17.1387 18.1616 20 14.4116 20 10C20 4.47754 15.5225 0 10 0Z" fill="#A7B2BC"/>
 									</svg></a>
 								</neq>
 								<neq name="logincate" value="4">
-									<a href="javascript:void(0);" id="bindwechat" data-toggle="tooltip" data-placement="right" title="Associate with wechat"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<a href="javascript:void(0);" id="bindwechat" data-toggle="tooltip" data-placement="right"  class="bindwechattip" title="Associate with wechat"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M11.3186 9.99305C11.0907 9.99305 10.8629 10.2043 10.8629 10.4655C10.8629 10.6767 11.0907 10.8879 11.3186 10.8879C11.6604 10.8879 11.905 10.6767 11.905 10.4655C11.905 10.2043 11.6632 9.99305 11.3186 9.99305ZM9.82076 7.79214C10.1792 7.79214 10.4071 7.56426 10.4071 7.22245C10.4071 6.86397 10.1792 6.65277 9.82076 6.65277C9.47895 6.65277 9.15381 6.86397 9.15381 7.22245C9.15381 7.56426 9.47895 7.79214 9.82076 7.79214ZM10.0014 0C4.47687 0 0 4.47687 0 10.0014C0 15.5231 4.47687 20 10.0014 20C15.5231 20 20 15.5231 20 10.0014C20 4.47687 15.5231 0 10.0014 0ZM8.10893 12.533C7.50591 12.533 7.06683 12.4357 6.49715 12.2718L4.85202 13.1027L5.32444 11.7021C4.1684 10.8879 3.48201 9.85966 3.48201 8.60636C3.48201 6.39155 5.56621 4.6964 8.10893 4.6964C10.3571 4.6964 12.3607 6.03307 12.7525 7.92275C12.5886 7.8894 12.4441 7.87272 12.3135 7.87272C10.0987 7.87272 8.38683 9.53453 8.38683 11.5381C8.38683 11.8799 8.43685 12.1884 8.51744 12.5163C8.38683 12.533 8.23954 12.533 8.10893 12.533ZM14.9034 14.1309L15.2286 15.3036L13.9892 14.6033C13.5167 14.7006 13.061 14.8479 12.5886 14.8479C10.4043 14.8479 8.67862 13.35 8.67862 11.4909C8.67862 9.63457 10.4043 8.13394 12.5886 8.13394C14.6589 8.13394 16.5152 9.63179 16.5152 11.4909C16.518 12.533 15.8177 13.4612 14.9034 14.1309ZM6.59441 6.65277C6.25261 6.65277 5.89412 6.86397 5.89412 7.22245C5.89412 7.56426 6.25261 7.79214 6.59441 7.79214C6.91955 7.79214 7.18077 7.56426 7.18077 7.22245C7.18077 6.86397 6.91955 6.65277 6.59441 6.65277ZM13.878 9.99305C13.6335 9.99305 13.4223 10.2043 13.4223 10.4655C13.4223 10.6767 13.6335 10.8879 13.878 10.8879C14.2031 10.8879 14.4477 10.6767 14.4477 10.4655C14.4477 10.2043 14.2031 9.99305 13.878 9.99305Z" fill="#A7B2BC"/>
 									</svg></a>
+								</neq>
+								<neq name="logincate" value="5">
+									<a href="javascript:void(0);" id="binddid" data-toggle="tooltip" data-placement="right"  class="binddidtip" title="Associate with did">
+									<img src="{$Think.const.PUBLIC_H}Home/images/didlogingray.png" style="margin-left:14%;width:20px;height:20px;margin-top:-14px;" />
+									</a>
 								</neq>
 							</eq>
 							<neq name="info" value="0">
@@ -79,7 +84,7 @@
 									</svg></a>
 									</neq>
 									<eq name="info.githubuserid" value="">
-									<a href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}" data-toggle="tooltip" data-placement="right" title="Associate with Github"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<a href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}" data-toggle="tooltip" data-placement="right"  class="bindgittip" title="Associate with Github"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M10 0C4.4751 0 0 4.47754 0 10C0 14.4189 2.86621 18.1665 6.83838 19.4873C7.33887 19.5825 7.52197 19.2725 7.52197 19.0063C7.52197 18.7695 7.51465 18.1397 7.50977 17.3071C4.729 17.9102 4.14062 15.9644 4.14062 15.9644C3.68408 14.812 3.02734 14.502 3.02734 14.502C2.12158 13.8818 3.09814 13.894 3.09814 13.894C4.10156 13.9648 4.62891 14.9243 4.62891 14.9243C5.52002 16.4526 6.97021 16.0107 7.5415 15.7568C7.63184 15.1099 7.88818 14.6704 8.17383 14.4189C5.95215 14.1699 3.61816 13.3081 3.61816 9.47754C3.61816 8.38623 4.00635 7.49512 4.64844 6.79443C4.53613 6.54297 4.19922 5.5249 4.73633 4.14795C4.73633 4.14795 5.57373 3.87939 7.48535 5.17334C8.28613 4.95117 9.13574 4.84131 9.98535 4.83643C10.835 4.84131 11.6846 4.95117 12.4854 5.17334C14.3848 3.87939 15.2222 4.14795 15.2222 4.14795C15.7593 5.5249 15.4224 6.54297 15.3223 6.79443C15.9595 7.49512 16.3477 8.38623 16.3477 9.47754C16.3477 13.3203 14.0112 14.165 11.7847 14.4116C12.1338 14.7119 12.4585 15.3247 12.4585 16.2622C12.4585 17.6001 12.4463 18.6768 12.4463 19.0015C12.4463 19.2651 12.6221 19.5776 13.1348 19.4775C17.1387 18.1616 20 14.4116 20 10C20 4.47754 15.5225 0 10 0Z" fill="#A7B2BC"/>
 									</svg></a>
 									</eq>
@@ -91,9 +96,21 @@
 									</svg></a>
 									</neq>
 									<eq name="info.wechatuserid" value="">
-									<a href="javascript:void(0);" id="bindwechat"  data-toggle="tooltip" data-placement="right" title="Associate with wechat"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<a href="javascript:void(0);" id="bindwechat"  data-toggle="tooltip" data-placement="right"   class="bindwechattip" title="Associate with wechat"><svg style="margin-left:13%"   width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M11.3186 9.99305C11.0907 9.99305 10.8629 10.2043 10.8629 10.4655C10.8629 10.6767 11.0907 10.8879 11.3186 10.8879C11.6604 10.8879 11.905 10.6767 11.905 10.4655C11.905 10.2043 11.6632 9.99305 11.3186 9.99305ZM9.82076 7.79214C10.1792 7.79214 10.4071 7.56426 10.4071 7.22245C10.4071 6.86397 10.1792 6.65277 9.82076 6.65277C9.47895 6.65277 9.15381 6.86397 9.15381 7.22245C9.15381 7.56426 9.47895 7.79214 9.82076 7.79214ZM10.0014 0C4.47687 0 0 4.47687 0 10.0014C0 15.5231 4.47687 20 10.0014 20C15.5231 20 20 15.5231 20 10.0014C20 4.47687 15.5231 0 10.0014 0ZM8.10893 12.533C7.50591 12.533 7.06683 12.4357 6.49715 12.2718L4.85202 13.1027L5.32444 11.7021C4.1684 10.8879 3.48201 9.85966 3.48201 8.60636C3.48201 6.39155 5.56621 4.6964 8.10893 4.6964C10.3571 4.6964 12.3607 6.03307 12.7525 7.92275C12.5886 7.8894 12.4441 7.87272 12.3135 7.87272C10.0987 7.87272 8.38683 9.53453 8.38683 11.5381C8.38683 11.8799 8.43685 12.1884 8.51744 12.5163C8.38683 12.533 8.23954 12.533 8.10893 12.533ZM14.9034 14.1309L15.2286 15.3036L13.9892 14.6033C13.5167 14.7006 13.061 14.8479 12.5886 14.8479C10.4043 14.8479 8.67862 13.35 8.67862 11.4909C8.67862 9.63457 10.4043 8.13394 12.5886 8.13394C14.6589 8.13394 16.5152 9.63179 16.5152 11.4909C16.518 12.533 15.8177 13.4612 14.9034 14.1309ZM6.59441 6.65277C6.25261 6.65277 5.89412 6.86397 5.89412 7.22245C5.89412 7.56426 6.25261 7.79214 6.59441 7.79214C6.91955 7.79214 7.18077 7.56426 7.18077 7.22245C7.18077 6.86397 6.91955 6.65277 6.59441 6.65277ZM13.878 9.99305C13.6335 9.99305 13.4223 10.2043 13.4223 10.4655C13.4223 10.6767 13.6335 10.8879 13.878 10.8879C14.2031 10.8879 14.4477 10.6767 14.4477 10.4655C14.4477 10.2043 14.2031 9.99305 13.878 9.99305Z" fill="#A7B2BC"/>
 									</svg></a>
+									</eq>
+								</neq>
+								<neq name="logincate" value="5">
+									<neq name="info.didid" value="">
+									<a href="javascript:void(0);" id="removedid">
+									<img src="{$Think.const.PUBLIC_H}Home/images/didlogin.png" style="margin-left:14%;width:20px;height:20px;margin-top:-14px;" />
+									</a>
+									</neq>
+									<eq name="info.didid" value="">
+									<a href="javascript:void(0);" id="binddid"  data-toggle="tooltip" data-placement="right"   class="binddidtip" title="Associate with wechat">
+									<img src="{$Think.const.PUBLIC_H}Home/images/didlogingray.png" style="margin-left:14%;width:20px;height:20px;margin-top:-14px;" />
+									</a>
 									</eq>
 								</neq>
 							</neq>
@@ -276,6 +293,8 @@
 <include file="Pcenter/tipdel" />
 <include file="Pcenter/wechattipdel" />
 <include file="Pcenter/removesuccful" />
+<include file="Pcenter/didqrcode" />
+<include file="Pcenter/didtipdel" />
 <style>
  
 #prelicon .tooltip-inner{
@@ -314,6 +333,9 @@ $("#editprofilebtn").on("click",editprofile_popup);
 $("#bindwechat").on("click",function(){
 	$("#pwechatqrcodeModal").modal("show");
 })
+$("#binddid").on("click",function(){
+	$("#pdidqrcodeModal").modal("show");
+})
 $("#removegithub").click(function(){
 	$("#tipdel").modal("show");
 })
@@ -340,6 +362,20 @@ $("#removeuserbtncwechat").click(function(){
 		setTimeout(function(){$("#removesuccful").modal("hide");window.location.reload()},2500);
 	});
 });
+$("#removedid").click(function(){
+	$("#didtipdel").modal("show");
+})
+$("#removeuserbtncandid").click(function(){
+	$("#didtipdel").modal("hide");
+});
+$("#removeuserbtncdid").click(function(){
+	$("#didtipdel").modal("hide");
+	$.post(internationalWords.hosturl+'index.php/Home/Pcenter/removeuserrelation',{cate:5},function(data){
+		$("#removesuccful").modal("show");
+		setTimeout(function(){$("#removesuccful").modal("hide");window.location.reload()},2500);
+	});
+});
+
 </script>
 </body>
 </html>

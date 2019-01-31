@@ -108,7 +108,7 @@
 					<div class="div_four_f_l fourparttitle" style="font-size:33px;">Community</div>
 					<div class="div_four_f_r visible-lg-block "><button  style="outline:none;"  data-toggle="tooltip" data-placement="bottom"  title="Planned" data-original-title="show" class="planned fourpartbtn tooltip-show">ENTER</button></div>
 				</div>
-				<button class="visible-xs-block" style="background-color:#173045;border:0px;color:#18ffff;text-align:center;height:50px;line-height:50px;width:96%;margin-left:2%;">ENTER</button>
+				<button class="visible-xs-block planned fourpartbtn tooltip-show" data-toggle="tooltip" data-placement="bottom"  title="Planned" data-original-title="show" style="background-color:#173045;border:0px;color:#18ffff;text-align:center;height:50px;line-height:50px;width:96%;margin-left:2%;">ENTER</button>
 		
 			</div>
 			<div class="col-md-2">
@@ -211,6 +211,7 @@
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
 <include file="Index/resendtip" />
+<include file="Index/didqrcode" />
 <style>
 .div_four_f_r .tooltip{
 	width:150px;
@@ -241,6 +242,7 @@
 $("#goone").click(function(){
   if(sessionStorage.getItem('internationalWords')==1){
 		window.location.href = internationalWords.hosturl+'index.php/Home/Documentation/index.html?doc=7.了解基础/1.P2P Carrier';
+		
   }else{
 		window.location.href = internationalWords.hosturl+'index.php/Home/Documentation/index.html?doc=7.Learn Infrastructure/1.P2P Carrier';
   }
