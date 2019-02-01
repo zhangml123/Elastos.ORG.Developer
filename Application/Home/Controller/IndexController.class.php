@@ -112,11 +112,11 @@ class IndexController extends CommonbaseController {
         $object = new \QRcode();
 		$state = time().$this->getRandomString(5);
 		$_SESSION['eladevp']['wechatrand'] = $state;
-		$cururl = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		//$cururl = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$this->add($state);
-		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'||'.urlencode($cururl).'#wechat_redirect';
-       // var_dump($url);
-		$level=3;
+		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
+        
+ 		$level=3;
         $size=2.6;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
@@ -335,8 +335,96 @@ class IndexController extends CommonbaseController {
 		 $staydid = M("staydid");
 		 $rs = $staydid->where($where)->save($data);
 	}
-	//判断是否存在，并且判断是否登录状态，如果登录状态，绑定
 	public function judgedid(){
+		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
+		 $staydid = M("staydid");
+		 $staydidinfo = $staydid->where($wherea)->find();
+		 if($staydidinfo['didid']!=""){
+			 //判断关联表有无信息，如果有关联，则找出User表信息，标明登录类型，如果没有登录信息，则构建User新信息，并构建关联
+			 $rsa = $this->getuserrelation("","","","",$staydidinfo['didid']);
+			 //var_dump($rsa);
+			 if($rsa!="0"){
+				 //找出User表的信息
+				 //$wherea['userid'] = $rsa['mainuid'];
+				 $uinfo = $this->userinfo($rsa['mainuser']);
+				 //var_dump($uinfo);
+				 if($uinfo!="0"){
+					$_SESSION['eladevp']['userid'] = $uinfo['userid'];
+					$_SESSION['eladevp']['logincate'] = $uinfo['subucate'];
+					$_SESSION['eladevp']['userheadimg'] = $uinfo['headimg'];
+					echo 1;
+				 }else{
+					echo 0;
+				 }
+			 }else{
+				 //构建User表数据，插入到User表，并构建User表与关系表联系
+				$userid = "DID".time().$this->getRandomString(5);
+				$data['userid'] = $userid;
+				$data['userpwd'] = md5($userid);
+				$data['addtime'] = time();
+				$data['didid'] = $staydidinfo['didid'];
+				$data['nickname'] = $staydidinfo['nickname'];
+				$data['firstname'] = $staydidinfo['nickname'];
+				$data['roleid'] = 2;
+				$data['subucate'] = 5;
+				
+				$dataa['mainuser'] = $userid;
+				$dataa['didid'] = $staydidinfo['didid'];
+				$dataa['ustatus'] = 5;
+				$user = M("user");
+				$userrelation = M("userrelation");
+				$rsb = $user->add($data);
+				if($rsb){
+					$rsc = $userrelation->add($dataa);
+					if($rsc){
+						$_SESSION['eladevp']['userid'] = $userid;
+						$_SESSION['eladevp']['logincate'] = 5;
+						$_SESSION['eladevp']['userheadimg'] = "";
+						echo 1;
+					}else{
+						echo 0;
+					}
+				}else{
+					echo 0;
+				}
+			 }
+		 }else{
+			 echo 0;
+		 }
+	}
+	public function pjudgedid(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
+		 $staydid = M("staydid");
+		 $staydidinfo = $staydid->where($wherea)->find();
+		 if($staydidinfo['didid']!=""){
+			 $rsa = $this->getuserrelation("","","","",$staydidinfo['didid']);
+			 if($rsa!="0"){
+				 //已经使用返回重复
+				 echo 2;
+			 }else{
+				 //构建User表数据，插入到User表，并构建User表与关系表联系
+				$where['mainuser'] = $rsa['mainuser'];
+				$dataa['didid'] = $staydidinfo['didid'];
+				$userrelation = M("userrelation");
+				$rsc = $userrelation->where($where)->save($dataa);
+				if($rsc){
+					echo 1;
+				}else{
+					echo 0;
+				}
+			 }
+		 }else{
+			 echo 0;
+		 }
+			
+		}else{
+			echo 0;
+		}
+	}
+	
+	//判断是否存在，并且判断是否登录状态，如果登录状态，绑定
+	public function judgedids(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
 		 $staydid = M("staydid");
 		 $staydidinfo = $staydid->where($wherea)->find();
@@ -412,7 +500,7 @@ class IndexController extends CommonbaseController {
 		}
 	}
 	//判断是否存在，并且判断是否登录状态，如果登录状态，绑定
-	public function pjudgedid(){
+	public function pjudgedids(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
 		 $staydid = M("staydid");
 		 $staydidinfo = $staydid->where($wherea)->find();
@@ -577,21 +665,7 @@ class IndexController extends CommonbaseController {
 	  $userrelation = M("userrelation");
 	  $userrelationinfo = $userrelation->where($where)->find();
 	  if($userrelationinfo){
-		  if($userrelationinfo['mainuser']==$reguid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$rcuid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$gituid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$wechatuid){
-			  return 1; 
-		  }elseif($userrelationinfo['mainuser']==$didid){
-			  return 1; 
-		  }else{
-			  $arr['ustatus'] = $userrelationinfo['ustatus'];
-			  $arr['mainuid'] = $userrelationinfo['mainuser'];
-			  return json_encode($arr);
-		  }
+		 return $userrelationinfo;
 	  }else{
 		  return 0;
 	  }
@@ -601,6 +675,7 @@ class IndexController extends CommonbaseController {
 	  $where['userid'] = $uid;
 	  $user = M("user");
 	  $info = $user->where($where)->find();
+	  //var_dump($user->getlastsql());
 	  if($info){
 		  return $info;
 	  }else{

@@ -201,6 +201,8 @@ internationalWordsZH.signupconfirmcode ='验证码';
 internationalWordsEN.signupconfirmcode="Confirmation code";
 internationalWordsZH.checkemailbtn ='提交';
 internationalWordsEN.checkemailbtn="Submit";
+internationalWordsZH.resendtip ='确认码已发送';
+internationalWordsEN.resendtip="Confirmation email resent";
 
 
 

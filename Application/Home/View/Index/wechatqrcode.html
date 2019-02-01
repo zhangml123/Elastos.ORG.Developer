@@ -21,9 +21,11 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	if($("#wcqrcode").attr("src")==""){
-		var wcurl = internationalWords.hosturl+'/index.php/Home/Index/qrcode';
-		$("#wcqrcode").attr("src",wcurl);
+	if($("#loginstatus").val()==""){
+		if($("#wcqrcode").attr("src")==""){
+			var wcurl = internationalWords.hosturl+'/index.php/Home/Index/qrcode';
+			$("#wcqrcode").attr("src",wcurl);
+		}
 	}
 });
 </script>

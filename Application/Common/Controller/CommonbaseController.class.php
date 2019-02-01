@@ -14,9 +14,9 @@ class CommonbaseController extends Controller{
 			if(is_weixin()){
 				$state = "W".time().$this->getRandomString(5);
 				$_SESSION['eladevp']['wechatrand'] = $state;
-				$cururl = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+				//$cururl = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 				$this->add($state);
-				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'||'.urlencode($cururl).'#wechat_redirect';
+				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
 				header('Location: '.$url);
 			}else{
 				

@@ -125,21 +125,28 @@ class EmailinfoController extends Controller {
 		$mailcode = $_POST['mailcode'];
 		$uid = $_POST['uid'];
 		$upwd = $_POST['upwd'];
-		///var_dump($_POST);
-		///var_dump($_SESSION['eladevp']['mailsession']);
 		if($_SESSION['eladevp']['mailsession']==$mailcode){
-			//echo 1;
 			$data['userid'] = $uid;
 			$data['userpwd'] = md5($upwd);
 			$data['logintime'] = time();
 			$data['addtime'] = time();
+			$data['subucate'] = 1;
 			$user = M("user");
 			$rs = $user->add($data);
-			//var_dump($user->getlastsql());
 			if($rs){
-				$_SESSION ['eladevp']['logincate'] = 1;
-				$_SESSION ['eladevp']['userid'] = $_POST['uid'];
-				echo 1;
+				$userrelation = M("userrelation");
+				$dataa['mainuser'] = $uid;
+				$dataa['reguserid'] = $uid;
+				$dataa['ustatus'] = 1;
+				$rsc = $userrelation->add($dataa);
+				if($rsc){
+					$_SESSION ['eladevp']['logincate'] = 1;
+					$_SESSION ['eladevp']['userid'] = $uid;	
+					$_SESSION['eladevp']['userheadimg'] = "";
+					echo 1;				
+				}else{
+					echo 0;
+				}
 			}else{
 				echo 0;
 			}

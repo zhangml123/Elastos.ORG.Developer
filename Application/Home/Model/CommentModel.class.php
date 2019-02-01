@@ -54,7 +54,9 @@ class CommentModel extends Model{
 	public function findcommenthistory($commentid){
 		$where['commentid'] = $commentid;
 		$commenthistory = M("commenthistory");
-		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$rs = $commenthistory->where($where)->find();
+	/* 	if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$where['userid'] = $_SESSION['eladevp']['userid'];
 			$rs = $commenthistory->where($where)->find();
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
@@ -69,7 +71,7 @@ class CommentModel extends Model{
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
 			$where['userid'] = $_SESSION['eladevp']['diduid'];
 			$rs = $commenthistory->where($where)->find();
-		}
+		} */
 		if($rs){
 			return 1;
 		}else{
@@ -78,7 +80,10 @@ class CommentModel extends Model{
 	}
 	//根据cate判断使用的是哪个头像
 	public function findcommenthead($userid,$cate){
-		if($cate=="1"){
+			$where['userid'] = $userid;
+			$user = M("user");
+			$userinfo = $user->where($where)->find();
+/* 		if($cate=="1"){
 			$where['userid'] = $userid;
 			$user = M("user");
 			$userinfo = $user->where($where)->find();
@@ -101,7 +106,7 @@ class CommentModel extends Model{
 			$where['didid'] = $userid;
 			$didinfo = M("didinfo");
 			$userinfo=$didinfo->where($where)->find();
-		}
+		} */
 		return $userinfo;
 	}
 }
