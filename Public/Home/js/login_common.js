@@ -46,15 +46,16 @@ function wechatqrcode_popup(){
   $("#resetpwdModal").modal("hide");
   $("#wechatqrcodeModal").modal("show");
 	if($("#loginstatus").val()==""){
-		setInterval(getwcrs,"2000");
+		ss = setInterval(getwcrs,"2000");
 	}
 	function getwcrs(){
 		$.post(
-			internationalWords.hosturl+'/index.php/Home/Index/updatewechatinfo',
+			internationalWords.hosturl+'/index.php/Home/Login/updatewechatinfo',
 			{d:2},
 			function(data){
 				if(data==1){
 					$("#scanrs").html("授权成功");
+					clearInterval(ss);
 					setTimeout(function(){$("#wechatqrcodeModal").modal("hide"); window.location.reload();},1500);
 					//$("#wechatqrcodeModal").modal("show");
 				}
@@ -62,7 +63,31 @@ function wechatqrcode_popup(){
 		);
 	}
 }
-
+function didqcode_popup(){
+  $("#emailModal").modal("hide");
+  $("#regModal").modal("hide");
+  $("#loginModal").modal("hide");
+  $("#forgetpwdModal").modal("hide");
+  $("#confirmemailcodeModal").modal("hide");
+  $("#resetpwdModal").modal("hide");
+  $("#wechatqrcodeModal").modal("hide");
+  $("#didqrcodeModal").modal("show");
+	if($("#loginstatuss").val()==""){
+		setInterval(getdidrs,"2000");
+	}
+	function getdidrs(){
+		$.post(
+			internationalWords.hosturl+'/index.php/Home/Index/judgedid',
+			{d:2},
+			function(data){
+				if(data==1){
+					$("#didscanrs").html("授权成功");
+					setTimeout(function(){$("#didqrcodeModal").modal("hide"); window.location.reload();},1500);
+				}
+			}
+		);
+	}
+}
 $(".globalLoginBtn").on("click",login_popup);
 $("#jumplogin").on("click",login_popup);
 $("#jumplogins").on("click",login_popup);

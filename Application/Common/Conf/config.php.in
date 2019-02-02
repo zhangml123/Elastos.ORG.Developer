@@ -44,5 +44,10 @@ return array(
     'FROM_SENDGRID_MAIL'    =>  '', //mailgun对应发送邮件地址
     'CR_LOGIN_URL'          =>  '@CR_LOGIN_URL@',
     'APPLY_TESTELA_SECRET'  =>  '',
-    'APPLY_TESTELA_URL'     =>  '@APPLY_TESTELA_URL@',
+    'APPLY_TESTELA_URL'     =>  '@APPLY_TESTELA_URL@',  
+    //***********************************DID配置*******************************************
+    'DID_APPID' =>'',  
+	'DID_PRVKEY' =>'',  
+	'DID_DID'  =>'',  
+	'DID_PUBKEY' =>'',  
 );

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 2018-12-24 11:07:13
+-- Generation Time: 2019-02-01 21:44:25
 -- 服务器版本： 5.5.60-log
 -- PHP Version: 5.6.36
 
@@ -62,14 +62,14 @@ INSERT INTO `ela_column` (`id`, `columnname`, `columnlist`, `roleid`, `icon`, `y
 (3, '媒体管理', '[{\"menuname\":\"媒体管理\",\"submenu\":[{\"submenuname\":\"图片管理\",\"submenuurl\":\"Media/index?tid=1\"},{\"submenuname\":\"视频管理\",\"submenuurl\":\"Media/index?tid=2\"},{\"submenuname\":\"音频管理\",\"submenuurl\":\"Media/index?tid=3\"},{\"submenuname\":\"文件管理\",\"submenuurl\":\"Media/index?tid=4\"}]}]', 2, '&#xe6c4;', 0),
 (4, '广告管理', '[{\"menuname\":\"广告管理\",\"submenu\":[{\"submenuname\":\"广告管理\",\"submenuurl\":\"Ervt/index\"}]}]', 1, '&#xe65d;', 0),
 (5, '文章管理', '[{\"menuname\":\"亦来云资讯\",\"submenu\":[{\"submenuname\":\"技术周报\",\"submenuurl\":\"Article/index?cid=7\"},{\"submenuname\":\"社区活动\",\"submenuurl\":\"Article/index?cid=8\"},{\"submenuname\":\"技术沙龙\",\"submenuurl\":\"Article/index?cid=9\"}]},{\"menuname\":\"亦来云GIT\",\"submenu\":[{\"submenuname\":\"Carrier技术\",\"submenuurl\":\"Article/index?cid=10\"},{\"submenuname\":\"RT技术\",\"submenuurl\":\"Article/index?cid=11\"},{\"submenuname\":\"SDK技术\",\"submenuurl\":\"Article/index?cid=12\"},{\"submenuname\":\"侧链\",\"submenuurl\":\"Article/index?cid=13\"},{\"submenuname\":\"DID\",\"submenuurl\":\"Article/index?cid=14\"}]},{\"menuname\":\"亦来云应用\",\"submenu\":[{\"submenuname\":\"钱包\",\"submenuurl\":\"Article/index?cid=15\"},{\"submenuname\":\"物联网\",\"submenuurl\":\"Article/index?cid=16\"},{\"submenuname\":\"游戏\",\"submenuurl\":\"Article/index?cid=17\"}]},{\"menuname\":\"技术视频\",\"submenu\":[{\"submenuname\":\"基础视频\",\"submenuurl\":\"Article/index?cid=18\"},{\"submenuname\":\"Carrier相关\",\"submenuurl\":\"Article/index?cid=19\"},{\"submenuname\":\"RT技术\",\"submenuurl\":\"Article/index?cid=20\"},{\"submenuname\":\"SDK技术\",\"submenuurl\":\"Article/index?cid=21\"},{\"submenuname\":\"DID技术\",\"submenuurl\":\"Article/index?cid=22\"}]}]', 2, '&#xe668;', 0),
-(6, '评论管理', '[{\"menuname\":\"评论管理\",\"submenu\":[{\"submenuname\":\"未审核评论\",\"submenuurl\":\"Comment/index\"},{\"submenuname\":\"所有评论\",\"submenuurl\":\"Comment/allindex\"}]}]', 1, '&#xe66e;', 1),
+(6, '评论管理', '[{\"menuname\":\"评论管理\",\"submenu\":[{\"submenuname\":\"所有评论\",\"submenuurl\":\"Comment/index\"}]}]', 1, '&#xe66e;', 1),
 (7, '信箱管理', '[{\"menuname\":\"信箱管理\",\"submenu\":[{\"submenuname\":\"未回复信件\",\"submenuurl\":\"Fmail/index\"},{\"submenuname\":\"所有信件\",\"submenuurl\":\"Fmail/allindex\"}]}]', 2, '&#xe61d;', 0),
 (8, '投票管理', '[{\"menuname\":\"投票管理\",\"submenu\":[{\"submenuname\":\"所有投票\",\"submenuurl\":\"Nocheckcomment/index\"},{\"submenuname\":\"完成投票\",\"submenuurl\":\"Allcomment/index\"}]}]', 2, NULL, 0),
 (9, '问卷调查', '[{\"menuname\":\"问卷调查\",\"submenu\":[{\"submenuname\":\"所有问卷\",\"submenuurl\":\"Questionnaire/allindex\"},{\"submenuname\":\"进行中问卷\",\"submenuurl\":\"Questionnaire/indexing\"},{\"submenuname\":\"完成问卷\",\"submenuurl\":\"Questionnaire/index\"}]}]', 2, '&#xe6fa;', 0),
-(10, '角色权限', '[{\"menuname\":\"角色权限\",\"submenu\":[{\"submenuname\":\"权限资源\",\"submenuurl\":\"Power/index\"},{\"submenuname\":\"角色管理\",\"submenuurl\":\"Role/index\"}]}]', 2, '&#xe6f3;', 1),
+(10, '角色权限', '[{\"menuname\":\"角色权限\",\"submenu\":[{\"submenuname\":\"权限资源\",\"submenuurl\":\"Power/index\"},{\"submenuname\":\"角色管理\",\"submenuurl\":\"Role/index\"}]}]', 2, '&#xe6f3;', 0),
 (11, '用户管理', '[{\"menuname\":\"用户管理\",\"submenu\":[{\"submenuname\":\"用户管理\",\"submenuurl\":\"User/index\"}]}]', 1, '&#xe6d1;', 1),
 (12, '系统设置', '[{\"menuname\":\"系统设置\",\"submenu\":[{\"submenuname\":\"密码管理\",\"submenuurl\":\"Sys/setpwdshow\"}]}]', 1, '&#xe6ed;', 1),
-(13, '日志管理', '[{\"menuname\":\"日志管理\",\"submenu\":[{\"submenuname\":\"日志管理\",\"submenuurl\":\"Log/index\"}]}]', 1, '&#xe632;', 1);
+(13, '日志管理', '[{\"menuname\":\"日志管理\",\"submenu\":[{\"submenuname\":\"日志管理\",\"submenuurl\":\"Log/index\"}]}]', 1, '&#xe632;', 0);
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ INSERT INTO `ela_column` (`id`, `columnname`, `columnlist`, `roleid`, `icon`, `y
 
 CREATE TABLE `ela_comment` (
   `id` bigint(20) NOT NULL,
-  `contents` char(255) DEFAULT NULL COMMENT '内容',
+  `contents` longtext COMMENT '内容',
   `addtime` char(20) DEFAULT NULL COMMENT '新增时间',
   `sender` char(200) DEFAULT '匿名' COMMENT '评论人',
   `githuburl` varchar(1000) DEFAULT NULL COMMENT '被评论githuburl',
@@ -102,6 +102,35 @@ CREATE TABLE `ela_commenthistory` (
   `commentid` bigint(20) NOT NULL,
   `userid` char(240) NOT NULL,
   `cate` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `ela_commenthistory`
+--
+
+INSERT INTO `ela_commenthistory` (`id`, `commentid`, `userid`, `cate`) VALUES
+(10, 95, 'wenzhenxiang', 3);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ela_didinfo`
+--
+
+CREATE TABLE `ela_didinfo` (
+  `id` bigint(20) NOT NULL,
+  `didid` char(240) NOT NULL,
+  `didupwd` char(200) NOT NULL,
+  `nickname` char(200) NOT NULL,
+  `firstname` char(240) NOT NULL,
+  `lastname` char(240) NOT NULL,
+  `company` varchar(5000) NOT NULL,
+  `country` char(240) NOT NULL,
+  `city` char(240) NOT NULL,
+  `bio` varchar(5000) NOT NULL,
+  `moreurl` varchar(5000) NOT NULL,
+  `headimg` varchar(2000) NOT NULL,
+  `email` char(240) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -128,7 +157,7 @@ CREATE TABLE `ela_githubhistory` (
 CREATE TABLE `ela_githubinfo` (
   `githubid` bigint(20) NOT NULL,
   `githubuid` char(200) NOT NULL,
-  `githubappid` char(200) NOT NULL,
+  `githubappid` char(200) DEFAULT NULL,
   `githubtoken` char(240) NOT NULL,
   `headimg` char(200) DEFAULT NULL,
   `firstname` char(240) DEFAULT NULL,
@@ -139,7 +168,8 @@ CREATE TABLE `ela_githubinfo` (
   `bio` varchar(5000) DEFAULT NULL,
   `moreurl` varchar(5000) DEFAULT NULL,
   `username` char(240) DEFAULT NULL,
-  `email` char(240) DEFAULT NULL
+  `email` char(240) DEFAULT NULL,
+  `nickname` char(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -154,23 +184,6 @@ CREATE TABLE `ela_logininfo` (
   `userid` char(60) NOT NULL,
   `loginip` char(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `ela_logininfo`
---
-
-INSERT INTO `ela_logininfo` (`id`, `logintime`, `userid`, `loginip`) VALUES
-(1, '1515253562', 'admin', '106.114.17.82'),
-(2, '1515289819', 'admin', '106.114.23.48'),
-(3, '1515316790', 'admin', '106.114.17.82'),
-(4, '1515333590', 'admin', '106.114.17.82'),
-(5, '1515375402', 'admin', '106.114.23.48'),
-(6, '1515375440', 'admin', '211.94.114.194'),
-(7, '1515376164', 'admin', '106.114.23.48'),
-(8, '1515376231', 'admin', '211.94.114.194'),
-(9, '1515380251', 'admin', '106.114.23.48'),
-(10, '1515393024', 'admin', '211.94.114.194'),
-(11, '1532850236', 'admin', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -192,6 +205,23 @@ CREATE TABLE `ela_rcinfo` (
   `moreurl` varchar(5000) NOT NULL,
   `headimg` varchar(2000) NOT NULL,
   `email` char(240) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ela_staydid`
+--
+
+CREATE TABLE `ela_staydid` (
+  `id` bigint(20) NOT NULL,
+  `didid` char(50) NOT NULL,
+  `nickname` char(200) NOT NULL,
+  `Elaaddress` varchar(500) NOT NULL,
+  `publickey` char(240) NOT NULL,
+  `didrandom` char(50) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `addtime` char(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -231,6 +261,7 @@ CREATE TABLE `ela_user` (
   `githubuid` char(240) DEFAULT NULL COMMENT 'github账户',
   `wechatuid` char(240) NOT NULL,
   `rcuid` char(240) DEFAULT NULL,
+  `didid` char(240) NOT NULL,
   `linkedinuid` char(240) NOT NULL,
   `logintime` char(50) NOT NULL,
   `loginip` char(30) DEFAULT NULL,
@@ -242,15 +273,18 @@ CREATE TABLE `ela_user` (
   `moreurl` varchar(5000) DEFAULT NULL,
   `country` char(240) DEFAULT NULL,
   `city` char(240) DEFAULT NULL,
-  `headimg` varchar(2000) DEFAULT NULL
+  `headimg` varchar(2000) DEFAULT NULL,
+  `subucate` int(11) NOT NULL,
+  `nickname` varchar(500) NOT NULL,
+  `email` char(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `ela_user`
 --
 
-INSERT INTO `ela_user` (`id`, `userid`, `userpwd`, `username`, `addtime`, `phone`, `status`, `roleid`, `githubuid`, `wechatuid`, `rcuid`, `linkedinuid`, `logintime`, `loginip`, `qq`, `firstname`, `lastname`, `company`, `bio`, `moreurl`, `country`, `city`, `headimg`) VALUES
-(1, 'admin', '96e79218965eb72c92a549dd5a330112', '超级管理员', '1513059115', '18931150152', 1, 1, NULL, '', '', '', '', '', NULL, 'Mike', 'Hou', 'ELA', 'Let\'s rock rock rock', 'www.ela.com', 'China', 'Beijing', '');
+INSERT INTO `ela_user` (`id`, `userid`, `userpwd`, `username`, `addtime`, `phone`, `status`, `roleid`, `githubuid`, `wechatuid`, `rcuid`, `didid`, `linkedinuid`, `logintime`, `loginip`, `qq`, `firstname`, `lastname`, `company`, `bio`, `moreurl`, `country`, `city`, `headimg`, `subucate`, `nickname`, `email`) VALUES
+(1, 'admin', 'e3ceb5881a0a1fdaad01296d7554868d', '超级管理员', '1513059115', '18931150152', 1, 1, NULL, '', '', '', '', '', '', NULL, 'Mike', 'Hou', 'ELA', 'Let\'s rock rock rock', 'www.ela.com', 'China', 'Beijing', '', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -265,6 +299,7 @@ CREATE TABLE `ela_userrelation` (
   `githubuserid` char(200) NOT NULL,
   `wechatuserid` char(200) NOT NULL,
   `reguserid` char(200) NOT NULL,
+  `didid` char(200) NOT NULL,
   `ustatus` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -320,6 +355,12 @@ ALTER TABLE `ela_commenthistory`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ela_didinfo`
+--
+ALTER TABLE `ela_didinfo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ela_githubhistory`
 --
 ALTER TABLE `ela_githubhistory`
@@ -342,6 +383,12 @@ ALTER TABLE `ela_logininfo`
 --
 ALTER TABLE `ela_rcinfo`
   ADD PRIMARY KEY (`rcid`);
+
+--
+-- Indexes for table `ela_staydid`
+--
+ALTER TABLE `ela_staydid`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `ela_staywechat`
@@ -375,7 +422,7 @@ ALTER TABLE `ela_wechatinfo`
 -- 使用表AUTO_INCREMENT `ela_applytestela`
 --
 ALTER TABLE `ela_applytestela`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `ela_column`
@@ -387,19 +434,25 @@ ALTER TABLE `ela_column`
 -- 使用表AUTO_INCREMENT `ela_comment`
 --
 ALTER TABLE `ela_comment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- 使用表AUTO_INCREMENT `ela_commenthistory`
 --
 ALTER TABLE `ela_commenthistory`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- 使用表AUTO_INCREMENT `ela_didinfo`
+--
+ALTER TABLE `ela_didinfo`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `ela_githubinfo`
 --
 ALTER TABLE `ela_githubinfo`
-  MODIFY `githubid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `githubid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- 使用表AUTO_INCREMENT `ela_logininfo`
@@ -411,31 +464,37 @@ ALTER TABLE `ela_logininfo`
 -- 使用表AUTO_INCREMENT `ela_rcinfo`
 --
 ALTER TABLE `ela_rcinfo`
-  MODIFY `rcid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rcid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- 使用表AUTO_INCREMENT `ela_staydid`
+--
+ALTER TABLE `ela_staydid`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 
 --
 -- 使用表AUTO_INCREMENT `ela_staywechat`
 --
 ALTER TABLE `ela_staywechat`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=916;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2416;
 
 --
 -- 使用表AUTO_INCREMENT `ela_user`
 --
 ALTER TABLE `ela_user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- 使用表AUTO_INCREMENT `ela_userrelation`
 --
 ALTER TABLE `ela_userrelation`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用表AUTO_INCREMENT `ela_wechatinfo`
 --
 ALTER TABLE `ela_wechatinfo`
-  MODIFY `wechatid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `wechatid` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

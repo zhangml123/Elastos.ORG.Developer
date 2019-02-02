@@ -32,16 +32,17 @@ class LoginController extends Controller {
 	//微信公众号登录，获取相关信息
 	public function wechat(){
 		$code = $_GET['code'];
-		$state = explode("||",$_GET['state']);
+		//$state = explode("||",$_GET['state']);
+		$state =$_GET['state'];
 		$appid = C("WEIXIN_APP_ID");
 		$secret = C("WEIXIN_SECRET");
 		//更新数据库
  		$staywechat = M("staywechat");
 		$data['code'] = $code;
-		$where['wechatrand'] = $state[0];
+		$where['wechatrand'] = $state;
 		$rs = $staywechat->where($where)->save($data);
 		if($rs){
-			$rsa = $this->gettoken($state[0],$state[1],$code,$appid,$secret);
+			$rsa = $this->gettoken($state,"",$code,$appid,$secret);
 			echo $rsa;
 		}else{
 			echo "<div style='width:100%;height:400px;line-height:400px;color:#222;text-align:center;font-weight:900;font-size:26px'>授权失败！!</div>";
@@ -55,11 +56,23 @@ class LoginController extends Controller {
 		 if($rsb){
 			 $str = substr($statea,0,1);
 			 if($str=="W"){
-				$this->updatewechatinfo();
+				//$rsw = $this->updatewechatinfo();
+				//echo $rsw;
 				//$hurl = 'https://'.$_SERVER['HTTP_HOST'].'/';
-				return  "<script>window.location.href='".$stateb."';</script>";
+				//return  "<script>window.location.href='".$stateb."';</script>";
+				$rsw = $this->updatewechatinfowechat();
+				if($rsw=="1"){
+					$hurl = 'https://'.$_SERVER['HTTP_HOST'];
+					return  "<script>window.location.href='".$hurl."';</script>";
+				}else{
+					return "<div style='width:100%;height:400px;line-height:400px;color:#222;text-align:center;font-weight:900;font-size:26px'>授权失败！</div>";
+				}
 			 }else{
-				return  "<div style='width:100%;height:400px;line-height:400px;font-size:26pxcolor:red;text-align:center;font-weight:900;'>授权成功！</div><script>setTimeout(function(){window.close();},3000);</script>";
+				 //if($rsw=="1"){
+					return  "<div style='width:100%;height:400px;line-height:400px;font-size:26pxcolor:red;text-align:center;font-weight:900;'>授权成功！</div>";
+				 //}else{
+				//	return "<div style='width:100%;height:400px;line-height:400px;color:#222;text-align:center;font-weight:900;font-size:26px'>授权失败！</div>";
+				// }
 			 }
 		 }else{
 			 return "<div style='width:100%;height:400px;line-height:400px;color:#222;font-size:26pxtext-align:center;font-weight:900;'>授权失败！</div>";
@@ -79,6 +92,63 @@ class LoginController extends Controller {
 		$rsc = $staywechat->where($where)->save($data);
 		if($rsc){
 			return 1;
+		}else{
+			return 0;
+		}
+	}
+	//查询并更新
+	public function updatewechatinfowechat(){
+		//首先判断是否存在
+		$where['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
+		$staywechat = M('staywechat');
+		$userrelation = M("userrelation");
+		$user = M('user');
+		$staychat  = $staywechat->where($where)->find();
+		if($staychat['openid']!=""){
+			$rsa = $this->getuserrelation("","","",$staychat['openid'],"");
+			 if($rsa!="0"){
+				 //找出User表的信息
+				 //$wherea['userid'] = $rsa['mainuser'];
+				 $uinfo = $this->userinfo($rsa['mainuser']);
+				 if($uinfo!="0"){
+					$_SESSION['eladevp']['userid'] = $uinfo['userid'];
+					$_SESSION['eladevp']['logincate'] = $uinfo['subucate'];
+					$_SESSION['eladevp']['userheadimg'] = $uinfo['headimg'];
+					return 1;
+				 }else{
+					return 0;
+				 }
+			 }else{
+				 //构建User表数据，插入到User表，并构建User表与关系表联系
+				$userid = "WECHAT".time().$this->getRandomString(5);
+				$data['userid'] = $userid;
+				$data['userpwd'] = md5($userid);
+				$data['addtime'] = time();
+				$data['wechatuid'] = $staychat['openid'];
+				$data['nickname'] = $staychat['nickname'];
+				$data['firstname'] = $staychat['nickname'];
+				$data['headimg'] = $staychat['headimg'];
+				$data['roleid'] = 2;
+				$data['subucate'] = 4;
+				
+				$dataa['mainuser'] = $userid;
+				$dataa['wechatuserid'] = $staychat['openid'];
+				$dataa['ustatus'] = 4;
+				$rsb = $user->add($data);
+				if($rsb){
+					$rsc = $userrelation->add($dataa);
+					if($rsc){
+						$_SESSION['eladevp']['userid'] = $userid;
+						$_SESSION['eladevp']['logincate'] = 4;
+						$_SESSION['eladevp']['userheadimg'] = $staychat['headimg'];
+						return 1;
+					}else{
+						return 0;
+					}
+				}else{
+					return 0;
+				}
+			 }
 		}else{
 			return 0;
 		}
@@ -105,10 +175,53 @@ class LoginController extends Controller {
 		//判断登录信息
 		$url = C('CR_LOGIN_URL').'?username='.$uid.'&password='.$upwd;
 		$rs = $this->curl_file_get_contents($url);
-		 
 		$data = json_decode($rs,true);
 		//存在
 		if($data['message']=="ok"){
+			//判断是否有关系表
+			 $rsa = $this->getuserrelation("",$uid,"","","");
+			 if($rsa!="0"){
+				 //$wherea['userid'] = $rsa['mainuser'];
+				 $uinfo = $this->userinfo($rsa['mainuser']);
+				 if($uinfo!="0"){
+					$_SESSION['eladevp']['userid'] = $uinfo['userid'];
+					$_SESSION['eladevp']['logincate'] = $uinfo['subucate'];
+					$_SESSION['eladevp']['userheadimg'] = $uinfo['headimg'];
+					return 1;
+				 }else{
+					return 0;
+				 }
+			 }else{
+				 //构建User表数据，插入到User表，并构建User表与关系表联系
+				$userid = "CR".time().$this->getRandomString(5);
+				$data['userid'] = $uid;
+				$data['userpwd'] = md5($upwd);
+				$data['addtime'] = time();
+				$data['rcuid'] = $uid;
+				$data['roleid'] = 2;
+				$data['subucate'] = 2;
+				
+				$dataa['mainuser'] = $userid;
+				$dataa['rcuserid'] = $uid;
+				$dataa['ustatus'] = 2;
+				$user = M("user");
+				$userrelation = M("userrelation");
+				$rsb = $user->add($data);
+				if($rsb){
+					$rsc = $userrelation->add($dataa);
+					if($rsc){
+						$_SESSION['eladevp']['userid'] = $userid;
+						$_SESSION['eladevp']['logincate'] = 2;
+						$_SESSION['eladevp']['userheadimg'] = "";
+						return 1;
+					}else{
+						return 0;
+					}
+				}else{
+					return 0;
+				}
+			 }
+			/*
 			$_SESSION ['eladevp']['userid'] = $uid;
 			$_SESSION['eladevp']['logincate'] = 1;
 			//判断是否存储了CR信息，如果存储了更新必要信息，如果没存储新增
@@ -128,9 +241,12 @@ class LoginController extends Controller {
 					return 0;
 				}
 			}
+			*/
+			
+		/* 	
 			$_SESSION['eladevp']['rcuid'] = $uid;
 			$_SESSION['eladevp']['logincate'] = 2;
-			$_SESSION['eladevp']['userheadimg'] = "";
+			$_SESSION['eladevp']['userheadimg'] = ""; */
 		}else{
 			return 0;
 		}
@@ -193,8 +309,113 @@ class LoginController extends Controller {
         // 返回数据
         return $data;
     }
+	public function getRandomString($len, $chars=null)  {  
+		if (is_null($chars)) {  
+			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		}  
+		mt_srand(10000000*(double)microtime());  
+		for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {  
+			$str .= $chars[mt_rand(0, $lc)];  
+		}  
+		return $str;  
+	}
 	//查询并更新
 	public function updatewechatinfo(){
+		//首先判断是否存在
+		$where['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
+		$staywechat = M('staywechat');
+		$userrelation = M("userrelation");
+		$user = M('user');
+		$staychat  = $staywechat->where($where)->find();
+		if($staychat['openid']!=""){
+			$rsa = $this->getuserrelation("","","",$staychat['openid'],"");
+			 if($rsa!="0"){
+				 //找出User表的信息
+				 //$wherea['userid'] = $rsa['mainuser'];
+				 $uinfo = $this->userinfo($rsa['mainuser']);
+				 if($uinfo!="0"){
+					$_SESSION['eladevp']['userid'] = $uinfo['userid'];
+					$_SESSION['eladevp']['logincate'] = $uinfo['subucate'];
+					$_SESSION['eladevp']['userheadimg'] = $uinfo['headimg'];
+					echo 1;
+				 }else{
+					echo 0;
+				 }
+			 }else{
+				 //构建User表数据，插入到User表，并构建User表与关系表联系
+				$userid = "WECHAT".time().$this->getRandomString(5);
+				$data['userid'] = $userid;
+				$data['userpwd'] = md5($userid);
+				$data['addtime'] = time();
+				$data['wechatuid'] = $staychat['openid'];
+				$data['nickname'] = $staychat['nickname'];
+				$data['firstname'] = $staychat['nickname'];
+				$data['headimg'] = $staychat['headimg'];
+				$data['roleid'] = 2;
+				$data['subucate'] = 4;
+				
+				$dataa['mainuser'] = $userid;
+				$dataa['wechatuserid'] = $staychat['openid'];
+				$dataa['ustatus'] = 4;
+				$rsb = $user->add($data);
+				if($rsb){
+					$rsc = $userrelation->add($dataa);
+					if($rsc){
+						$_SESSION['eladevp']['userid'] = $userid;
+						$_SESSION['eladevp']['logincate'] = 4;
+						$_SESSION['eladevp']['userheadimg'] = $staychat['headimg'];
+						echo 1;
+					}else{
+						echo 0;
+					}
+				}else{
+					echo 0;
+				}
+			 }
+		}else{
+			echo 0;
+		}
+	}
+	
+	public function pupdatewechatinfo(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+		$where['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
+		$staywechat = M('staywechat');
+		$userrelation = M("userrelation");
+		$user = M('user');
+		$staychat  = $staywechat->where($where)->find();
+		 if($staychat['openid']!=""){
+			 $rsa = $this->getuserrelation("","","",$staychat['openid'],"");
+			 if($rsa!="0"){
+				 //已经使用返回重复
+				 echo 2;
+			 }else{
+				 //构建User表数据，插入到User表，并构建User表与关系表联系
+				$where['mainuser'] = $rsa['mainuser'];
+				$dataa['wechatuserid'] = $staychat['openid'];
+				$userrelation = M("userrelation");
+				$rsc = $userrelation->where($where)->save($dataa);
+				if($rsc){
+					echo 1;
+				}else{
+					echo 0;
+				}
+			 }
+		 }else{
+			 echo 0;
+		 }
+			
+		}else{
+			echo 0;
+		}
+	}
+	
+	
+	
+	
+	
+	//查询并更新
+	public function updatewechatinfosss(){
 		if(isset($_SESSION ['eladevp']['wechatrand']) && $_SESSION ['eladevp']['wechatrand']!=""){
 		//首先判断是否存在
 		$where['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
@@ -206,6 +427,7 @@ class LoginController extends Controller {
 		$dataa['wechatuid'] = $staychat['openid'];
 		$dataa['wechatappid'] = $staychat['openid'];
 		$dataa['nickname'] = $staychat['nickname'];
+		$dataa['firstname'] = $staychat['nickname'];
 		$dataa['headimg'] = $staychat['headimg'];
 		$dataa['city'] = $staychat['city'];
 		if($staychat['openid']!=""){
@@ -259,7 +481,20 @@ class LoginController extends Controller {
 								$datab['ustatus'] = 3;
 								$this->adduserrelation($datab);
 							}
-						}
+						}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+								$whereb['wechatuserid'] = $staychat['openid'];
+								$rsa = $userrelation->where($whereb)->find();
+								if($rsa){
+									$datab['wechatuserid'] = $staychat['openid'];
+									$rsb = $userrelation->where($whereb)->save($datab);
+								}else{
+									$datab['mainuser'] = $_SESSION ['eladevp']['diduid'];
+									$datab['didid'] = $_SESSION ['eladevp']['diduid'];
+									$datab['wechatuserid'] = $staychat['openid'];
+									$datab['ustatus'] = 5;
+									$this->adduserrelation($datab);
+								}
+							}
 						$backrs = 1;
 					}else{
 						$_SESSION['eladevp']['wechatuid'] = $staychat['openid'];
@@ -288,21 +523,27 @@ class LoginController extends Controller {
 						$backrs = 1;
 						}elseif($urelation['ustatus']==2){
 							//主账号是注册的RCuid
-							$uinfo = $this->userinfo($urelation['mainuid']);
+							$uinfo = $this->rcinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['rcuid'] = $uinfo['rcuid'];
 							$_SESSION['eladevp']['logincate'] = 2;
 						$backrs = 1;
 						}elseif($urelation['ustatus']==3){
 							//主账号是注册的githuuid
-							$uinfo = $this->userinfo($urelation['mainuid']);
+							$uinfo = $this->githubinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['githubuid'] = $uinfo['githubuid'];
 							$_SESSION['eladevp']['logincate'] = 3;
 						$backrs = 1;
 						}elseif($urelation['ustatus']==4){
 							//主账号是注册的wechatuid
-							$uinfo = $this->userinfo($urelation['mainuid']);
+							$uinfo = $this->wechatinfo($urelation['mainuid']);
 							$_SESSION['eladevp']['wechatuid'] = $uinfo['wechatuid'];
 							$_SESSION['eladevp']['logincate'] = 4;
+							$backrs = 1;
+						}elseif($urelation['ustatus']==5){
+							//主账号是注册的didid
+							$uinfo = $this->didinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['diduid'] = $uinfo['didid'];
+							$_SESSION['eladevp']['logincate'] = 5;
 							$backrs = 1;
 						}
 					}
@@ -324,7 +565,7 @@ class LoginController extends Controller {
 	}
   }
   //检测用户关系表中相关信息中，是否存在，存在的话是否是主账号
-  public function getuserrelation($reguid,$rcuid,$gituid,$wechatuid){
+  public function getuserrelation($reguid,$rcuid,$gituid,$wechatuid,$didid){
 	  if($reguid!=""){
 		  $where['reguid'] = $reguid;
 	  }
@@ -337,22 +578,13 @@ class LoginController extends Controller {
 	  if($wechatuid!=""){
 		  $where['wechatuserid'] = $wechatuid;
 	  }
+	  if($didid!=""){
+		  $where['didid'] = $didid;
+	  }
 	  $userrelation = M("userrelation");
 	  $userrelationinfo = $userrelation->where($where)->find();
 	  if($userrelationinfo){
-		  if($userrelationinfo['mainuser']==$reguid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$rcuid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$gituid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$wechatuid){
-			  return 1; 
-		  }else{
-			  $arr['ustatus'] = $userrelationinfo['ustatus'];
-			  $arr['mainuid'] = $userrelationinfo['mainuser'];
-			  return json_encode($arr);
-		  }
+		  return $userrelationinfo;
 	  }else{
 		  return 0;
 	  }
@@ -391,12 +623,22 @@ class LoginController extends Controller {
 		  return 0;
 	  }
   }
-  
   //获取wechat相关信息
   public function wechatinfo($uid){
 	  $where['wechatuid'] = $uid;
 	  $wechatinfo = M("wechatinfo");
 	  $info = $wechatinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取didinfo相关信息
+  public function didinfo($uid){
+	  $where['didid'] = $uid;
+	  $didinfo = M("didinfo");
+	  $info = $didinfo->where($where)->find();
 	  if($info){
 		  return $info;
 	  }else{
@@ -413,6 +655,23 @@ class LoginController extends Controller {
 		  return 0;
 	  }
   }
+ //验证DID
+ public function didlogin(){
+	 //Callback://identity?AppID="123"&SerialNumber="123456ef"&NickName="elephantela"&DID="xxxxxxxxxxxx"&PublicKey="asdfsadfsfsdf"&Description="developerSite"&RandomNumber="1345678"&ELAAddress="0xEdfwesfffffww"&ExpirationDate="20190201"&Signature="xxxxxxsssseeee"
+	 $nickname = $_GET['NickName']; 
+	 $pubkey = $_GET['PublicKey'];
+	 $did = $_GET['DID'];
+	 $Signature = $_GET['Signature'];
+	 $myfile = fopen("/home/wwwroot/devsite.matrixyz.cn/newfile.txt", "w") or die("Unable to open file!");
+	 fwrite($myfile, $Signature);
+	 fclose($myfile);
+	/*  $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
+	 $parm = "?didpubkey=".$didpubkey."&msg=".$did."&sig=".$Signature;
+	 $rs = file_get_contents($url."".$parm);
+	 if($rs){
+		 
+	 }	 */
+ }
   
   
 }

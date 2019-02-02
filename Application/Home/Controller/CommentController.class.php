@@ -117,7 +117,7 @@ class CommentController extends Controller {
 	}
 	//根据cate判断使用的是哪个头像
 	public function findcommenthead($userid,$cate){
-		if($cate=="1"){
+		/* if($cate=="1"){
 			$where['userid'] = $userid;
 			$user = M("user");
 			$userinfo = $user->where($where)->find();
@@ -133,14 +133,23 @@ class CommentController extends Controller {
 			$where['wechatuid'] = $userid;
 			$wechatinfo = M("wechatinfo");
 			$userinfo=$wechatinfo->where($where)->find();
-		}
+		}elseif($cate=="5"){
+			$where['didid'] = $userid;
+			$didinfo = M("didinfo");
+			$userinfo=$didinfo->where($where)->find();
+		} */
+		$where['userid'] = $userid;
+		$user = M("user");
+		$userinfo = $user->where($where)->find();
 		return $userinfo;
 	}
 	//判断是否点过赞
 	public function findcommenthistory($commentid){
 		$where['commentid'] = $commentid;
 		$commenthistory = M("commenthistory");
-		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$rs = $commenthistory->where($where)->find();
+		/* if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$where['userid'] = $_SESSION['eladevp']['userid'];
 			$rs = $commenthistory->where($where)->find();
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
@@ -152,7 +161,10 @@ class CommentController extends Controller {
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
 			$rs = $commenthistory->where($where)->find();
-		}
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$where['userid'] = $_SESSION['eladevp']['diduid'];
+			$rs = $commenthistory->where($where)->find();
+		} */
 		if($rs){
 			return 1;
 		}else{
@@ -162,7 +174,10 @@ class CommentController extends Controller {
 	public function addcommenthistory($commentid){
 		$data['commentid'] = $commentid;
 		$commenthistory = M("commenthistory");
-		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+		$data['userid'] = $_SESSION['eladevp']['userid'];
+		$data['cate'] = 1;
+		$rs = $commenthistory->add($data);
+		/* if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$data['userid'] = $_SESSION['eladevp']['userid'];
 			$data['cate'] = 1;
 			$rs = $commenthistory->add($data);
@@ -178,7 +193,11 @@ class CommentController extends Controller {
 			$data['userid'] = $_SESSION['eladevp']['wechatuid'];
 			$data['cate'] = 4;
 			$rs = $commenthistory->add($data);
-		}
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$data['userid'] = $_SESSION['eladevp']['diduid'];
+			$data['cate'] = 5;
+			$rs = $commenthistory->add($data);
+		} */
 		if($rs){
 			return 1;
 		}else{
@@ -188,7 +207,9 @@ class CommentController extends Controller {
 	public function delcommenthistory($commentid){
 		$where['commentid'] = $commentid;
 		$commenthistory = M("commenthistory");
-		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$rs = $commenthistory->where($where)->delete();
+		/* if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$where['userid'] = $_SESSION['eladevp']['userid'];
 			$rs = $commenthistory->where($where)->delete();
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
@@ -200,7 +221,10 @@ class CommentController extends Controller {
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$where['userid'] = $_SESSION['eladevp']['wechatuid'];
 			$rs = $commenthistory->where($where)->delete();
-		}
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$where['userid'] = $_SESSION['eladevp']['diduid'];
+			$rs = $commenthistory->where($where)->delete();
+		} */
 		if($rs){
 			return 1;
 		}else{
@@ -216,7 +240,7 @@ class CommentController extends Controller {
 		}else{
 			$data['sender'] = "匿名";
 		} */
-		
+		/* 
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$data['sender'] = $_SESSION['eladevp']['userid'];
 			$data['cate'] = 1;
@@ -229,9 +253,14 @@ class CommentController extends Controller {
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==4){
 			$data['sender'] = $_SESSION['eladevp']['wechatuid'];
 			$data['cate'] = 4;
+		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+			$data['sender'] = $_SESSION['eladevp']['diduid'];
+			$data['cate'] = 5;
 		}else{
 			$data['sender'] = "匿名";
-		}
+		} */
+		$data['sender'] = $_SESSION['eladevp']['userid'];
+		$data['cate'] = 1;
 		$data['githuburl'] = $_POST['githuburl'];
 		if($_POST['commentid']!=""){
 		$data['commentid'] = $_POST['commentid'];

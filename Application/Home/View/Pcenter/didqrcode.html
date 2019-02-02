@@ -1,4 +1,4 @@
-<div class="modal fade" id="pwechatqrcodeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="pdidqrcodeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
 	<div style="display:table; width:100%; height:100%;">
 	<div style="vertical-align:middle; display:table-cell;">
 	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:420px;border-radius:10px;">
@@ -9,7 +9,7 @@
                </div>
                 <div class="modal-body">
 					<div id="pscanrs" class="loginscanqrcode" style="width:100%;height:40px;line-height:40px;text-align:center;background-color:#F6F9FD;">scan code</div>
-					<iframe src="" id="pwcqrcode" style="width:260px;height:275px;border:0px;margin-left:100px;margin-top:5px;"></iframe>
+					<iframe src="" id="pdidqrcode" style="width:260px;height:275px;border:0px;margin-left:100px;margin-top:5px;"></iframe>
 					<input type="hidden" value="{$logincate}" id="ploginstatus"/>
                 </div>
             </div>
@@ -21,25 +21,25 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	if($("#pwcqrcode").attr("src")==""){
-		var wcurl = internationalWords.hosturl+'/index.php/Home/Index/qrcode';
-		$("#pwcqrcode").attr("src",wcurl);
+	if($("#pdidqrcode").attr("src")==""){
+		var wcurl = internationalWords.hosturl+'/index.php/Home/Index/showdidreq';
+		$("#pdidqrcode").attr("src",wcurl);
 	}
 	//if($("#ploginstatus").val()==""){
 		var paw = setInterval(getwcrss,"2000");
 	//}
 	function getwcrss(){
 		$.post(
-			internationalWords.hosturl+'/index.php/Home/Login/pupdatewechatinfo',
+			internationalWords.hosturl+'/index.php/Home/index/pjudgedid',
 			{d:2},
 			function(data){
 				if(data==1){
 					clearInterval(paw);
 					$("#pscanrs").html("授权成功");
-					setTimeout(function(){$("#pwechatqrcodeModal").modal("hide"); window.location.reload();},1500);
+					setTimeout(function(){$("#pdidqrcodeModal").modal("hide"); window.location.reload();},1500);
 				}else if(data==2){
 					clearInterval(paw);
-					$("#pwechatqrcodeModal").modal("hide");
+					$("#pdidqrcodeModal").modal("hide");
 					$("#scanfail").modal("show")
 					setTimeout(function(){$("#scanfail").modal("hide");},3000);
 					//$("#pwcqrcode").html("该微信账户已经绑定，请登录解绑！");

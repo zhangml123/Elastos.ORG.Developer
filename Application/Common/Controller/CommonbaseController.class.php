@@ -1,7 +1,7 @@
 <?php
 namespace Common\Controller;
 use Think\Controller;
-class BaseController extends Controller{
+class CommonbaseController extends Controller{
 	public function _initialize() {
 		if(isset($_SESSION ['eladevp']['lang']) && $_SESSION ['eladevp']['lang']!=""){
 			
@@ -19,15 +19,10 @@ class BaseController extends Controller{
 				$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
 				header('Location: '.$url);
 			}else{
-				//echo  'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-				$this->redirect("Error404/index");
+				
 			}
 		}
 	}
-	
-	 public function _empty(){
-		$this->redirect("Empty/index");
-    } 
 	//新增到数据库
 	public function add($state){
 		$data['wechatrand'] = $state;
