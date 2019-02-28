@@ -109,7 +109,7 @@ $(document).ready(function(){
 			alert("最多创建五个子菜单!");
 			return false;
 		}else{
-			var submenus = '<div class="submenu"><input type="text" class="submenu_name" placeholder="子菜单名称" style="width:250px;height:25px;border:1px solid #333;float:left;" /><input type="text" class="submenu_url" placeholder="子菜单跳转地址" style="margin-left:20px;width:550px;height:25px;border:1px solid #333;float:left;" /></div>';
+			var submenus = '<div class="submenu"><input type="text" class="submenu_name" placeholder="子菜单名称" style="width:250px;height:25px;border:1px solid #333;float:left;" /><input type="text" class="submenu_url" placeholder="子菜单跳转地址" style="margin-left:20px;width:550px;height:25px;border:1px solid #333;float:left;" /><button class="delsubmenu">删除</button></div>';
 			$(this).parent(".mainmenu").parent(".menu_list").find(".submenu_list").append(submenus);		
 		}
 	});
