@@ -303,8 +303,8 @@ class IndexController extends CommonbaseController {
 		$url ="http://203.189.235.252:8080/trucks/signdid.jsp";
 		$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
 		$sign = trim(file_get_contents($url."".$parms));
- 		$ReturnUrl = urlencode("http://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
- 		$callbackurl = urlencode("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
+ 		$ReturnUrl = urlencode("https://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
+ 		$callbackurl = urlencode("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
 		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=developerSite&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=developerSitaees";		
 		$level=3;
         $size=2.8;
