@@ -46,8 +46,8 @@ return array(
     'APPLY_TESTELA_SECRET'  =>  '',
     'APPLY_TESTELA_URL'     =>  '@APPLY_TESTELA_URL@',  
     //***********************************DID配置*******************************************
-    'DID_APPID' =>'',  
-	'DID_PRVKEY' =>'',  
-	'DID_DID'  =>'',  
-	'DID_PUBKEY' =>'',  
+    'DID_APPID' =>'@DID_APPID@',  
+    'DID_PRVKEY' =>'@DID_PRVKEY@',  
+    'DID_DID'  =>'@DID_DID@',  
+    'DID_PUBKEY' =>'@DID_PUBKEY@',  
 );
