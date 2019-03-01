@@ -118,7 +118,21 @@
 <p>We may use third-party Service Providers to monitor and analyze the use of our Service.</p>
 <p>Tencent Bugly</p>
 <p>Tencent Bugly is one of Tencent's services for mobile developers. Provide professional developers with abnormal reporting and operational statistics to help developers quickly identify and resolve anomalies, while keeping abreast of product operations and keeping up with user feedback.</p>
-<p>For more information on Tencent's Bugly privacy practices, please visit the Tencent Bugly User Agreement page: <a href="Https://bugly.qq.com/v2/contract" rel="nofollow">Https://bugly.qq.com/v2/contract</a></p>
+<p>Elephant integrates the bugly feature, the main function is to capture the crash information and application upgrade of the Elephant application.</p>
+<p>User information is not collected when upgrading information.</p>
+<p>Information collected by the Crash log:</p>
+<ul>
+<li>Application version</li>
+<li>Equipment model</li>
+<li>ROM information</li>
+<li>CPU architecture</li>
+<li>android system version</li>
+<li>Network APN</li>
+<li>Is ROOT?</li>
+<li>Memory size / available storage space</li>
+<li>sd size</li>
+</ul>
+<p>For more information on Tencent's Bugly privacy practices, please visit the Tencent Bugly User Agreement page: <a href="https://bugly.qq.com/v2/contract" rel="nofollow">https://bugly.qq.com/v2/contract</a></p>
 <h3><a id="user-content-links-to-other-sites" class="anchor" aria-hidden="true" href="#links-to-other-sites"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Links To Other Sites</h3>
 <p>Our Service may contain links to other sites that are not operated by us. If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit.</p>
 <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
