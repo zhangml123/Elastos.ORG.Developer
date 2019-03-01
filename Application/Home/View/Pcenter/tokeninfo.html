@@ -59,16 +59,14 @@
 					<div class="applytokenlisttip" style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;">My Applications</div>
 						<div style="width:100%;height:610px;">
 							<div style="width:100%;height:50px;background-color:#173045;">
-							<div class="applytokenlisttitleone"  style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Date</div>
-							<div class="applytokenlisttitletow" style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Amount</div>
-							<div class="applytokenlisttitlethree" style="float:left;color:#fff;width:33.33%;background-color:#173045;text-align:center;line-height:50px;">Status</div>
+							<div class="applytokenlisttitleone"  style="float:left;color:#fff;width:50%;background-color:#173045;text-align:center;line-height:50px;">Date</div>
+							<div class="applytokenlisttitletow" style="float:left;color:#fff;width:50%;background-color:#173045;text-align:center;line-height:50px;">Amount</div>
 							</div>
 							<ul id="token-list" style="list-style-type:none;background-color:#F6F9FD;margin:0px;">
 								<volist name="applylist" id="vob">
 								<li>
-									<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">{$vob.adddate}</div>
-									<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">{$vob.amount}</div>
-									<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">{$vob.curstatus}</div>
+									<div style="float:left;color:#173045;width:50%;text-align:center;line-height:45px;">{$vob.adddate}</div>
+									<div style="float:left;color:#173045;width:50%;text-align:center;line-height:45px;">{$vob.amount}</div>
 								</li>
 								</volist>
 							</ul>
@@ -178,9 +176,9 @@ function applyelatip_popup(){
   setTimeout(function(){$("#applyelatip").modal("hide")},3000)
 }
 $("#applytestelabtn").click(function(){
-	//applyelasuccful_popup();
 	var testelaadr = $("#testelaadr").val();
-	if(testelaadr==""){
+	if(testelaadr.indexOf(" ") >= 0 || testelaadr == null || testelaadr == ""){
+	//if(testelaadr==""){
 		applyelatip_popup();
 		return false;
 	}
@@ -222,11 +220,12 @@ $('#pageLimit').bootstrapPaginator({
 			dataType:'JSON',
 			success:function (callback) {
 					$("#token-list").html("");
+					console.log("列表："+callback[0]['adddate']);
 					for(var i=0;i<callback.length;i++){
 						var htmla = '<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['adddate']+'</div>'
 									+'<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['amount']+'</div>'
-									+'<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['status']+'</div>';
-						$("#result-list").append(htmla);
+									+'<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['curstatus']+'</div>';
+						$("#token-list").append(htmla);
 					}
 				}
 		})

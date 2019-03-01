@@ -6,7 +6,7 @@
         <div class="modal-content" style="border: none;border-radius:10px;">
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:470px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
-                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <button type="button" id="login_close" style="outline:none;font-size:22px;margin-top:0px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title forgetpwd" id="loginModalLabel" style="margin-top:35px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Forget Password</h4>
 					<div style="height:4px;width:90%;margin-left:5%;">
 						<div style="width:48px;float:left;height:4px;background-color:#173045;">&nbsp;</div>
@@ -20,7 +20,7 @@
                     <section class="box-login v5-input-txt" id="box-login" style="height:150px;">
                         <form id="login_form" action="" method="post" autocomplete="off">
                             <ul style="list-style-type:none;">
-                                <li class="form-group" style="color:#A7B2BC;font-size:14px;font-family:'微软雅黑';"><span class="forgetpwdcode">Please input the code you have recieved,if you don't receive a code,click here to</span> <a href="javascript:void(0);" class="forgetpwdresedncode" id="resendemailbtn" style="color:#18FFFF;">resend</a></li>
+                                <li class="form-group" style="color:#A7B2BC;font-size:14px;font-family:'微软雅黑';"><span class="forgetpwdcode">Please input the code you have recieved,if you don't receive a code,click here to</span> <button id="resendemailbtn" class="forgetpwdresedncode resendcode" style="background-color:#F6F9FD;border:0px;">resend</button></li>
                                 <li class="form-group">
 								<input class="form-control" id="emailcode" maxlength="50" name="account_l" placeholder="Code" type="text">
 								<span class="forgetemailcode_tip" style="display:block;color: red;margin-top: 7px;height: 20px;line-height: 15px;"></span>
@@ -38,3 +38,6 @@
 </div>
 </div>
 </div>
+<style>
+.resendcode{color:#18C8FF;}
+</style>

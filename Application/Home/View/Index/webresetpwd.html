@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>注册</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+<style>
+body{margin:0px;padding:0px;}
+.headtop{height:60px;width:100%;box-shadow: 0px 3px 3px rgba(23, 48, 69, 0.1);}
+.headtop_l{width:30%;height:60px;float:left;line-height:70px;}
+.headtop_m{width:40%;height:60px;float:left;line-height:60px;text-align:center;font-size:14px;font-weight:800;}
+.headtop_r{width:30%;height:60px;float:left;line-height:60px;}
+.login_body{width:100%;height:460px;}
+.login_logo{width:100%;height:60px;line-height:60px;text-align:center;margin-top:50px;}
+.login_info{width:100%;height:270px;margin-top:40px;}
+.login_input{width:100%;height:60px;margin-top:20px;}
+.login_input input{width:80%;margin-left:10%;height:40px;color:#333;border:0px;border-bottom:1px solid #e5e5e5;outline:none}
+input::-webkit-input-placeholder {color:#A7B2BC;font-size:12px;font-family:"HelveticaNeue-Light";vertical-align: bottom; }
+input:-moz-placeholder {color:#A7B2BC;font-size:12px;font-family:"HelveticaNeue-Light";vertical-align: bottom; }
+input::-moz-placeholder {color:#A7B2BC;font-size:12px;font-family:"HelveticaNeue-Light";vertical-align: bottom; }
+input:-ms-input-placeholder {color:#A7B2BC;font-size:12px;font-family:"HelveticaNeue-Light";vertical-align: bottom; }
+.login_reg_sign{height:30px;line-height:30px;width:80%;margin-left:10%;padding-top:10px;padding-bottom:10px;}
+.login_reg_sign_l{width:60%;height:30px;float:left;text-align:left;font-size:13px;}
+.login_reg_sign_r{width:40%;height:30px;float:left;text-align:right;font-size:13px;}
+a{color:#333;text-decoration:none;font-family: Synthese;color:#5E6D82;font-weight:600;}
+.login_btn_out{width:100%;height:60px;margin-top:15px;}
+.login_btn{width:80%;margin-left:10%;border:0px;border-radius:25px;height:45px;color:#fff;font-size:18px;text-align:center;margin-top:15px;background-color:#173045;}
+.other_login_info{width:100%;height:40px;line-height:30px;text-align:center;}
+.other_login_icon{width:100%;height:40px;}
+.other_login_icon_l{width:45%;height:40px;float:left;text-align:right;line-height:40px;}
+.other_login_icon_r{margin-left:10%;width:45%;height:40px;float:right;text-align:left;line-height:40px;}
+.login_bottom_info{font-size:10px;color:#5E6D82;text-align:center;width:100%;height:40px;line-height:40px;}
+button{outline:none;}
+</style>
+</head>
+<body>
+	<div class="headtop">
+		<div class="headtop_l">
+			<svg width="18" height="18" id="resetback" style="margin-left:20px;" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<rect x="9" y="17.4854" width="12" height="2" rx="1" transform="rotate(-135 9 17.4854)" fill="#A7B2BC"/>
+			<rect x="10.4141" y="1.92871" width="12" height="2" rx="1" transform="rotate(135 10.4141 1.92871)" fill="#A7B2BC"/>
+			</svg>
+		</div>
+		<div  class="headtop_m signtitle">
+			
+		</div>
+		<div  class="headtop_r">
+		
+		</div>
+	</div>
+	<div class="login_body">
+		<div class="login_logo">
+		<svg width="67" height="56" viewBox="0 0 67 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M33.3838 29.2031L50.0764 19.4867L33.3838 9.71387V29.2031Z" fill="#2A3D58"/>
+		<path d="M33.3836 29.2031L16.6924 19.4867L33.3836 9.71387V29.2031Z" fill="#0F2631"/>
+		<path d="M50.0764 0L33.3838 9.71493L50.0764 19.4878V0Z" fill="#0F2631"/>
+		<path d="M50.0767 0L66.7693 9.71493L50.0767 19.4878V0Z" fill="#2A3D58"/>
+		<path d="M16.6926 0L0 9.71493L16.6926 19.4878V0Z" fill="#0F2631"/>
+		<path d="M16.6924 0L33.3836 9.71493L16.6924 19.4878V0Z" fill="#2A3D58"/>
+		<path d="M33.3838 55.9995L50.0764 46.2846L33.3838 36.5117V55.9995Z" fill="#2A3D58"/>
+		<path d="M33.3836 55.9995L16.6924 46.2846L33.3836 36.5117V55.9995Z" fill="#0F2631"/>
+		<path d="M50.0764 26.7949L33.3838 36.5113L50.0764 46.2841V26.7949Z" fill="#0F2631"/>
+		<path d="M50.0767 26.7949L66.7693 36.5113L50.0767 46.2841V26.7949Z" fill="#2A3D58"/>
+		<path d="M16.6926 26.7949L0 36.5113L16.6926 46.2841V26.7949Z" fill="#0F2631"/>
+		<path d="M16.6924 26.7949L33.3836 36.5113L16.6924 46.2841V26.7949Z" fill="#2A3D58"/>
+		</svg>
+
+		</div>
+		<div class="login_info">
+			<div class="login_input">
+				<input type="password" value="" id="newpwd" class="loginemail resetpwdnewpwd" placeholder="Email or username" />
+				<div id="newpwd_tip" style="height:20px;line-height:20px;color:red;font-weight:800;width:80%;margin-left:10%;display:none;font-size:12px;"></div>
+			</div>
+			<div class="login_input" style="margin-top:10px;">
+				<input type="password" value="" class="loginepassword resetpwdconfirmpwd" id="confirmpwd" placeholder="Password" />
+				<div id="confirmpwd_tip" style="height:20px;line-height:20px;color:red;font-weight:800;width:80%;margin-left:10%;display:none;font-size:12px;"></div>
+			</div>
+			<div class="login_btn_out">
+				<button class="login_btn resetpwdbtn" id="resetbtn">Reset</button>
+			</div>
+		</div>
+	</div>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
+<script>
+var internationalWords={};
+var INKEY=1;
+var INKEY0=sessionStorage.getItem('internationalWords');
+INKEY0?INKEY=INKEY0:INKEY0=1;
+if(INKEY==1){
+    internationalWords=internationalWordsZH;
+}else{
+    internationalWords=internationalWordsEN;
+}
+function guojihua(){
+    $('.resetpwd').html(internationalWords.resetpwd);
+    $('.resetpwdnewpwd').attr("placeholder",internationalWords.resetpwdnewpwd);
+    $('.resetpwdconfirmpwd').attr("placeholder",internationalWords.resetpwdconfirmpwd);
+    $('.resetpwdbtn').html(internationalWords.resetpwdbtn);
+}
+guojihua();
+$("#resetbtn").click(function(){
+	var newpwdd = $("#newpwd").val();
+	var confirmpwd = $("#confirmpwd").val();
+	if(newpwdd!=confirmpwd || newpwdd==""){
+		$("#confirmpwd_tip").show();
+		$("#confirmpwd_tip").html(internationalWords.resetpwdtip);
+		return false;
+	}else{
+		$("#confirmpwd_tip").hide();
+		$("#confirmpwd_tip").html("");
+	}
+	$.post(
+		internationalWords.hosturl+'index.php/Home/Emailinfo/resetpwd',
+		{npwd:newpwdd},
+		function(data){
+			if(data==1){
+				window.location.href=internationalWords.hosturl;
+			}
+		}
+	)
+});
+$("#resetback").click(function(){
+	window.location.href=internationalWords.hosturl;
+});
+</script>
+</body>
+</html>

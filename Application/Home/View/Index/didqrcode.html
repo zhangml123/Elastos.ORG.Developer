@@ -1,4 +1,4 @@
-<div class="modal fade" id="wechatqrcodeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="didqrcodeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
 	<div style="display:table; width:100%; height:100%;">
 	<div style="vertical-align:middle; display:table-cell;">
 	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:420px;border-radius:10px;">
@@ -8,9 +8,9 @@
                    <button type="button" id="wcqrcode_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                </div>
                 <div class="modal-body">
-					<div id="scanrs" class="loginscanqrcode" style="width:100%;height:40px;line-height:40px;text-align:center;background-color:#F6F9FD;">scan code</div>
-					<iframe src="" id="wcqrcode" style="width:260px;height:275px;border:0px;margin-left:100px;margin-top:5px;"></iframe>
-					<input type="hidden" value="{$logincate}" id="loginstatus"/>
+					<div id="didscanrs" class="loginscanqrcodet" style="width:100%;height:40px;line-height:40px;text-align:center;background-color:#F6F9FD;">DID scan code</div>
+					<iframe src="" id="didqrcode" style="width:260px;height:275px;border:0px;margin-left:100px;margin-top:5px;"></iframe>
+					<input type="hidden" value="{$logincate}" id="loginstatuss"/>
                 </div>
             </div>
         </div>
@@ -21,11 +21,9 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	if($("#loginstatus").val()==""){
-		if($("#wcqrcode").attr("src")==""){
-			var wcurl = internationalWords.hosturl+'/index.php/Home/Index/qrcode';
-			$("#wcqrcode").attr("src",wcurl);
-		}
+	if($("#didqrcode").attr("src")==""){
+		var wcurl = internationalWords.hosturl+'/index.php/Home/Index/showdidreq';
+		$("#didqrcode").attr("src",wcurl);
 	}
 });
 </script>

@@ -1,6 +1,12 @@
 var internationalWords={};
 var INKEY=1;
-var INKEY0=sessionStorage.getItem('internationalWords');
+
+if(sessionStorage.getItem('internationalWords')!=null && sessionStorage.getItem('internationalWords')!=undefined){
+	var INKEY0=sessionStorage.getItem('internationalWords');
+}else{
+	sessionStorage.setItem('internationalWords',1);
+	var INKEY0 =1;
+}
 INKEY0?INKEY=INKEY0:INKEY0=1;
 if(INKEY==1){
     internationalWords=internationalWordsZH;
@@ -135,6 +141,13 @@ function guojihua(){
     $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
     $('#loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
     $('#loadmorebtn').html(internationalWords.docpagecommentloadmore);
+    $('#checkemailbtn').html(internationalWords.checkemailbtn);
+    $('.resendtip').html(internationalWords.resendtip);
+	$(".gettokensuf").html(internationalWords.applytokensuccfully);
+	$(".applytokentips").html(internationalWords.applytokentips);
+	$(".bindgittip").attr("title",internationalWords.bindgittip);
+	$(".bindwechattip").attr("title",internationalWords.bindwechattip);
+	$(".binddidtip").attr("title",internationalWords.binddidtip);
 }
 guojihua();
 

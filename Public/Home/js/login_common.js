@@ -46,15 +46,16 @@ function wechatqrcode_popup(){
   $("#resetpwdModal").modal("hide");
   $("#wechatqrcodeModal").modal("show");
 	if($("#loginstatus").val()==""){
-		setInterval(getwcrs,"2000");
+		ss = setInterval(getwcrs,"2000");
 	}
 	function getwcrs(){
 		$.post(
-			internationalWords.hosturl+'/index.php/Home/Index/updatewechatinfo',
+			internationalWords.hosturl+'/index.php/Home/Login/updatewechatinfo',
 			{d:2},
 			function(data){
 				if(data==1){
 					$("#scanrs").html("授权成功");
+					clearInterval(ss);
 					setTimeout(function(){$("#wechatqrcodeModal").modal("hide"); window.location.reload();},1500);
 					//$("#wechatqrcodeModal").modal("show");
 				}
@@ -62,7 +63,31 @@ function wechatqrcode_popup(){
 		);
 	}
 }
-
+function didqcode_popup(){
+  $("#emailModal").modal("hide");
+  $("#regModal").modal("hide");
+  $("#loginModal").modal("hide");
+  $("#forgetpwdModal").modal("hide");
+  $("#confirmemailcodeModal").modal("hide");
+  $("#resetpwdModal").modal("hide");
+  $("#wechatqrcodeModal").modal("hide");
+  $("#didqrcodeModal").modal("show");
+	if($("#loginstatuss").val()==""){
+		setInterval(getdidrs,"2000");
+	}
+	function getdidrs(){
+		$.post(
+			internationalWords.hosturl+'/index.php/Home/Index/judgedid',
+			{d:2},
+			function(data){
+				if(data==1){
+					$("#didscanrs").html("授权成功");
+					setTimeout(function(){$("#didqrcodeModal").modal("hide"); window.location.reload();},1500);
+				}
+			}
+		);
+	}
+}
 $(".globalLoginBtn").on("click",login_popup);
 $("#jumplogin").on("click",login_popup);
 $("#jumplogins").on("click",login_popup);
@@ -114,9 +139,36 @@ $("#sendemailbtn").on("click",function(){
 		}
 	)
 });
+var mytime;
+function daojishi(){
+   var i = 60;
+  mytime =  setInterval(function(){
+	  if(i>0){
+		  i = i-1; 
+		  $(".resendcode").html("(已发送 "+i+"s)");
+		  $(".resendcode").css("color","#A7B2BC");
+		  if(i==57){
+			$("#resendtip").modal("hide");
+		  }
+	  }else{
+			clearInterval(mytime);
+			if(sessionStorage.getItem('internationalWords')==1){
+				$(".resendcode").html("重发");
+			}else{
+				$(".resendcode").html("resend");
+			}
+			$(".resendcode").removeAttr("disabled");
+		    $(".resendcode").css("color","#18FFFF");
+	  }
+  }, 1000);
+}
 $("#resendemailbtn").click(function(){
+	//$(this).removeAttr("id");
+		$(this).attr("disabled","disabled");
+	$("#resendtip").modal("show");
+	daojishi();
 	$.post(
-		internationalWords.hosturl+'index.php/Home/Emailinfo/send',
+		internationalWords.hosturl+'index.php/Home/Emailinfo/sendmailing',
 		{tomail:window.localStorage.elaemail},
 		function(data){
 			if(data==1){
@@ -261,6 +313,9 @@ function loginouterror_popup(){
 	setTimeout(function(){;window.location.reload();},3000);
 }
 $("#loginoutbtn").click(function(){
+	$.post(internationalWords.hosturl+'index.php/Home/Pcenter/logout',{s:1},function(data){if(data==1){loginoutscuff_popup();}else{loginouterror_popup();}})
+});
+$("#loginoutbtns").click(function(){
 	$.post(internationalWords.hosturl+'index.php/Home/Pcenter/logout',{s:1},function(data){if(data==1){loginoutscuff_popup();}else{loginouterror_popup();}})
 });
 if(window.sessionStorage.getItem('internationalWords')==1){

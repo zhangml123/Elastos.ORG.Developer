@@ -5,7 +5,7 @@
         <div class="modal-content" style="border: none;border-radius:10px;">
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:470px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
-                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <button type="button" id="login_close" style="outline:none;font-size:22px;margin-top:0px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title logintitle" id="loginModalLabel" style="margin-top:25px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:5%;font-family:'Doppio One';">Log in</h4>
 					<div style="height:4px;width:90%;margin-left:5%;">
 						<div style="width:48px;float:left;height:4px;background-color:#173045;">&nbsp;</div>
@@ -38,12 +38,16 @@
 						<div style="width:54%;height:40px;line-height:40px;text-align:right;float:left;font-size:12px;"><span class="loginenoaccount" style="display:inline;">No account?</span> <a href="javascript:void(0);" class="logincreatone" id="jumpreg" style="color:#173045;">Create one</a>&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="logincontinue" style="width:90%;margin-left:5%;text-align:center;line-height:40px;height:40px;">Or continue with</div>
-					<div class="other_login">
-						<a class="git_loginbtn_b" style="line-height:40px;font-size:12px;color:#5E6D82;width:35%;margin-left:10%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}">
+					<div class="other_login" style="width:90%;margin-left:5%;">
+						<a class="git_loginbtn_b" style="line-height:40px;font-size:12px;color:#5E6D82;width:25%;margin-left:0%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="{:U('Home/Login/oauth_login',array('type'=>'GITHUB'))}">
 							<img src="{$Think.const.PUBLIC_H}Home/images/githublogo_login.png" style="width: 18px;height: 19px;margin-top: -3px;" />
 							Github
 						</a>
-						<a class="chat_loginbtn_b" id="wechatqcode" style="line-height:40px;font-size:12px;color:#5E6D82;width:35%;margin-left:10%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="javascript:void(0);" >
+						<a class="did_loginbtn_b" id="didqcode" style="line-height:40px;font-size:12px;color:#5E6D82;width:25%;margin-left:12.5%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="javascript:void(0);" >
+							<img src="{$Think.const.PUBLIC_H}Home/images/didlogin.png" style="width: 18px;height: 19px;margin-top: -3px;" />
+							<span class="logindid">DID</span>
+						</a>
+						<a class="chat_loginbtn_b" id="wechatqcode" style="line-height:40px;font-size:12px;color:#5E6D82;width:25%;margin-left:12.5%;float:left;background-color:#fff;box-shadow: 0px 2px 6px rgba(23, 48, 69, 0.06);" href="javascript:void(0);" >
 							<img src="{$Think.const.PUBLIC_H}Home/images/wechat_login.png" style="width: 18px;height: 19px;margin-top: -3px;" />
 							<span class="loginwechat">WeChat</span>
 						</a>
@@ -78,12 +82,17 @@ $("#loginbtns").click(function(){
 			if(data==1){
 				window.location.href=internationalWords.hosturl+"/index.php/Home/Pcenter/index.html";
 			}else{
-				//BootstrapDialog.alert('登录失败！');
+				$(".login_p_tip").show();
+				$(".login_p_tip").html(internationalWords.loginerror);
 			}
 		}
 	);
 });
 $("#wechatqcode").click(function(){
+	console.log("111");
 	wechatqrcode_popup();
+});
+$("#didqcode").click(function(){
+	didqcode_popup();
 });
 </script>

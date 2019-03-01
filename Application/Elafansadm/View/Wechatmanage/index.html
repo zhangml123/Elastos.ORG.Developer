@@ -1,0 +1,135 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title></title> 
+<link href="{$Think.const.PUBLIC_F}Elafansadm/css/base.css" rel="stylesheet">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}Elafansadm/custom/uimaker/easyui.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}Elafansadm/css/workbench.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_F}Elafansadm/fonts/iconfont.css">
+<style type="text/css">
+#mainmenubtn{width:120px;height:30px;float:left;color:#fff;background-color:#1da02b;border:0px;border-radius:4px;}
+#addwechatmenu{width:150px;height:30px;float:left;margin-left:20px;color:#fff;background-color:#1da02b;border:0px;border-radius:4px;}
+.menulist{width:100%;height:auto;margin-top:20px;}
+.menu_list{width:100%;height:auto;}
+.mainmenu{width:95%;height:40px;font-size:12px;margin-left:5%;}
+.submenu_list{width:95%;height:auto;margin-top:10px;margin-left:5%;}
+.submenu{width:100%;height:40px;}
+input{font-size:12px;}
+.addsubmenu{width:100px;height:25px;font-size:12px;float:left;margin-left:20px;}
+.delsubmenu{float:left;width:60px;height:25px;margin-left:20px;font-size:12px;}
+.delmainmenu{float:left;width:60px;height:25px;margin-left:20px;font-size:12px;}
+</style>
+</head> 
+<body>
+<div style="width:98%;height:auto;margin-left:1%;margin-top:20px;height:40px;">
+	<button id="mainmenubtn">创建菜单</button>
+	<button id="addwechatmenu">生成公众号菜单</button>
+</div>
+<div class="menulist">
+		<volist name="menulist" id="voa">
+		<div class="menu_list">
+			<div class="mainmenu">
+				<div style="float:left;width:50px;height:30px;line-height:30px;font-weight:900;">主菜单:</div>
+				&nbsp;<input type="text" class="mainmenu_main" value="{$voa.name}" style="width:250px;height:25px;border:1px solid #333;float:left;" />
+				<button class="addsubmenu">创建子菜单</button><button class="delmainmenu">删除</button>
+			</div>
+			<div class="submenu_list">
+				<volist name="voa.sub_button" id="vob">
+					<div class="submenu">
+					<input type="text" class="submenu_name" placeholder="子菜单名称" value="{$vob.name}" style="width:250px;height:25px;border:1px solid #333;float:left;" />
+					<input type="text" class="submenu_url" placeholder="子菜单跳转地址" value="{$vob.url}" style="margin-left:20px;width:550px;height:25px;border:1px solid #333;float:left;" />
+					<button class="delsubmenu">删除</button>
+					</div>
+				</volist>
+			</div>
+		</div>
+		</volist>
+</div>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/custom/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/custom/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="{$Think.const.PUBLIC_F}Elafansadm/js/layer/2.1/layer.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#addwechatmenu").click(function(){
+		var html = '{"button":[';
+		$(".menu_list").each(function(){
+			var mainmenu = $(this).children(".mainmenu").find(".mainmenu_main").val();
+			html = html +'{"name":"'+ mainmenu +'","sub_button":[';
+			$(this).find(".submenu").each(function(){
+				var submenu_name = $(this).find(".submenu_name").val();
+				var submenu_url = $(this).find(".submenu_url").val();
+				html = html +'{"type":"view","name":"'+ submenu_name +'","url":"'+ submenu_url +'"},';
+			});
+			html = html.substring(0,(html.length-1));
+			html = html +']},';
+		});
+		html =  html.substring(0,(html.length-1));
+		html = html +']}';
+		if(window.confirm('你确定要生成微信公众号菜单？')){
+			$.post(
+				'setmenu',
+				{menujson:html},
+				function(data){
+					console.log("结果:"+data);
+					if(data==1){
+						alert("菜单生成成功！");
+					}else{
+						alert("菜单生成失败！");
+					}
+				}
+			);
+		 return true;
+		}else{
+			 
+		}
+	});
+	$("#mainmenubtn").click(function(){
+		var mainmenu_num = $(".menu_list").length;
+		console.log("菜单："+mainmenu_num);
+		if(mainmenu_num==4){
+			alert("最多创建三个主菜单!");
+			return false;
+		}else{
+			var submenulist = '<div class="menu_list">'
+			+'<div class="mainmenu"><div style="float:left;width:50px;height:30px;line-height:30px;font-weight:900;">主菜单:</div>&nbsp;<input type="text" class="mainmenu_main" style="width:250px;height:25px;border:1px solid #333;float:left;" /><button class="addsubmenu">创建子菜单</button><button class="delmainmenu">删除</button></div>'
+			+'<div class="submenu_list"><div class="submenu">'
+			+'<input type="text" class="submenu_name" placeholder="子菜单名称" style="width:250px;height:25px;border:1px solid #333;float:left;" />'
+			+'<input type="text" class="submenu_url" placeholder="子菜单跳转地址" style="margin-left:20px;width:550px;height:25px;border:1px solid #333;float:left;" />'
+			+'<button class="delsubmenu">删除</button></div>'
+			+'</div></div>';
+			$(".menulist").append(submenulist);
+		}
+	});
+	$(document).on("click",".addsubmenu",function(){
+		var asubmenu_num = $(this).parent(".mainmenu").parent(".menu_list").find(".submenu").length;
+		console.log("子菜单："+asubmenu_num);
+		if(asubmenu_num==5){
+			alert("最多创建五个子菜单!");
+			return false;
+		}else{
+			var submenus = '<div class="submenu"><input type="text" class="submenu_name" placeholder="子菜单名称" style="width:250px;height:25px;border:1px solid #333;float:left;" /><input type="text" class="submenu_url" placeholder="子菜单跳转地址" style="margin-left:20px;width:550px;height:25px;border:1px solid #333;float:left;" /><button class="delsubmenu">删除</button></div>';
+			$(this).parent(".mainmenu").parent(".menu_list").find(".submenu_list").append(submenus);		
+		}
+	});
+	$(document).on("click",".delmainmenu",function(){
+		if(window.confirm('你确定要删除该主菜单？且所属子菜单一并删除。')){
+			 $(this).parent(".mainmenu").parent(".menu_list").remove();
+			 return true;
+		  }else{
+			 return false;
+		 }
+	})
+	$(document).on("click",".delsubmenu",function(){
+		if(window.confirm('你确定要删除该子菜单？')){
+			 $(this).parent(".submenu").remove();
+			 return true;
+		  }else{
+			 return false;
+		 }
+	})
+});
+</script>
+</body> 
+</html>

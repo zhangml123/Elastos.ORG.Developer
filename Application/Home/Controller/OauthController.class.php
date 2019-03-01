@@ -3,6 +3,16 @@ namespace Home\Controller;
 use Think\Controller;
 use Common\Controller\BaseController;
 class OauthController extends Controller{
+	public function getRandomString($len, $chars=null)  {  
+		if (is_null($chars)) {  
+			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		}  
+		mt_srand(10000000*(double)microtime());  
+		for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {  
+			$str .= $chars[mt_rand(0, $lc)];  
+		}  
+		return $str;  
+	}
     public function oauth(){
         $type=I('get.type');
         $code=I('get.code');
@@ -20,12 +30,12 @@ class OauthController extends Controller{
 		//var_dump($user_info);
         //获取当前登录用户信息
 		if(is_array($token)){
-            // 获取第三方账号数据
-				$userrelation = M("userrelation");
+               // 获取第三方账号数据
+				//$userrelation = M("userrelation");
 				//判断关联表是否有关联
-				$rsbinfo = $this->getuserrelation("","",$user_info['name'],"");
+				//$rsbinfo = $this->getuserrelation("",$user_info['name'],"","");
 				//var_dump($rsbinfo);
-				if($rsbinfo=="0"){
+				/* if($rsbinfo=="0"){
 				//var_dump($rsbinfo);
 					//没有绑定，则直接绑定,判断当前是否是登录状态
 					if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate'] != ""){
@@ -68,6 +78,19 @@ class OauthController extends Controller{
 								$datab['ustatus'] = 4;
 								$this->adduserrelation($datab);
 							}
+						}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
+							$whereb['didid'] = $_SESSION ['eladevp']['didid'];
+							$rsa = $userrelation->where($whereb)->find();
+							if($rsa){
+								$datab['githubuserid'] =$user_info['name'];
+								$rsb = $userrelation->where($whereb)->save($datab);
+							}else{
+								$datab['mainuser'] = $_SESSION ['eladevp']['didid'];
+								$datab['didid'] = $_SESSION ['eladevp']['didid'];
+								$datab['githubuserid'] = $user_info['name'];
+								$datab['ustatus'] = 5;
+								$this->adduserrelation($datab);
+							}
 						}
 						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}else{
@@ -81,6 +104,8 @@ class OauthController extends Controller{
 							$datagit['githubappid'] = $token['openid'];
 							$datagit['githubtoken'] = $token['access_token'];
 							$datagit['headimg'] = $user_info['head_img'];
+							$datagit['nickname'] = $user_info['name'];
+							$datagit['firstname'] = $user_info['name'];
 							$datagit['company'] = $user_info['company'];
 							$datagit['bio'] = $user_info['bio'];
 							$datagit['moreurl'] = $user_info['moreurl'];
@@ -137,12 +162,96 @@ class OauthController extends Controller{
 							$_SESSION['eladevp']['wechatuid'] = $uinfo['wechatuid'];
 							$_SESSION['eladevp']['logincate'] = 4;
 							//$backrs = 1;
+						}elseif($urelation['ustatus']==5){
+							//主账号是注册的wechatuid
+							$uinfo = $this->didinfo($urelation['mainuid']);
+							$_SESSION['eladevp']['didid'] = $uinfo['didid'];
+							$_SESSION['eladevp']['logincate'] = 5;
+							//$backrs = 1;
 						}
 						redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 					}
 				}
-	 }
-    }
+	  }*/
+				if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+					 //if($user_info['name']!=""){
+						 $rsa = $this->getuserrelation("",$user_info['name'],"","","");
+						 if($rsa!="0"){
+							 //已经使用返回重复
+							 echo 2;
+						 }else{
+							 //构建User表数据，插入到User表，并构建User表与关系表联系
+							$where['mainuser'] = $rsa['mainuser'];
+							$dataa['githubuserid'] = $user_info['name'];
+							$userrelation = M("userrelation");
+							if($rsb){
+								$rsc = $userrelation->where($where)->save($dataa);
+								if($rsc){
+									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+								}else{
+									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+								}
+							}else{
+									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+							}
+						 }
+					// }else{
+					//	 echo 0;
+					 //}
+				}else{
+					 $rsa = $this->getuserrelation("",$user_info['name'],"","","");
+					 if($rsa!="0"){
+						 //找出User表的信息
+						 //$wherea['userid'] = $rsa['mainuser'];
+						 $uinfo = $this->userinfo($rsa['mainuser']);
+						 if($uinfo!="0"){
+							$_SESSION['eladevp']['userid'] = $uinfo['userid'];
+							$_SESSION['eladevp']['logincate'] = $uinfo['subucate'];
+							$_SESSION['eladevp']['userheadimg'] = $uinfo['headimg'];
+							redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+						 }else{
+							redirect("https://".$_SERVER['HTTP_HOST']);
+						 }
+					 }else{
+						 //构建User表数据，插入到User表，并构建User表与关系表联系
+						$userid = "GIT".time().$this->getRandomString(5);
+						$data['userid'] = $userid;
+						$data['userpwd'] = md5($userid);
+						$data['addtime'] = time();
+						$data['githubuid'] = $user_info['name'];
+						$data['nickname'] = $user_info['name'];;
+						$data['firstname'] = $user_info['name'];;
+						$data['roleid'] = 2;
+						$data['subucate'] = 3;
+						$data['headimg'] = $user_info['head_img'];
+						$data['company'] = $user_info['company'];
+						$data['bio'] = $user_info['bio'];
+						$data['moreurl'] = $user_info['moreurl'];
+						$data['email'] = $user_info['email'];
+						
+						$dataa['mainuser'] = $userid;
+						$dataa['githubuserid'] = $user_info['name'];
+						$dataa['ustatus'] = 3;
+						$user = M("user");
+						$userrelation = M("userrelation");
+						$rsb = $user->add($data);
+						if($rsb){
+							$rsc = $userrelation->add($dataa);
+							if($rsc){
+								$_SESSION['eladevp']['userid'] = $userid;
+								$_SESSION['eladevp']['logincate'] = 3;
+								$_SESSION['eladevp']['userheadimg'] = $user_info['head_img'];
+								redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+							}else{
+								redirect("https://".$_SERVER['HTTP_HOST']);
+							}
+						}else{
+							redirect("https://".$_SERVER['HTTP_HOST']);
+						}
+					 }
+				}
+	   }
+	}
     //登录成功，获取腾讯QQ用户信息
     public function qq($token){
         import("Org.ThinkSDK.ThinkOauth");
@@ -414,19 +523,7 @@ class OauthController extends Controller{
 	  $userrelationinfo = $userrelation->where($where)->find();
 	 // var_dump($userrelationinfo);
 	  if($userrelationinfo){
-		  if($userrelationinfo['mainuser']==$reguid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$rcuid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$gituid){
-			  return 1;
-		  }elseif($userrelationinfo['mainuser']==$wechatuid){
-			  return 1; 
-		  }else{
-			  $arr['ustatus'] = $userrelationinfo['ustatus'];
-			  $arr['mainuid'] = $userrelationinfo['mainuser'];
-			  return json_encode($arr);
-		  }
+		  return $userrelationinfo;
 	  }else{
 		  return 0;
 	  }
@@ -471,6 +568,17 @@ class OauthController extends Controller{
 	  $where['wechatuid'] = $uid;
 	  $wechatinfo = M("wechatinfo");
 	  $info = $wechatinfo->where($where)->find();
+	  if($info){
+		  return $info;
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取wechat相关信息
+  public function didinfo($uid){
+	  $where['didid'] = $uid;
+	  $didinfo = M("didinfo");
+	  $info = $didinfo->where($where)->find();
 	  if($info){
 		  return $info;
 	  }else{
