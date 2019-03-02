@@ -20,6 +20,9 @@
 <body style="padding-right:0px;">
 <include file="Index/topnav" />
 <div class="body_c">
+		<neq name="isread" value="0">
+		<div id="showdetail" style="width:100%;height:50px;line-height:50px;background-color:#173045;text-align:center;margin-top:100px;"><a href="javascript:void(0);" style="color:#18FFFF;">I am a new notification &nbsp;&nbsp;></a><img src="{$Think.const.PUBLIC_H}Home/images/notice_close.png" id="notice_close_btn" style="float:right;width:20px;height:20px;margin-top:20px;margin-right:10px;" /></div>
+		</neq>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7 col-md-push-5">
@@ -267,6 +270,15 @@ $("#gofour").click(function(){
   }else{
 		window.location.href = internationalWords.hosturl+'index.php/Home/Documentation/index.html?doc=6.Elastos Services/1.DID Service';
   }
+ });
+ $("#notice_close_btn").click(function(){
+	$(this).parent("div").remove();
+ });
+ $("#showdetail").click(function(){
+    var id = {$isread};
+	$.post(internationalWords.hosturl+'index.php/Home/Index/setnotifycookie',{id:id},function(data){ 
+	window.location.href=internationalWords.hosturl+'index.php/Home/Notify/detail?id='+id;
+	});
  });
 </script>
 </body>

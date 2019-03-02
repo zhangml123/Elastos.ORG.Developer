@@ -148,6 +148,31 @@ function guojihua(){
 	$(".bindgittip").attr("title",internationalWords.bindgittip);
 	$(".bindwechattip").attr("title",internationalWords.bindwechattip);
 	$(".binddidtip").attr("title",internationalWords.binddidtip);
+	$(".pcenter_admin_console").html(internationalWords.leftmengetadminconsole);
+	$(".notications").html(internationalWords.notications);
+	$(".noticeviews").html(internationalWords.noticeviews);
+	$(".noticeposted").html(internationalWords.noticeposted);
+	$(".addnotications").html("+ "+internationalWords.notications);
+	$(".noticedel").html(internationalWords.noticedel);
+	$(".noticedit").html(internationalWords.noticedit);
+	$(".noticepublish").html(internationalWords.noticepublish);
+	$(".noticelastedit").html(internationalWords.noticelastedit);
+	$(".newnotications").html(internationalWords.newnotications);
+	$(".noticecancel").html(internationalWords.noticecancel);
+	$(".noticetitle").html(internationalWords.noticetitle);
+	$(".noticedescription").html(internationalWords.noticedescription);
+	$(".noticepushset").html(internationalWords.noticepushset);
+	$(".noticesendmail").html(internationalWords.noticesendmail);
+	$(".noticeinwebsite").html(internationalWords.noticeinwebsite);
+	$(".noticewho").html(internationalWords.noticewho);
+	$(".noticeallusers").html(internationalWords.noticeallusers);
+	$(".noticeonlineonly").html(internationalWords.noticeonlineonly);
+	$(".noticeshowinhome").html(internationalWords.noticeshowinhome);
+	$(".noticepublishnow").html(internationalWords.noticepublishnow);
+	$(".noticescheduledpush").html(internationalWords.noticescheduledpush);
+	$("#ishomepage").attr("data-on-text",internationalWords.noticeshowhomeis);
+	$("#ishomepage").attr("data-off-text",internationalWords.noticeshowhomeno);
+	$("#notifytitle").attr("placeholder",internationalWords.noticetitleplaceholder);
 }
 guojihua();
 

@@ -222,9 +222,8 @@ $('#pageLimit').bootstrapPaginator({
 					$("#token-list").html("");
 					console.log("列表："+callback[0]['adddate']);
 					for(var i=0;i<callback.length;i++){
-						var htmla = '<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['adddate']+'</div>'
-									+'<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['amount']+'</div>'
-									+'<div style="float:left;color:#173045;width:33.33%;text-align:center;line-height:45px;">'+callback[i]['curstatus']+'</div>';
+						var htmla = '<div style="float:left;color:#173045;width:50%;text-align:center;line-height:45px;">'+callback[i]['adddate']+'</div>'
+									+'<div style="float:left;color:#173045;width:50%;text-align:center;line-height:45px;">'+callback[i]['amount']+'</div>';
 						$("#token-list").append(htmla);
 					}
 				}
