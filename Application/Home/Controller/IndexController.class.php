@@ -19,6 +19,10 @@ class IndexController extends CommonbaseController {
 				header('Location: '.$url);
 			} */
 		}
+		$isread = $this->getnoreadnotify();
+		$isreadrs = $this->getnoreadnotifyrs();
+		$this->assign("isread",$isread);
+		$this->assign("isreadrs",$isreadrs);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
@@ -117,7 +121,7 @@ class IndexController extends CommonbaseController {
 		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WEIXIN_APP_ID').'&redirect_uri='.urlencode(C('WECHAT_CALLBACK_URL')).'&response_type=code&scope=snsapi_userinfo&state='.$state.'#wechat_redirect';
         
  		$level=3;
-        $size=2.6;
+        $size=3;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
         $object->png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);
@@ -295,7 +299,6 @@ class IndexController extends CommonbaseController {
 		$didprvkey = C("DID_PRVKEY");
 		$didpubkey = C("DID_PUBKEY");
 		$did = C("DID_DID");
-		//$random = "112111";
 		$_SESSION['eladevp']['didstaterand'] =$state;
 		$this->adddid($state);
 		$payaddress="";
@@ -303,11 +306,13 @@ class IndexController extends CommonbaseController {
 		$url ="http://203.189.235.252:8080/trucks/signdid.jsp";
 		$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
 		$sign = trim(file_get_contents($url."".$parms));
+		$random ="111";
  		$ReturnUrl = urlencode("https://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
  		$callbackurl = urlencode("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
-		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=developerSite&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=developerSitaees";		
+		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=Elastos Developer Website&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=Elastos Developer Website";		
+		//var_dump($qurl);
 		$level=3;
-        $size=2.8;
+        $size=3;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
         $object->png($qurl, false, $errorCorrectionLevel, $matrixPointSize, 2);
@@ -737,5 +742,36 @@ class IndexController extends CommonbaseController {
 	  }else{
 		  return 0;
 	  }
+  }
+  //获取当前消息是否读取
+  public function getnoreadnotify(){
+	  $where['ishomepage'] = 1;
+	  $notice = M("notice");
+	  $noticeinfo = $notice->where($where)->order("id desc")->find();
+	  if($noticeinfo){
+		  if(isset($_COOKIE['readnoticeifyid']) && $_COOKIE['readnoticeifyid']==$noticeinfo['id']){
+			  return 0;
+		  }else{
+			  return $noticeinfo['id'];
+		  }
+	  }else{
+		  return 0;
+	  }
+  }
+  //获取当前消息是否读取
+  public function getnoreadnotifyrs(){
+	  $where['ishomepage'] = 1;
+	  $notice = M("notice");
+	  $noticeinfo = $notice->where($where)->order("id desc")->find();
+	  if($noticeinfo){
+		  return $noticeinfo['id'];
+	  }else{
+		  return 0;
+	  }
+  }
+  //设置COOKIE
+  public function setnotifycookie(){
+	  //echo var_dump($_POST);
+	  cookie("readnoticeifyid",$_POST['id'], time()+3600*24*300);
   }
 }

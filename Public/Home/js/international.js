@@ -201,8 +201,15 @@ internationalWordsZH.signupconfirmcode ='验证码';
 internationalWordsEN.signupconfirmcode="Confirmation code";
 internationalWordsZH.checkemailbtn ='提交';
 internationalWordsEN.checkemailbtn="Submit";
-internationalWordsZH.resendtip ='确认码已发送';
+internationalWordsZH.resendtip ='验证码已发送';
 internationalWordsEN.resendtip="Confirmation email resent";
+//消息列表
+internationalWordsZH.notications ='消息';
+internationalWordsEN.notications="NOTIFICATIONS";
+internationalWordsZH.noticeviews ='浏览';
+internationalWordsEN.noticeviews="views";
+internationalWordsZH.noticeposted ='发表者';
+internationalWordsEN.noticeposted="posted by";
 
 
 
@@ -214,6 +221,8 @@ internationalWordsZH.leftmenmyprofile='我的';
 internationalWordsEN.leftmenmyprofile='My profile';
 internationalWordsZH.leftmengettesttoken='申请测试币';
 internationalWordsEN.leftmengettesttoken='Get Test Token';
+internationalWordsZH.leftmengetadminconsole='管理员控制台';
+internationalWordsEN.leftmengetadminconsole='Admin Console';
 
 //my profile page
 internationalWordsZH.profileedit='编辑我的信息';
@@ -245,24 +254,24 @@ internationalWordsZH.profileeditsavesuccfully='更新成功';
 internationalWordsEN.profileeditsavesuccfully='Profile updated.';
 internationalWordsZH.profileeditsavesfail='更新失败，请重试';
 internationalWordsEN.profileeditsavesfail='Failed to update your profile, please try again later.';
-internationalWordsZH.githubbinderror='该github账户已经绑定，请解绑后再绑定！.';
+internationalWordsZH.githubbinderror='该Github账户已经绑定，请解绑后再绑定！.';
 internationalWordsEN.githubbinderror='The GitHub account is already associated. Please un-associate it and associate again.';
 internationalWordsZH.bindsuc='解除绑定成功.';
 internationalWordsEN.bindsuc='Un-associated successfully.';
 internationalWordsZH.confirmunbind='确定要解除绑定？';
-internationalWordsEN.confirmunbind='Are you sure you want to un-assocate?';
+internationalWordsEN.confirmunbind='Are you sure you want to un-assocate it?';
 internationalWordsZH.removeuserbtnc='确定';
 internationalWordsEN.removeuserbtnc='Comfirm';
 internationalWordsZH.removeuserbtncan='取消';
 internationalWordsEN.removeuserbtncan='Cancel';
 internationalWordsZH.wechatbindedtip='该微信账户已经绑定，请先解绑后绑定';
 internationalWordsEN.wechatbindedtip='This Wechat account is already associated. Please un-associate it and associate again.';
-internationalWordsZH.bindgittip='绑定github';
+internationalWordsZH.bindgittip='绑定Github';
 internationalWordsEN.bindgittip='Associate with Github';
 internationalWordsZH.bindwechattip='绑定微信';
-internationalWordsEN.bindwechattip='Associate with wechat';
-internationalWordsZH.binddidtip='绑定DID';
-internationalWordsEN.binddidtip='Associate with did';
+internationalWordsEN.bindwechattip='Associate with Wechat';
+internationalWordsZH.binddidtip='绑定ELA DID';
+internationalWordsEN.binddidtip='Associate with ELA DID';
 
 //get test token
 internationalWordsZH.applytokentip='测试ELA钱包地址';
@@ -285,7 +294,55 @@ internationalWordsZH.applytokenfail='测试币申请提交失败，请重试.';
 internationalWordsEN.applytokenfail='Failed to submit your application, please try again later.';
 internationalWordsZH.applytokentips='测试ELA钱包地址必须填写';
 internationalWordsEN.applytokentips='Test ELA wallet address is required.';
+//消息列表
 
+
+//新增消息
+internationalWordsZH.noticepublish='发布';
+internationalWordsEN.noticepublish='Publish';
+internationalWordsZH.noticedit='编辑';
+internationalWordsEN.noticedit='Edit';
+internationalWordsZH.noticedel='删除';
+internationalWordsEN.noticedel='Delete';
+internationalWordsZH.newnotications='新消息';
+internationalWordsEN.newnotications='New Notication';
+internationalWordsZH.noticecancel='×&nbsp;取消';
+internationalWordsEN.noticecancel='×&nbsp;Cancel';
+internationalWordsZH.noticetitle='标题';
+internationalWordsEN.noticetitle='Title';
+internationalWordsZH.noticedescription='描述';
+internationalWordsEN.noticedescription='Description';
+internationalWordsZH.noticepushset='描述';
+internationalWordsEN.noticepushset='Description';
+internationalWordsZH.noticesendmail='发送邮件';
+internationalWordsEN.noticesendmail='Send Email';
+internationalWordsZH.noticeinwebsite='站内';
+internationalWordsEN.noticeinwebsite='In-website';
+internationalWordsZH.noticewho='通知谁';
+internationalWordsEN.noticewho='Notify Who';
+internationalWordsZH.noticeallusers='所有用户';
+internationalWordsEN.noticeallusers='All users';
+internationalWordsZH.noticeonlineonly='仅在线用户';
+internationalWordsEN.noticeonlineonly='Online users only';
+internationalWordsZH.noticeshowinhome='首页显示';
+internationalWordsEN.noticeshowinhome='Show in home page';
+internationalWordsZH.noticescheduledpush='预定推送';
+internationalWordsEN.noticescheduledpush='Scheduled Push';
+internationalWordsZH.noticepublishnow='立即发布';
+internationalWordsEN.noticepublishnow='Publish Now';
+internationalWordsZH.noticeshowhomeis='是';
+internationalWordsEN.noticeshowhomeis='YES';
+internationalWordsZH.noticeshowhomeno='否';
+internationalWordsEN.noticeshowhomeno='NO';
+internationalWordsZH.noticetitleplaceholder='请输入标题';
+internationalWordsEN.noticetitleplaceholder='Please enter the title';
+
+
+
+
+//编辑消息
+internationalWordsZH.noticelastedit='最后一次编辑';
+internationalWordsEN.noticelastedit='Last&nbsp;edit&nbsp;at&nbsp;';
 
 //登录与退出
 internationalWordsZH.logouttipsuccful='登出成功';

@@ -990,5 +990,257 @@ class PcenterController extends BaseController {
 			return 0;
 		}
 	}
+	//消息通知列表
+	public function notifylist(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$notice = M("notice");
+		$noticelist = $notice->order("addtime desc")->limit("0,10")->select();
+		if($noticelist){
+			if($_SESSION ['eladevp']['lang']=="cn"){
+				for($i=0;$i<count($noticelist);$i++){
+					$noticelist[$i]['adddate'] = date("Y-m-d",$noticelist[$i]['addtime']);
+				}
+			}else{
+				for($i=0;$i<count($noticelist);$i++){
+					$noticelist[$i]['adddate'] = date("M d,Y",$noticelist[$i]['addtime']);
+				}
+			}
+		}
+		$count = $notice->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		$this->assign("pcount",$pcount);
+		$this->assign("noticelist",$noticelist);
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");	
+		$this->display();
+	}
+	//获取指定数量的页面
+	public function noticelimit(){
+		$curp = $_POST['curp'];
+		$startnum = ($curp - 1)*10;
+		$notice = M("notice");
+		$rslist = $notice->order("addtime desc")->limit($startnum.",10")->select();
+		if($rslist){
+			if($_SESSION ['eladevp']['lang']=="cn"){
+				for($i=0;$i<count($rslist);$i++){
+					$rslist[$i]['adddate'] = date("Y-m-d",$rslist[$i]['addtime']);
+				}
+			}else{
+				for($i=0;$i<count($rslist);$i++){
+					$rslist[$i]['adddate'] = date("M d,Y",$rslist[$i]['addtime']);
+				}
+			}
+		}
+		echo json_encode($rslist);
+	}
+	//新增消息通知
+	public function addnotify(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$this->assign("randid",$this->getRandomString(5).time());
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	
+	//保存到草稿
+	public function editdraftnotifyfunc(){
+		$where['randid'] = $_POST['randid'];
+		$notice = M("notice");
+		$rsa = $notice->where($where)->find();
+		if($rsa){
+			$data['noticetitle'] = $_POST['title'];
+			$data['contents'] = $_POST['contents'];
+			$data['author'] = $_SESSION['eladevp']['userid'];
+			$data['draft'] = 1;
+			$data['ishomepage'] = $_POST['ishomepage'];
+			$data['notifywho'] = $_POST['notifywho'];
+			$data['pushnotifyset'] = $_POST['pushnotifyset'];
+			$data['publishtime'] = $_POST['publishtime'];
+			$data['viewnum'] = 1;
+			$data['edittime'] = time();
+			$rs = $notice->where($where)->save($data);
+			if($rs){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}else{
+			$data['addtime'] = time();
+			$data['noticetitle'] = $_POST['title'];
+			$data['contents'] = $_POST['contents'];
+			$data['author'] = $_SESSION['eladevp']['userid'];
+			$data['draft'] = 1;
+			$data['ishomepage'] = $_POST['ishomepage'];
+			$data['notifywho'] = $_POST['notifywho'];
+			$data['pushnotifyset'] = $_POST['pushnotifyset'];
+			$data['publishtime'] = $_POST['publishtime'];
+			$data['viewnum'] = 1;
+			$data['edittime'] = time();
+			$data['randid'] = $_POST['randid'];
+			$rs = $notice->add($data);
+			if($rs){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}
+	}
+	//获取随机数
+	public function getRandomString($len, $chars=null)  {  
+		if (is_null($chars)) {  
+			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		}  
+		mt_srand(10000000*(double)microtime());  
+		for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {  
+			$str .= $chars[mt_rand(0, $lc)];  
+		}  
+		return $str;  
+	}
+	//新增消息通知
+	public function addnotifyfunc(){
+		/* $notice = M("notice");
+		$data['addtime'] = time();
+		$data['noticetitle'] = $_POST['title'];
+		$data['contents'] = $_POST['contents'];
+		$data['author'] = $_SESSION['eladevp']['userid'];
+		$data['draft'] = $_POST['draft'];
+		$data['ishomepage'] = $_POST['ishomepage'];
+		$data['notifywho'] = $_POST['notifywho'];
+		$data['pushnotifyset'] = $_POST['pushnotifyset'];
+		$data['publishtime'] = $_POST['publishtime'];
+		$data['viewnum'] = 1;
+		$data['edittime'] = time();
+		$data['randid'] = $_POST['randid'];
+		$rs = $notice->add($data);
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		} */
+		
+		$where['randid'] = $_POST['randid'];
+		$notice = M("notice");
+		$rsa = $notice->where($where)->find();
+		if($rsa){
+			$data['noticetitle'] = $_POST['title'];
+			$data['contents'] = $_POST['contents'];
+			$data['author'] = $_SESSION['eladevp']['userid'];
+			$data['draft'] = 0;
+			$data['ishomepage'] = $_POST['ishomepage'];
+			$data['notifywho'] = $_POST['notifywho'];
+			$data['pushnotifyset'] = $_POST['pushnotifyset'];
+			$data['publishtime'] = $_POST['publishtime'];
+			$data['edittime'] = time();
+			$rs = $notice->where($where)->save($data);
+			if($rs){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}else{
+			$data['addtime'] = time();
+			$data['noticetitle'] = $_POST['title'];
+			$data['contents'] = $_POST['contents'];
+			$data['author'] = $_SESSION['eladevp']['userid'];
+			$data['draft'] = 0;
+			$data['ishomepage'] = $_POST['ishomepage'];
+			$data['notifywho'] = $_POST['notifywho'];
+			$data['pushnotifyset'] = $_POST['pushnotifyset'];
+			$data['publishtime'] = $_POST['publishtime'];
+			$data['viewnum'] = 1;
+			$data['edittime'] = time();
+			$data['randid'] = $_POST['randid'];
+			$rs = $notice->add($data);
+			if($rs){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}
+	}
+	//编辑消息通知
+	public function editnotify(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$where['id'] = $_GET['id'];
+		$notice = M("notice");
+		$noticedetail = $notice->where($where)->find();
+		$this->assign("noticeinfo",$noticedetail);
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	//编辑消息通知
+	public function editnotifyfunc(){
+		$where['id'] = $_POST['id'];
+		$notice = M("notice");
+		$data['addtime'] = time();
+		$data['noticetitle'] = $_POST['title'];
+		$data['contents'] = $_POST['contents'];
+		$data['author'] = $_SESSION['eladevp']['userid'];
+		$data['draft'] = $_POST['draft'];
+		$data['ishomepage'] = $_POST['ishomepage'];
+		$data['notifywho'] = $_POST['notifywho'];
+		$data['pushnotifyset'] = $_POST['pushnotifyset'];
+		$data['publishtime'] = $_POST['publishtime'];
+		$data['edittime'] = time();
+		$rs = $notice->where($where)->save($data);
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	//消息详细页面
+	public function noticedetail(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$where['id'] = $_GET['id'];
+		$notice = M("notice");
+		$noticedetail = $notice->where($where)->find();
+		$rs = $notice->where($where)->setInc('viewnum');
+		if($noticedetail){
+			if($_SESSION ['eladevp']['lang']=="cn"){
+				$noticedetail['lastedittime'] = date("Y-m-d",$noticedetail['edittime']);
+				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
+			}else{
+				$noticedetail['lastedittime'] = date("M d,Y",$noticedetail['edittime']);
+				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
+			}
+		}
+		$this->assign("noticeinfo",$noticedetail);
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	//删除指定消息
+	public function delnotifyfunc(){
+		$where['id'] = $_POST['id'];
+		$notice = M("notice");
+		$rs = $notice->where($where)->delete();
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
 }
 ?>
