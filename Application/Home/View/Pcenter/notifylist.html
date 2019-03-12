@@ -48,7 +48,7 @@
 					<div style="float:left;width:50%;height:50px;line-height:50px;"><button id="addnotify" class="addnotications" style="outline:none;border-radius:20px;float:right;font-size:12px;border:0px;width:120px;height:30px;line-height:30px;color:#18FFFF;background-color:#173045;">+ Notification</button></div>
 					</div>
 						<div style="width:100%;height:610px;">
-							<ul id="token-list" style="list-style-type:none;margin:0px;">
+							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
 								<volist name="noticelist" id="vob">
 								<li onclick="javascript:window.location.href='noticedetail?id={$vob.id}';">
 									<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>

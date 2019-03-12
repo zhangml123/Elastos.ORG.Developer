@@ -7,7 +7,7 @@ class IndexController extends CommonbaseController {
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
-			
+			$this->assign("profileinfo",$this->profileinfo());
 		}else{
 			$this->assign("logincate","");
 			/* if(is_weixin()){
@@ -20,8 +20,8 @@ class IndexController extends CommonbaseController {
 			} */
 		}
 		$isread = $this->getnoreadnotify();
-		$isreadrs = $this->getnoreadnotifyrs();
 		$this->assign("isread",$isread);
+		$isreadrs = $this->getnoreadnotifyrs();
 		$this->assign("isreadrs",$isreadrs);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
@@ -746,13 +746,14 @@ class IndexController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
+	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
 	  if($noticeinfo){
 		  if(isset($_COOKIE['readnoticeifyid']) && $_COOKIE['readnoticeifyid']==$noticeinfo['id']){
 			  return 0;
 		  }else{
-			  return $noticeinfo['id'];
+			  return $noticeinfo;
 		  }
 	  }else{
 		  return 0;
@@ -761,10 +762,11 @@ class IndexController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotifyrs(){
 	  $where['ishomepage'] = 1;
+	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
 	  if($noticeinfo){
-		  return $noticeinfo['id'];
+		  return $noticeinfo;
 	  }else{
 		  return 0;
 	  }
@@ -774,4 +776,11 @@ class IndexController extends CommonbaseController {
 	  //echo var_dump($_POST);
 	  cookie("readnoticeifyid",$_POST['id'], time()+3600*24*300);
   }
+	//获取当前个人信息功能
+	public function profileinfo(){
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$user = M("user");
+		$userinfo = $user->where($where)->find();
+		return $userinfo;
+	}
 }

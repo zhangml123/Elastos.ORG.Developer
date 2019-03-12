@@ -7,6 +7,7 @@ class NotifyController extends CommonbaseController {
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+			$this->assign("profileinfo",$this->profileinfo());
 		}else{
 			$this->assign("logincate","");
 		}
@@ -30,6 +31,8 @@ class NotifyController extends CommonbaseController {
 		}else{
 			$pcount = 0;
 		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$this->assign("pcount",$pcount);
 		$this->assign("noticelist",$noticelist);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");	
@@ -37,9 +40,9 @@ class NotifyController extends CommonbaseController {
 	}
 	//获取指定ID的之后五条信息
 	public function getlastfive($id){
-		$where['id'] = array('EGT',$id);
+		$where['id'] = array('NEQ',$id);
 		$notice = M("notice");
-		$rslist = $notice->where($where)->order("addtime asc")->limit("0,5")->select();
+		$rslist = $notice->where($where)->order("addtime asc")->limit("0,10")->select();
 		return $rslist;
 	}
 	//获取指定数量的页面
@@ -71,6 +74,7 @@ class NotifyController extends CommonbaseController {
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+			$this->assign("profileinfo",$this->profileinfo());
 		}else{
 			$this->assign("logincate","");
 		}
@@ -83,9 +87,34 @@ class NotifyController extends CommonbaseController {
 			$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
 			$noticelist = $this->getlastfive($noticedetail['id']);
 		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$this->assign("noticelist",$noticelist);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
+	}
+  //获取当前消息是否读取
+  public function getnoreadnotify(){
+	  $where['ishomepage'] = 1;
+	  $where['edittime'] = array("EGT",strtotime("-3 day"));
+	  $notice = M("notice");
+	  $noticeinfo = $notice->where($where)->order("id desc")->find();
+	  if($noticeinfo){
+		  if(isset($_COOKIE['readnoticeifyid']) && $_COOKIE['readnoticeifyid']==$noticeinfo['id']){
+			  return 0;
+		  }else{
+			  return $noticeinfo;
+		  }
+	  }else{
+		  return 0;
+	  }
+  }
+	//获取当前个人信息功能
+	public function profileinfo(){
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$user = M("user");
+		$userinfo = $user->where($where)->find();
+		return $userinfo;
 	}
 }

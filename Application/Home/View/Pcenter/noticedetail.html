@@ -36,7 +36,7 @@
 <div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
 		<div class="nav_instr_tip">
-		<span>Developer</span><span>&nbsp;>&nbsp;</span><span><a href="notifylist">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle}</span>
+		<span><a href="notifylist" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle}</span>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
@@ -144,6 +144,7 @@
 <include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
+<include file="Pcenter/delnotifysuccful" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -177,6 +178,15 @@ $("#delnotify").click(function(){
 $("#editnotify").click(function(){
 	var id = {$noticeinfo.id};
 	window.location.href="editnotify?id="+id;
+});
+$("#publishbtn").click(function(){
+	var id = {$noticeinfo.id};
+	$.post("publishnotify",{id:id},function(data){
+		if(data==1){
+			window.location.href="notifylist";
+		}else{
+		}
+	});
 });
 </script>
 </body>

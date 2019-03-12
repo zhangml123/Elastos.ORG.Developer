@@ -30,7 +30,7 @@
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 #token-list li div{cursor:pointer;}
 @import url("https://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css");
-.checkbox{width:100px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+.checkbox{width:140px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
     color: #fff;
     background: #173045;
 }
@@ -50,7 +50,7 @@
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div style="width:95%;margin-left:5%;height:800px;">
+				<div style="width:95%;margin-left:5%;height:940px;">
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
 					<div style="float:left;width:50%;height:50px;line-height:50px;" class="newnotications">New Notifications</div>
 					<div style="float:left;width:50%;height:50px;line-height:50px;">
@@ -64,7 +64,7 @@
 									<input type="text" placeholder=" Please enter the title" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitle" />
 								</div>
 							</div>
-							<div style="width:100%;height:240px;margin-top:30px;">
+							<div style="width:100%;height:480px;margin-top:30px;">
 								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;"  class="noticedescription">Description</div>
 								<div style="float:left;width:80%;height:240px;float:left;">
 									<div class="summernote" id="contents"></div>
@@ -76,27 +76,6 @@
 									<div class="checkbox">
 									<input id="checkbox1" class="styled" type="checkbox">
 									<label for="checkbox1" class="noticesendmail">Send email</label>
-									</div>
-									<div class="checkbox" style="margin-top:10px;">
-									<input id="checkbox2" class="styled" type="checkbox">
-									<label for="checkbox2" class="noticeinwebsite">
-									In-website
-									</label>
-									</div>
-								</div>
-							</div>
-							<div style="width:100%;height:40px;margin-top:30px;">
-								<div style="float:left;width:20%;height:40px;line-height:40px;font-size:12px;" class="noticewho">Notify Who</div>
-								<div style="float:left;width:80%;height:40px;font-size:12px;">
-									<div class="checkbox">
-									<input id="checkbox3" class="styled" type="checkbox">
-									<label for="checkbox3" class="noticeallusers">All users</label>
-									</div>
-									<div class="checkbox" style="margin-top:10px;width:200px;">
-									<input id="checkbox4" class="styled" type="checkbox">
-									<label for="checkbox4" class="noticeonlineonly">
-									Online users only
-									</label>
 									</div>
 								</div>
 							</div>
@@ -111,6 +90,7 @@
 							<div style="width:100%;height:60px;margin-top:50px;">
 								<button id="pushbtn" class="noticescheduledpush" style="outline:none;border-radius:20px;float:left;font-size:12px;border:1px solid #333;width:150px;height:40px;line-height:40px;color:#222;background-color:#fff;">Scheduled Push</button>
 								<button id="publishbtn" class="noticepublishnow" style="outline:none;margin-left:40px;border-radius:20px;float:left;font-size:12px;border:1px solid #333;width:150px;height:40px;line-height:40px;background-color:#173045;color:#18FFFF;">Publish Now</button>
+								<button id="viewbtn" class="noticeview" style="outline:none;margin-left:40px;border-radius:20px;float:left;font-size:12px;border:1px solid #333;width:150px;height:40px;line-height:40px;background-color:#fff;color:#222;">Preview</button>
 							</div>
 							<div style="text-align: center;margin-top:30px;"></div>
 						</div>
@@ -194,6 +174,8 @@
 <include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
+<include file="Pcenter/notifypublishtip" />
+<include file="Pcenter/notifytip" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
@@ -218,11 +200,14 @@ function changeState(stateValue){
 	}
 }
  $('.summernote').summernote({
-        height: 150,
+        height: 400,
         tabsize: 2,
+		disableDragAndDrop:false,
+		minHeight:150,
+		maxHeight:400,
         lang: 'zh-CN'
     });
-var addnoticeid = window.setInterval(savedraft,3000);
+var addnoticeid = window.setInterval(savedraft,5000);
 function savedraft(){
 	var randid = '{$randid}';
 	var title = $("#notifytitle").val();
@@ -238,13 +223,9 @@ function savedraft(){
 	}else{
 		checkbox1 = 0;
 	}
-	if ($('#checkbox2').prop("checked")){
-		checkbox2 = 1;
-	}else{
-		checkbox2 = 0;
-	}
-	var pushnoticeset = checkbox1+""+checkbox2;
-	if ($('#checkbox3').prop("checked")){
+
+	//var pushnoticeset = checkbox1+""+checkbox2;
+	/*if ($('#checkbox3').prop("checked")){
 		checkbox3 = 1;
 	}else{
 		checkbox3 = 0;
@@ -254,13 +235,15 @@ function savedraft(){
 	}else{
 		checkbox4 = 0;
 	}
+	
 	var notifywho = checkbox3+""+checkbox4;
+	*/
 	if ($('#ishomepage').prop("checked")){
 		ishomepage = 1;
 	}else{
 		ishomepage = 0;
 	}
-	$.post('editdraftnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,notifywho:notifywho,pushnotifyset:pushnoticeset,publishtime:"3143435435436"},function(data){});
+	$.post('editdraftnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:"3143435435436"},function(data){});
 }
  $("#publishbtn").click(function(){
 	var randid = '{$randid}';
@@ -271,7 +254,8 @@ function savedraft(){
 	}else{
 		checkbox1 = 0;
 	}
-	if ($('#checkbox2').prop("checked")){
+	
+	/*if ($('#checkbox2').prop("checked")){
 		checkbox2 = 1;
 	}else{
 		checkbox2 = 0;
@@ -288,27 +272,38 @@ function savedraft(){
 		checkbox4 = 0;
 	}
 	var notifywho = checkbox3+""+checkbox4;
+	*/
 	if ($('#ishomepage').prop("checked")){
 		ishomepage = 1;
 	}else{
 		ishomepage = 0;
 	}
 	if(title==""){
-		alert("标题不能为空！");
+		//alert("标题不能为空！");
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
 	if(contents==""){
-		alert("通知内容不能为空！");
+		//alert("通知内容不能为空！");
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
-	$.post('addnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,notifywho:notifywho,pushnotifyset:pushnoticeset,publishtime:"3143435435436"},function(data){
+	window.clearInterval(addnoticeid);
+	$.post('addnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:"3143435435436"},function(data){
 		if(data==1){
-			alert("新增成功！");
-			window.location.href="notifylist";
+			//alert("新增成功！");
+			$("#notifypublishtip").modal("show");
+			setTimeout(function(){$("#notifypublishtip").modal("hide");window.location.href="notifylist";},2500);
 		}else{
 			
 		}
 	});
+ });
+ $("#viewbtn").click(function(){
+	var randid = '{$randid}';
+	window.open("noticedetailforrandid?randid="+randid);
  });
  $("#canclebtn").click(function(){
 	window.location.href="notifylist";

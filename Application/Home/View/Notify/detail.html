@@ -36,18 +36,16 @@
 <div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
 		<div class="nav_instr_tip">
-		<span>Developer</span><span>&nbsp;>&nbsp;</span><span><a href="index">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle}</span>
+		<span><a href="index" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle|msubstr=0,16,'utf-8',true}</span>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
+						<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$noticeinfo.id}';">{$noticeinfo.noticetitle|msubstr=0,10,'utf-8',true}</li>
 						<volist name="noticelist" id="voa">
-							<eq name="voa.id" value="$noticeinfo.id">
-							<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle}</li>
-							</eq>
 							<neq name="voa.id" value="$noticeinfo.id">
-							<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle}</li>
+							<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
 							</neq>
 						</volist>
 					</ul>
@@ -140,10 +138,18 @@
 	</div>
 	</div>
 </div>
-<include file="Pcenter/succful" />
-<include file="Pcenter/applytip" />
+<include file="Index/loginoutfail" />
+<include file="Index/loginsid" />
+<include file="Index/signup" />
+<include file="Index/emailsid" />
+<include file="Index/forgetpwd" />
+<include file="Index/confirmemailcode" />
+<include file="Index/resetpwd" />
+<include file="Index/wechatqrcode" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
+<include file="Index/resendtip" />
+<include file="Index/didqrcode" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>

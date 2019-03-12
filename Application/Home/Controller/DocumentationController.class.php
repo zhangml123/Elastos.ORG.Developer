@@ -9,6 +9,7 @@ class DocumentationController extends CommonbaseController {
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+			$this->assign("profileinfo",$this->profileinfo());
 		}else{
 			$this->assign("logincate","");
 			/* if(is_weixin()){
@@ -39,6 +40,9 @@ class DocumentationController extends CommonbaseController {
 			 //$contents = str_replace($stra,"",$contents);
 			 $contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
 			 $this->assign("commentlist",$commentlist);
+			 
+			$isread = $this->getnoreadnotify();
+			$this->assign("isread",$isread);
 			$this->assign("commentnum",count($commentlist));
 			$this->assign("firstc",$contents);
 			$this->assign("firstgiturl","https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$doc);
@@ -64,6 +68,9 @@ class DocumentationController extends CommonbaseController {
 			$contents = str_replace($stra,"",$contents);
 			$contents = str_replace('<img src="','<img src="https://github.com',$contents);
 			$contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
+			
+			$isread = $this->getnoreadnotify();
+			$this->assign("isread",$isread);
 			$this->assign("commentlist",$commentlist);
 			$this->assign("commentnum",count($commentlist));
 			//$this->assign("allcommentnum",count($allcommentlist));
@@ -113,6 +120,7 @@ class DocumentationController extends CommonbaseController {
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
 			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+			$this->assign("profileinfo",$this->profileinfo());
 		}else{
 			$this->assign("logincate","");
 			/* if(is_weixin()){
@@ -144,6 +152,8 @@ class DocumentationController extends CommonbaseController {
 			
 			$this->assign("rslist",$nrs);
 		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$this->assign("searchcontents",$_GET['sw']);
 		$this->assign("pcount",$pcount);
 		$this->assign("rsnum",count($searchrs));
@@ -535,5 +545,28 @@ class DocumentationController extends CommonbaseController {
 		}else{
 			echo 0;
 		}
+	}
+  //获取当前消息是否读取
+  public function getnoreadnotify(){
+	  $where['ishomepage'] = 1;
+	  $where['edittime'] = array("EGT",strtotime("-3 day"));
+	  $notice = M("notice");
+	  $noticeinfo = $notice->where($where)->order("id desc")->find();
+	  if($noticeinfo){
+		  if(isset($_COOKIE['readnoticeifyid']) && $_COOKIE['readnoticeifyid']==$noticeinfo['id']){
+			  return 0;
+		  }else{
+			  return $noticeinfo;
+		  }
+	  }else{
+		  return 0;
+	  }
+  }
+	//获取当前个人信息功能
+	public function profileinfo(){
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$user = M("user");
+		$userinfo = $user->where($where)->find();
+		return $userinfo;
 	}
 }

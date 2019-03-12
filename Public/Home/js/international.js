@@ -37,6 +37,10 @@ internationalWordsZH.onepartdocbtn='开发文档';
 internationalWordsEN.onepartdocbtn='Documentation';
 internationalWordsZH.onepartvideobtn='视频教程';
 internationalWordsEN.onepartvideobtn='Video Tutorials';
+internationalWordsZH.newnotifytip='新公告：';
+internationalWordsEN.newnotifytip='New Notification：';
+
+
 //第二部分
 internationalWordsZH.towpartsubbtn='查看';
 internationalWordsEN.towpartsubbtn='Go';
@@ -298,6 +302,8 @@ internationalWordsEN.applytokentips='Test ELA wallet address is required.';
 
 
 //新增消息
+internationalWordsZH.noticeview='预览';
+internationalWordsEN.noticeview='Preview';
 internationalWordsZH.noticepublish='发布';
 internationalWordsEN.noticepublish='Publish';
 internationalWordsZH.noticedit='编辑';
@@ -312,10 +318,10 @@ internationalWordsZH.noticetitle='标题';
 internationalWordsEN.noticetitle='Title';
 internationalWordsZH.noticedescription='描述';
 internationalWordsEN.noticedescription='Description';
-internationalWordsZH.noticepushset='描述';
-internationalWordsEN.noticepushset='Description';
-internationalWordsZH.noticesendmail='发送邮件';
-internationalWordsEN.noticesendmail='Send Email';
+internationalWordsZH.noticepushset='消息推送设置';
+internationalWordsEN.noticepushset='Push Notification Settings';
+internationalWordsZH.noticesendmail='发送邮件到站内用户';
+internationalWordsEN.noticesendmail='Send this notification to all registered users by email';
 internationalWordsZH.noticeinwebsite='站内';
 internationalWordsEN.noticeinwebsite='In-website';
 internationalWordsZH.noticewho='通知谁';
@@ -336,6 +342,15 @@ internationalWordsZH.noticeshowhomeno='否';
 internationalWordsEN.noticeshowhomeno='NO';
 internationalWordsZH.noticetitleplaceholder='请输入标题';
 internationalWordsEN.noticetitleplaceholder='Please enter the title';
+internationalWordsZH.notifycenter='消息中心';
+internationalWordsEN.notifycenter='Notification Center';
+internationalWordsZH.notifypublishtips='公告成功创建并发布';
+internationalWordsEN.notifypublishtips='Notification published successfully.';
+internationalWordsZH.delnotifysuccful='公告成功删除';
+internationalWordsEN.delnotifysuccful='Notification deleted successfully.';
+internationalWordsZH.notifytips='标题和内容不能为空！';
+internationalWordsEN.notifytips='Title and Contents is not empty!';
+
 
 
 

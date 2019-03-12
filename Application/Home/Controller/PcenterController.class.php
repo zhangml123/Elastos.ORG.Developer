@@ -29,8 +29,11 @@ class PcenterController extends BaseController {
 			$this->assign("mainuser","");
 		} */
 		//var_dump($_SESSION ['eladevp']['logincate']);
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$this->assign("countrylist",$this->countrylist());
 		$this->assign("uinfo",$userinfo);
+			$this->assign("profileinfo",$this->profileinfo());
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
@@ -454,6 +457,9 @@ class PcenterController extends BaseController {
 		}else{
 			$pcount = 0;
 		}
+		$isread = $this->getnoreadnotify();
+			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("isread",$isread);
 		$this->assign("pcount",$pcount);
 		$this->assign("applylist",$rslist);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1017,6 +1023,9 @@ class PcenterController extends BaseController {
 		}else{
 			$pcount = 0;
 		}
+		$isread = $this->getnoreadnotify();
+			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("isread",$isread);
 		$this->assign("pcount",$pcount);
 		$this->assign("noticelist",$noticelist);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");	
@@ -1049,6 +1058,9 @@ class PcenterController extends BaseController {
 		}else{
 			$this->assign("logincate","");
 		}
+			$this->assign("profileinfo",$this->profileinfo());
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$this->assign("randid",$this->getRandomString(5).time());
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
@@ -1065,7 +1077,7 @@ class PcenterController extends BaseController {
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 1;
 			$data['ishomepage'] = $_POST['ishomepage'];
-			$data['notifywho'] = $_POST['notifywho'];
+			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
 			$data['publishtime'] = $_POST['publishtime'];
 			$data['viewnum'] = 1;
@@ -1083,7 +1095,7 @@ class PcenterController extends BaseController {
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 1;
 			$data['ishomepage'] = $_POST['ishomepage'];
-			$data['notifywho'] = $_POST['notifywho'];
+			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
 			$data['publishtime'] = $_POST['publishtime'];
 			$data['viewnum'] = 1;
@@ -1131,7 +1143,7 @@ class PcenterController extends BaseController {
 		} */
 		
 		$where['randid'] = $_POST['randid'];
-		$notice = M("notice");
+		$notice = D("notice");
 		$rsa = $notice->where($where)->find();
 		if($rsa){
 			$data['noticetitle'] = $_POST['title'];
@@ -1139,12 +1151,18 @@ class PcenterController extends BaseController {
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 0;
 			$data['ishomepage'] = $_POST['ishomepage'];
-			$data['notifywho'] = $_POST['notifywho'];
+			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
 			$data['publishtime'] = $_POST['publishtime'];
 			$data['edittime'] = time();
 			$rs = $notice->where($where)->save($data);
 			if($rs){
+				if($_POST['pushnotifyset']==1){
+					$url = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Notify/detail?id=".$rsa["id"];
+					$title = $_POST['title'];
+					//var_dump($url);
+					$this->sendmailfornotify($url,$title);	
+				}
 				echo 1;
 			}else{
 				echo 0;
@@ -1156,7 +1174,7 @@ class PcenterController extends BaseController {
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 0;
 			$data['ishomepage'] = $_POST['ishomepage'];
-			$data['notifywho'] = $_POST['notifywho'];
+			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
 			$data['publishtime'] = $_POST['publishtime'];
 			$data['viewnum'] = 1;
@@ -1164,7 +1182,14 @@ class PcenterController extends BaseController {
 			$data['randid'] = $_POST['randid'];
 			$rs = $notice->add($data);
 			if($rs){
+				if($_POST['pushnotifyset']==1){
+					$url = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Notify/detail?id=".$rs;
+					$title = $_POST['title'];
+					//var_dump($url);
+					$this->sendmailfornotify($url,$title);	
+				}
 				echo 1;
+				
 			}else{
 				echo 0;
 			}
@@ -1181,6 +1206,9 @@ class PcenterController extends BaseController {
 		$where['id'] = $_GET['id'];
 		$notice = M("notice");
 		$noticedetail = $notice->where($where)->find();
+		$isread = $this->getnoreadnotify();
+			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
@@ -1195,7 +1223,7 @@ class PcenterController extends BaseController {
 		$data['author'] = $_SESSION['eladevp']['userid'];
 		$data['draft'] = $_POST['draft'];
 		$data['ishomepage'] = $_POST['ishomepage'];
-		$data['notifywho'] = $_POST['notifywho'];
+		$data['notifywho'] = "";
 		$data['pushnotifyset'] = $_POST['pushnotifyset'];
 		$data['publishtime'] = $_POST['publishtime'];
 		$data['edittime'] = time();
@@ -1227,9 +1255,40 @@ class PcenterController extends BaseController {
 				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
 			}
 		}
+		$isread = $this->getnoreadnotify();
+			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
+	}
+	//消息详细页面randid
+	public function noticedetailforrandid(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$where['randid'] = $_GET['randid'];
+		$notice = M("notice");
+		$noticedetail = $notice->where($where)->find();
+		$rs = $notice->where($where)->setInc('viewnum');
+		if($noticedetail){
+			if($_SESSION ['eladevp']['lang']=="cn"){
+				$noticedetail['lastedittime'] = date("Y-m-d",$noticedetail['edittime']);
+				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
+			}else{
+				$noticedetail['lastedittime'] = date("M d,Y",$noticedetail['edittime']);
+				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
+			}
+		}
+		$isread = $this->getnoreadnotify();
+			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("isread",$isread);
+		$this->assign("noticeinfo",$noticedetail);
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display("noticedetail");
 	}
 	//删除指定消息
 	public function delnotifyfunc(){
@@ -1242,5 +1301,49 @@ class PcenterController extends BaseController {
 			echo 0;
 		}
 	}
+	//发送邮件到存在邮箱的用户
+	public function sendmailfornotify($url,$title){
+		$user = M("user");
+		$ulist = $user->select();
+		if($ulist){
+			for($i=0;$i<count($ulist);$i++){
+				if($ulist[$i]['email']!=""){
+					if($_SESSION ['eladevp']['lang']=="cn"){
+						$rs = SendMail($ulist[$i]['email']," [新公告] ".$title."","<p>亦来云开发者网站有一条新公告：</p><p>".$title."</p><p>点击链接查看更多：</p><p><a href='".$url."'>".$url."</a></p><p>谢谢</p><p>亦来云团队</p>");
+					}else{
+						$rs = SendMail($ulist[$i]['email']," [New Notification] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$title."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p>");
+					}
+				}
+			}
+		}
+	}
+  //获取当前消息是否读取
+  public function getnoreadnotify(){
+	  $where['ishomepage'] = 1;
+	  $where['edittime'] = array("EGT",strtotime("-3 day"));
+	  $notice = M("notice");
+	  $noticeinfo = $notice->where($where)->order("id desc")->find();
+	  if($noticeinfo){
+		  if(isset($_COOKIE['readnoticeifyid']) && $_COOKIE['readnoticeifyid']==$noticeinfo['id']){
+			  return 0;
+		  }else{
+			  return $noticeinfo;
+		  }
+	  }else{
+		  return 0;
+	  }
+  }
+  //发布
+  public function publishnotify(){
+		$where['id'] = $_POST['id'];
+		$notice = M("notice");
+		$data['draft'] = 0;
+		$rs = $notice->where($where)->save($data);
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+  }
 }
 ?>
