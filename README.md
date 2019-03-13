@@ -32,4 +32,5 @@ Elastos开发者网站
 ​       'APPLY_TESTELA_URL' =>'https://faucet-backend.elastos.org/ela/testCoin/issue',    //申请测试币地址   
 ​    (2) Public\Home\js 目录下：international.js文件  
     internationalWordsZH.hosturl='';  
-    internationalWordsEN.hosturl='';
+    internationalWordsEN.hosturl='';  
+   5 [DID的web配置](https://github.com/yunyouming/Elastos.ORG.Developer/blob/master/webdid/did_readme.md)
