@@ -109,7 +109,9 @@
 			  <ul class="dropdown-menu" style="margin-top:10px;">
 				<li style="margin-top:0px;text-align:left;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Pcenter/index.html" style="text-align: left;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_myprofile"></a></li>
 				<li style="margin-top:0px;text-align:left;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Pcenter/tokeninfo.html" style="text-align: left;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_gettoken"></a></li>
-				<li style="margin-top:0px;text-align:left;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Pcenter/notifylist.html" style="text-align: left;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_admin_console">admin console</a></li>
+				<eq name="profileinfo.roleid" value="1">
+					<li style="margin-top:0px;text-align:left;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Pcenter/notifylist.html" style="text-align: left;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_admin_console">admin console</a></li>
+				</eq>
 				<li style="margin-top:0px;text-align:left;line-height:30px;height:35px;"><a href="javascript:void(0);" id="loginoutbtn" style="text-align: left;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_logout"></a></li>
 			  </ul>
 			</li>

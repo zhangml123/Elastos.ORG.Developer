@@ -173,6 +173,12 @@ function guojihua(){
 	$("#ishomepage").attr("data-on-text",internationalWords.noticeshowhomeis);
 	$("#ishomepage").attr("data-off-text",internationalWords.noticeshowhomeno);
 	$("#notifytitle").attr("placeholder",internationalWords.noticetitleplaceholder);
+	$(".noticeview").html(internationalWords.noticeview);
+	$(".newnotifytip").html(internationalWords.newnotifytip);
+	$(".notifycenter").html(internationalWords.notifycenter);
+	$(".delnotifysuccful").html(internationalWords.delnotifysuccful);
+	$(".notifypublishtips").html(internationalWords.notifypublishtips);
+	$(".notifytips").html(internationalWords.notifytips);
 }
 guojihua();
 
