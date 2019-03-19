@@ -1058,7 +1058,44 @@ class PcenterController extends BaseController {
 		}else{
 			$this->assign("logincate","");
 		}
-			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("profileinfo",$this->profileinfo());
+		//分钟
+		for($i=0;$i<60;$i++){
+		  if($i<=9){
+			$minlist[] = "0".$i;  
+		  }else{
+			$minlist[] = $i;   
+		  }
+		}
+		//小时
+		for($j=0;$j<24;$j++){
+		  if($j<=9){
+			$hourlist[] = "0".$j;  
+		  }else{
+			$hourlist[] = $j;   
+		  }
+		}
+		//日期
+		for($k=0;$k<24;$k++){
+		  if($k<=9){
+			$daylist[] = "0".$k;  
+		  }else{
+			$daylist[] = $k;   
+		  }
+		}
+		//月份
+		for($l=1;$l<13;$l++){
+		  $monlist[] = $l;
+		}
+		//年份
+		for($m=2019;$m<2030;$m++){
+		  $yearlist[] = $m; 
+		}
+		$this->assign("yearlist",$yearlist);
+		$this->assign("monlist",$monlist);
+		$this->assign("daylist",$daylist);
+		$this->assign("hourlist",$hourlist);
+		$this->assign("minlist",$minlist);
 		$isread = $this->getnoreadnotify();
 		$this->assign("isread",$isread);
 		$this->assign("randid",$this->getRandomString(5).time());
@@ -1153,7 +1190,7 @@ class PcenterController extends BaseController {
 			$data['ishomepage'] = $_POST['ishomepage'];
 			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
-			$data['publishtime'] = $_POST['publishtime'];
+			$data['publishtime'] = substr($_POST['publishtime'],0,10);
 			$data['edittime'] = time();
 			$rs = $notice->where($where)->save($data);
 			if($rs){
@@ -1176,7 +1213,7 @@ class PcenterController extends BaseController {
 			$data['ishomepage'] = $_POST['ishomepage'];
 			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
-			$data['publishtime'] = $_POST['publishtime'];
+			$data['publishtime'] = substr($_POST['publishtime'],0,10);
 			$data['viewnum'] = 1;
 			$data['edittime'] = time();
 			$data['randid'] = $_POST['randid'];
@@ -1207,7 +1244,70 @@ class PcenterController extends BaseController {
 		$notice = M("notice");
 		$noticedetail = $notice->where($where)->find();
 		$isread = $this->getnoreadnotify();
-			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("profileinfo",$this->profileinfo());
+		//分钟
+		for($i=0;$i<60;$i++){
+		  if($i<=9){
+			$minlist[] = "0".$i;  
+		  }else{
+			$minlist[] = $i;   
+		  }
+		}
+		//小时
+		for($j=0;$j<24;$j++){
+		  if($j<=9){
+			$hourlist[] = "0".$j;  
+		  }else{
+			$hourlist[] = $j;   
+		  }
+		}
+		//日期
+		for($k=0;$k<24;$k++){
+		  if($k<=9){
+			$daylist[] = "0".$k;  
+		  }else{
+			$daylist[] = $k;   
+		  }
+		}
+		//月份
+		for($l=1;$l<13;$l++){
+		  if($l<=9){
+			$monlist[] = "0".$l;  
+		  }else{
+			$monlist[] = $l;   
+		  }
+		}
+		//年份
+		for($m=2019;$m<2030;$m++){
+		  $yearlist[] = $m; 
+		}
+		$this->assign("yearlist",$yearlist);
+		$this->assign("monlist",$monlist);
+		$this->assign("daylist",$daylist);
+		$this->assign("hourlist",$hourlist);
+		$this->assign("minlist",$minlist);
+		//分割推送时间
+		if($noticedetail['publishtime']!=""){
+			$timestr = date("Y-m-d H:i:s",$noticedetail['publishtime']);
+			$timearr = explode(" ",$timestr);
+			//日期
+			$dataarr = explode("-",$timearr[0]);
+			$year = $dataarr[0];
+			$mon = $dataarr[1];
+			$day = $dataarr[2];
+			//时分秒
+			$hourarr = explode(":",$timearr[1]);
+			$hour = $hourarr[0];
+			$mintue = $hourarr[1];
+			$this->assign("year",$year);
+			$this->assign("mon",$mon);
+			$this->assign("day",$day);
+			$this->assign("hour",$hour);
+			$this->assign("mintue",$mintue);
+			$this->assign("publishtime","1");
+		}else{
+			$this->assign("publishtime","");
+		}
 		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1225,7 +1325,7 @@ class PcenterController extends BaseController {
 		$data['ishomepage'] = $_POST['ishomepage'];
 		$data['notifywho'] = "";
 		$data['pushnotifyset'] = $_POST['pushnotifyset'];
-		$data['publishtime'] = $_POST['publishtime'];
+		$data['publishtime'] = substr($_POST['publishtime'],0,10);
 		$data['edittime'] = time();
 		$rs = $notice->where($where)->save($data);
 		if($rs){
@@ -1254,9 +1354,11 @@ class PcenterController extends BaseController {
 				$noticedetail['lastedittime'] = date("M d,Y",$noticedetail['edittime']);
 				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
 			}
+			$noticelist = $this->getlastten($noticedetail['id']);
 		}
 		$isread = $this->getnoreadnotify();
-			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("noticelist",$noticelist);
 		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1345,5 +1447,12 @@ class PcenterController extends BaseController {
 			echo 0;
 		}
   }
+	//获取十条信息
+	public function getlastten($id){
+		$where['id'] = array('NEQ',$id);
+		$notice = M("notice");
+		$rslist = $notice->where($where)->order("addtime desc")->limit("0,10")->select();
+		return $rslist;
+	}
 }
 ?>

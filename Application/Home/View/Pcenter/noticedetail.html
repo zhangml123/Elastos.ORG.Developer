@@ -43,6 +43,15 @@
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm notications">Notifications</li>
+							<volist name="noticelist" id="voa">
+								<neq name="voa.id" value="$noticeinfo.id">
+									<if condition="mb_strlen($voa['noticetitle'],'utf-8') egt 16"> 
+									<li class="doc_menu_l_li_subm" style="background-color:#fff;color:#333;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
+									<else/> 
+									<li class="doc_menu_l_li_subm" style="background-color:#fff;color:#333;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitle}</li>
+									</if>
+								</neq>
+							</volist>
 					</ul>
 				</div>
 			</div>

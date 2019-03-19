@@ -42,7 +42,7 @@ class NotifyController extends CommonbaseController {
 	public function getlastfive($id){
 		$where['id'] = array('NEQ',$id);
 		$notice = M("notice");
-		$rslist = $notice->where($where)->order("addtime asc")->limit("0,10")->select();
+		$rslist = $notice->where($where)->order("addtime desc")->limit("0,10")->select();
 		return $rslist;
 	}
 	//获取指定数量的页面

@@ -29,23 +29,33 @@
             <button  class="btn btn-default nav-login" id="mweblogin" style="outline:none;"></button>
         </div></eq>
 		<neq name="logincate" value="">
-		  <ul class="nav navbar-nav navbar-right" style="height:280px;">
+		  <ul class="nav navbar-nav navbar-right" style="height:280px;text-align: center;">
+		  
+			<neq name="isread" value="0">
+				<img src="{$Think.const.PUBLIC_H}Home/images/notify.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
+			</neq>
+			<eq name="isread" value="0">
+				<img src="{$Think.const.PUBLIC_H}Home/images/notify_no.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
+			</eq>
+		  
 			<li class="dropdown" style="margin-top:16px;">
 				   <div style="width:100%;height:50px;text-align:center;">
 				   <eq name="userheadimg" value="">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="margin-left:45%;margin-bottom:10px;background-color:#173045;line-height:45px;outline:none;border:0px;margin-top:3px;display:block;width:46px;height:45px;border-radius:45px;background-color:#173045;">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="margin-bottom:10px;background-color:#173045;line-height:45px;outline:none;border:0px;margin-top:3px;display:block;width:46px;height:45px;border-radius:45px;background-color:#173045;">
 						<img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png" style="width:18px;height:17px;"/>
 					</a>
 					</eq>
 					<neq name="userheadimg" value="">	
-						<img src="{$userheadimg}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"   style="margin-left:45%;margin-bottom:10px;width:46px;height:45px;border-radius:40px;"/>
+						<img src="{$userheadimg}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"   style="margin-bottom:10px;width:46px;height:45px;border-radius:40px;"/>
 					</neq>
 					</div>
 			</li>
-			  <ul  style="margin-top:10px;height:160px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;">
+			  <ul  style="margin-top:10px;height:220px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;">
 				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/index.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_myprofile"></a></li>
 				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/tokeninfo.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_gettoken"></a></li>
-				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/notifylist.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_console">Admin Console</a></li>
+				<eq name="profileinfo.roleid" value="1">
+				 <li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/notifylist.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_admin_console">Admin Console</a></li>
+				</eq>
 				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="javascript:void(0);" id="loginoutbtns" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_logout"></a></li>
 			  </ul>
 		  </ul>
@@ -127,7 +137,12 @@
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right"  id="nav_ul">
 		<li class="cative"><a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-dapps planned" style="color:#173045;"></a></li>
-		<li class="cative"><a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-community planned" style="color:#173045;"></a></li>
+		<li class="cative">
+		<a href="#" class="dropdown-toggle nav-community" style="color:#173045;background-color:#fff;"   data-toggle="dropdown" ></a>
+		<ul class="submenu dropdown-menu" style="min-width: 124px;">
+			<li style="margin-top:0px;text-align:center;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Forum/index.html" class="nav_forum" style="text-align: left;padding-left:10px;padding-right:0px;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;">Fourm</a></li>
+		</ul>
+		</li>
 		<li class="cative">
 		<a href="#" class="dropdown-toggle nav-lang" id="setlang" data-toggle="dropdown" style="color:#173045;background-color:#fff;"><b class="caret"></b></a>
 		<ul class="submenu dropdown-menu" style="min-width: 124px;">

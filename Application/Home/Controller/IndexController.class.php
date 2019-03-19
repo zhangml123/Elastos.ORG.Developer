@@ -312,7 +312,7 @@ class IndexController extends CommonbaseController {
 		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=Elastos Developer Website&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=Elastos Developer Website";		
 		//var_dump($qurl);
 		$level=3;
-        $size=3;
+        $size=2;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
         $object->png($qurl, false, $errorCorrectionLevel, $matrixPointSize, 2);
@@ -746,6 +746,7 @@ class IndexController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
+	  $where['draft'] = 0;
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
@@ -762,6 +763,7 @@ class IndexController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotifyrs(){
 	  $where['ishomepage'] = 1;
+	  $where['draft'] = 0;
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();

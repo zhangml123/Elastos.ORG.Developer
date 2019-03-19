@@ -25,6 +25,8 @@ internationalWordsZH.logout='安全退出';
 internationalWordsEN.logout='Log out';
 internationalWordsZH.planned='规划中';
 internationalWordsEN.planned='Planned';
+internationalWordsZH.nav_forum='论坛';
+internationalWordsEN.nav_forum='Forum';
 /*
 	首页部分
 */
@@ -146,10 +148,16 @@ internationalWordsEN.logincontinue='Or continue with';
 
 internationalWordsZH.loginwechat ='微信';
 internationalWordsEN.loginwechat='Wechat';
-internationalWordsZH.loginscanqrcode ='扫码授权';
-internationalWordsEN.loginscanqrcode='Scan code';
+internationalWordsZH.loginscanqrcode_wechat ='请打开手机Wechat App,扫码授权';
+internationalWordsEN.loginscanqrcode_wechat='Please open the Wechat app on your mobie phone,then scan the code.';
 internationalWordsZH.loginerror ='账户或密码无效';
 internationalWordsEN.loginerror='Invalid email or password.';
+internationalWordsZH.loginscanqrcode ='请打开手机Elephant钱包App,扫码授权';
+internationalWordsEN.loginscanqrcode='Please open the Elephant wallet app on your mobie phone,then scan the code.';
+internationalWordsZH.emailcode ='验证码';
+internationalWordsEN.emailcode='Code';
+
+
 
 
 //忘记密码页面
@@ -209,7 +217,9 @@ internationalWordsZH.resendtip ='验证码已发送';
 internationalWordsEN.resendtip="Confirmation email resent";
 //消息列表
 internationalWordsZH.notications ='消息';
-internationalWordsEN.notications="NOTIFICATIONS";
+internationalWordsEN.notications="Notifications";
+internationalWordsZH.noticationss ='消息';
+internationalWordsEN.noticationss="Notification";
 internationalWordsZH.noticeviews ='浏览';
 internationalWordsEN.noticeviews="views";
 internationalWordsZH.noticeposted ='发表者';
@@ -226,7 +236,7 @@ internationalWordsEN.leftmenmyprofile='My profile';
 internationalWordsZH.leftmengettesttoken='申请测试币';
 internationalWordsEN.leftmengettesttoken='Get Test Token';
 internationalWordsZH.leftmengetadminconsole='管理员控制台';
-internationalWordsEN.leftmengetadminconsole='Admin Console';
+internationalWordsEN.leftmengetadminconsole='ADMIN CONSOLE';
 
 //my profile page
 internationalWordsZH.profileedit='编辑我的信息';
@@ -312,8 +322,8 @@ internationalWordsZH.noticedel='删除';
 internationalWordsEN.noticedel='Delete';
 internationalWordsZH.newnotications='新消息';
 internationalWordsEN.newnotications='New Notication';
-internationalWordsZH.noticecancel='×&nbsp;取消';
-internationalWordsEN.noticecancel='×&nbsp;Cancel';
+internationalWordsZH.noticecancel='&nbsp;取消';
+internationalWordsEN.noticecancel='&nbsp;Cancel';
 internationalWordsZH.noticetitle='标题';
 internationalWordsEN.noticetitle='Title';
 internationalWordsZH.noticedescription='描述';
@@ -350,6 +360,25 @@ internationalWordsZH.delnotifysuccful='公告成功删除';
 internationalWordsEN.delnotifysuccful='Notification deleted successfully.';
 internationalWordsZH.notifytips='标题和内容不能为空！';
 internationalWordsEN.notifytips='Title and Contents is not empty!';
+internationalWordsZH.notify_year_tip='年';
+internationalWordsEN.notify_year_tip='Year';
+internationalWordsZH.notify_mon_tip='月';
+internationalWordsEN.notify_mon_tip='Month';
+internationalWordsZH.notify_day_tip='日';
+internationalWordsEN.notify_day_tip='Day';
+internationalWordsZH.notify_hour_tip='时';
+internationalWordsEN.notify_hour_tip='Hour';
+internationalWordsZH.notify_minute_tip='分';
+internationalWordsEN.notify_minute_tip='Minute';
+internationalWordsZH.pickdate='选择日期';
+internationalWordsEN.pickdate='Pick a date';
+internationalWordsZH.confirm_push_time_tip='此通知将在发布';
+internationalWordsEN.confirm_push_time_tip='This notification will be published at';
+
+
+//论坛
+internationalWordsZH.addforumcls='新增主题/问题';
+internationalWordsEN.addforumcls='add a topic/question';
 
 
 

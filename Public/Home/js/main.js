@@ -123,6 +123,7 @@ function guojihua(){
     $('.docpagerehowlike').html(internationalWords.docpagerehowlike);
     $('.docpageresearch').attr("placeholder",internationalWords.docpageresearch);
     $('.docpagedevlopdoc').html(internationalWords.docpagedevlopdoc);
+    $('.commenttipscuf').html(internationalWords.docpagecommenttipscuf);
     $('.docpagehome').html(internationalWords.docpagehome);
     $('.emailconfirmation').html(internationalWords.signupconfirmtitle);
     $('.loginwechat').html(internationalWords.loginwechat);
@@ -133,7 +134,7 @@ function guojihua(){
     $('.logouttipfail').html(internationalWords.logouttipfail);
     $('#githubbinderror').html(internationalWords.githubbinderror);
     $('#bindsuc').html(internationalWords.bindsuc);
-    $('#confirmunbind').html(internationalWords.confirmunbind);
+    $('.confirmunbind').html(internationalWords.confirmunbind);
     $('#removeuserbtnc').html(internationalWords.removeuserbtnc);
     $('#removeuserbtncan').html(internationalWords.removeuserbtncan);
     $('#removeuserbtncwechat').html(internationalWords.removeuserbtnc);
@@ -152,7 +153,7 @@ function guojihua(){
 	$(".notications").html(internationalWords.notications);
 	$(".noticeviews").html(internationalWords.noticeviews);
 	$(".noticeposted").html(internationalWords.noticeposted);
-	$(".addnotications").html("+ "+internationalWords.notications);
+	$(".addnotications").html(internationalWords.noticationss);
 	$(".noticedel").html(internationalWords.noticedel);
 	$(".noticedit").html(internationalWords.noticedit);
 	$(".noticepublish").html(internationalWords.noticepublish);
@@ -179,6 +180,19 @@ function guojihua(){
 	$(".delnotifysuccful").html(internationalWords.delnotifysuccful);
 	$(".notifypublishtips").html(internationalWords.notifypublishtips);
 	$(".notifytips").html(internationalWords.notifytips);
+	$(".nav_forum").html(internationalWords.nav_forum);
+	$(".addforumcls").html(internationalWords.addforumcls);
+    $('#emailcode').attr("placeholder",internationalWords.emailcode);
+	$(".loginscanqrcode_wechat").html(internationalWords.loginscanqrcode_wechat);
+	$("#notify_year_tip").html(internationalWords.notify_year_tip);
+	$("#notify_mon_tip").html(internationalWords.notify_mon_tip);
+	$("#notify_day_tip").html(internationalWords.notify_day_tip);
+	$("#notify_hour_tip").html(internationalWords.notify_hour_tip);
+	$("#notify_minute_tip").html(internationalWords.notify_minute_tip);
+	$("#pickdate").html(internationalWords.pickdate);
+    $('.cancelbtnconfirm').html(internationalWords.removeuserbtncan);
+    $('.confirm_push_time_tip').html(internationalWords.confirm_push_time_tip);
+	
 }
 guojihua();
 
