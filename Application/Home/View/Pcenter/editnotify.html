@@ -54,7 +54,7 @@
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
 					<div style="float:left;width:50%;height:50px;line-height:50px;"  class="newnotications">New Notifications</div>
 					<div style="float:left;width:50%;height:50px;line-height:50px;">
-					<button id="canclebtn"  class="noticecancel" style="outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;width:100px;height:30px;line-height:30px;color:#222;background-color:#fff;background:url({$Think.const.PUBLIC_H}Home/images/del_icon.png);">Cancel</button>
+					<button id="canclebtn"  class="noticecancel" style="outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;width:100px;height:30px;line-height:30px;color:#222;background-color:#fff;background-image:url('{$Think.const.PUBLIC_H}Home/images/del_black.png');background-repeat: no-repeat;background-size: 9px;background-position-x: 20px;background-position-y: 11px;">Cancel</button>
 					</div>
 					</div>
 						<div style="width:100%;height:610px;">
@@ -103,6 +103,7 @@
 							<div style="width:100%;height:60px;margin-top:50px;">
 								<button id="pushbtn"  class="noticescheduledpush" style="outline:none;border-radius:20px;float:left;font-size:12px;border:1px solid #333;width:150px;height:40px;line-height:40px;color:#222;background-color:#fff;">Scheduled Push</button>
 								<button id="publishbtn"  class="noticepublishnow" style="outline:none;margin-left:40px;border-radius:20px;float:left;font-size:12px;border:1px solid #333;width:150px;height:40px;line-height:40px;background-color:#173045;color:#18FFFF;">Publish Now</button>
+								<button id="viewbtn" class="noticeview" style="outline:none;margin-left:40px;border-radius:20px;float:left;font-size:12px;border:1px solid #333;width:150px;height:40px;line-height:40px;background-color:#fff;color:#222;">Preview</button>
 							</div>
 							<div style="text-align: center;margin-top:30px;"></div>
 						</div>
@@ -188,6 +189,7 @@
 <include file="Index/loginoutfail" />
 <include file="Pcenter/notifypublishtip" />
 <include file="Pcenter/notifytip" />
+<include file="Pcenter/confirmeditnotify" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
@@ -198,12 +200,39 @@
 <script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script>
+var notify_years = $("#notify_year").val();
+var notify_mons = $("#notify_mon").val();
+var notify_days = $("#notify_day").val();
+var notify_hours = $("#notify_hour").val();
+var notify_minutes = $("#notify_minute").val();
+var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":"+notify_minutes+":00";
+console.log("时间："+pushdates);
+if(sessionStorage.getItem('internationalWords')==1){
+	$(".confirm_push_time_tip").html("此通知将在发布"+pushdates);
+}else{
+	$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
+}
 function changeState(el) {
 	if (el.readOnly) el.checked=el.readOnly=false;
 	else if (!el.checked) el.readOnly=el.indeterminate=true;
 }
 $("[name='test']").bootstrapSwitch();
 $(function(){
+	$("#pushbtn").click(function(){
+		var title = $("#notifytitle").val();
+		var contents = $('#contents').summernote('code');
+		if(title==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		if(contents==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		$("#confirmeditnotify").modal("show");
+	})
 function changeState(stateValue){
 	if(stateValue==1){
 		$('#toggle-state-switch').bootstrapSwitch('setState', true);
@@ -229,50 +258,31 @@ function changeState(stateValue){
 	}else{
 		checkbox1 = 0;
 	}
-	/*if ($('#checkbox2').prop("checked")){
-		checkbox2 = 1;
-	}else{
-		checkbox2 = 0;
-	}
-	var pushnoticeset = checkbox1+""+checkbox2;
-	if ($('#checkbox3').prop("checked")){
-		checkbox3 = 1;
-	}else{
-		checkbox3 = 0;
-	}
-	if ($('#checkbox4').prop("checked")){
-		checkbox4 = 1;
-	}else{
-		checkbox4 = 0;
-	}
-	var notifywho = checkbox3+""+checkbox4;
-	*/
 	if ($('#ishomepage').prop("checked")){
 		ishomepage = 1;
 	}else{
 		ishomepage = 0;
 	}
 	if(title==""){
-		//alert("标题不能为空！");
-		//$("#notifytip").modal("show");
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
 	if(contents==""){
-		//alert("通知内容不能为空！");
-		//$("#notifytip").modal("show");
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
 	$.post('editnotifyfunc',{id:id,title:title,contents:contents,draft:0,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:"3143435435436"},function(data){
 		if(data==1){
-			//alert("更新成功！");
 			$("#notifypublishtip").modal("show");
 			setTimeout(function(){$("#notifypublishtip").modal("hide");window.location.href="notifylist";},2500);
 		}else{
 			
 		}
 	});
+ });
+ $("#viewbtn").click(function(){
+	var randid = '{$noticeinfo.id}';
+	window.location.href="noticedetail?id="+randid;
  });
  $("#canclebtn").click(function(){
 	 window.location.href="notifylist";

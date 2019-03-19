@@ -1,0 +1,119 @@
+<div class="modal fade" id="confirmnotify" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:700px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:700px;">
+                <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
+                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="pickdate" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">Pick a date</h4>
+				</div>
+                <div class="modal-body" id="forum_c" style="padding:30px;padding-top:10px;">
+                    <section class="box-login v5-input-txt" id="box-login" style="height:125px;">
+                            <ul style="list-style-type:none;">
+                                <li class="form-group" style="height:40px;">
+									<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_year_tip">Year</div>
+									<select style="width:10%;float:left;height:25px;" id="notify_year">
+										<volist name="yearlist" id="voa">
+										<option value="{$voa}">{$voa}</option>
+										</volist>
+									</select>
+									<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_mon_tip">Month</div>
+									<select style="width:10%;float:left;height:25px;" id="notify_mon">
+										<volist name="monlist" id="vob">
+										<option value="{$vob}">{$vob}</option>
+										</volist>
+									</select>
+									<div class="add_forum_title"  style="width:10%;float:left;height:25px;text-align:center;" id="notify_day_tip">Day</div>
+									<select style="width:10%;float:left;height:25px;" id="notify_day">
+										<volist name="daylist" id="voc">
+										<option value="{$voc}">{$voc}</option>
+										</volist>
+									</select>
+									
+									<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_hour_tip">Hour</div>
+									<select style="width:10%;float:left;height:25px;" id="notify_hour">
+										<volist name="hourlist" id="vod">
+										<option value="{$vod}">{$vod}</option>
+										</volist>
+									</select>
+									<div class="add_forum_title"  id="notify_minute_tip" style="width:10%;float:left;height:25px;text-align:center;">Minute</div>
+									<select style="width:10%;float:left;height:25px;" id="notify_minute">
+										<volist name="minlist" id="voe">
+											<option value="{$voe}">{$voe}</option>
+										</volist>
+									</select>
+								</li>
+                                <li style="width:100%;height:40px;margin-top:20px;">
+									<div class="confirm_push_time_tip" style="height:40px;float:left;width:100%;">This notification will be published at</div>
+								</li>
+                             </ul>
+                    </section>
+					<div class="loginbtn" style="height:55px;text-align:left;">
+						<button class="cancelbtn cancelbtnconfirm" id="cancel_confirm_notify_btn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Cancel</button>
+						<button class="savebtn profileeditsave" id="save_confirm_notify_btn" style="border:1px solid #173045;outline:none;background-color:#173045;color:#18FFFF;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Save</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script>
+$("select").change(function(){
+	var notify_years = $("#notify_year").val();
+	var notify_mons = $("#notify_mon").val();
+	var notify_days = $("#notify_day").val();
+	var notify_hours = $("#notify_hour").val();
+	var notify_minutes = $("#notify_minute").val();
+	var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":"+notify_minutes+":00";
+
+	console.log("当前时间："+pushdates);
+
+	if(sessionStorage.getItem('internationalWords')==1){
+		$(".confirm_push_time_tip").html("此通知将在发布"+pushdates);
+	}else{
+		$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
+	}
+})
+
+$("#cancel_confirm_notify_btn").click(function(){
+	$("#confirmnotify").modal("hide");
+})
+$("#save_confirm_notify_btn").click(function(){
+	var randid = '{$randid}';
+	var title = $("#notifytitle").val();
+	var contents = $('#contents').summernote('code');
+	if ($('#checkbox1').prop("checked")){
+		checkbox1 = 1;
+	}else{
+		checkbox1 = 0;
+	}
+	if ($('#ishomepage').prop("checked")){
+		ishomepage = 1;
+	}else{
+		ishomepage = 0;
+	}
+	var notify_year = $("#notify_year").val();
+	var notify_mon = $("#notify_mon").val();
+	var notify_day = $("#notify_day").val();
+	var notify_hour = $("#notify_hour").val();
+	var notify_minute = $("#notify_minute").val();
+	var pushdate = notify_year+"-"+notify_mon+"-"+notify_day+" "+notify_hour+":"+notify_minute+":00";
+	
+	var date = new Date(pushdate);
+	var publishtime = Date.parse(date);
+	$.post('addnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:publishtime},function(data){
+		if(data==1){
+			$("#confirmnotify").modal("show");
+			setTimeout(function(){$("#confirmnotify").modal("hide");window.location.href="notifylist";},2500);
+		}else{
+			
+		}
+	});
+});
+</script>

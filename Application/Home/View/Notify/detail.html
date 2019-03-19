@@ -36,16 +36,32 @@
 <div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
 		<div class="nav_instr_tip">
-		<span><a href="index" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle|msubstr=0,16,'utf-8',true}</span>
+		<span><a href="index" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span>
+		
+								<if condition="mb_strlen($noticeinfo['noticetitle'],'utf-8') egt 16"> 
+		<span>{$noticeinfo.noticetitle|msubstr=0,16,'utf-8',true}</span>
+		<else/> 
+		<span>{$noticeinfo.noticetitle}</span>
+		</if>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-						<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$noticeinfo.id}';">{$noticeinfo.noticetitle|msubstr=0,10,'utf-8',true}</li>
+						<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$noticeinfo.id}';">
+							<if condition="mb_strlen($noticeinfo['noticetitle'],'utf-8') egt 16"> 
+								{$noticeinfo.noticetitle|msubstr=0,16,'utf-8',true}
+							<else/> 
+								{$noticeinfo.noticetitle}
+							</if>
+						</li>
 						<volist name="noticelist" id="voa">
 							<neq name="voa.id" value="$noticeinfo.id">
-							<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
+								<if condition="mb_strlen($voa['noticetitle'],'utf-8') egt 16"> 
+								<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
+								<else/> 
+								<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle}</li>
+								</if>
 							</neq>
 						</volist>
 					</ul>

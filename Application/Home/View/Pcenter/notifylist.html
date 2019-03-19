@@ -34,10 +34,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;">ADMIN CONSOLE</div>
+			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:25px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">Notifications</li>
+							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
 					</ul>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 				<div style="width:95%;margin-left:5%;height:700px;">
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
 					<div style="float:left;width:50%;height:50px;line-height:50px;" class="notications">Notifications</div>
-					<div style="float:left;width:50%;height:50px;line-height:50px;"><button id="addnotify" class="addnotications" style="outline:none;border-radius:20px;float:right;font-size:12px;border:0px;width:120px;height:30px;line-height:30px;color:#18FFFF;background-color:#173045;">+ Notification</button></div>
+					<div style="float:left;width:50%;height:50px;line-height:50px;"><button id="addnotify" class="addnotications" style="outline:none;border-radius:20px;float:right;font-size:12px;border:0px;width:120px;height:30px;line-height:30px;color:#18FFFF;background-color:#173045;background-image:url('{$Think.const.PUBLIC_H}Home/images/add_bg.png');background-repeat: no-repeat;background-size: 9px;background-position-x: 10px;background-position-y: 11px;"> Notification</button></div>
 					</div>
 						<div style="width:100%;height:610px;">
 							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
@@ -147,6 +147,11 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+  if(sessionStorage.getItem('internationalWords')==1){
+	$("#addnotify").css("background-position-x","30px");
+  }else{
+	$("#addnotify").css("background-position-x","10px");
+  }
 function applyelasuccful_popup(){
   $("#applyelasuccful").modal("show");
   setTimeout(function(){$("#applyelasuccful").modal("hide");window.location.reload()},3000)
