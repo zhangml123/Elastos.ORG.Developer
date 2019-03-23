@@ -192,7 +192,25 @@ function guojihua(){
 	$("#pickdate").html(internationalWords.pickdate);
     $('.cancelbtnconfirm').html(internationalWords.removeuserbtncan);
     $('.confirm_push_time_tip').html(internationalWords.confirm_push_time_tip);
-	
+	$(".searchforum").attr("placeholder",internationalWords.searchtopic);
+	$(".forum_data_added").html(internationalWords.forumdateadd);
+	$(".forum_popularity").html(internationalWords.forumpopularity);
+	$(".vlist_v_t_l").html(internationalWords.forummytopic);
+	$(".vlist_v_t_r").html(internationalWords.forummyviewalltip);
+	$(".forummyaddedtip").html(internationalWords.forummyaddedtip);
+	$(".forummyfollowedtip").html(internationalWords.forummyfollowedtip);
+	$(".forummycommentedtip").html(internationalWords.forummycommentedtip);
+	$(".forumpostby").html(internationalWords.forumpostby);
+	$(".forumpostat").html(internationalWords.forumpostat);
+	$(".forumbackbtn").html(internationalWords.forumbackbtn);
+	$(".forumviews").html(internationalWords.forumviews);
+	$(".forum_cate").html(internationalWords.forum_cate);
+	$(".forumall").html(internationalWords.forumall);
+	$(".forumabuse").html(internationalWords.forumabuse);
+	$(".my_forum_topics").html(internationalWords.my_forum_topics);
+	$("#confirmdelnotice").html(internationalWords.confirmdelnotify);
+	$("#removenoticebtnc").html(internationalWords.removeuserbtnc);
+	$("#removenoticebtncan").html(internationalWords.removeuserbtncan); 
 }
 guojihua();
 

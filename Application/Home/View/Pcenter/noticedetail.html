@@ -154,6 +154,7 @@
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
 <include file="Pcenter/delnotifysuccful" />
+<include file="Pcenter/tipdelnotify" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -174,15 +175,20 @@ $("#addnotify").click(function(){
 	window.location.href="addnotify";
 });
 $("#delnotify").click(function(){
+  $("#tipdelnotify").modal("show");
+});
+$("#removenoticebtncan").click(function(){
+  $("#tipdelnotify").modal("hide");
+});
+$("#removenoticebtnc").click(function(){
 	var id = {$noticeinfo.id};
-	if(window.confirm("确定要删除？")){
-		$.post("delnotifyfunc",{id:id},function(data){
-			if(data==1){
-				window.location.href="notifylist";
-			}else{
-			}
-		});
-	}
+	$.post("delnotifyfunc",{id:id},function(data){
+		if(data==1){
+			$("#tipdelnotify").modal("hide");
+			window.location.href="notifylist";
+		}else{
+		}
+	});
 });
 $("#editnotify").click(function(){
 	var id = {$noticeinfo.id};

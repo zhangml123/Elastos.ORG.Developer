@@ -33,7 +33,7 @@ class PcenterController extends BaseController {
 		$this->assign("isread",$isread);
 		$this->assign("countrylist",$this->countrylist());
 		$this->assign("uinfo",$userinfo);
-			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("profileinfo",$this->profileinfo());
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
@@ -1024,7 +1024,7 @@ class PcenterController extends BaseController {
 			$pcount = 0;
 		}
 		$isread = $this->getnoreadnotify();
-			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("profileinfo",$this->profileinfo());
 		$this->assign("isread",$isread);
 		$this->assign("pcount",$pcount);
 		$this->assign("noticelist",$noticelist);
@@ -1085,7 +1085,11 @@ class PcenterController extends BaseController {
 		}
 		//月份
 		for($l=1;$l<13;$l++){
-		  $monlist[] = $l;
+		  if($l<=9){
+			$monlist[] = "0".$l;  
+		  }else{
+			$monlist[] = $l;   
+		  }
 		}
 		//年份
 		for($m=2019;$m<2030;$m++){
@@ -1116,7 +1120,12 @@ class PcenterController extends BaseController {
 			$data['ishomepage'] = $_POST['ishomepage'];
 			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
-			$data['publishtime'] = $_POST['publishtime'];
+			//$data['publishtime'] = $_POST['publishtime'];
+			if($_POST['publishtime']!=""){
+				$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			}else{
+				$data['publishtime'] = "0";
+			}
 			$data['viewnum'] = 1;
 			$data['edittime'] = time();
 			$rs = $notice->where($where)->save($data);
@@ -1134,7 +1143,12 @@ class PcenterController extends BaseController {
 			$data['ishomepage'] = $_POST['ishomepage'];
 			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
-			$data['publishtime'] = $_POST['publishtime'];
+			//$data['publishtime'] = $_POST['publishtime'];
+			if($_POST['publishtime']!=""){
+				$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			}else{
+				$data['publishtime'] = "0";
+			}
 			$data['viewnum'] = 1;
 			$data['edittime'] = time();
 			$data['randid'] = $_POST['randid'];
@@ -1190,7 +1204,11 @@ class PcenterController extends BaseController {
 			$data['ishomepage'] = $_POST['ishomepage'];
 			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
-			$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			if($_POST['publishtime']!=""){
+				$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			}else{
+				$data['publishtime'] = "0";
+			}
 			$data['edittime'] = time();
 			$rs = $notice->where($where)->save($data);
 			if($rs){
@@ -1213,7 +1231,12 @@ class PcenterController extends BaseController {
 			$data['ishomepage'] = $_POST['ishomepage'];
 			$data['notifywho'] = "";
 			$data['pushnotifyset'] = $_POST['pushnotifyset'];
-			$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			//$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			if($_POST['publishtime']!=""){
+				$data['publishtime'] = substr($_POST['publishtime'],0,10);
+			}else{
+				$data['publishtime'] = "0";
+			}
 			$data['viewnum'] = 1;
 			$data['edittime'] = time();
 			$data['randid'] = $_POST['randid'];
@@ -1308,6 +1331,9 @@ class PcenterController extends BaseController {
 		}else{
 			$this->assign("publishtime","");
 		}
+		if($noticedetail){
+			$noticedetail['contents'] = str_replace(array("\n","\r"),"",$noticedetail['contents']);
+		}
 		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1325,7 +1351,12 @@ class PcenterController extends BaseController {
 		$data['ishomepage'] = $_POST['ishomepage'];
 		$data['notifywho'] = "";
 		$data['pushnotifyset'] = $_POST['pushnotifyset'];
-		$data['publishtime'] = substr($_POST['publishtime'],0,10);
+		if($_POST['publishtime']!=""){
+			$data['publishtime'] = substr($_POST['publishtime'],0,10);
+		}else{
+			$data['publishtime'] = "0";
+		}
+		//$data['publishtime'] = substr($_POST['publishtime'],0,10);
 		$data['edittime'] = time();
 		$rs = $notice->where($where)->save($data);
 		if($rs){
@@ -1422,6 +1453,7 @@ class PcenterController extends BaseController {
   //获取当前消息是否读取
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
+	  $where['draft'] = 0;
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
@@ -1448,11 +1480,205 @@ class PcenterController extends BaseController {
 		}
   }
 	//获取十条信息
-	public function getlastten($id){
+/* 	public function getlastten($id){
 		$where['id'] = array('NEQ',$id);
 		$notice = M("notice");
 		$rslist = $notice->where($where)->order("addtime desc")->limit("0,10")->select();
 		return $rslist;
+	}
+	 */
+	
+	
+	//获取指定ID的之后五条信息
+	public function getlastten($id){
+		$notice = M("notice");
+		$rslist = $notice->where($where)->order("addtime desc")->select();
+					//var_dump($rslist);
+		$rslistnew = array();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				if($rslist[$i]['id']==$id && $i<=9){
+					//前十条
+					$j = 1;
+					break;
+				}
+				if($rslist[$i]['id']==$id && $i>=10){
+					//前十条后的十条
+					//var_dump($rslist);
+					$w = $i;
+					$j = 2;
+					break;
+				}
+				
+			}
+			if($j==1){
+				for($k=0;$k<10;$k++){
+					$arr[] = $rslist[$k];
+				}
+			}
+			if($j==2){
+				$n  = 0;
+				for($k=$w;$k<count($rslist);$k++){
+					$n = $n +1;
+					if($n<11){
+						$arr[] = $rslist[$k];
+					}
+				}
+			}
+			
+			
+		}
+		return $arr;
+	}
+	/*****
+	
+		普通用户的论坛部分
+		
+	******/
+	//论坛列表
+	public function forumlistshow(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		if(isset($_GET['topiccate']) && $_GET['topiccate']=="all"){
+			$this->assign("topiccate","all");
+			$arr = array_unique(array_merge($this->followedforum(),$this->myforumcomment(),$this->myforumadd()));
+			$where['id'] = array("in",$arr);
+			$where['pid'] = 0;
+		}elseif(isset($_GET['topiccate']) && $_GET['topiccate']=="added"){
+			$this->assign("topiccate","added");
+			$where['pid'] = 0;
+			$where['sender'] = $_SESSION ['eladevp']['userid'];
+		}elseif(isset($_GET['topiccate']) && $_GET['topiccate']=="followed"){
+			$this->assign("topiccate","followed");
+			$where['id'] =array("in", array_unique($this->followedforum()));
+		}elseif(isset($_GET['topiccate']) && $_GET['topiccate']=="commented"){
+			$where['id'] =array("in", array_unique($this->myforumcomment()));
+			$this->assign("topiccate","commented");
+		}else{
+			$this->assign("topiccate","all");
+			$arr = array_unique(array_merge($this->followedforum(),$this->myforumcomment(),$this->myforumadd()));
+			$where['id'] = array("in",$arr);
+			$where['pid'] = 0;
+		}
+		$order = "id desc";
+		$forumlist = $this->forumlist($where,$order);
+		$isread = $this->getnoreadnotify();
+		$this->assign("forumlist",$forumlist);
+		$this->assign("pcount",$this->getforumcount($where));
+		$this->assign("isread",$isread);
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->display();
+	}
+	//指定条件下的主题总数
+	public function getforumcount($where){
+		$article = M("article");
+		$count = $article->where($where)->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		return $pcount;
+	}
+	//获取指定主题的ID的关注
+	public function followedforum(){
+		$where['followeduserid'] = $_SESSION ['eladevp']['userid'];
+		$articlefollowed = M("articlefollowed");
+		$articlefollowedlist = $articlefollowed->where($where)->field("articleid")->select();
+		//return $articlefollowedlist;
+		$arra = array();
+		if($articlefollowedlist){
+			for($i=0;$i<count($articlefollowedlist);$i++){
+				$arra[$i] = $articlefollowedlist[$i]['articleid'];
+			}
+		}
+		return $arra;
+	}
+	//获取论坛内容列表
+	public function forumlist($where,$order){
+		$article = M("article");
+		$rslist = $article->where($where)->order($order)->limit("0,10")->select();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+			}
+		}
+		$count = $article->where($where)->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		return $rslist;
+	}
+	//我创建的主题
+	public function myforumadd(){
+		$where['sender'] = $_SESSION ['eladevp']['userid'];
+		$where['pid'] = 0;
+		$article = M("article");
+		$rslist = $article->where($where)->field("id")->select();
+		$arra = array();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				$arra[$i] = $rslist[$i]['id'];
+			}
+		}
+		return $arra;
+	}
+	//我评论的主题
+	public function myforumcomment(){
+		$where['sender'] = $_SESSION ['eladevp']['userid'];
+		$where['pid'] = array("NEQ",0);
+		$article = M("article");
+		$rslist = $article->where($where)->field("pid")->select();
+		$arra = array();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				$arra[$i] = $rslist[$i]['pid'];
+			}
+		}
+		return $arra;
+	}
+	//获取论坛内容列表
+	public function forumlistjson(){
+		if(isset($_POST['topiccate']) && $_POST['topiccate']=="all"){
+			$arr = array_unique(array_merge($this->followedforum(),$this->myforumcomment(),$this->myforumadd()));
+			$where['id'] = array("in",$arr);
+			$where['pid'] = 0;
+		}elseif(isset($_POST['topiccate']) && $_POST['topiccate']=="added"){
+			$where['pid'] = 0;
+			$where['sender'] = $_SESSION ['eladevp']['userid'];
+		}elseif(isset($_POST['topiccate']) && $_POST['topiccate']=="followed"){
+			$where['id'] =array("in", array_unique($this->followedforum()));
+		}elseif(isset($_POST['topiccate']) && $_POST['topiccate']=="commented"){
+			$where['id'] =array("in", array_unique($this->myforumcomment()));
+		}else{
+			$arr = array_unique(array_merge($this->followedforum(),$this->myforumcomment(),$this->myforumadd()));
+			$where['id'] = array("in",$arr);
+			$where['pid'] = 0;
+		}
+		$order = "id desc";
+		$curp = $_POST['curp'];
+		$startnum = ($curp - 1)*10;
+		$article = M("article");
+		$rslist = $article->where($where)->order($order)->limit($startnum.",10")->select();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+			}
+		}
+		$count = $article->where($where)->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		echo json_encode($rslist);
 	}
 }
 ?>

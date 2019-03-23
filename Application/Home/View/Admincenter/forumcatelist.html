@@ -15,85 +15,75 @@
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <style>
-@media (min-width: 1200px)
-.container {
-    width: 1400px;
+.doc_menu_l_li_subm{background-color:#173045;color:#fff;}
+.doc_menu_l_li_subm_no {
+background-color:#fff;color:#333;
+    width: 95%;
+    padding-left: 5%;
+    min-height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    cursor: pointer;
 }
-.caption{display:none;}
-::-webkit-scrollbar {
-width: 5px;
-}
-::-webkit-scrollbar-track {
-background-color: #eaeaea;
-border-left: 1px solid #ccc;
-}
-::-webkit-scrollbar-thumb {
-background-color: #ccc;
-}
-::-webkit-scrollbar-thumb:hover {
-background-color: #aaa;
-}
-::-webkit-scrollbar-thumb:active{
-background-color:#999;
-}
-#dirtree li:first-child{margin-top:10px;}
-.doc_menu_l_li_subm:first-child{background-color:#173045;color:#fff;}
-.doc_content_c li{text-indent: 0.4em;font-size:16px;margin-top:10px;margin-bottom:5px;font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;}
-h2{font-size:24px;font-weight:600;border-bottom:1px solid #e5e5e5;padding-bottom:10px;}
-h1{font-size:32px;font-weight:600;border-bottom:1px solid #e5e5e5;padding-bottom:10px;}
-h3{font-size:20px;font-weight:600;padding-bottom:10px;}
-.doc_content_c p{font-size:16px;padding-left:10px;padding-right:10px;}
 .doc_menu_l_ul{background-color:#fff;}
-.breadcrumb{padding-left:0px;}
-.doc_menu_l_li_t_m{background-color:#ECEFF3;color:#222;line-height:40px;height:40px;}
-.caption{display:none;}
-.label label-danger{display:none;}
-.doc_content_c pre{background-color:#F6F9FD;font-weight:300;}
-.doc_content_c{font-weight:bolder;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'}
-.doc_content_c ol{padding-left:5%;font-weight:400;}
-.doc_content_c ul{list-style-type:none;}
-.doc_content_c ul li{font-weight:300;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
-#result-list{list-style-type:none;}
-#result-list li{width:100%;hegiht:120px;}
-#result-list li div:first-child{font-size:22px;height:40px;padding-bottom:5px;padding-top:5px;}
-#result-list li div:last-child{height:40px;color: #60d9ff;padding-bottom:5px;padding-top:5px;}
-#result-list li div:last-child a{color: #18C8FF;}
+#token-list li div{cursor:pointer;}
 </style>
 </head>
 <body>
 <include file="Index/topnav" />
-<div class="body_c" style="padding-left:10px;margin-top:0px;" id="c_row">
-	<div class="div_one_line hidden-sm hidden-xs  hidden-md" style="height:95px;">&nbsp;</div>
-	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs  hidden-md">
-		<ul class="breadcrumb">
-		<li><a href="{$curhost}">Develop</a></li>
-		<li class="active">Documentation</li>
-		</ul>
-		<div class="doc_search">
-			<span class="glyphicon glyphicon-search"></span>
-			<input type="text" value="{$searchcontents}" id="cursearc" placeholder="&nbsp;Search" />
-		</div>
-	</div>		
+<div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
-		<div style="width:100%;height:40px;line-height:40px;">{$rsnum} results found</div>
-		<ul id="result-list">
-			<volist name="rslist" id="vob">
-			<li>
-				<div>{$vob.docname}</div>
-				<div style="height:90px;line-height:30px;fonft-size:12px;color:#5E6D82;">{$vob.contents}</div>
-				<div><a href="{$vob.searchurl}">{$vob.searchurl}</a></div>
-			</li>
-			</volist>
-		</ul>
-		<div id="example" style="text-align: center"> <ul id="pageLimit"></ul></div>
+		<div class="row">
+			<div class="col-md-3">
+			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:25px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
+				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
+					<ul class="doc_menu_l_ul">
+							<li class="doc_menu_l_li_subm_no notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
+							<li class="doc_menu_l_li_subm forum_cate" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumcatelist.html';">Forumcategory</li>
+							<li class="doc_menu_l_li_subm_no nav_forum" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumlist.html';">Forum</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div style="width:95%;margin-left:5%;height:700px;">
+					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
+						<div style="float:left;height:40px;">
+							<div style="float:left;width:250px;height:40px;font-size:12px;line-height:40px;">中文分类名称:<input type="text" id="catename" style="height:40px;width:150px;font-size:12px;color:#333;"  placeholder="" /></div>
+							<div style="float:left;width:250px;height:40px;margin-left:20px;font-size:12px;line-height:40px;">英文分类名称:<input type="text" id="catenameen" style="height:40px;width:150px;font-size:12px;color:#333;"   placeholder="" /></div>
+						</div>
+						<button class="addforumcate" id="addforumcatebtn" style="float:right;height:30px;width:70px;font-size:12px;text-align:center;line-height:30px;background-color:#173045;color:#fff;border:0px;">新增分类</button>
+					</div>
+						<div style="width:100%;height:610px;">
+							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
+								<volist name="forumcatelist" id="vob">
+								<li style="border-bottom:1px solid #e5e5e5;height:55px;">
+									<div style="float:left;color:#173045;width:10%;text-align:left;line-height:45px;">{$vob.id}</div>
+									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
+										<input type="text" class="catename" value="{$vob.catename}" style="width:90%;height:30px;margin-top:7px;line-height:30px;" disabled="disabled" />
+									</div>
+									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
+										<input type="text" class="catenameen" value="{$vob.catenameen}" style="width:90%;height:30px;margin-top:7px;line-height:30px;" disabled="disabled" />
+									</div>
+									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
+										<button class="editbtn" cateid="{$vob.id}" style="outline:none;width:70px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">编辑</button>
+										<button class="savebtn" cateid="{$vob.id}" style="outline:none;display:none;margin-left:10px;width:70px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">保存</button>
+									</div>
+								</li>
+								</volist>
+							</ul>
+							<div id="example" style="text-align: center;margin-top:30px;"> <ul id="pageLimit"></ul></div>
+						</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="nav" style="height:auto;margin-top:40px;background-color:#173045;padding-bottom:50px;z-index:100;">
@@ -167,66 +157,73 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 	</div>
 	</div>
 </div>
-<include file="Index/loginsid" />
-<include file="Index/signup" />
-<include file="Index/emailsid" />
-<include file="Index/wechatqrcode" />
+<include file="Pcenter/succful" />
+<include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
-<include file="Index/resendtip" />
-<include file="Index/didqrcode" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
-<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
-<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
-$('#pageLimit').bootstrapPaginator({
-    currentPage: 1,
-    totalPages: {$pcount},
-    size:"normal",
-    bootstrapMajorVersion: 3,
-    alignment:"right",
-    numberOfPages:5,
-    itemTexts: function (type, page, current) {
-        switch (type) {
-			case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
-			case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
-			case "page": return page;
-        }
-    },
-	onPageClicked: function (event, originalEvent, type, page){
-		$.ajax({
-			url:'searchlimit',
-			type:'POST',
-			data:{'sw':$("#cursearc").val(),'curp':page},
-			dataType:'JSON',
-			success:function (callback) {
-					$("#result-list").html("");
-					for(var i=0;i<callback.length;i++){
-						var htmla = '<li><div>{$vob.docname}'+ callback[i]['docname'] +'</div>'
-							+'<div style="height:90px;line-height:30px;fonft-size:12px;color:#5E6D82;">'+ callback[i]['contents'] +'</div>'
-							+'<div><a href="'+ callback[i]['searchurl'] +'">'+ callback[i]['searchurl'] +'</a></div></li>';	
-						$("#result-list").append(htmla);
-					}
-					/*
-					$('tbody').empty();
-					var page_count=callback.page_count;
-					var page_cont=callback.page_content;
-					$('tbody').append(page_cont);
-					$('#last_page').text(page_count)
-					*/
-				}
-		})
-	}
+function applyelasuccful_popup(){
+  $("#applyelasuccful").modal("show");
+  setTimeout(function(){$("#applyelasuccful").modal("hide");window.location.reload()},3000)
+}
+function applyelatip_popup(){
+  $("#applyelatip").modal("show");
+  setTimeout(function(){$("#applyelatip").modal("hide")},3000)
+}
+$(".editbtn").click(function(){
+	$(this).parent("div").parent("li").find(".catename").removeAttr("disabled");
+	$(this).parent("div").parent("li").find(".catenameen").removeAttr("disabled");
+	$(this).hide();
+	$(this).parent("div").find(".savebtn").show();
 });
-$("#cursearc").keypress(function (e) {
-	if (e.which == 13) {
-		window.location.href='{$curhost}index.php/Home/Documentation/search.html?sw='+$(this).val();
+$(".savebtn").click(function(){
+	$(this).parent("div").parent("li").find(".catename").attr("disabled","disabled");
+	$(this).parent("div").parent("li").find(".catenameen").attr("disabled","disabled");
+	var cateid = $(this).attr("cateid");
+	var catename = $(this).parent("div").parent("li").find(".catename").val();
+	var catenameen = $(this).parent("div").parent("li").find(".catenameen").val();
+	if(catename==""){
+		alert("中文分类名称不能为空！");
+		return false;
 	}
+	if(catenameen==""){
+		alert("英文分类名称不能为空！");
+		return false;
+	}
+	$(this).hide();
+	$(this).parent("div").find(".editbtn").show();
+	$.post("editforumcate",{cateid:cateid,catename:catename,catenameen:catenameen},function(){
+		if(data==1){
+			alert("保存成功！");
+		}
+	});
 });
+$("#addforumcatebtn").click(function(){
+	var catename = $("#catename").val();
+	var catenameen = $("#catenameen").val();
+	if(catename==""){
+		alert("中文分类名称不能为空！");
+		return false;
+	}
+	if(catenameen==""){
+		alert("英文分类名称不能为空！");
+		return false;
+	}
+	$.post("addforumcate",{catename:catename,catenameen:catenameen},function(data){
+		if(data==1){
+			alert("新增成功！");
+			window.location.reload();
+		}
+	});
+})
+
 </script>
 </body>
 </html>

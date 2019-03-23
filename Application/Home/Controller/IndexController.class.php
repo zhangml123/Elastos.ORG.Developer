@@ -409,7 +409,7 @@ class IndexController extends CommonbaseController {
 				 echo 2;
 			 }else{
 				 //构建User表数据，插入到User表，并构建User表与关系表联系
-				$where['mainuser'] = $rsa['mainuser'];
+				$where['mainuser'] =  $_SESSION ['eladevp']['userid'];
 				$dataa['didid'] = $staydidinfo['didid'];
 				$userrelation = M("userrelation");
 				$rsc = $userrelation->where($where)->save($dataa);

@@ -45,7 +45,7 @@
 			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">Notifications</li>
+							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
 					</ul>
 				</div>
 			</div>
@@ -193,9 +193,8 @@ var notify_days = $("#notify_day").val();
 var notify_hours = $("#notify_hour").val();
 var notify_minutes = $("#notify_minute").val();
 var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":"+notify_minutes+":00";
-console.log("时间："+pushdates);
 if(sessionStorage.getItem('internationalWords')==1){
-	$(".confirm_push_time_tip").html("此通知将在发布"+pushdates);
+	$(".confirm_push_time_tip").html("此通知将在"+pushdates+"发布");
 }else{
 	$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
 }
@@ -272,6 +271,13 @@ function savedraft(){
 	$("#save_confirm_notify_btn").css("border","1px solid #A3A7AB");
 	$("#save_confirm_notify_btn").attr("disabled","disabled");
 	
+	
+	
+	$("#viewbtn").css("color","#eee");
+	$("#viewbtn").css("background-color","#A3A7AB");
+	$("#viewbtn").css("border","1px solid #A3A7AB");
+	$("#viewbtn").attr("disabled","disabled");
+	
 	$.post('editdraftnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		$("#publishbtn").css("color","#18FFFF");
 		$("#publishbtn").css("background-color","#173045");
@@ -281,6 +287,10 @@ function savedraft(){
 		$("#pushbtn").css("background-color","#fff");
 		$("#pushbtn").css("border","1px solid #333");
 		$('#pushbtn').removeAttr("disabled");
+		$("#viewbtn").css("color","#333");
+		$("#viewbtn").css("background-color","#fff");
+		$("#viewbtn").css("border","1px solid #333");
+		$('#viewbtn').removeAttr("disabled");
 		
 		
 		$("#save_confirm_notify_btn").css("color","#18FFFF");

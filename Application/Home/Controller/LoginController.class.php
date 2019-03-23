@@ -379,11 +379,12 @@ class LoginController extends Controller {
 	
 	public function pupdatewechatinfo(){
 		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
-		$where['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
+		$wheres['wechatrand'] = $_SESSION['eladevp']['wechatrand'];
 		$staywechat = M('staywechat');
 		$userrelation = M("userrelation");
 		$user = M('user');
-		$staychat  = $staywechat->where($where)->find();
+		$staychat  = $staywechat->where($wheres)->find();
+		//var_dump($staychat);
 		 if($staychat['openid']!=""){
 			 $rsa = $this->getuserrelation("","","",$staychat['openid'],"");
 			 if($rsa!="0"){
@@ -391,7 +392,7 @@ class LoginController extends Controller {
 				 echo 2;
 			 }else{
 				 //构建User表数据，插入到User表，并构建User表与关系表联系
-				$where['mainuser'] = $rsa['mainuser'];
+				$where['mainuser'] = $_SESSION ['eladevp']['userid'];
 				$dataa['wechatuserid'] = $staychat['openid'];
 				$userrelation = M("userrelation");
 				$rsc = $userrelation->where($where)->save($dataa);
@@ -409,8 +410,6 @@ class LoginController extends Controller {
 			echo 0;
 		}
 	}
-	
-	
 	
 	
 	
