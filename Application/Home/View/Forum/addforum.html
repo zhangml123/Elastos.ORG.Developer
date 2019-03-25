@@ -1,0 +1,118 @@
+<div class="modal fade" id="addforum" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:700px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:700px;">
+                <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
+                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
+				</div>
+                <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
+					<div id="slideBar" style="margin-left:150px;"></div>
+				</div>
+                <div class="modal-body" id="forum_c" style="padding:30px;padding-top:10px;">
+                    <section class="box-login v5-input-txt" id="box-login" style="height:375px;">
+                            <ul style="list-style-type:none;">
+                                <li class="form-group">
+									<div class="add_forum_title">Title</div>
+								<div>
+									<input type="text" id="forumtitle" value=""  style="outline:none;padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" />
+								</div>
+								</li>
+                                <li style="width:100%;height:280px;">
+									<div class="add_forum_desc" style="height:280px;float:left;width:20%;">Description</div>
+									<div style="height:280px;float:left;width:80%;">
+										<div class="summernote" id="forumcontents"></div>
+									</div>
+								</li>
+                                <li class="form-group">
+								<div class="add_forum_cate">Category</div>
+								<div>
+								<select name="cate" id="forumcate" style="outline:none;height:25px;line-height:25px;width:120px;">
+									<eq name="langs" value="1">
+										<option value="0">所有</option>
+									</eq>
+									<eq name="langs" value="2">
+										<option value="0">All</option>
+									</eq>
+									<volist name="catelist" id="voa">
+										<eq name="langs" value="1">
+										<option value="{$voa.id}">{$voa.catename}</option>
+										</eq>
+										<eq name="langs" value="2">
+										<option value="{$voa.id}">{$voa.catenameen}</option>
+										</eq>
+									</volist>
+								</select>
+								</div>
+								</li>
+                             </ul>
+                    </section>
+					<div class="loginbtn" style="height:55px;text-align:center;">
+						<button class="cancelbtn" id="cancelforumbtn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Cancel</button>
+						<button class="savebtn " id="saveforumbtn" style="border:1px solid #173045;outline:none;background-color:#173045;color:#18FFFF;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Save</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<style>
+#editprofileul li{height:30px;}
+#editprofileul li div:first-child{width:158px;float:left;}
+#editprofileul li div:last-child{width:542px;float:left;}
+</style>
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/slider/style.css">
+<script type="text/javascript" src="{$Think.const.PUBLIC_H}Home/slider/style.js"></script>
+
+<script>
+var dataList = ["0","1"];
+var options = {
+	dataList: dataList,
+	success:function(){  
+		console.log("show");  
+	},
+	fail: function(){
+		console.log("fail");  
+	}
+};
+</script>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script>
+SliderBar("slideBar", options);
+$("#cancelforumbtn").click(function(){
+	$("#addforum").modal("hide");
+})
+$("#saveforumbtn").click(function(){
+	var forumtitle=$("#forumtitle").val();
+	var forumcontents=$('#forumcontents').summernote('code');
+	var forumcate=$("#forumcate").val();
+	if(forumtitle==""){
+		alert("标题不能为空！");
+		return false;
+	}
+	if(forumcontents==""){
+		alert("内容不能为空！");
+		return false;
+	}
+	if(forumcate==""){
+		alert("类型不能为空！");
+		return false;
+	}
+	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate},function(data){
+		if(data==1){
+			$("#addforum").modal("show");
+			setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
+		}else{
+			
+		}
+	});
+	$("#forum_c").hide();
+	$("#slider_img").show();
+});
+</script>

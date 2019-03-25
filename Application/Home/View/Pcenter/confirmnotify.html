@@ -75,7 +75,7 @@ $("select").change(function(){
 	console.log("当前时间："+pushdates);
 
 	if(sessionStorage.getItem('internationalWords')==1){
-		$(".confirm_push_time_tip").html("此通知将在发布"+pushdates);
+		$(".confirm_push_time_tip").html("此通知将在"+pushdates+"发布");
 	}else{
 		$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
 	}

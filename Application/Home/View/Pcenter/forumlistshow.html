@@ -15,85 +15,86 @@
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <style>
-@media (min-width: 1200px)
-.container {
-    width: 1400px;
+.doc_menu_l_li_subm{background-color:#173045;color:#fff;}
+.doc_menu_l_li_subm_no {
+background-color:#fff;color:#333;
+    width: 95%;
+    padding-left: 5%;
+    min-height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    cursor: pointer;
 }
-.caption{display:none;}
-::-webkit-scrollbar {
-width: 5px;
-}
-::-webkit-scrollbar-track {
-background-color: #eaeaea;
-border-left: 1px solid #ccc;
-}
-::-webkit-scrollbar-thumb {
-background-color: #ccc;
-}
-::-webkit-scrollbar-thumb:hover {
-background-color: #aaa;
-}
-::-webkit-scrollbar-thumb:active{
-background-color:#999;
-}
-#dirtree li:first-child{margin-top:10px;}
-.doc_menu_l_li_subm:first-child{background-color:#173045;color:#fff;}
-.doc_content_c li{text-indent: 0.4em;font-size:16px;margin-top:10px;margin-bottom:5px;font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;}
-h2{font-size:24px;font-weight:600;border-bottom:1px solid #e5e5e5;padding-bottom:10px;}
-h1{font-size:32px;font-weight:600;border-bottom:1px solid #e5e5e5;padding-bottom:10px;}
-h3{font-size:20px;font-weight:600;padding-bottom:10px;}
-.doc_content_c p{font-size:16px;padding-left:10px;padding-right:10px;}
 .doc_menu_l_ul{background-color:#fff;}
-.breadcrumb{padding-left:0px;}
-.doc_menu_l_li_t_m{background-color:#ECEFF3;color:#222;line-height:40px;height:40px;}
-.caption{display:none;}
-.label label-danger{display:none;}
-.doc_content_c pre{background-color:#F6F9FD;font-weight:300;}
-.doc_content_c{font-weight:bolder;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'}
-.doc_content_c ol{padding-left:5%;font-weight:400;}
-.doc_content_c ul{list-style-type:none;}
-.doc_content_c ul li{font-weight:300;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
-#result-list{list-style-type:none;}
-#result-list li{width:100%;hegiht:120px;}
-#result-list li div:first-child{font-size:22px;height:40px;padding-bottom:5px;padding-top:5px;}
-#result-list li div:last-child{height:40px;color: #60d9ff;padding-bottom:5px;padding-top:5px;}
-#result-list li div:last-child a{color: #18C8FF;}
+#token-list li div{cursor:pointer;}
 </style>
 </head>
 <body>
 <include file="Index/topnav" />
-<div class="body_c" style="padding-left:10px;margin-top:0px;" id="c_row">
-	<div class="div_one_line hidden-sm hidden-xs  hidden-md" style="height:95px;">&nbsp;</div>
-	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs  hidden-md">
-		<ul class="breadcrumb">
-		<li><a href="{$curhost}">Develop</a></li>
-		<li class="active">Documentation</li>
-		</ul>
-		<div class="doc_search">
-			<span class="glyphicon glyphicon-search"></span>
-			<input type="text" value="{$searchcontents}" id="cursearc" placeholder="&nbsp;Search" />
-		</div>
-	</div>		
+<div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
-		<div style="width:100%;height:40px;line-height:40px;">{$rsnum} results found</div>
-		<ul id="result-list">
-			<volist name="rslist" id="vob">
-			<li>
-				<div>{$vob.docname}</div>
-				<div style="height:90px;line-height:30px;fonft-size:12px;color:#5E6D82;">{$vob.contents}</div>
-				<div><a href="{$vob.searchurl}">{$vob.searchurl}</a></div>
-			</li>
-			</volist>
-		</ul>
-		<div id="example" style="text-align: center"> <ul id="pageLimit"></ul></div>
+		<div class="row">
+			<div class="col-md-3">
+				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
+					<ul class="doc_menu_l_ul">
+							<li class="doc_menu_l_li_subm_no leftmenmyprofile"  style="background-color:#F6F9FD;color:#333;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
+							<li class="doc_menu_l_li_subm_no leftmengettesttoken" style="background-color:#F6F9FD;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
+							<li class="doc_menu_l_li_subm my_forum_topics" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';">&nbsp;&nbsp;My Topics&nbsp;&nbsp;</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div style="width:95%;margin-left:5%;height:700px;">
+					<div  style="width:100%;height:90px;line-height:80px;font-size:30px;margin-bottom:20px;margin-top:40px;">
+						<div style="float:left;width:100%;height:50px;line-height:50px;" class="nav_forum">Forum</div>
+						<div style="width:100%;height:40px;line-height:40px;">
+							<eq name="topiccate" value="all">
+								<a href="forumlistshow.html?topiccate=all"  class="forumall" style="font-size:12px;width:60px;height:30px;line-height:30px;display:block;float:left;border-bottom:2px solid #18FFFF;text-align:center;color:#333;">All</a>
+								<a href="forumlistshow.html?topiccate=added" class="forummyaddedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Added</a>
+								<a href="forumlistshow.html?topiccate=followed" class="forummyfollowedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Followed</a>
+								<a href="forumlistshow.html?topiccate=commented" class="forummycommentedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Commented</a>
+							</eq>
+							<eq name="topiccate" value="added">
+								<a href="forumlistshow.html?topiccate=all"  class="forumall" style="font-size:12px;width:60px;height:30px;line-height:30px;display:block;float:left;text-align:center;color:#333;">All</a>
+								<a href="forumlistshow.html?topiccate=added" class="forummyaddedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;border-bottom:2px solid #18FFFF;text-align:center;margin-left:15px;color:#333;">Added</a>
+								<a href="forumlistshow.html?topiccate=followed" class="forummyfollowedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Followed</a>
+								<a href="forumlistshow.html?topiccate=commented" class="forummycommentedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Commented</a>
+							</eq>
+							<eq name="topiccate" value="followed">
+								<a href="forumlistshow.html?topiccate=all"  class="forumall" style="font-size:12px;width:60px;height:30px;line-height:30px;display:block;float:left;text-align:center;color:#333;">All</a>
+								<a href="forumlistshow.html?topiccate=added" class="forummyaddedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Added</a>
+								<a href="forumlistshow.html?topiccate=followed" class="forummyfollowedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;border-bottom:2px solid #18FFFF;text-align:center;margin-left:15px;color:#333;">Followed</a>
+								<a href="forumlistshow.html?topiccate=commented" class="forummycommentedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Commented</a>
+							</eq>
+							<eq name="topiccate" value="commented">
+								<a href="forumlistshow.html?topiccate=all"  class="forumall" style="font-size:12px;width:60px;height:30px;line-height:30px;display:block;float:left;text-align:center;color:#333;">All</a>
+								<a href="forumlistshow.html?topiccate=added" class="forummyaddedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Added</a>
+								<a href="forumlistshow.html?topiccate=followed" class="forummyfollowedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;text-align:center;margin-left:15px;color:#333;">Followed</a>
+								<a href="forumlistshow.html?topiccate=commented" class="forummycommentedtip" style="font-size:12px;width:90px;height:30px;line-height:30px;display:block;float:left;border-bottom:2px solid #18FFFF;text-align:center;margin-left:15px;color:#333;">Commented</a>
+							</eq>
+						</div>
+					</div>
+						<div style="width:100%;height:610px;">
+							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
+								<volist name="forumlist" id="vob">
+								<li onclick="javascript:window.location.href='noticedetail?id={$vob.id}';">
+										<div style="float:left;color:#333;width:90%;text-align:left;line-height:45px;">{$vob.title}</div>
+								</li>
+								</volist>
+							</ul>
+							<div id="example" style="text-align: center;margin-top:30px;"> <ul id="pageLimit"></ul></div>
+						</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="nav" style="height:auto;margin-top:40px;background-color:#173045;padding-bottom:50px;z-index:100;">
@@ -167,22 +168,27 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 	</div>
 	</div>
 </div>
-<include file="Index/loginsid" />
-<include file="Index/signup" />
-<include file="Index/emailsid" />
-<include file="Index/wechatqrcode" />
+<include file="Pcenter/succful" />
+<include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
-<include file="Index/resendtip" />
-<include file="Index/didqrcode" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
-<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
-<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+function applyelasuccful_popup(){
+  $("#applyelasuccful").modal("show");
+  setTimeout(function(){$("#applyelasuccful").modal("hide");window.location.reload()},3000)
+}
+function applyelatip_popup(){
+  $("#applyelatip").modal("show");
+  setTimeout(function(){$("#applyelatip").modal("hide")},3000)
+}
+var topiccate = '{$topiccate}';
 $('#pageLimit').bootstrapPaginator({
     currentPage: 1,
     totalPages: {$pcount},
@@ -199,32 +205,23 @@ $('#pageLimit').bootstrapPaginator({
     },
 	onPageClicked: function (event, originalEvent, type, page){
 		$.ajax({
-			url:'searchlimit',
+			url:'forumlistjson',
 			type:'POST',
-			data:{'sw':$("#cursearc").val(),'curp':page},
+			data:{'curp':page,topiccate:topiccate},
 			dataType:'JSON',
 			success:function (callback) {
-					$("#result-list").html("");
+					$("#token-list").html("");
 					for(var i=0;i<callback.length;i++){
-						var htmla = '<li><div>{$vob.docname}'+ callback[i]['docname'] +'</div>'
-							+'<div style="height:90px;line-height:30px;fonft-size:12px;color:#5E6D82;">'+ callback[i]['contents'] +'</div>'
-							+'<div><a href="'+ callback[i]['searchurl'] +'">'+ callback[i]['searchurl'] +'</a></div></li>';	
-						$("#result-list").append(htmla);
+						var htmla = '<li onclick="javascript:window.location.href=\'noticedetail?id='+ callback[i]['id'] +'\';">';
+						if(topiccate=="commented"){
+							htmla = htmla+'<div style="float:left;color:#333;width:90%;text-align:left;line-height:45px;">'+callback[i]['contents']+'</div>';
+						}else{
+							htmla = htmla+'<div style="float:left;color:#333;width:90%;text-align:left;line-height:45px;">'+callback[i]['title']+'</div>';
+						}
+						$("#token-list").append(htmla);
 					}
-					/*
-					$('tbody').empty();
-					var page_count=callback.page_count;
-					var page_cont=callback.page_content;
-					$('tbody').append(page_cont);
-					$('#last_page').text(page_count)
-					*/
 				}
 		})
-	}
-});
-$("#cursearc").keypress(function (e) {
-	if (e.which == 13) {
-		window.location.href='{$curhost}index.php/Home/Documentation/search.html?sw='+$(this).val();
 	}
 });
 </script>

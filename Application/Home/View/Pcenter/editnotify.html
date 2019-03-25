@@ -45,7 +45,7 @@
 			<div class="pcenter_admin_console"  style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">Notifications</li>
+							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
 					</ul>
 				</div>
 			</div>
@@ -208,7 +208,7 @@ var notify_minutes = $("#notify_minute").val();
 var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":"+notify_minutes+":00";
 console.log("时间："+pushdates);
 if(sessionStorage.getItem('internationalWords')==1){
-	$(".confirm_push_time_tip").html("此通知将在发布"+pushdates);
+	$(".confirm_push_time_tip").html("此通知将在"+pushdates+"发布");
 }else{
 	$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
 }
@@ -271,7 +271,7 @@ function changeState(stateValue){
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
-	$.post('editnotifyfunc',{id:id,title:title,contents:contents,draft:0,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:"3143435435436"},function(data){
+	$.post('editnotifyfunc',{id:id,title:title,contents:contents,draft:0,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		if(data==1){
 			$("#notifypublishtip").modal("show");
 			setTimeout(function(){$("#notifypublishtip").modal("hide");window.location.href="notifylist";},2500);
@@ -282,7 +282,31 @@ function changeState(stateValue){
  });
  $("#viewbtn").click(function(){
 	var randid = '{$noticeinfo.id}';
-	window.location.href="noticedetail?id="+randid;
+	var randids = '{$noticeinfo.randid}';
+	var title = $("#notifytitle").val();
+	var contents = $('#contents').summernote('code');
+	if ($('#checkbox1').prop("checked")){
+		checkbox1 = 1;
+	}else{
+		checkbox1 = 0;
+	}
+	if ($('#ishomepage').prop("checked")){
+		ishomepage = 1;
+	}else{
+		ishomepage = 0;
+	}
+	if(title==""){
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(contents==""){
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	$.post('editdraftnotifyfunc',{title:title,contents:contents,draft:0,randid:randids,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
+		window.location.href="noticedetail?id="+randid;
+	})
+	
  });
  $("#canclebtn").click(function(){
 	 window.location.href="notifylist";

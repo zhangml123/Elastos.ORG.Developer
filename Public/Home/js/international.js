@@ -374,11 +374,45 @@ internationalWordsZH.pickdate='选择日期';
 internationalWordsEN.pickdate='Pick a date';
 internationalWordsZH.confirm_push_time_tip='此通知将在发布';
 internationalWordsEN.confirm_push_time_tip='This notification will be published at';
+internationalWordsZH.confirmdelnotify='确定删除？';
+internationalWordsEN.confirmdelnotify='Confirm Delete?';
 
 
 //论坛
 internationalWordsZH.addforumcls='新增主题/问题';
 internationalWordsEN.addforumcls='add a topic/question';
+internationalWordsZH.searchtopic='搜索主题/问题';
+internationalWordsEN.searchtopic='Search a topic/question';
+internationalWordsZH.forumdateadd='发布日期';
+internationalWordsEN.forumdateadd='Date Added';
+internationalWordsZH.forumpopularity='热度';
+internationalWordsEN.forumpopularity='Popularity';
+internationalWordsZH.forummytopic='我的主题';
+internationalWordsEN.forummytopic='MY TOPICS';
+internationalWordsZH.forummyviewalltip='查看所有';
+internationalWordsEN.forummyviewalltip='View All';
+internationalWordsZH.forummyaddedtip='创建的';
+internationalWordsEN.forummyaddedtip='Added';
+internationalWordsZH.forummyfollowedtip='关注的';
+internationalWordsEN.forummyfollowedtip='Followed';
+internationalWordsZH.forummycommentedtip='评论的';
+internationalWordsEN.forummycommentedtip='Commented';
+internationalWordsZH.forumpostat='发布于';
+internationalWordsEN.forumpostat='Posted at';
+internationalWordsZH.forumbackbtn='返回';
+internationalWordsEN.forumbackbtn='Back';
+internationalWordsZH.forumpostby='发布者';
+internationalWordsEN.forumpostby='Posted by';
+internationalWordsZH.forumviews='次浏览';
+internationalWordsEN.forumviews='Views';
+internationalWordsZH.forum_cate='论坛分类';
+internationalWordsEN.forum_cate='Forumcategory';
+internationalWordsZH.forumall='全部';
+internationalWordsEN.forumall='All';
+internationalWordsZH.forumabuse='举报恶意内容';
+internationalWordsEN.forumabuse='Reported as abuse';
+internationalWordsZH.my_forum_topics='我的话题';
+internationalWordsEN.my_forum_topics='my_forum_topics';
 
 
 

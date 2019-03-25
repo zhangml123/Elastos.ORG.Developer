@@ -13,6 +13,7 @@ class NotifyController extends CommonbaseController {
 		}
 		$notice = M("notice");
 		$where['draft'] = 0;
+		$where['publishtime'] = array("ELT",time());
 		$noticelist = $notice->where($where)->order("addtime desc")->limit("0,10")->select();
 		if($noticelist){
 			if($_SESSION ['eladevp']['lang']=="cn"){
@@ -25,7 +26,7 @@ class NotifyController extends CommonbaseController {
 				}
 			}
 		}
-		$count = $notice->count();
+		$count = $notice->where($where)->count();
 		if($count!=0){
 			$pcount = ceil($count/10);
 		}else{
@@ -40,16 +41,60 @@ class NotifyController extends CommonbaseController {
 	}
 	//获取指定ID的之后五条信息
 	public function getlastfive($id){
-		$where['id'] = array('NEQ',$id);
 		$notice = M("notice");
-		$rslist = $notice->where($where)->order("addtime desc")->limit("0,10")->select();
-		return $rslist;
+		$rslist = $notice->where($where)->order("addtime desc")->select();
+					//var_dump($rslist);
+		$rslistnew = array();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				if($rslist[$i]['id']==$id && $i<=9){
+					//前十条
+					$j = 1;
+					break;
+				}
+				if($rslist[$i]['id']==$id && $i>=10){
+					//前十条后的十条
+					//var_dump($rslist);
+					$w = $i;
+					$j = 2;
+					break;
+				}
+				
+			}
+			if($j==1){
+				for($k=0;$k<10;$k++){
+					$arr[] = $rslist[$k];
+				}
+			}
+			if($j==2){
+				$n  = 0;
+				for($k=$w;$k<count($rslist);$k++){
+					$n = $n +1;
+					if($n<11){
+						$arr[] = $rslist[$k];
+					}
+				}
+			}
+			
+			
+		}
+		return $arr;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	//获取指定数量的页面
 	public function noticelimit(){
 		$curp = $_POST['curp'];
 		$startnum = ($curp - 1)*10;
 		$where['draft'] = 0;
+		$where['publishtime'] = array("ELT",time());
+		//$where['publishtime'] = "3143435435436";
 		$notice = M("notice");
 		$rslist = $notice->where($where)->order("addtime desc")->limit($startnum.",10")->select();
 		if($rslist){
@@ -116,5 +161,47 @@ class NotifyController extends CommonbaseController {
 		$user = M("user");
 		$userinfo = $user->where($where)->find();
 		return $userinfo;
+	}
+	public function synnoticepush(){
+		ignore_user_abort();//关掉浏览器，PHP脚本也可以继续执行.
+		set_time_limit(0);// 通过set_time_limit(0)可以让程序无限制的执行下去
+		ini_set('memory_limit','512M'); // 设置内存限制
+		$interval=60*60**60*5;// 每隔两个小时运行
+		do{
+			$this->pushmessaetomail();
+			sleep($interval);
+		}
+		while(true);
+	}
+	//查询未推送的消息
+	public function pushmessaetomail(){
+		$where['publishtime'] = array("ELT",time());
+		$where['publishtime'] = array("NEQ","0");
+		$where['pushnotifyset'] = 1;
+		$notice = D("notice");
+		$rsa = $notice->where($where)->select();
+		if($rsa){
+			$url = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Notify/detail?id=".$rsa["id"];
+			$title = $_POST['title'];
+			//var_dump($url);
+			$this->sendmailfornotify($url,$title);
+		}
+		echo 1;
+	}
+	//发送邮件到存在邮箱的用户
+	public function sendmailfornotify($url,$title){
+		$user = M("user");
+		$ulist = $user->select();
+		if($ulist){
+			for($i=0;$i<count($ulist);$i++){
+				if($ulist[$i]['email']!=""){
+					if($_SESSION ['eladevp']['lang']=="cn"){
+						$rs = SendMail($ulist[$i]['email']," [新公告] ".$title."","<p>亦来云开发者网站有一条新公告：</p><p>".$title."</p><p>点击链接查看更多：</p><p><a href='".$url."'>".$url."</a></p><p>谢谢</p><p>亦来云团队</p>");
+					}else{
+						$rs = SendMail($ulist[$i]['email']," [New Notification] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$title."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p>");
+					}
+				}
+			}
+		}
 	}
 }
