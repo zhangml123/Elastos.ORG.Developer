@@ -210,7 +210,9 @@ function guojihua(){
 	$(".my_forum_topics").html(internationalWords.my_forum_topics);
 	$("#confirmdelnotice").html(internationalWords.confirmdelnotify);
 	$("#removenoticebtnc").html(internationalWords.removeuserbtnc);
-	$("#removenoticebtncan").html(internationalWords.removeuserbtncan); 
+	$("#removenoticebtncan").html(internationalWords.removeuserbtncan);
+	$(".deletetoptic").html(internationalWords.deletetoptic);
+	$(".deletesubcomment").html(internationalWords.deletesubcomment);
 }
 guojihua();
 

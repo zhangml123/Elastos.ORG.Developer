@@ -7,8 +7,8 @@ internationalWordsZH.home='开发';
 internationalWordsEN.home='Develop';
 internationalWordsZH.navdevlopdoc='开发者文档';
 internationalWordsEN.navdevlopdoc='Documentation';
-internationalWordsZH.dapp='dApps';
-internationalWordsEN.dapp='dApps';
+internationalWordsZH.dapp='EApps';
+internationalWordsEN.dapp='EApps';
 internationalWordsZH.community='开发者社区';
 internationalWordsEN.community='Community';
 internationalWordsZH.login='登录';
@@ -149,11 +149,11 @@ internationalWordsEN.logincontinue='Or continue with';
 internationalWordsZH.loginwechat ='微信';
 internationalWordsEN.loginwechat='Wechat';
 internationalWordsZH.loginscanqrcode_wechat ='请打开手机Wechat App,扫码授权';
-internationalWordsEN.loginscanqrcode_wechat='Please open the Wechat app on your mobie phone,then scan the code.';
+internationalWordsEN.loginscanqrcode_wechat='Please open the Wechat app on your mobile phone , then scan the code.';
 internationalWordsZH.loginerror ='账户或密码无效';
 internationalWordsEN.loginerror='Invalid email or password.';
 internationalWordsZH.loginscanqrcode ='请打开手机Elephant钱包App,扫码授权';
-internationalWordsEN.loginscanqrcode='Please open the Elephant wallet app on your mobie phone,then scan the code.';
+internationalWordsEN.loginscanqrcode='Please open the Elephant wallet app on your mobile phone , then scan the code.';
 internationalWordsZH.emailcode ='验证码';
 internationalWordsEN.emailcode='Code';
 
@@ -220,10 +220,10 @@ internationalWordsZH.notications ='消息';
 internationalWordsEN.notications="Notifications";
 internationalWordsZH.noticationss ='消息';
 internationalWordsEN.noticationss="Notification";
-internationalWordsZH.noticeviews ='浏览';
+internationalWordsZH.noticeviews ='次浏览';
 internationalWordsEN.noticeviews="views";
-internationalWordsZH.noticeposted ='发表者';
-internationalWordsEN.noticeposted="posted by";
+internationalWordsZH.noticeposted ='发表者 管理员';
+internationalWordsEN.noticeposted="posted by administrator";
 
 
 
@@ -321,7 +321,7 @@ internationalWordsEN.noticedit='Edit';
 internationalWordsZH.noticedel='删除';
 internationalWordsEN.noticedel='Delete';
 internationalWordsZH.newnotications='新消息';
-internationalWordsEN.newnotications='New Notication';
+internationalWordsEN.newnotications='New Notification';
 internationalWordsZH.noticecancel='&nbsp;取消';
 internationalWordsEN.noticecancel='&nbsp;Cancel';
 internationalWordsZH.noticetitle='标题';
@@ -412,7 +412,11 @@ internationalWordsEN.forumall='All';
 internationalWordsZH.forumabuse='举报恶意内容';
 internationalWordsEN.forumabuse='Reported as abuse';
 internationalWordsZH.my_forum_topics='我的话题';
-internationalWordsEN.my_forum_topics='my_forum_topics';
+internationalWordsEN.my_forum_topics='My Topics';
+internationalWordsZH.deletetoptic='删除话题';
+internationalWordsEN.deletetoptic='Delete this topic';
+internationalWordsZH.deletesubcomment='删除该评论';
+internationalWordsEN.deletesubcomment='Delete this comment';
 
 
 

@@ -227,8 +227,11 @@ class OauthController extends Controller{
 						$data['company'] = $user_info['company'];
 						$data['bio'] = $user_info['bio'];
 						$data['moreurl'] = $user_info['moreurl'];
-						$data['email'] = $user_info['email'];
-						
+						if(isset($user_info['email']) && $user_info['email']!=""){
+							$data['email'] = $user_info['email'];
+						}else{
+							$data['email'] = "";
+						}
 						$dataa['mainuser'] = $userid;
 						$dataa['githubuserid'] = $user_info['name'];
 						$dataa['ustatus'] = 3;

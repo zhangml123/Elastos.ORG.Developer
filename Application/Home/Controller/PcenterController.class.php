@@ -1076,7 +1076,7 @@ class PcenterController extends BaseController {
 		  }
 		}
 		//日期
-		for($k=0;$k<24;$k++){
+		for($k=0;$k<31;$k++){
 		  if($k<=9){
 			$daylist[] = "0".$k;  
 		  }else{
@@ -1115,6 +1115,8 @@ class PcenterController extends BaseController {
 		if($rsa){
 			$data['noticetitle'] = $_POST['title'];
 			$data['contents'] = $_POST['contents'];
+			$data['noticetitleen'] = $_POST['titleen'];
+			$data['contentsen'] = $_POST['contentsen'];
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 1;
 			$data['ishomepage'] = $_POST['ishomepage'];
@@ -1138,6 +1140,8 @@ class PcenterController extends BaseController {
 			$data['addtime'] = time();
 			$data['noticetitle'] = $_POST['title'];
 			$data['contents'] = $_POST['contents'];
+			$data['noticetitleen'] = $_POST['titleen'];
+			$data['contentsen'] = $_POST['contentsen'];
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 1;
 			$data['ishomepage'] = $_POST['ishomepage'];
@@ -1199,6 +1203,8 @@ class PcenterController extends BaseController {
 		if($rsa){
 			$data['noticetitle'] = $_POST['title'];
 			$data['contents'] = $_POST['contents'];
+			$data['noticetitleen'] = $_POST['titleen'];
+			$data['contentsen'] = $_POST['contentsen'];
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 0;
 			$data['ishomepage'] = $_POST['ishomepage'];
@@ -1226,6 +1232,8 @@ class PcenterController extends BaseController {
 			$data['addtime'] = time();
 			$data['noticetitle'] = $_POST['title'];
 			$data['contents'] = $_POST['contents'];
+			$data['noticetitleen'] = $_POST['titleen'];
+			$data['contentsen'] = $_POST['contentsen'];
 			$data['author'] = $_SESSION['eladevp']['userid'];
 			$data['draft'] = 0;
 			$data['ishomepage'] = $_POST['ishomepage'];
@@ -1285,7 +1293,7 @@ class PcenterController extends BaseController {
 		  }
 		}
 		//日期
-		for($k=0;$k<24;$k++){
+		for($k=0;$k<31;$k++){
 		  if($k<=9){
 			$daylist[] = "0".$k;  
 		  }else{
@@ -1346,6 +1354,8 @@ class PcenterController extends BaseController {
 		$data['addtime'] = time();
 		$data['noticetitle'] = $_POST['title'];
 		$data['contents'] = $_POST['contents'];
+		$data['noticetitleen'] = $_POST['titleen'];
+		$data['contentsen'] = $_POST['contentsen'];
 		$data['author'] = $_SESSION['eladevp']['userid'];
 		$data['draft'] = $_POST['draft'];
 		$data['ishomepage'] = $_POST['ishomepage'];
@@ -1417,7 +1427,7 @@ class PcenterController extends BaseController {
 			}
 		}
 		$isread = $this->getnoreadnotify();
-			$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("profileinfo",$this->profileinfo());
 		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1454,6 +1464,7 @@ class PcenterController extends BaseController {
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
 	  $where['draft'] = 0;
+	  $where['publishtime'] = array("ELT",time());
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
@@ -1492,43 +1503,30 @@ class PcenterController extends BaseController {
 	//获取指定ID的之后五条信息
 	public function getlastten($id){
 		$notice = M("notice");
-		$rslist = $notice->where($where)->order("addtime desc")->select();
-					//var_dump($rslist);
-		$rslistnew = array();
+		$rslist = $notice->where($where)->order("addtime desc")->field("id")->select();
+		$curnum = "";
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				if($rslist[$i]['id']==$id && $i<=9){
-					//前十条
-					$j = 1;
+				if($rslist[$i]['id']==$id){
+					$curnum = $i;
 					break;
 				}
-				if($rslist[$i]['id']==$id && $i>=10){
-					//前十条后的十条
-					//var_dump($rslist);
-					$w = $i;
-					$j = 2;
-					break;
-				}
-				
 			}
-			if($j==1){
-				for($k=0;$k<10;$k++){
-					$arr[] = $rslist[$k];
-				}
-			}
-			if($j==2){
-				$n  = 0;
-				for($k=$w;$k<count($rslist);$k++){
-					$n = $n +1;
-					if($n<11){
-						$arr[] = $rslist[$k];
-					}
+			if($curnum!=""){
+				if($curnum==0){
+					$startnum = 0;
+				}else{
+					$pagenum = ceil($curnum/10);
+					/* $rest = $curnum%10;
+					if($rest){
+						
+					} */
+					$startnum = ($pagenum -1)*10;
 				}
 			}
-			
-			
 		}
-		return $arr;
+		$rslista = $notice->where($where)->order("addtime desc")->limit($startnum,10)->select();
+		return $rslista;
 	}
 	/*****
 	

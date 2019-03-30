@@ -33,6 +33,12 @@ class NotifyController extends CommonbaseController {
 			$pcount = 0;
 		}
 		$isread = $this->getnoreadnotify();
+		
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
+		}
 		$this->assign("isread",$isread);
 		$this->assign("pcount",$pcount);
 		$this->assign("noticelist",$noticelist);
@@ -42,43 +48,32 @@ class NotifyController extends CommonbaseController {
 	//获取指定ID的之后五条信息
 	public function getlastfive($id){
 		$notice = M("notice");
-		$rslist = $notice->where($where)->order("addtime desc")->select();
-					//var_dump($rslist);
-		$rslistnew = array();
+		$where['draft'] = 0;
+		$where['publishtime'] = array("ELT",time());
+		$rslist = $notice->where($where)->order("addtime desc")->field("id")->select();
+		$curnum = "";
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				if($rslist[$i]['id']==$id && $i<=9){
-					//前十条
-					$j = 1;
+				if($rslist[$i]['id']==$id){
+					$curnum = $i;
 					break;
 				}
-				if($rslist[$i]['id']==$id && $i>=10){
-					//前十条后的十条
-					//var_dump($rslist);
-					$w = $i;
-					$j = 2;
-					break;
-				}
-				
 			}
-			if($j==1){
-				for($k=0;$k<10;$k++){
-					$arr[] = $rslist[$k];
-				}
-			}
-			if($j==2){
-				$n  = 0;
-				for($k=$w;$k<count($rslist);$k++){
-					$n = $n +1;
-					if($n<11){
-						$arr[] = $rslist[$k];
-					}
+			if($curnum!=""){
+				if($curnum==0){
+					$startnum = 0;
+				}else{
+					$pagenum = ceil($curnum/10);
+					/* $rest = $curnum%10;
+					if($rest){
+						
+					} */
+					$startnum = ($pagenum -1)*10;
 				}
 			}
-			
-			
 		}
-		return $arr;
+		$rslista = $notice->where($where)->order("addtime desc")->limit($startnum,10)->select();
+		return $rslista;
 	}
 	
 	
@@ -133,6 +128,11 @@ class NotifyController extends CommonbaseController {
 			$noticelist = $this->getlastfive($noticedetail['id']);
 		}
 		$isread = $this->getnoreadnotify();
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
+		}
 		$this->assign("isread",$isread);
 		$this->assign("noticelist",$noticelist);
 		$this->assign("noticeinfo",$noticedetail);
@@ -142,6 +142,7 @@ class NotifyController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
+	  $where['publishtime'] = array("ELT",time());
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
