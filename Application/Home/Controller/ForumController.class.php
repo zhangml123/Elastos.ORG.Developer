@@ -41,6 +41,8 @@ class ForumController extends Controller {
 		}else{
 			$this->assign("puplarity","");
 		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$where['pid'] = 0;
 		$this->assign("commentlist",$commentlist);
 		$this->assign("forumlist",$this->forumlist($where,$order));
@@ -53,6 +55,18 @@ class ForumController extends Controller {
 	}
 	//详细
 	public function forumdetail(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+			$this->assign("profileinfo",$this->profileinfo());
+		}else{
+			$this->assign("logincate","");
+		}
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("langs",1);
+		}else{
+			$this->assign("langs",2);
+		}
 		$where['id'] = $_GET['forumid'];
 		$article = M("article");
 		$articleinfo = $article->where($where)->find();
@@ -69,13 +83,23 @@ class ForumController extends Controller {
 			$commentlist = $this->initcommentlist($wherec);
 			$this->assign("commentlist",$commentlist);
 			$this->assign("commentnum",count($commentlist));
+			$abuseyn = $this->judgeabuse($_GET['forumid']);
+			$this->assign("abuseyn",$abuseyn);
+			$this->addforumviewnum($articleinfo['id']);
 		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
 		$this->assign("articleinfo",$articleinfo);
 		$this->assign("curlang",$_SESSION ['eladevp']['lang']);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
-	
+	//更新浏览次数
+	public function addforumviewnum($id){
+		$article = M("article");
+		$where['id'] = $id;
+		$rs = $article->where($where)->setInc("views");
+	}
 	//获取初始评论列表
 	public function initcommentlist($where){
 		$forumcomment = new ForumcommentModel;
@@ -87,6 +111,16 @@ class ForumController extends Controller {
 					$forumcommentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$forumcommentlist[$i]['addtime']);
 				}else{
 					$forumcommentlist[$i]['adddatetime'] = date("M d - h:i A",$forumcommentlist[$i]['addtime']);
+				}
+				if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+					$profileinfo=$this->profileinfo();
+					if($profileinfo){
+						$forumcommentlist[$i]['abuse'] = $this->judgeabuse($forumcommentlist[$i]['id']);
+					}else{
+						$forumcommentlist[$i]['abuse'] = 0;
+					}
+				}else{
+					$forumcommentlist[$i]['abuse'] = 0;
 				}
 			}
 		}
@@ -103,6 +137,17 @@ class ForumController extends Controller {
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
 					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+				}
+				//$commentlist[$i]['abuse'] = $this->judgeabuse($commentlist[$i]['id']);
+				if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+					$profileinfo=$this->profileinfo();
+					if($profileinfo){
+						$commentlist[$i]['abuse'] = $this->judgeabuse($commentlist[$i]['id']);
+					}else{
+						$commentlist[$i]['abuse'] = 0;
+					}
+				}else{
+					$commentlist[$i]['abuse'] = 0;
 				}
 			}
 		}
@@ -160,6 +205,19 @@ class ForumController extends Controller {
 				}else{
 					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
 				}
+				
+				//$commentlist[$i]['abuse'] = $this->judgeabuse($commentlist[$i]['id']);
+				if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+					$profileinfo=$this->profileinfo();
+					if($profileinfo){
+						$commentlist[$i]['abuse'] = $this->judgeabuse($commentlist[$i]['id']);
+					}else{
+						$commentlist[$i]['abuse'] = 0;
+					}
+				}else{
+					$commentlist[$i]['abuse'] = 0;
+				}
+				
 			}
 			echo json_encode($commentlist);
 		}else{
@@ -179,6 +237,17 @@ class ForumController extends Controller {
 				}else{
 					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
 				}
+				//$commentlist[$i]['abuse'] = $this->judgeabuse($commentlist[$i]['id']);
+				if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+					$profileinfo=$this->profileinfo();
+					if($profileinfo){
+						$commentlist[$i]['abuse'] = $this->judgeabuse($commentlist[$i]['id']);
+					}else{
+						$commentlist[$i]['abuse'] = 0;
+					}
+				}else{
+					$commentlist[$i]['abuse'] = 0;
+				}
 			}
 			echo json_encode($commentlist);
 		}else{
@@ -196,12 +265,11 @@ class ForumController extends Controller {
 		$where['sender'] = $_SESSION ['eladevp']['userid'];
 		$article = M("article");
 		$rslist = $article->where($where)->order("addtime desc")->limit("0,10")->select();
-		$count = $article->where($where)->count();
-		if($count!=0){
-			$pcount = ceil($count/10);
-		}else{
-			$pcount = 0;
-		}
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,12,'utf-8');
+			}
+		}	
 		return $rslist;
 	}
 	//获取当前用户的主题列表
@@ -379,14 +447,14 @@ class ForumController extends Controller {
 		$article = M("article");
 		$rs = $article->add($data);
 		if($rs){
-			addforumviewnum($_POST['pid']);
+			$this->addforumcommentnum($_POST['pid']);
 			echo 1;
 		}else{
 			echo 0;
 		}
 	}
-	//更新浏览次数
-	public function addforumviewnum($id){
+	//更新评价次数
+	public function addforumcommentnum($id){
 		$article = M("article");
 		$where['id'] = $id;
 		$rs = $article->where($where)->setInc("commentnum");
@@ -418,6 +486,27 @@ class ForumController extends Controller {
 			}
 		}
 		
+	}
+	//新增举报
+	public function addabuse(){
+		$articleid = $_POST['articleid'];
+		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$where['articleid'] = $articleid;
+		$articleabuse = M("articleabuse");
+		$rs = $articleabuse->where($where)->find();
+		if($rs){
+			echo 1;
+		}else{
+			$data['articleid'] = $articleid;
+			$data['userid'] = $_SESSION['eladevp']['userid'];
+			$data['addtime'] = time();
+			$rsa = $articleabuse->add($data);
+			if($rsa){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}
 	}
 	//获取是否是赞过了
 	public function addforumzan($articleid){
@@ -460,6 +549,7 @@ class ForumController extends Controller {
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
 	  $where['draft'] = 0;
+	  $where['publishtime'] = array("ELT",time());
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
@@ -473,5 +563,35 @@ class ForumController extends Controller {
 		  return 0;
 	  }
   }
+  //判断指定的论坛内容是否被举报
+  public function judgeabuse($id){
+	  $article = M("article");
+	  $articleabuse = M("articleabuse");
+	  $wherea['id'] = $id;
+	  $rsa = $article->where($wherea)->find();
+	  if($rsa){
+		$whereb['articleid'] = $id;
+		$rsb = $articleabuse->where($whereb)->find();  
+		if($rsb){
+			return 1;
+		}else{
+			return 0;
+		}
+	  }else{
+		return 0;
+	  }
+  }
+  //删除论坛内容
+  public function delarticle(){
+	  $where['id'] = $_POST['forumcommentid'];
+	  $article = M("article");
+	  $rs = $article->where($where)->delete();
+	  if($rs){
+		  echo 1;
+	  }else{
+		  echo 0;
+	  }
+  }
+  
 }
 ?>

@@ -30,7 +30,7 @@
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 #token-list li div{cursor:pointer;}
 @import url("https://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css");
-.checkbox{width:140px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+.checkbox{width:350px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
     color: #fff;
     background: #173045;
 }
@@ -42,7 +42,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-			<div class="pcenter_admin_console"  style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;">ADMIN CONSOLE</div>
+			<div class="pcenter_admin_console"  style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;color:#173045;font-family: Komu;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
@@ -58,21 +58,53 @@
 					</div>
 					</div>
 						<div style="width:100%;height:610px;">
+						
+							<div style="width:100%;margin-bottom:35px;padding-top:10px;height:50px;">
+								<div style="width:100px;height:30px;float:left;text-align:center;font-size:12px;border-bottom:2px solid #18FFFF;cursor:pointer;" id="changecn">简体中文</div>
+								<div style="width:100px;height:30px;float:left;text-align:center;font-size:12px;cursor:pointer;" id="changeen">English</div>
+							</div>
+							<div style="width:100%;height:40px;" id="noticetitle_out_cn">
+								<div style="float:left;width:30%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticetitle">Title</div>
+								<div style="float:left;width:70%;height:40px;float:left;" class="noticetitle_r">
+									<input type="text" placeholder=" Please enter the title" value="{$noticeinfo.noticetitle}" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitle" />
+								</div>
+							</div>
+							<div style="width:100%;height:480px;margin-top:30px;" id="des_out_cn">
+								<div style="float:left;width:30%;height:40px;float:left;line-height:40px;font-size:12px;"  class="noticedescription">Description</div>
+								<div style="float:left;width:70%;height:240px;float:left;"  class="noticedescription_r">
+									<div class="summernote" id="contents"></div>
+								</div>
+							</div>
+						
+							<div style="width:100%;height:40px;display:none;" id="noticetitle_out_en">
+								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;">Title</div>
+								<div style="float:left;width:80%;height:40px;float:left;" class="noticetitle_r">
+									<input type="text" placeholder=" Please enter the title"  value="{$noticeinfo.noticetitleen}" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitleen" />
+								</div>
+							</div>
+							<div style="width:100%;height:480px;margin-top:30px;display:none;" id="des_out_en">
+								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;">Description</div>
+								<div style="float:left;width:80%;height:240px;float:left;"  class="noticedescription_r">
+									<div class="summernote" id="contentsen"></div>
+								</div>
+							</div>	
+						<!--
 							<div style="width:100%;height:40px;">
 								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticetitle">Title</div>
-								<div style="float:left;width:80%;height:40px;float:left;">
+								<div style="float:left;width:80%;height:40px;float:left;" class="noticetitle_r">
 									<input type="text" value="{$noticeinfo.noticetitle}" placeholder=" Please enter the title" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitle" />
 								</div>
 							</div>
 							<div style="width:100%;height:480px;margin-top:30px;">
 								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticedescription">Description</div>
-								<div style="float:left;width:80%;height:240px;float:left;">
+								<div style="float:left;width:80%;height:240px;float:left;" class="noticedescription_r">
 									<div class="summernote" id="contents"></div>
 								</div>
 							</div>
-							<div style="width:100%;height:40px;margin-top:30px;">
+							-->
+							<div style="width:100%;height:40px;margin-top:40px;">
 								<div style="float:left;width:20%;height:40px;line-height:40px;font-size:12px;" class="noticepushset">Push Notification Settings</div>
-								<div style="float:left;width:80%;height:40px;font-size:12px;font-weight:500;">
+								<div style="float:left;width:80%;height:40px;font-size:12px;font-weight:500;" class="noticepushset_r">
 									<eq name="noticeinfo.pushnotifyset" value="0">
 									<div class="checkbox">
 										<input id="checkbox1" class="styled" type="checkbox">
@@ -89,7 +121,7 @@
 							</div>
 							<div style="width:100%;height:40px;margin-top:30px;">
 								<div style="float:left;width:20%;height:40px;line-height:40px;font-size:12px;"  class="noticeshowinhome">Show in home page</div>
-								<div style="float:left;width:80%;height:40px;font-size:12px;">
+								<div style="float:left;width:80%;height:40px;font-size:12px;"  class="noticeshowinhome_r">
 										<div style="width:100%;height:30px;margin-top:10px;">
 											<eq name="noticeinfo.ishomepage" value="0">
 												<input id="ishomepage" data-on-text="Yes" data-off-text="No" type="checkbox" data-size="mini" name="test">
@@ -200,6 +232,22 @@
 <script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script>
+$("#changecn").click(function(){
+	$("#noticetitle_out_en").hide();
+	$("#des_out_en").hide();
+	$("#noticetitle_out_cn").show();
+	$("#des_out_cn").show();
+	$("#changeen").css("border-bottom","0px");
+	$(this).css("border-bottom","2px solid #18FFFF");
+});
+$("#changeen").click(function(){
+	$("#noticetitle_out_cn").hide();
+	$("#des_out_cn").hide();
+	$("#noticetitle_out_en").show();
+	$("#des_out_en").show();
+	$("#changecn").css("border-bottom","0px");
+	$(this).css("border-bottom","2px solid #18FFFF");
+});
 var notify_years = $("#notify_year").val();
 var notify_mons = $("#notify_mon").val();
 var notify_days = $("#notify_day").val();
@@ -209,8 +257,24 @@ var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":
 console.log("时间："+pushdates);
 if(sessionStorage.getItem('internationalWords')==1){
 	$(".confirm_push_time_tip").html("此通知将在"+pushdates+"发布");
+	$(".noticetitle").css("width","20%");
+	$(".noticetitle_r").css("width","80%");
+	$(".noticedescription").css("width","20%");
+	$(".noticedescription_r").css("width","80%");
+	$(".noticepushset").css("width","20%");
+	$(".noticepushset_r").css("width","80%");
+	$(".noticeshowinhome").css("width","20%");
+	$(".noticeshowinhome_r").css("width","80%");
 }else{
 	$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
+	$(".noticetitle").css("width","30%");
+	$(".noticetitle_r").css("width","70%");
+	$(".noticedescription").css("width","30%");
+	$(".noticedescription_r").css("width","70%");
+	$(".noticepushset").css("width","30%");
+	$(".noticepushset_r").css("width","70%");
+	$(".noticeshowinhome").css("width","30%");
+	$(".noticeshowinhome_r").css("width","70%");
 }
 function changeState(el) {
 	if (el.readOnly) el.checked=el.readOnly=false;
@@ -249,10 +313,13 @@ function changeState(stateValue){
         lang: 'zh-CN'
     });
  $("#contents").summernote('code','{$noticeinfo.contents}');
+ $("#contentsen").summernote('code','{$noticeinfo.contentsen}');
  $("#publishbtn").click(function(){
     var id = {$noticeinfo.id};
 	var title = $("#notifytitle").val();
+	var titleen = $("#notifytitleen").val();
 	var contents = $('#contents').summernote('code');
+	var contentsen = $('#contentsen').summernote('code');
 	if ($('#checkbox1').prop("checked")){
 		checkbox1 = 1;
 	}else{
@@ -271,7 +338,17 @@ function changeState(stateValue){
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
-	$.post('editnotifyfunc',{id:id,title:title,contents:contents,draft:0,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
+	if(titleen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(contentsen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	$.post('editnotifyfunc',{id:id,title:title,titleen:titleen,contentsen:contentsen,contents:contents,draft:0,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		if(data==1){
 			$("#notifypublishtip").modal("show");
 			setTimeout(function(){$("#notifypublishtip").modal("hide");window.location.href="notifylist";},2500);
@@ -284,7 +361,9 @@ function changeState(stateValue){
 	var randid = '{$noticeinfo.id}';
 	var randids = '{$noticeinfo.randid}';
 	var title = $("#notifytitle").val();
+	var titleen = $("#notifytitleen").val();
 	var contents = $('#contents').summernote('code');
+	var contentsen = $('#contentsen').summernote('code');
 	if ($('#checkbox1').prop("checked")){
 		checkbox1 = 1;
 	}else{
@@ -303,7 +382,17 @@ function changeState(stateValue){
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
-	$.post('editdraftnotifyfunc',{title:title,contents:contents,draft:0,randid:randids,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
+	if(titleen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(contentsen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	$.post('editdraftnotifyfunc',{title:title,titleen:titleen,contentsen:contentsen,contents:contents,draft:0,randid:randids,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		window.location.href="noticedetail?id="+randid;
 	})
 	

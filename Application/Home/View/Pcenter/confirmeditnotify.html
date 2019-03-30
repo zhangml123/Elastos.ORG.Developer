@@ -13,7 +13,6 @@
                             <ul style="list-style-type:none;">
                                 <neq name="publishtime" value="">
 									<li class="form-group" style="height:40px;">
-										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_year_tip">Year</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_year">
 											<volist name="yearlist" id="voa">
 												<eq name="year" value="$voa">
@@ -24,7 +23,7 @@
 												</neq>
 											</volist>
 										</select>
-										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_mon_tip">Month</div>
+										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_year_tip">Year</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_mon">
 											<volist name="monlist" id="vob">
 												<eq name="mon" value="$vob">
@@ -35,7 +34,7 @@
 												</neq>
 											</volist>
 										</select>
-										<div class="add_forum_title"  style="width:10%;float:left;height:25px;text-align:center;" id="notify_day_tip">Day</div>
+										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_mon_tip">Month</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_day">
 											<volist name="daylist" id="voc">
 												<eq name="day" value="$voc">
@@ -46,8 +45,8 @@
 												</neq>
 											</volist>
 										</select>
+										<div class="add_forum_title"  style="width:10%;float:left;height:25px;text-align:center;" id="notify_day_tip">Day</div>
 										
-										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_hour_tip">Hour</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_hour">
 											<volist name="hourlist" id="vod">
 												<eq name="hour" value="$vod">
@@ -58,7 +57,7 @@
 												</neq>
 											</volist>
 										</select>
-										<div class="add_forum_title"  id="notify_minute_tip" style="width:10%;float:left;height:25px;text-align:center;">Minute</div>
+										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_hour_tip">Hour</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_minute">
 											<volist name="minlist" id="voe">
 												<eq name="mintue" value="$voe">
@@ -69,41 +68,42 @@
 												</neq>
 											</volist>
 										</select>
+										<div class="add_forum_title"  id="notify_minute_tip" style="width:10%;float:left;height:25px;text-align:center;">Minute</div>
 									</li>
 								</neq>
                                 <eq name="publishtime" value="">
 									<li class="form-group" style="height:40px;">
-										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_year_tip">Year</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_year">
 											<volist name="yearlist" id="voa">
 											<option value="{$voa}">{$voa}</option>
 											</volist>
 										</select>
-										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_mon_tip">Month</div>
+										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_year_tip">Year</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_mon">
 											<volist name="monlist" id="vob">
 											<option value="{$vob}">{$vob}</option>
 											</volist>
 										</select>
-										<div class="add_forum_title"  style="width:10%;float:left;height:25px;text-align:center;" id="notify_day_tip">Day</div>
+										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_mon_tip">Month</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_day">
 											<volist name="daylist" id="voc">
 											<option value="{$voc}">{$voc}</option>
 											</volist>
 										</select>
+										<div class="add_forum_title"  style="width:10%;float:left;height:25px;text-align:center;" id="notify_day_tip">Day</div>
 										
-										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_hour_tip">Hour</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_hour">
 											<volist name="hourlist" id="vod">
 											<option value="{$vod}">{$vod}</option>
 											</volist>
 										</select>
-										<div class="add_forum_title"  id="notify_minute_tip" style="width:10%;float:left;height:25px;text-align:center;">Minute</div>
+										<div class="add_forum_title" style="width:10%;float:left;height:25px;text-align:center;" id="notify_hour_tip">Hour</div>
 										<select style="width:10%;float:left;height:25px;" id="notify_minute">
 											<volist name="minlist" id="voe">
 												<option value="{$voe}">{$voe}</option>
 											</volist>
 										</select>
+										<div class="add_forum_title"  id="notify_minute_tip" style="width:10%;float:left;height:25px;text-align:center;">Minute</div>
 									</li>
 								</eq>
                                 <li style="width:100%;height:40px;margin-top:20px;">

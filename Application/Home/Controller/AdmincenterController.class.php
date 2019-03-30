@@ -97,6 +97,7 @@ class AdmincenterController extends BaseController {
 	  public function getnoreadnotify(){
 		  $where['ishomepage'] = 1;
 		  $where['draft'] = 0;
+		  $where['publishtime'] = array("ELT",time());
 		  $where['edittime'] = array("EGT",strtotime("-3 day"));
 		  $notice = M("notice");
 		  $noticeinfo = $notice->where($where)->order("id desc")->find();
