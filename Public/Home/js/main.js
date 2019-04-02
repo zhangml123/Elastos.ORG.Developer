@@ -125,6 +125,9 @@ function guojihua(){
     $('.docpagedevlopdoc').html(internationalWords.docpagedevlopdoc);
     $('.commenttipscuf').html(internationalWords.docpagecommenttipscuf);
     $('.docpagehome').html(internationalWords.docpagehome);
+    $('.seardevplop').html(internationalWords.docpagehome);
+    $('.resultnumfound').html(internationalWords.resultnumfound);
+    $('.searchdocs').html(internationalWords.docpagedevlopdoc);
     $('.emailconfirmation').html(internationalWords.signupconfirmtitle);
     $('.loginwechat').html(internationalWords.loginwechat);
     $('.commenttipc').html(internationalWords.docpagecommenttipc);
@@ -139,6 +142,8 @@ function guojihua(){
     $('#removeuserbtncan').html(internationalWords.removeuserbtncan);
     $('#removeuserbtncwechat').html(internationalWords.removeuserbtnc);
     $('#removeuserbtncanwechat').html(internationalWords.removeuserbtncan);
+    $('#removeuserbtncdid').html(internationalWords.removeuserbtnc);
+    $('#removeuserbtncandid').html(internationalWords.removeuserbtncan);
     $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
     $('#loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
     $('#loadmorebtn').html(internationalWords.docpagecommentloadmore);

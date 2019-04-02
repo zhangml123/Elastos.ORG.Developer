@@ -118,6 +118,8 @@ internationalWordsZH.docpagecommentloadmore='加载更多';
 internationalWordsEN.docpagecommentloadmore='load more';
 internationalWordsZH.docpagecommentsubloadmore='加载更多';
 internationalWordsEN.docpagecommentsubloadmore='load more';
+internationalWordsZH.resultnumfound='条结果';
+internationalWordsEN.resultnumfound='results found';
 
 
 

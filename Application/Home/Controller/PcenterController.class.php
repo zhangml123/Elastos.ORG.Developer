@@ -1023,6 +1023,11 @@ class PcenterController extends BaseController {
 		}else{
 			$pcount = 0;
 		}
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
+		}
 		$isread = $this->getnoreadnotify();
 		$this->assign("profileinfo",$this->profileinfo());
 		$this->assign("isread",$isread);
@@ -1076,7 +1081,7 @@ class PcenterController extends BaseController {
 		  }
 		}
 		//日期
-		for($k=0;$k<31;$k++){
+		for($k=1;$k<32;$k++){
 		  if($k<=9){
 			$daylist[] = "0".$k;  
 		  }else{
@@ -1293,7 +1298,7 @@ class PcenterController extends BaseController {
 		  }
 		}
 		//日期
-		for($k=0;$k<31;$k++){
+		for($k=1;$k<31;$k++){
 		  if($k<=9){
 			$daylist[] = "0".$k;  
 		  }else{
@@ -1318,7 +1323,7 @@ class PcenterController extends BaseController {
 		$this->assign("hourlist",$hourlist);
 		$this->assign("minlist",$minlist);
 		//分割推送时间
-		if($noticedetail['publishtime']!=""){
+		if($noticedetail['publishtime']!="" && $noticedetail['publishtime']!=0){
 			$timestr = date("Y-m-d H:i:s",$noticedetail['publishtime']);
 			$timearr = explode(" ",$timestr);
 			//日期
@@ -1342,6 +1347,7 @@ class PcenterController extends BaseController {
 		if($noticedetail){
 			$noticedetail['contents'] = str_replace(array("\n","\r"),"",$noticedetail['contents']);
 		}
+		//var_dump($timestr);
 		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1396,6 +1402,11 @@ class PcenterController extends BaseController {
 				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
 			}
 			$noticelist = $this->getlastten($noticedetail['id']);
+		}
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
 		}
 		$isread = $this->getnoreadnotify();
 		$this->assign("profileinfo",$this->profileinfo());
@@ -1521,7 +1532,11 @@ class PcenterController extends BaseController {
 					if($rest){
 						
 					} */
-					$startnum = ($pagenum -1)*10;
+					if($pagenum==1){
+						$startnum = ($pagenum -1)*10;
+					}else{
+						$startnum = $curnum;
+					}
 				}
 			}
 		}

@@ -34,6 +34,7 @@
     color: #fff;
     background: #173045;
 }
+.note-toolbar{width:100%;}
 </style>
 </head>
 <body>
@@ -246,6 +247,7 @@ if(hours<10){
 	var hour = hours;
 }
 $("#notify_hour").val(hour);
+/*
 var mints = myDate.getMinutes();
 if(mints<10){
 	var mint = "0"+mints;
@@ -253,14 +255,14 @@ if(mints<10){
 	var mint = mints;
 }
 $("#notify_minute").val(mint);
-
+*/
 
 var notify_years = $("#notify_year").val();
 var notify_mons = $("#notify_mon").val();
 var notify_days = $("#notify_day").val();
 var notify_hours = $("#notify_hour").val();
 var notify_minutes = $("#notify_minute").val();
-var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":"+notify_minutes+":00";
+var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":00:00";
 if(sessionStorage.getItem('internationalWords')==1){
 	$(".confirm_push_time_tip").html("此通知将在"+pushdates+"发布");
 	$(".noticetitle").css("width","20%");
@@ -290,13 +292,25 @@ $("[name='test']").bootstrapSwitch();
 $(function(){
 	$("#pushbtn").click(function(){
 		var title = $("#notifytitle").val();
+		var titleen = $("#notifytitleen").val();
 		var contents = $('#contents').summernote('code');
+		var contentsen = $('#contentsen').summernote('code');
 		if(title==""){
 			$("#notifytip").modal("show")
 			setTimeout(function(){$("#notifytip").modal("hide");},2500);
 			return false;
 		}
 		if(contents==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		if(titleen==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		if(contentsen==""){
 			$("#notifytip").modal("show")
 			setTimeout(function(){$("#notifytip").modal("hide");},2500);
 			return false;
