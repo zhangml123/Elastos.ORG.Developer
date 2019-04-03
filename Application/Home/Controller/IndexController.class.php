@@ -19,6 +19,11 @@ class IndexController extends CommonbaseController {
 				header('Location: '.$url);
 			} */
 		}
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
+		}
 		$isread = $this->getnoreadnotify();
 		$this->assign("isread",$isread);
 		$isreadrs = $this->getnoreadnotifyrs();

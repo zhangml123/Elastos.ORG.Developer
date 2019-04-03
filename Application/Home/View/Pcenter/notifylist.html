@@ -64,8 +64,14 @@ background-color:#fff;color:#333;
 							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
 								<volist name="noticelist" id="vob">
 								<li onclick="javascript:window.location.href='noticedetail?id={$vob.id}';">
-									<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>
-									<eq name="vob.draft" value="0"><div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}</div></eq>
+									<eq name="lang" value="cn">
+										<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>
+										<eq name="vob.draft" value="0"><div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}</div></eq>
+									</eq>
+									<eq name="lang" value="en">
+										<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitleen}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>
+										<eq name="vob.draft" value="0"><div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">{$vob.noticetitleen}</div></eq>
+									</eq>
 									<div style="float:left;color:#999;width:30%;text-align:left;line-height:45px;text-align:right;">{$vob.adddate}</div>
 								</li>
 								</volist>
@@ -202,9 +208,17 @@ $('#pageLimit').bootstrapPaginator({
 					for(var i=0;i<callback.length;i++){
 						var htmla = '<li onclick="javascript:window.location.href=\'noticedetail?id='+ callback[i]['id'] +'\';">';
 									if(callback[i]['draft']==1){
-										htmla = htmla+'<div style="float:left;color:#999;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div>';
+										if(sessionStorage.getItem('internationalWords')==1){
+											htmla = htmla+'<div style="float:left;color:#999;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div>';
+										}else{
+											htmla = htmla+'<div style="float:left;color:#999;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitleen']+'&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div>';
+										}
 									}else{
-										htmla = htmla +'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'</div>';
+										if(sessionStorage.getItem('internationalWords')==1){
+											htmla = htmla +'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'</div>';
+										}else{
+											htmla = htmla +'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitleen']+'</div>';
+										}
 									}
 						htmla = htmla +'<div style="float:left;color:#999;width:30%;text-align:left;line-height:45px;text-align:right;">'+callback[i]['adddate']+'</div></li>';
 						$("#token-list").append(htmla);

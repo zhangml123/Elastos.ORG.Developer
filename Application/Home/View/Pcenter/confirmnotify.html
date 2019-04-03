@@ -90,7 +90,9 @@ $("#cancel_confirm_notify_btn").click(function(){
 $("#save_confirm_notify_btn").click(function(){
 	var randid = '{$randid}';
 	var title = $("#notifytitle").val();
+	var titleen = $("#notifytitleen").val();
 	var contents = $('#contents').summernote('code');
+	var contentsen = $('#contentsen').summernote('code');
 	if ($('#checkbox1').prop("checked")){
 		checkbox1 = 1;
 	}else{
@@ -110,7 +112,7 @@ $("#save_confirm_notify_btn").click(function(){
 	
 	var date = new Date(pushdate);
 	var publishtime = Date.parse(date);
-	$.post('addnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:publishtime},function(data){
+	$.post('addnotifyfunc',{title:title,contents:contents,titleen:titleen,contentsen:contentsen,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:publishtime},function(data){
 		if(data==1){
 			$("#confirmnotify").modal("show");
 			setTimeout(function(){$("#confirmnotify").modal("hide");window.location.href="notifylist";},2500);

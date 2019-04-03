@@ -181,19 +181,19 @@ class OauthController extends Controller{
 							 echo 2;
 						 }else{
 							 //构建User表数据，插入到User表，并构建User表与关系表联系
-							$where['mainuser'] = $rsa['mainuser'];
+							$where['mainuser'] = $_SESSION ['eladevp']['userid'];
 							$dataa['githubuserid'] = $user_info['name'];
 							$userrelation = M("userrelation");
-							if($rsb){
+							//if($rsb){
 								$rsc = $userrelation->where($where)->save($dataa);
 								if($rsc){
 									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 								}else{
 									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 								}
-							}else{
-									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
-							}
+							//}else{
+								//	redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+							//}
 						 }
 					// }else{
 					//	 echo 0;

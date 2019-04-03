@@ -74,16 +74,16 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 	<div class="div_one_line hidden-sm hidden-xs  hidden-md" style="height:95px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs  hidden-md">
 		<ul class="breadcrumb">
-		<li><a href="{$curhost}">Develop</a></li>
-		<li class="active">Documentation</li>
+		<li><a href="{$curhost}" class="seardevplop">Develop</a></li>
+		<li class="active searchdocs">Documentation</li>
 		</ul>
 		<div class="doc_search">
 			<span class="glyphicon glyphicon-search"></span>
 			<input type="text" value="{$searchcontents}" id="cursearc" placeholder="&nbsp;Search" />
 		</div>
 	</div>		
-	<div class="container">
-		<div style="width:100%;height:40px;line-height:40px;">{$rsnum} results found</div>
+	<div class="container" style="min-height:500px;">
+		<div style="width:100%;height:40px;line-height:40px;">{$rsnum} <span class="resultnumfound">results found</span></div>
 		<ul id="result-list">
 			<volist name="rslist" id="vob">
 			<li>

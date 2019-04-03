@@ -35,7 +35,11 @@ $(document).ready(function(){
 			function(data){
 				if(data==1){
 					clearInterval(paw);
-					$("#pscanrs").html("授权成功");
+					if(sessionStorage.getItem('internationalWords')==1){
+						$("#pscanrs").html("授权成功");
+					}else{
+						$("#pscanrs").html("Authorized success");
+					}
 					setTimeout(function(){$("#pwechatqrcodeModal").modal("hide"); window.location.reload();},1500);
 				}else if(data==2){
 					clearInterval(paw);

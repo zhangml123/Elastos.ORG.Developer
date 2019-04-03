@@ -232,6 +232,35 @@
 <script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script>
+var publishtimee="{$publishtime}";
+if(publishtimee==""){
+	var myDate = new Date();
+	$("#notify_year").val(myDate.getFullYear());
+	var mons = myDate.getMonth()+1;
+	if(mons<10){
+		var mon = "0"+mons;
+	}else{
+		var mon = mons;
+	}
+	$("#notify_mon").val(mon);
+
+	var days = myDate.getDate();
+	if(days<10){
+		var day = "0"+days;
+	}else{
+		var day = days;
+	}
+	$("#notify_day").val(day);
+
+	var hours = myDate.getHours();
+	if(hours<10){
+		var hour = "0"+hours;
+	}else{
+		var hour = hours;
+	}
+	$("#notify_hour").val(hour);
+}
+
 $("#changecn").click(function(){
 	$("#noticetitle_out_en").hide();
 	$("#des_out_en").hide();

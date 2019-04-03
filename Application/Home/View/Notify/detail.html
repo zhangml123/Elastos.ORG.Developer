@@ -38,11 +38,20 @@
 		<div class="nav_instr_tip">
 		<span><a href="index" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span>
 		
-								<if condition="mb_strlen($noticeinfo['noticetitle'],'utf-8') egt 16"> 
-		<span>{$noticeinfo.noticetitle|msubstr=0,16,'utf-8',true}</span>
-		<else/> 
-		<span>{$noticeinfo.noticetitle}</span>
-		</if>
+		<eq name="lang" value="cn">
+			<if condition="mb_strlen($noticeinfo['noticetitle'],'utf-8') egt 16"> 
+			<span>{$noticeinfo.noticetitle|msubstr=0,16,'utf-8',true}</span>
+			<else/> 
+			<span>{$noticeinfo.noticetitle}</span>
+			</if>
+		</eq>
+		<eq name="lang" value="en">
+			<if condition="mb_strlen($noticeinfo['noticetitleen'],'utf-8') egt 25"> 
+			<span>{$noticeinfo.noticetitleen|msubstr=0,25,'utf-8',true}</span>
+			<else/> 
+			<span>{$noticeinfo.noticetitleen}</span>
+			</if>
+		</eq>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
@@ -58,6 +67,8 @@
 						</li>
 						-->
 						<volist name="noticelist" id="voa">
+						
+							<eq name="lang" value="cn">
 								<if condition="mb_strlen($voa['noticetitle'],'utf-8') egt 16"> 
 									<eq name="voa.noticetitle" value="$noticeinfo.noticetitle">
 										<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
@@ -74,8 +85,25 @@
 									</neq>
 									
 								</if>
-								
-							
+							</eq>
+							<eq name="lang" value="en">
+								<if condition="mb_strlen($voa['noticetitleen'],'utf-8') egt 23"> 
+									<eq name="voa.noticetitleen" value="$noticeinfo.noticetitleen">
+										<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,20,'utf-8',true}</li>
+									</eq>
+									<neq name="voa.noticetitleen" value="$noticeinfo.noticetitleen">
+										<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitleen|msubstr=0,20,'utf-8',true}</li>
+									</neq>
+								<else/> 
+									<eq name="voa.noticetitleen" value="$noticeinfo.noticetitleen">
+										<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitleen}</li>
+									</eq>
+									<neq name="voa.noticetitleen" value="$noticeinfo.noticetitleen">
+										<li class="doc_menu_l_li_subm" onclick="javascript:window.location.href='detail?id={$voa.id}';">{$voa.noticetitleen}</li>
+									</neq>
+									
+								</if>
+							</eq>
 						</volist>
 					</ul>
 				</div>
