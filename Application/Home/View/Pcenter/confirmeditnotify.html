@@ -129,6 +129,40 @@
 $("select").change(function(){
 	var notify_years = $("#notify_year").val();
 	var notify_mons = $("#notify_mon").val();
+	
+	if($(this).attr("id")=="notify_mon"){
+		if(notify_mons=="01" || notify_mons=="03" || notify_mons=="05" || notify_mons=="07" || notify_mons=="08" || notify_mons=="10" || notify_mons=="12"){
+			var selecthtml = "";
+			for(var i=1;i<32;i++){
+				if(i<10){
+					selecthtml = selecthtml+'<option value="0'+i+'">0'+i+'</option>';
+				}else{
+					selecthtml = selecthtml+'<option value="'+i+'">'+i+'</option>';
+				}
+			}
+			$("#notify_day").html(selecthtml);
+		}else if(notify_mons=="02"){
+			var selecthtml = "";
+			for(var i=1;i<29;i++){
+				if(i<10){
+					selecthtml = selecthtml+'<option value="0'+i+'">0'+i+'</option>';
+				}else{
+					selecthtml = selecthtml+'<option value="'+i+'">'+i+'</option>';
+				}
+			}
+			$("#notify_day").html(selecthtml);
+		}else{
+			var selecthtml = "";
+			for(var i=1;i<31;i++){
+				if(i<10){
+					selecthtml = selecthtml+'<option value="0'+i+'">0'+i+'</option>';
+				}else{
+					selecthtml = selecthtml+'<option value="'+i+'">'+i+'</option>';
+				}
+			}
+			$("#notify_day").html(selecthtml);
+		}
+	}
 	var notify_days = $("#notify_day").val();
 	var notify_hours = $("#notify_hour").val();
 	var notify_minutes = $("#notify_minute").val();

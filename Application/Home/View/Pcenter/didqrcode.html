@@ -40,10 +40,8 @@ $(document).ready(function(){
 				}else if(data==2){
 					clearInterval(paw);
 					$("#pdidqrcodeModal").modal("hide");
-					$("#scanfail").modal("show")
-					setTimeout(function(){$("#scanfail").modal("hide");},3000);
-					//$("#pwcqrcode").html("该微信账户已经绑定，请登录解绑！");
-					//setTimeout(function(){$("#pwechatqrcodeModal").modal("hide"); window.location.reload();},2500);
+					$("#scandidfail").modal("show")
+					setTimeout(function(){$("#scandidfail").modal("hide");},3000);
 				}
 			}
 		);

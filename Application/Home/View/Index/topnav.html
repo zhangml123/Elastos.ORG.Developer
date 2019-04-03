@@ -29,7 +29,7 @@
             <button  class="btn btn-default nav-login" id="mweblogin" style="outline:none;"></button>
         </div></eq>
 		<neq name="logincate" value="">
-		  <ul class="nav navbar-nav navbar-right" style="height:280px;text-align: center;">
+		  <ul class="nav navbar-nav navbar-right" style="height:190px;text-align: center;">
 		  
 			<neq name="isread" value="0">
 				<img src="{$Think.const.PUBLIC_H}Home/images/notify.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
@@ -41,8 +41,8 @@
 			<li class="dropdown" style="margin-top:16px;">
 				   <div style="width:100%;height:50px;text-align:center;">
 				   <eq name="userheadimg" value="">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="margin-bottom:10px;background-color:#CED6E3;line-height:25px;outline:none;border:0px;margin-top:3px;display:block;width:45px;height:45px;border-radius:45px;background-color:#CED6E3;">
-						<img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:18px;height:22px;"/>
+					<a href="#"  style="margin-bottom:10px;background-color:#CED6E3;line-height:25px;outline:none;border:0px;margin-top:3px;display:block;width:45px;height:45px;border-radius:45px;background-color:#CED6E3;margin:auto;">
+						<img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:18px;height:22px;margin-top:10px;"/>
 					</a>
 					</eq>
 					<neq name="userheadimg" value="">	
@@ -50,13 +50,13 @@
 					</neq>
 					</div>
 			</li>
-			  <ul  style="margin-top:10px;height:220px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;">
-				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/index.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_myprofile"></a></li>
-				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/tokeninfo.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_gettoken"></a></li>
+			  <ul  style="margin-top:10px;height:97px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;">
+				<li style="margin-top:0px;text-align:left;line-height:45px;height:45px;float:left;width:50%;"><a href="{$curhost}index.php/Home/Pcenter/index.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_myprofile"></a></li>
+				<li style="margin-top:0px;text-align:left;line-height:45px;height:45px;float:left;width:50%;"><a href="{$curhost}index.php/Home/Pcenter/tokeninfo.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_gettoken"></a></li>
 				<eq name="profileinfo.roleid" value="1">
-				 <li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="{$curhost}index.php/Home/Pcenter/notifylist.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_admin_console">Admin Console</a></li>
+				 <li style="margin-top:0px;text-align:left;line-height:45px;height:45px;float:left;width:50%;"><a href="{$curhost}index.php/Home/Pcenter/notifylist.html" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_admin_console">Admin Console</a></li>
 				</eq>
-				<li style="margin-top:0px;text-align:left;line-height:50px;height:55px;"><a href="javascript:void(0);" id="loginoutbtns" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_logout"></a></li>
+				<li style="margin-top:0px;text-align:left;line-height:45px;height:45px;float:left;width:50%;"><a href="javascript:void(0);" id="loginoutbtns" style="text-align: center;padding-left:10%;padding-right:10%;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;" class="pcenter_logout"></a></li>
 			  </ul>
 		  </ul>
 		</neq>
@@ -76,9 +76,9 @@
 		<a href="#" class="nav-lang" id="setlangs" data-toggle="dropdown" style="color:#173045;"></a>
 		</li>
 		
-		<ul  style="margin-top:10px;height:92px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;">
-			<li style="margin-top:0px;line-height:40px;height:45px;text-align:center;background-color:#fff;"><a href="#" class="nav-cn" onclick="change(1)" style="color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;text-align: center;">简体中文</a></li>
-			<li style="margin-top:0px;line-height:40px;height:45px;text-align:center;background-color:#fff;"><a href="#" class="nav-en" onclick="change(2)" style="color:#173045;display:inline-table;width:100%;height:30px;padding-left:10%;padding-right:10%;line-height:33px;text-align: center;">English</a></li>
+		<ul  style="margin-top:10px;height:42px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;">
+			<li style="margin-top:0px;line-height:40px;height:45px;text-align:center;background-color:#fff;float:left;width:50%;"><a href="#" class="nav-cn" onclick="change(1)" style="color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;text-align: center;">简体中文</a></li>
+			<li style="margin-top:0px;line-height:40px;height:45px;text-align:center;background-color:#fff;float:left;width:50%;"><a href="#" class="nav-en" onclick="change(2)" style="color:#173045;display:inline-table;width:100%;height:30px;padding-left:10%;padding-right:10%;line-height:33px;text-align: center;">English</a></li>
 		</ul>
 	  </ul>
 			<eq name="logincate" value="">

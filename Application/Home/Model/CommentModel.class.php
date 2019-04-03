@@ -19,14 +19,21 @@ class CommentModel extends Model{
 					}
 					
 				}else{
-					$rs[$i]['uheadimg'] = "";
-					if($rs[$i]['sender']=="匿名"){
-						$rs[$i]['nickname'] = "匿名";
+					if($_SESSION ['eladevp']['lang']=="en"){
+						$rs[$i]['uheadimg'] = "";
+						if($rs[$i]['sender']=="匿名" || $rs[$i]['sender']==null){
+							$rs[$i]['nickname'] = "Anonymous";
+						}else{
+							$rs[$i]['nickname'] = "";
+						}
 					}else{
-						$rs[$i]['nickname'] = "";
+						$rs[$i]['uheadimg'] = "";
+						if($rs[$i]['sender']=="匿名" || $rs[$i]['sender']==null){
+							$rs[$i]['nickname'] = "匿名";
+						}else{
+							$rs[$i]['nickname'] = "";
+						}
 					}
-					
-					
 				}
 				$zanyn = $this->findcommenthistory($rs[$i]['id']);
 				if($zanyn){
@@ -54,9 +61,7 @@ class CommentModel extends Model{
 	public function findcommenthistory($commentid){
 		$where['commentid'] = $commentid;
 		$commenthistory = M("commenthistory");
-		$where['userid'] = $_SESSION['eladevp']['userid'];
-		$rs = $commenthistory->where($where)->find();
-	/* 	if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==1){
 			$where['userid'] = $_SESSION['eladevp']['userid'];
 			$rs = $commenthistory->where($where)->find();
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==2){
@@ -71,7 +76,7 @@ class CommentModel extends Model{
 		}elseif(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']==5){
 			$where['userid'] = $_SESSION['eladevp']['diduid'];
 			$rs = $commenthistory->where($where)->find();
-		} */
+		}
 		if($rs){
 			return 1;
 		}else{
@@ -80,10 +85,7 @@ class CommentModel extends Model{
 	}
 	//根据cate判断使用的是哪个头像
 	public function findcommenthead($userid,$cate){
-			$where['userid'] = $userid;
-			$user = M("user");
-			$userinfo = $user->where($where)->find();
-/* 		if($cate=="1"){
+		if($cate=="1"){
 			$where['userid'] = $userid;
 			$user = M("user");
 			$userinfo = $user->where($where)->find();
@@ -106,7 +108,7 @@ class CommentModel extends Model{
 			$where['didid'] = $userid;
 			$didinfo = M("didinfo");
 			$userinfo=$didinfo->where($where)->find();
-		} */
+		}
 		return $userinfo;
 	}
 }

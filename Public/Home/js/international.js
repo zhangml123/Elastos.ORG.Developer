@@ -150,7 +150,7 @@ internationalWordsEN.logincontinue='Or continue with';
 
 internationalWordsZH.loginwechat ='微信';
 internationalWordsEN.loginwechat='Wechat';
-internationalWordsZH.loginscanqrcode_wechat ='请打开手机Wechat App,扫码授权';
+internationalWordsZH.loginscanqrcode_wechat ='请打开手机微信 App,扫码授权';
 internationalWordsEN.loginscanqrcode_wechat='Please open the Wechat app on your mobile phone , then scan the code.';
 internationalWordsZH.loginerror ='账户或密码无效';
 internationalWordsEN.loginerror='Invalid email or password.';
@@ -282,6 +282,8 @@ internationalWordsZH.removeuserbtncan='取消';
 internationalWordsEN.removeuserbtncan='Cancel';
 internationalWordsZH.wechatbindedtip='该微信账户已经绑定，请先解绑后绑定';
 internationalWordsEN.wechatbindedtip='This Wechat account is already associated. Please un-associate it and associate again.';
+internationalWordsZH.didbindedtip='该DID账户已经绑定，请先解绑后绑定';
+internationalWordsEN.didbindedtip='This DID account is already associated. Please un-associate it and associate again.';
 internationalWordsZH.bindgittip='绑定Github';
 internationalWordsEN.bindgittip='Associate with Github';
 internationalWordsZH.bindwechattip='绑定微信';

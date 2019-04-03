@@ -64,15 +64,15 @@ class NotifyController extends CommonbaseController {
 					$startnum = 0;
 				}else{
 					$pagenum = ceil($curnum/10);
-					/* $rest = $curnum%10;
-					if($rest){
-						
-					} */
-					if($pagenum==1){
+					 //$rest = $curnum%10;
 						$startnum = ($pagenum -1)*10;
+					/*if($rest){
+						
+					}
+					 if($pagenum==1){
 					}else{
 						$startnum = $curnum;
-					}
+					} */
 					
 				}
 			}
