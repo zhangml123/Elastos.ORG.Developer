@@ -23,11 +23,11 @@ class PcenterController extends BaseController {
 			$this->assign("info",0);
 		}
 		//var_dump($info);
-		/* if(isset($_GET['mainuser']) && $_GET['mainuser']!=""){
-			$this->assign("mainuser",$_GET['mainuser']);
+		if(isset($_GET['githubyn']) && $_GET['githubyn']!=""){
+			$this->assign("gityn",$_GET['githubyn']);
 		}else{
-			$this->assign("mainuser","");
-		} */
+			$this->assign("gityn","");
+		}
 		//var_dump($_SESSION ['eladevp']['logincate']);
 		$isread = $this->getnoreadnotify();
 		$this->assign("isread",$isread);
@@ -1298,7 +1298,7 @@ class PcenterController extends BaseController {
 		  }
 		}
 		//日期
-		for($k=1;$k<31;$k++){
+		for($k=1;$k<32;$k++){
 		  if($k<=9){
 			$daylist[] = "0".$k;  
 		  }else{
@@ -1408,6 +1408,7 @@ class PcenterController extends BaseController {
 		}else{
 			$this->assign("lang","en");
 		}
+		
 		$isread = $this->getnoreadnotify();
 		$this->assign("profileinfo",$this->profileinfo());
 		$this->assign("noticelist",$noticelist);
@@ -1436,9 +1437,16 @@ class PcenterController extends BaseController {
 				$noticedetail['lastedittime'] = date("M d,Y",$noticedetail['edittime']);
 				$noticedetail['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$noticedetail['contents']);
 			}
+			$noticelist = $this->getlastten($noticedetail['id']);
+		}
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
 		}
 		$isread = $this->getnoreadnotify();
 		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("noticelist",$noticelist);
 		$this->assign("isread",$isread);
 		$this->assign("noticeinfo",$noticedetail);
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
@@ -1528,15 +1536,15 @@ class PcenterController extends BaseController {
 					$startnum = 0;
 				}else{
 					$pagenum = ceil($curnum/10);
-					/* $rest = $curnum%10;
+						$startnum = ($pagenum -1)*10;
+					/*  $rest = $curnum%10;
 					if($rest){
 						
-					} */
+					}
 					if($pagenum==1){
-						$startnum = ($pagenum -1)*10;
 					}else{
 						$startnum = $curnum;
-					}
+					} */
 				}
 			}
 		}

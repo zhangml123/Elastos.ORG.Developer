@@ -417,12 +417,17 @@ class IndexController extends CommonbaseController {
 				$where['mainuser'] =  $_SESSION ['eladevp']['userid'];
 				$dataa['didid'] = $staydidinfo['didid'];
 				$userrelation = M("userrelation");
-				$rsc = $userrelation->where($where)->save($dataa);
-				if($rsc){
-					echo 1;
-				}else{
-					echo 0;
-				}
+				//$rsw = $userrelation->where($where)->find();
+				//if($rsw['didid']!="" && $rsw['didid']!=null){
+				//	echo 3;
+				//}else{
+					$rsc = $userrelation->where($where)->save($dataa);
+					if($rsc){
+						echo 1;
+					}else{
+						echo 0;
+					}
+				//}
 			 }
 		 }else{
 			 echo 0;

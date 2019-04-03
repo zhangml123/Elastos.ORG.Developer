@@ -36,7 +36,12 @@
 <div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
 		<div class="nav_instr_tip">
+		<eq name="lang" value="cn">
 		<span><a href="notifylist" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle}</span>
+		</eq>
+		<eq name="lang" value="en">
+		<span><a href="notifylist" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitleen}</span>
+		</eq>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
@@ -101,10 +106,10 @@
 						<button id="delnotify" class="noticedel" style="margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">Delete</button>
 						
 					<eq name="lang" value="cn">
-						<button onclick="change(2)" style="display:block;margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">English</button>
+						<button onclick="change(2)" style="display:block;margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">简体中文</button>
 						</eq>
 					<eq name="lang" value="en">
-						<button onclick="change(1)" style="display:block;margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">简体中文</button>
+						<button onclick="change(1)" style="display:block;margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">English</button>
 					</eq>
 					</div>
 					</div>
@@ -192,6 +197,9 @@
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
 	</div>
 </div>

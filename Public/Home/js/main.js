@@ -145,6 +145,7 @@ function guojihua(){
     $('#removeuserbtncdid').html(internationalWords.removeuserbtnc);
     $('#removeuserbtncandid').html(internationalWords.removeuserbtncan);
     $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
+    $('#didbindedtip').html(internationalWords.didbindedtip);
     $('#loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
     $('#loadmorebtn').html(internationalWords.docpagecommentloadmore);
     $('#checkemailbtn').html(internationalWords.checkemailbtn);
@@ -179,6 +180,7 @@ function guojihua(){
 	$("#ishomepage").attr("data-on-text",internationalWords.noticeshowhomeis);
 	$("#ishomepage").attr("data-off-text",internationalWords.noticeshowhomeno);
 	$("#notifytitle").attr("placeholder",internationalWords.noticetitleplaceholder);
+	$("#notifytitleen").attr("placeholder",internationalWords.noticetitleplaceholder);
 	$(".noticeview").html(internationalWords.noticeview);
 	$(".newnotifytip").html(internationalWords.newnotifytip);
 	$(".notifycenter").html(internationalWords.notifycenter);

@@ -175,10 +175,10 @@ class OauthController extends Controller{
 	  }*/
 				if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
 					 //if($user_info['name']!=""){
-						 $rsa = $this->getuserrelation("",$user_info['name'],"","","");
-						 if($rsa!="0"){
+						 $rsa = $this->getuserrelation("","",$user_info['name'],"","");
+						  if($rsa!="0"){
 							 //已经使用返回重复
-							 echo 2;
+							 redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html?githubyn=2");
 						 }else{
 							 //构建User表数据，插入到User表，并构建User表与关系表联系
 							$where['mainuser'] = $_SESSION ['eladevp']['userid'];
@@ -187,9 +187,11 @@ class OauthController extends Controller{
 							//if($rsb){
 								$rsc = $userrelation->where($where)->save($dataa);
 								if($rsc){
+									//echo 1;
 									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
 								}else{
-									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
+									//echo 0;
+									redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html?githubyn=0");
 								}
 							//}else{
 								//	redirect("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Pcenter/index.html");
@@ -199,7 +201,7 @@ class OauthController extends Controller{
 					//	 echo 0;
 					 //}
 				}else{
-					 $rsa = $this->getuserrelation("",$user_info['name'],"","","");
+					 $rsa = $this->getuserrelation("","",$user_info['name'],"","");
 					 if($rsa!="0"){
 						 //找出User表的信息
 						 //$wherea['userid'] = $rsa['mainuser'];
@@ -509,7 +511,32 @@ class OauthController extends Controller{
     }
 
   //检测用户关系表中相关信息中，是否存在，存在的话是否是主账号
-  public function getuserrelation($reguid,$rcuid,$gituid,$wechatuid){
+  public function getuserrelation($reguid,$rcuid,$gituid,$wechatuid,$didid){
+	  if($reguid!=""){
+		  $where['reguid'] = $reguid;
+	  }
+	  if($rcuid!=""){
+		  $where['rcuserid'] = $rcuid;
+	  }
+	  if($gituid!=""){
+		  $where['githubuserid'] = $gituid;
+	  }
+	  if($wechatuid!=""){
+		  $where['wechatuserid'] = $wechatuid;
+	  }
+	  if($didid!=""){
+		  $where['didid'] = $didid;
+	  }
+	  $userrelation = M("userrelation");
+	  $userrelationinfo = $userrelation->where($where)->find();
+	  if($userrelationinfo){
+		 return $userrelationinfo;
+	  }else{
+		  return 0;
+	  }
+  }
+  //检测用户关系表中相关信息中，是否存在，存在的话是否是主账号
+/*   public function getuserrelation($reguid,$rcuid,$gituid,$wechatuid){
 	  if($reguid!=""){
 		  $where['reguid'] = $reguid;
 	  }
@@ -524,13 +551,13 @@ class OauthController extends Controller{
 	  }
 	  $userrelation = M("userrelation");
 	  $userrelationinfo = $userrelation->where($where)->find();
-	 // var_dump($userrelationinfo);
+	  var_dump($userrelation->getlastsql());
 	  if($userrelationinfo){
 		  return $userrelationinfo;
 	  }else{
 		  return 0;
 	  }
-  }
+  } */
   //获取githuinfo相关信息
   public function githubinfo($githubuid){
 	  $where['githubuid'] = $githubuid;

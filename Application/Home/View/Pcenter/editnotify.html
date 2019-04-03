@@ -77,13 +77,13 @@
 							</div>
 						
 							<div style="width:100%;height:40px;display:none;" id="noticetitle_out_en">
-								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;">Title</div>
+								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticetitle">Title</div>
 								<div style="float:left;width:80%;height:40px;float:left;" class="noticetitle_r">
 									<input type="text" placeholder=" Please enter the title"  value="{$noticeinfo.noticetitleen}" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitleen" />
 								</div>
 							</div>
 							<div style="width:100%;height:480px;margin-top:30px;display:none;" id="des_out_en">
-								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;">Description</div>
+								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;"  class="noticedescription">Description</div>
 								<div style="float:left;width:80%;height:240px;float:left;"  class="noticedescription_r">
 									<div class="summernote" id="contentsen"></div>
 								</div>
@@ -212,6 +212,9 @@
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
 	</div>
 </div>
@@ -333,14 +336,24 @@ function changeState(stateValue){
 		$('#toggle-state-switch').bootstrapSwitch('setState', false);
 	}
 }
- $('.summernote').summernote({
-        height: 420,
-        tabsize: 2,
-		disableDragAndDrop:false,
-		minHeight:150,
-		maxHeight:420,
-        lang: 'zh-CN'
-    });
+  if(sessionStorage.getItem('internationalWords')==1){
+	 $('.summernote').summernote({
+			height: 420,
+			tabsize: 2,
+			disableDragAndDrop:false,
+			minHeight:150,
+			maxHeight:420,
+			lang: 'zh-CN'
+		});
+	}else{
+	 $('.summernote').summernote({
+			height: 420,
+			tabsize: 2,
+			disableDragAndDrop:false,
+			minHeight:150,
+			maxHeight:420
+		});	
+	}
  $("#contents").summernote('code','{$noticeinfo.contents}');
  $("#contentsen").summernote('code','{$noticeinfo.contentsen}');
  $("#publishbtn").click(function(){
