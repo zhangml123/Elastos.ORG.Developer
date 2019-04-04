@@ -54,7 +54,13 @@ function wechatqrcode_popup(){
 			{d:2},
 			function(data){
 				if(data==1){
-					$("#scanrs").html("授权成功");
+					//$("#scanrs").html("授权成功");
+					
+					if(sessionStorage.getItem('internationalWords')==1){
+						$("#scanrs").html("授权成功");
+					}else{
+						$("#scanrs").html("Authorized success");
+					}
 					clearInterval(ss);
 					setTimeout(function(){$("#wechatqrcodeModal").modal("hide"); window.location.reload();},1500);
 					//$("#wechatqrcodeModal").modal("show");
@@ -81,7 +87,12 @@ function didqcode_popup(){
 			{d:2},
 			function(data){
 				if(data==1){
-					$("#didscanrs").html("授权成功");
+					//$("#didscanrs").html("授权成功");
+					if(sessionStorage.getItem('internationalWords')==1){
+						$("#didscanrs").html("授权成功");
+					}else{
+						$("#didscanrs").html("Authorized success");
+					}
 					setTimeout(function(){$("#didqrcodeModal").modal("hide"); window.location.reload();},1500);
 				}
 			}
@@ -306,6 +317,7 @@ $("#id_password_reg_l").keyup(function(){
 });
 function loginoutscuff_popup(){
 	$("#loginoutscuff").modal("show");
+	 sessionStorage.clear();
 	setTimeout(function(){window.location.href=internationalWords.hosturl},3000);
 }
 function loginouterror_popup(){

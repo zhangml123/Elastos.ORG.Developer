@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Elastos developer">
+<meta name="keywords" content="Elastos developer">
+<meta name="renderer" content="webkit">
+<meta http-equiv = "X-UA-Compatible" content = "IE=Edge,chrome=1" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
+<title>Developer - Elastos</title>
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link href="{$Think.const.PUBLIC_H}Home/summernote/summernote.css" rel="stylesheet" />
+<link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<style>
+@font-face {
+    /* font-properties */
+    font-family: Komu;
+    src:url('{$Think.const.PUBLIC_H}Home/fonts/KOMU.OTF'),  
+    url('{$Think.const.PUBLIC_H}Home/fonts/KOMU.OTF'),
+    url('{$Think.const.PUBLIC_H}Home/fonts/KOMU.OTF'); /* IE9 */
+}
+@media (min-width: 1200px)
+.container {
+    width: 1400px;
+}
+.caption{display:none;}
+::-webkit-scrollbar {
+width: 5px;
+}
+.searchforum{outline:none;height:35px;border:1px solid #aaa;float:left;width:400px;border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:15px;}
+.forumgo{outline:none;height:35px;width:50px;border:1px solid #173045;float:left;border-bottom-right-radius:20px;border-top-right-radius:20px;color:#18FFFF;background-color:#173045;text-align:center;}
+.addforumcls{outline:none;float:right;width:200px;border:1px solid #173045;color:#18FFFF;background-color:#173045;text-align:center;border-radius:20px;height:35px;}
+.forum_list_title{width:90%;height:50px;margin-top:10px;margin-right:10%;}
+.forum_list{width:90%;margin-right:10%;height:700px;}
+.vlist_v{width:90%;margin-left:10%;height:30px;margin-top:30px;margin-bottom:20px;}
+.vlist_v_t_l{width:60%;height:30px;float:left;font-size:20px;font-family: Komu;}
+.vlist_v_t_r{width:40%;height:30px;float:right;font-size:14px;line-height:30px;}
+.vlist_list{width:90%;margin-left:10%;min-height:560px;height:auto;list-style-type:none;}
+.vlist_list li:first-child{width:100%;height:40px;}
+.vlist_list li div{width:100%;height:40px;float:left;width:30%;font-size:14px;color:#A7B2BC;text-align:center;line-height:50px;}
+.vlist_r{background-color:#F2F6FB;}
+.vlist_list_li{height:50px;line-height:50px;}
+.vlist_list_li a{height:50px;line-height:50px;color:#333;font-size:16px;font-weight:500;}
+.forum_list_ul{height:700px;list-style-type:none;padding:0px;margin:0px;}
+.forum_list_ul li{height:185px;width:100%;border-bottom:1px solid #ccc;margin-bottom:20px;margin-top:20px;}
+.forum_list_posted{width:100%;height:30px;line-height:30px;color:#bbb;font-size:12px;}
+.forum_list_li_title{font-size:18px;height:40px;line-height:40px;width:100%;}
+.forum_list_shortc{width:100%;height:60px;line-height:30px;font-size:12px;}
+.forum_list_icon_list{height:40px;width:100%;}
+.forum_list_icon_list_one,.forum_list_icon_list_tow,.forum_list_icon_list_three,.forum_list_icon_list_four{float:left;width:70px;height:40px;line-height:40px;}
+.forum_list_icon_list div img{width:25px;height:20px;margin-top:15px;float:left;}
+.forum_list_icon_list div span{font-size:12px;}
+.searchword{width:100%;height:50px;margin-top:20px;}
+.searchword select{float:left;width:150px;font-size:14px;height:35px;}
+.searchword div{float:left;width:80px;height:40px;line-height:40px;font-size:12px;margin-left:25px;text-align:center;cursor:pointer;}
+.pagelist{width:100%;height:80px;text-align:center;margin-top:30px;}
+.form-group{width:100%;height:30px;}
+.form-group div:first-child{float:left;width:20%;height:40px;}
+.form-group div:last-child{float:left;width:80%;height:40px;}
+#pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
+.pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
+.pagination>li>a:focus{color:#333;background-color:#fff;}
+#token-list li div{background-color:#F6F9FD;cursor:pointer;}
+.forummyaddedtip{cursor:pointer;}
+.forummyfollowedtip{cursor:pointer;}
+.forummycommentedtip{cursor:pointer;}
+</style>
+</head>
+<body>
+<include file="Index/topnav" />
+<div class="body_c" style="padding-left:10px;margin-top:0px;" id="c_row">
+	<div class="div_one_line hidden-sm hidden-xs" style="height:95px;">&nbsp;</div>
+	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
+		<ul class="breadcrumb">
+		<li class="active nav_forum" style="font-family: Komu;font-size:42px;color:#173045;">FORUM</li>
+		</ul>
+	</div>		
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="forum_list_title">
+					<input type="" value="{$searchword}" class="searchforum" placeholder="&nbsp;&nbsp;Search a topic/question" /><button class="forumgo towpartsubbtn" id="searchforumgobtn">GO</button>
+					<button class="addforumcls" id="addforumbtn">+ add a topic/question</button>
+				</div>
+				<div class="searchword">
+					<select name="cate" id="forumcate">
+						<eq name="langs" value="1">
+								<eq name="cate" value="0">
+									<option value="0" selected="selected">所有</option>
+								</eq>
+								<neq name="cate" value="0">
+									<option value="0">所有</option>
+								</neq>
+						</eq>
+						<eq name="langs" value="2">
+								<eq name="cate" value="0">
+									<option value="0" selected="selected">All</option>
+								</eq>
+								<neq name="cate" value="0">
+									<option value="0">All</option>
+								</neq>
+						</eq>
+						<volist name="catelist" id="voa">
+							<eq name="langs" value="1">
+								<eq name="cate" value="$voa.id">
+									<option value="{$voa.id}" selected="selected">{$voa.catename}</option>
+								</eq>
+								<neq name="cate" value="$voa.id">
+									<option value="{$voa.id}">{$voa.catename}</option>
+								</neq>
+							</eq>
+							<eq name="langs" value="2">
+								<eq name="cate" value="$voa.id">
+									<option value="{$voa.id}" selected="selected">{$voa.catenameen}</option>
+								</eq>
+								<neq name="cate" value="$voa.id">
+									<option value="{$voa.id}">{$voa.catenameen}</option>
+								</neq>
+							</eq>
+						</volist>
+					</select>
+					<neq name="sendtime" value="">
+						<div class="forum_data_added" style="border-bottom:3px solid #18FFFF">Date Added</div>
+					</neq>
+					<eq name="sendtime" value="">
+						<div class="forum_data_added">Date Added</div>
+					</eq>
+					<neq name="puplarity" value="">
+						<div class="forum_popularity" style="border-bottom:3px solid #18FFFF">Popularity</div>
+					</neq>
+					<eq name="puplarity" value="">
+						<div class="forum_popularity">Popularity</div>
+					</eq>
+				</div>
+				<div class="forum_list">
+					<ul class="forum_list_ul">
+					  <volist name="forumlist" id="vob">
+						<li onclick="window.location.href='forumdetail?forumid={$vob.id}';">
+							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate}</div>
+							<div class="forum_list_li_title">{$vob.title}</div>
+							<div class="forum_list_shortc">{$vob.contents|msubstr=0,140,'utf-8',true}</div>
+							<div class="forum_list_icon_list">
+								<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.likes}</span></div>
+								<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.views}</span></div>
+								<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>{$vob.views}</span></div>
+								<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>
+							</div>
+						</li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3 vlist_r hidden-sm hidden-xs">
+				<div class="vlist_v">
+					<div class="vlist_v_title">
+						<div class="vlist_v_t_l">MY topics</div>
+						<div class="vlist_v_t_r">View All</div>
+					</div>
+				</div>
+				<ul class="vlist_list">
+					<li style="margin-bottom:10px;">
+						<div class="forummyaddedtip" style="border-bottom:3px solid #18FFFF">Added</div>
+						<div class="forummyfollowedtip">Followed</div>
+						<div class="forummycommentedtip">Comented</div>
+					</li>
+					 <volist name="myforumlist" id="voc">
+						<li class="vlist_list_li"><a href="">{$voc.title|msubstr=0,12,'utf-8',true}</a></li>
+					 </volist>
+				</ul>
+			</div>
+		</div>
+		<div class="pagelist">
+		<ul id="pageLimit"></ul>
+		</div>
+	</div>
+</div>
+<div class="nav" style="height:auto;margin-top:40px;background-color:#173045;padding-bottom:50px;z-index:100;">
+	<div class="container">
+	<div class="row  div_footer">
+		<div class="col-md-1">
+			<a href="#">&nbsp;</a>
+		</div>
+		<div class="col-md-2">
+			<a  target="__blank" href="https://elastos.org/">Elastos</a>
+		</div>
+		<div class="col-md-2">
+			<a  target="__blank" href="https://www.cyberrepublic.org">Cyber Republic</a>
+		</div>
+		<div class="col-md-2">
+			<a  target="__blank" href="https://github.com/elastos">Github</a>
+		</div>
+		<div class="col-md-2">
+			<a  target="__blank" href=" https://wallet.elastos.org/">Wallet</a>
+		</div>
+		<div class="col-md-2">
+			<a  target="__blank" href="https://blockchain.elastos.org/">Block Explorer</a>
+		</div>
+		<div class="col-md-1">
+			<a href="#">&nbsp;</a>
+		</div>
+	</div>
+	</div>
+	<div class="container">
+	<div class="row  div_footer_f">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4 link_icon">
+			<div style="width:20%;margin-left:0px;"><a  target="__blank" href="https://twitter.com/Elastos_org">
+			<svg width="41" cname="twitter" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M20.585 40C31.6018 40 40.5327 31.0457 40.5327 20C40.5327 8.9543 31.6018 0 20.585 0C9.56812 0 0.637207 8.9543 0.637207 20C0.637207 31.0457 9.56812 40 20.585 40Z" fill="#434E71"/>
+			<path d="M31.8103 17.1374C33.414 17.0198 34.47 16.2747 34.9003 15.2943C34.3136 15.6473 32.5144 16.0394 31.5365 15.6473C31.4974 15.412 31.4192 15.1767 31.3801 14.9806C30.6369 12.2355 28.0555 10.0003 25.3566 10.2748C25.5913 10.1963 25.7869 10.1179 26.0216 10.0395C26.3345 9.92182 28.0555 9.64732 27.7817 9.01987C27.547 8.47086 25.4349 9.41202 25.0437 9.56888C25.5913 9.37281 26.4518 9.01987 26.53 8.43164C25.7087 8.54929 24.9264 8.94144 24.3006 9.49045C24.5353 9.25516 24.6917 8.94144 24.7308 8.62772C22.5796 10.0003 21.328 12.7845 20.2719 15.4904C19.4897 14.7061 18.7465 14.1179 18.1207 13.7649C16.3215 12.7845 14.2094 11.8042 10.8456 10.5493C10.7283 11.6473 11.3932 13.1375 13.2706 14.1179C12.8795 14.0786 12.1364 14.1963 11.5105 14.3139C11.7452 15.608 12.5275 16.6276 14.6787 17.1374C13.7009 17.2159 13.1924 17.4119 12.7231 17.9217C13.1533 18.8237 14.2485 19.8433 16.2041 19.6472C14.0138 20.5884 15.3045 22.3139 17.1037 22.0786C14.092 25.2158 9.3202 24.9805 6.58228 22.3531C13.74 32.1177 29.268 28.1177 31.5757 18.7061C33.2966 18.7061 34.3136 18.1178 34.9785 17.4119C34.0007 17.608 32.5535 17.4512 31.8103 17.1374Z" fill="#173045"/>
+			</svg>
+			</a></div>
+			<div style="width:20%;margin-left:0px;"><a  target="__blank" href="https://www.facebook.com/elastosorg/">
+			<svg width="41" cname="facebook" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M20.3121 40C31.3397 40 40.2794 31.0457 40.2794 20C40.2794 8.9543 31.3397 0 20.3121 0C9.28441 0 0.344727 8.9543 0.344727 20C0.344727 31.0457 9.28441 40 20.3121 40Z" fill="#434E71"/>
+			<path d="M16.8276 12.5489C16.8276 13.1764 16.8276 15.8823 16.8276 15.8823H14.3611V19.9999H16.8276V32.196H21.8782V19.9999H25.2452C25.2452 19.9999 25.5584 18.0391 25.715 15.8823C25.2844 15.8823 21.8782 15.8823 21.8782 15.8823C21.8782 15.8823 21.8782 13.4901 21.8782 13.0979C21.8782 12.6666 22.4263 12.1175 22.9744 12.1175C23.5225 12.1175 24.6579 12.1175 25.715 12.1175C25.715 11.5685 25.715 9.64695 25.715 7.84302C24.3056 7.84302 22.7004 7.84302 21.9956 7.84302C16.671 7.84302 16.8276 11.9607 16.8276 12.5489Z" fill="#173045"/>
+			</svg>
+			</a></div>
+			<div style="width:20%;margin-left:0px;"><a  target="__blank" href="https://www.youtube.com/channel/UCy5AjgpQIQq3bv8oy_L5WTQ/">
+				<svg width="40" cname="youtube" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M20 40C31.0169 40 39.9478 31.0457 39.9478 20C39.9478 8.9543 31.0169 0 20 0C8.98317 0 0.0522461 8.9543 0.0522461 20C0.0522461 31.0457 8.98317 40 20 40Z" fill="#434E71"/>
+				<path d="M27.1186 24.6274H25.867V23.8823C25.867 23.5686 26.1408 23.2941 26.4537 23.2941H26.5319C26.884 23.2941 27.1578 23.5686 27.1578 23.8823L27.1186 24.6274ZM22.3077 23.0196C21.9948 23.0196 21.721 23.2549 21.721 23.4902V27.1372C21.721 27.4117 21.9948 27.6078 22.3077 27.6078C22.6206 27.6078 22.8944 27.3725 22.8944 27.1372V23.5294C22.8944 23.2549 22.6206 23.0196 22.3077 23.0196ZM30.1304 20.9804V27.9215C30.1304 29.5686 28.6832 30.9412 26.9231 30.9412H13.8201C12.06 30.9412 10.6128 29.5686 10.6128 27.9215V20.9804C10.6128 19.3333 12.06 17.9607 13.8201 17.9607H26.9622C28.7223 17.9607 30.1304 19.3333 30.1304 20.9804ZM14.6806 28.6666V21.3725H16.3233V20.2745H11.9818V21.3333H13.3507V28.6666H14.6806ZM19.5698 22.4706H18.2008V26.3529C18.2008 26.9019 18.2399 27.2157 18.2008 27.2941C18.0834 27.6078 17.575 27.9215 17.4185 27.3333C17.3794 27.2157 17.4185 26.9019 17.4185 26.3921V22.4706H16.0496V26.3137C16.0496 26.9019 16.0496 27.3333 16.0496 27.5294C16.0887 27.8823 16.0887 28.3137 16.4016 28.549C17.0274 28.9804 18.2008 28.4706 18.4746 27.8431V28.6666H19.5698V22.4706ZM23.9113 26.9412V23.6862C23.9113 22.4313 22.9726 21.7255 21.721 22.7059V20.2745H20.352L20.3911 28.6274H21.5254L21.6428 28.1176C23.0117 29.4117 23.9113 28.5098 23.9113 26.9412ZM28.1747 26.5098H27.1578C27.1578 26.549 27.1578 26.5882 27.1578 26.6666V27.2549C27.1578 27.5686 26.9231 27.8039 26.6102 27.8039H26.4146C26.1017 27.8039 25.867 27.5686 25.867 27.2549V27.1765V26.549V25.7255H28.2138V24.8627C28.2138 24.2353 28.2138 23.5686 28.1356 23.2157C27.9791 22.0392 26.3364 21.8823 25.515 22.4706C25.2412 22.6666 25.0456 22.9019 24.9283 23.2549C24.811 23.6078 24.7718 24.0392 24.7718 24.6274V26.549C24.7327 29.7255 28.6441 29.2549 28.1747 26.5098ZM22.9335 16C23.0117 16.1568 23.1291 16.3137 23.2464 16.4313C23.4029 16.549 23.5593 16.5882 23.794 16.5882C23.9896 16.5882 24.146 16.549 24.3025 16.4313C24.4589 16.3137 24.5763 16.1568 24.6936 15.9607V16.4313H26.219V9.99995H25.0456V15.0196C25.0456 15.2941 24.811 15.5294 24.5372 15.5294C24.2634 15.5294 24.0287 15.2941 24.0287 15.0196V9.99995H22.7771V14.3529C22.7771 14.9019 22.7771 15.2941 22.8162 15.4509C22.8162 15.647 22.8553 15.8431 22.9335 16ZM18.3572 12.3529C18.3572 11.7254 18.3964 11.2549 18.5137 10.9019C18.631 10.549 18.7875 10.2745 19.0613 10.0784C19.3351 9.8823 19.6871 9.76466 20.0782 9.76466C20.4303 9.76466 20.7432 9.84309 20.9778 9.96074C21.2125 10.0784 21.4081 10.2745 21.5645 10.4705C21.721 10.7058 21.7992 10.9019 21.8383 11.1372C21.8774 11.3725 21.9166 11.7254 21.9166 12.196V13.8431C21.9166 14.4313 21.8774 14.8627 21.8383 15.1764C21.7992 15.4509 21.6819 15.7255 21.5254 15.9607C21.369 16.196 21.1734 16.3921 20.9387 16.5098C20.704 16.6274 20.4303 16.6666 20.1173 16.6666C19.7653 16.6666 19.4915 16.6274 19.2568 16.5098C19.0222 16.3921 18.8266 16.2745 18.7093 16.0784C18.5919 15.8823 18.4746 15.647 18.4355 15.3725C18.3964 15.098 18.3572 14.6666 18.3572 14.1176V12.3529ZM19.5306 14.9019C19.5306 15.2549 19.8044 15.5686 20.1173 15.5686C20.4303 15.5686 20.704 15.2549 20.704 14.9019V11.4509C20.704 11.098 20.4303 10.7843 20.1173 10.7843C19.8044 10.7843 19.5306 11.098 19.5306 11.4509V14.9019ZM15.3455 16.6666H16.7927V11.7254L18.4746 7.45093H16.91L16.0104 10.5882L15.1108 7.45093H13.5463L15.3455 11.6862V16.6666Z" fill="#173045"/>
+				</svg>
+			</a></div>
+			<div style="width:20%;margin-left:0px;"><a  target="__blank" href="https://t.me/elastosgroup">
+			<svg width="41" cname="t"  height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M20.7076 40C31.7245 40 40.6554 31.0457 40.6554 20C40.6554 8.9543 31.7245 0 20.7076 0C9.69071 0 0.759766 8.9543 0.759766 20C0.759766 31.0457 9.69071 40 20.7076 40Z" fill="#434E71"/>
+				<path d="M30.9556 17.2942C28.9999 17.2942 27.0834 17.2942 25.1277 17.2942C27.3963 21.059 24.8148 25.961 20.1212 25.5296C17.2659 25.2551 14.6454 22.157 15.7796 18.6668C15.8579 18.4315 16.0143 18.1962 16.1317 17.9609C16.249 17.7256 16.4446 17.4903 16.3663 17.2942C14.4498 17.2942 10.6167 17.2942 10.6167 17.2942V26.9022C10.8123 28.7846 12.2986 30.2748 14.176 30.4316H20.7861H27.3963C29.3128 30.2356 30.7209 28.6277 30.9165 26.9414C30.9556 26.9806 30.9556 18.9805 30.9556 17.2942Z" fill="#173045"/>
+				<path d="M20.2775 16.3533C19.4952 16.4317 19.065 16.6278 18.6738 16.8631C17.7742 17.4121 16.9529 18.3925 16.7964 19.765C16.4835 22.4708 18.4783 24.314 20.7469 24.314C22.5852 24.314 24.8147 23.0199 24.7756 20.2748C24.7756 17.8042 22.7808 16.0395 20.2775 16.3533ZM23.6804 21.0983C23.3284 22.4708 21.842 23.5297 20.2384 23.2944C18.7521 23.0983 17.1093 21.216 18.0089 19.0983C18.3218 18.314 19.065 17.4513 20.5904 17.3729C22.4679 17.216 24.228 18.9023 23.6804 21.0983Z" fill="#173045"/>
+				<path d="M29.8211 11.1374C29.2735 10.5884 28.3739 10.0786 27.396 10.0002H20.7859H16.0532V15.1766H15.1927V9.96094H14.6842V15.1374H13.8237V10.0394C13.6282 10.0786 13.4717 10.1178 13.2761 10.1962V15.1766H12.4157V10.5884C12.1419 10.7452 11.9072 10.9413 11.7116 11.1374C10.5773 12.2746 10.4991 14.1962 10.5773 16.6667H16.8746C17.1484 16.5883 17.4222 16.2746 17.6568 16.1177C18.5173 15.4903 19.6125 15.1374 20.7077 15.1374H20.7468C21.842 15.1374 22.9371 15.4903 23.7976 16.1177C24.0323 16.2746 24.3452 16.5883 24.5799 16.6667H30.8771C30.9945 14.157 30.9554 12.2354 29.8211 11.1374ZM28.9606 14.4707C28.9606 14.7452 28.7259 14.9805 28.4521 14.9805H26.2618C25.988 14.9805 25.7533 14.7452 25.7533 14.4707V12.2746C25.7533 12.0001 25.988 11.7648 26.2618 11.7648H28.4521C28.7259 11.7648 28.9606 12.0001 28.9606 12.2746V14.4707Z" fill="#173045"/>
+			</svg>
+			</a></div>
+			<div style="width:20%;margin-left:0px;"><a  target="__blank" href="https://www.reddit.com/r/Elastos/">
+			<svg width="41" cname="reddit" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M20.4153 40C31.4321 40 40.363 31.0457 40.363 20C40.363 8.9543 31.4321 0 20.4153 0C9.39844 0 0.467529 8.9543 0.467529 20C0.467529 31.0457 9.39844 40 20.4153 40Z" fill="#434E71"/>
+			<path d="M24.0599 24.1256C23.9424 24.047 23.7856 24.0077 23.6288 24.0077C23.5113 24.0077 23.3937 24.047 23.2761 24.1256C22.218 24.7543 20.9639 25.1079 19.749 25.1079C18.8084 25.1079 17.9071 24.9115 17.0841 24.5186C16.9665 24.4793 16.8097 24.3614 16.653 24.2435C16.5746 24.2042 16.4962 24.1256 16.4178 24.0863C16.3395 24.047 16.2219 24.0077 16.1043 24.0077C16.0259 24.0077 15.9084 24.047 15.83 24.0863C15.6732 24.1256 15.5557 24.2435 15.5165 24.3614C15.3989 24.4793 15.3597 24.5971 15.3597 24.7543C15.3597 24.8722 15.3989 25.0294 15.4381 25.1472C15.5165 25.2651 15.5948 25.3437 15.7124 25.4223C16.8881 26.2474 18.299 26.6011 19.7098 26.6011C20.9639 26.6011 22.2572 26.2867 23.3937 25.7759C23.5505 25.6973 23.7464 25.6188 23.9424 25.5009C24.0207 25.4223 24.1383 25.383 24.2167 25.2651C24.2951 25.1865 24.3734 25.0687 24.3734 24.9508C24.3734 24.9115 24.4126 24.8329 24.4126 24.7936C24.4126 24.6757 24.3734 24.5971 24.3343 24.4793C24.2951 24.3221 24.1775 24.2042 24.0599 24.1256ZM31.8196 18.4282C31.8196 18.4675 31.8196 18.5461 31.8196 18.5853C31.8196 19.1747 31.6236 19.7248 31.3101 20.1964C31.0358 20.6286 30.6047 21.0215 30.1736 21.2573C30.2128 21.493 30.2128 21.7288 30.2128 21.9645C30.2128 23.2219 29.7817 24.44 29.0371 25.4223C27.6654 27.269 25.51 28.3692 23.3545 28.9193C22.218 29.1944 21.0031 29.3516 19.8274 29.3516C18.0638 29.3516 16.3003 29.0372 14.6543 28.3692C12.9299 27.662 11.3231 26.5618 10.3434 24.9115C9.7947 24.047 9.52037 23.0254 9.52037 21.9645C9.52037 21.7288 9.52037 21.493 9.55956 21.2573C9.12847 21.0215 8.73657 20.6286 8.42305 20.1964C8.10952 19.7248 7.91357 19.214 7.91357 18.6246C7.91357 17.8388 8.26629 17.0529 8.81495 16.5028C9.36361 15.9527 10.069 15.5598 10.892 15.5598H10.9312C11.0096 15.5598 11.088 15.5598 11.1664 15.5598C11.5583 15.5598 11.9502 15.6384 12.3421 15.7563C12.6556 15.8741 12.9691 16.0706 13.2826 16.2671C13.361 16.2278 13.4786 16.1492 13.5961 16.1099C15.3205 15.0883 17.3192 14.6954 19.2787 14.5775C19.2787 13.5952 19.3963 12.5736 19.9058 11.7091C20.2977 10.9626 20.9639 10.3732 21.7869 10.1767C22.1004 10.0981 22.4139 10.0981 22.7275 10.0981C23.5505 10.0981 24.3734 10.2946 25.1181 10.6089C25.4708 10.0981 25.9411 9.70518 26.4897 9.46943C26.8032 9.35155 27.1559 9.31226 27.5087 9.31226C27.8614 9.31226 28.2533 9.39084 28.606 9.54801C29.1155 9.74448 29.5466 10.0981 29.8209 10.5303C30.1344 10.9626 30.2912 11.5127 30.2912 12.0627C30.2912 12.1806 30.2912 12.2592 30.2912 12.3771C30.2128 13.0844 29.8601 13.713 29.3506 14.1846C28.8411 14.6168 28.1749 14.8918 27.4695 14.8918C27.3519 14.8918 27.2343 14.8918 27.1559 14.8525C26.4897 14.8132 25.8627 14.4596 25.3924 13.9881C24.9221 13.5166 24.6086 12.8486 24.6086 12.1413C24.6086 12.102 24.6086 12.0627 24.6086 12.0235C23.9815 11.7484 23.3153 11.5127 22.6099 11.5127C22.5315 11.5127 22.4139 11.5127 22.3356 11.5127C21.8261 11.5519 21.3558 11.8663 21.1207 12.3378C20.768 13.0058 20.6896 13.7916 20.6896 14.5775C22.6099 14.6954 24.5694 15.1669 26.2546 16.1492H26.2938C26.333 16.1492 26.3721 16.1885 26.4505 16.2278C26.5681 16.1492 26.6857 16.0313 26.8424 15.9527C27.3519 15.5991 27.9789 15.4419 28.5668 15.4419C28.8411 15.4419 29.1155 15.4812 29.3898 15.5598C30.0168 15.717 30.5655 16.0706 30.9966 16.5421C31.5061 17.1315 31.7804 17.7602 31.8196 18.4282ZM26.137 12.102C26.137 12.1413 26.137 12.1413 26.137 12.1806C26.137 12.5343 26.2938 12.8093 26.5289 13.0451C26.764 13.2808 27.0776 13.438 27.4303 13.438C27.4695 13.438 27.4695 13.438 27.5087 13.438C27.8222 13.438 28.1749 13.2808 28.41 13.0844C28.6452 12.8486 28.8019 12.5343 28.8411 12.2199C28.8411 12.1806 28.8411 12.1806 28.8411 12.1413C28.8411 11.7877 28.6844 11.4734 28.41 11.1983C28.1749 10.9626 27.8222 10.8054 27.4695 10.8054C27.3519 10.8054 27.2343 10.8054 27.1559 10.8447C26.8816 10.9233 26.6073 11.0804 26.4505 11.3162C26.2546 11.5127 26.137 11.7877 26.137 12.102ZM11.9502 17.2887C11.6758 17.1708 11.4407 17.0922 11.1664 17.0922C11.1272 17.0922 11.088 17.0922 11.0488 17.0922C10.6569 17.0922 10.3042 17.2494 9.99065 17.5244C9.71632 17.7995 9.52037 18.1531 9.48118 18.5461C9.48118 18.5853 9.48118 18.6246 9.48118 18.6246C9.48118 18.8604 9.55956 19.0962 9.67713 19.3319C9.75551 19.4891 9.87308 19.6463 10.0298 19.7641C10.4609 18.7818 11.1272 17.9567 11.9502 17.2887ZM28.7236 22.0038C28.7236 21.1394 28.41 20.2749 27.9006 19.5677C26.8816 18.1531 25.3532 17.2494 23.7072 16.7386C23.3937 16.66 23.0802 16.5421 22.7667 16.5028C21.8261 16.3064 20.8463 16.1885 19.8666 16.1885C18.5733 16.1885 17.28 16.385 16.0259 16.7779C14.4191 17.2887 12.8515 18.1924 11.8326 19.607C11.3231 20.3142 11.0096 21.1787 11.0096 22.0431C11.0096 22.3575 11.0488 22.6718 11.1272 22.9861C11.3231 23.6934 11.6758 24.3221 12.1461 24.8329C12.6164 25.383 13.1651 25.8545 13.7529 26.2081C13.8705 26.2867 14.0272 26.3653 14.1448 26.4439C15.8692 27.4262 17.8679 27.8191 19.8274 27.8191C20.1801 27.8191 20.4936 27.8191 20.8463 27.7799C22.845 27.6227 24.8437 27.0333 26.4505 25.8152C26.96 25.4223 27.4303 24.9901 27.8222 24.44C28.2141 23.9292 28.4884 23.3398 28.606 22.6718C28.6844 22.5146 28.7236 22.2396 28.7236 22.0038ZM30.2912 18.5853C30.2912 18.3889 30.252 18.1531 30.1344 17.9567C29.9776 17.6816 29.7817 17.4459 29.5074 17.2887C29.233 17.1315 28.9195 17.0529 28.606 17.0529C28.3317 17.0529 28.0573 17.1315 27.783 17.2494C28.5668 17.9567 29.2722 18.7818 29.7033 19.7248C29.8601 19.607 29.9776 19.4498 30.056 19.2926C30.2128 19.0569 30.2912 18.8211 30.2912 18.5853Z" fill="#173045"/>
+			<path d="M25.0004 20.2358C25.0787 20.3929 25.0787 20.5501 25.0787 20.7073C25.0787 21.0216 24.9612 21.336 24.7652 21.611C24.5693 21.8861 24.2949 22.0826 24.0206 22.1612C23.8639 22.2005 23.7071 22.2397 23.5895 22.2397C23.2368 22.2397 22.8841 22.1219 22.6098 21.8861C22.3355 21.6896 22.1395 21.3753 22.0612 21.0216C22.022 20.9431 22.022 20.8252 22.022 20.7466C22.022 20.4322 22.1395 20.1179 22.2963 19.8821C22.4531 19.6464 22.7274 19.4499 23.0017 19.332C23.1585 19.2534 23.3544 19.2534 23.5112 19.2534C23.8247 19.2534 24.1382 19.332 24.3733 19.5285C24.6868 19.6857 24.922 19.9214 25.0004 20.2358Z" fill="#173045"/>
+			<path d="M15.6732 22.1612C15.6732 22.1612 15.7124 22.1612 15.6732 22.1612C15.83 22.2005 15.9868 22.2397 16.1435 22.2397C16.5354 22.2397 16.8881 22.0826 17.2017 21.8075C17.476 21.5325 17.6719 21.1788 17.6719 20.7466V20.7073C17.6719 20.7073 17.6719 20.668 17.6719 20.6287C17.6719 20.1965 17.476 19.8428 17.2017 19.5678C16.9273 19.4106 16.5746 19.2534 16.1827 19.2534C16.0651 19.2534 15.9868 19.2534 15.8692 19.2927C15.3597 19.4106 14.8894 19.7642 14.7327 20.3144C14.6935 20.4715 14.6543 20.5894 14.6543 20.7466C14.6543 21.0609 14.7719 21.3753 14.9286 21.6503C15.1246 21.8861 15.3597 22.0826 15.6732 22.1612Z" fill="#173045"/>
+			</svg>
+			</a></div>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+	</div>
+</div>
+<include file="Index/loginsid" />
+<include file="Index/signup" />
+<include file="Index/emailsid" />
+<include file="Index/forgetpwd" />
+<include file="Index/confirmemailcode" />
+<include file="Index/resetpwd" />
+<include file="Documentation/commenttip" />
+<include file="Documentation/commentsuccful" />
+<include file="Documentation/commenterror" />
+<include file="Index/wechatqrcode" />
+<include file="Index/loginoutscuff" />
+<include file="Index/loginoutfail" />
+<include file="Index/resendtip" />
+<include file="Index/didqrcode" />
+<include file="Forum/addforum" />
+<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
+<script>
+$('#pageLimit').bootstrapPaginator({
+    currentPage: 1,
+    totalPages: {$pcount},
+    size:"normal",
+    bootstrapMajorVersion: 3,
+    alignment:"right",
+    numberOfPages:10,
+    itemTexts: function (type, page, current) {
+        switch (type) {
+			case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+			case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+			case "page": return page;
+        }
+    },
+	onPageClicked: function (event, originalEvent, type, page){
+		$.ajax({
+			url:'forumlistjson',
+			type:'POST',
+			data:{'curp':page},
+			dataType:'JSON',
+			success:function (callback) {
+					$(".forum_list_ul").html("");
+					console.log("列表："+callback[0]['adddate']);
+					for(var i=0;i<callback.length;i++){
+						var htmla = '<li onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';"><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'</div><div class="forum_list_li_title">'+callback[i]['title']+'</div>'
+									+'<div class="forum_list_shortc">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
+									+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
+									+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
+									+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
+									+'<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>'
+									+'</div></li>';
+						$(".forum_list_ul").append(htmla);
+					}
+				}
+		})
+	}
+});
+$('.summernote').summernote({
+		height: 150,
+		tabsize: 2,
+		disableDragAndDrop:false,
+		minHeight:150,
+		maxHeight:150,
+		placeholder: 'When youth departs, may wisdom prove enouth.When youth departs, may wisdom prove enouth.',
+		lang: 'zh-CN'
+	});
+$(document).ready(function(){
+	$("#addforumbtn").click(function(){
+		 $("#addforum").modal("show");
+	});
+	$("#searchforumgobtn").click(function(){jumpurl();});
+	$(".forum_data_added").click(function(){
+		var added = 1;
+		var popularity="";
+		var forumcate = $("#forumcate").val();
+		if($("#searchforumgobtn").val()!=""){
+			var searchc = $(this).val();
+		}else{
+			var searchc = "";
+		}
+		window.location.href = "index.html?cate="+forumcate+"&sendtime="+added+"&puplarity="+popularity+"&searchword="+searchc;
+	});
+	$(".forum_popularity").click(function(){
+		//jumpurl();
+		var added = "";
+		var popularity=1;
+		var forumcate = $("#forumcate").val();
+		if($("#searchforumgobtn").val()!=""){
+			var searchc = $(this).val();
+		}else{
+			var searchc = "";
+		}
+		window.location.href = "index.html?cate="+forumcate+"&sendtime="+added+"&puplarity="+popularity+"&searchword="+searchc;
+	});
+	$("#forumcate").change(function(){jumpurl();});
+	function jumpurl(){
+		var forumcate = $("#forumcate").val();
+		if($(".forum_data_added").css("border-bottom-color")=="rgb(24, 255, 255)"){
+			var added = 1;
+			var popularity = "";
+		}else{
+			var added = "";
+		}
+		if($(".forum_popularity").css("border-bottom-color")=="rgb(24, 255, 255)"){
+			var popularity = 1;
+			var added = "";
+		}else{
+			var popularity = "";
+		}
+		if($("#searchforumgobtn").val()!=""){
+			var searchc = $(this).val();
+		}else{
+			var searchc = "";
+		}
+		window.location.href = "index.html?cate="+forumcate+"&sendtime="+added+"&puplarity="+popularity+"&searchword="+searchc;
+	}
+	$(document).on('click','.forummyaddedtip',function(){
+		if(sessionStorage.getItem('internationalWords')==1){
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip"  style="border-bottom:3px solid #18FFFF">创建的</div><div class="forummyfollowedtip">关注的</div><div class="forummycommentedtip">评论的</div></li>'
+		}else{
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip" style="border-bottom:3px solid #18FFFF">Added</div><div class="forummyfollowedtip">Followed</div><div class="forummycommentedtip" >Comented</div></li>'
+		}
+		$(".vlist_list").html(html);
+		$.post(
+			"forumlistofmytopic",
+			{id:1},
+			function(data){
+				if(data!=""){
+					var data = $.parseJSON(data);
+					for(var i=0;i<data.length;i++){
+						htmlb ='<li class="vlist_list_li"><a href="">'+ data[i]['title'] +'</a></li>';
+						$(".vlist_list").append(htmlb);
+					}
+				}
+			}
+		);
+	});
+	$(document).on('click','.forummyfollowedtip',function(){
+		if(sessionStorage.getItem('internationalWords')==1){
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">创建的</div><div class="forummyfollowedtip"  style="border-bottom:3px solid #18FFFF">关注的</div><div class="forummycommentedtip">评论的</div></li>'
+		}else{
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">Added</div><div class="forummyfollowedtip"  style="border-bottom:3px solid #18FFFF">Followed</div><div class="forummycommentedtip">Comented</div></li>'
+		}$(".vlist_list").html(html);
+		$.post(
+			"forumlistofmyfowlled",
+			{id:1},
+			function(data){
+				if(data!=""){
+					var data = $.parseJSON(data);
+					for(var i=0;i<data.length;i++){
+						htmlc = '<li class="vlist_list_li"><a href="">'+ data[i]['title'] +'</a></li>';
+					
+					$(".vlist_list").append(htmlc);	
+					}
+				}
+			}
+		);
+	});
+	$(document).on('click','.forummycommentedtip',function(){
+		if(sessionStorage.getItem('internationalWords')==1){
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">创建的</div><div class="forummyfollowedtip">关注的</div><div class="forummycommentedtip"  style="border-bottom:3px solid #18FFFF">评论的</div></li>'
+		}else{
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">Added</div><div class="forummyfollowedtip">Followed</div><div class="forummycommentedtip"  style="border-bottom:3px solid #18FFFF">Comented</div></li>'
+		}
+		$(".vlist_list").html(html);
+		$.post(
+			"forumlistofmycomment",
+			{id:1},
+			function(data){
+				if(data!=""){
+					var data = $.parseJSON(data);
+					
+					for(var i=0;i<data.length;i++){
+						htmld = '<li class="vlist_list_li"><a href="">'+ data[i]['title'] +'</a></li>';
+					
+					$(".vlist_list").append(htmld);	
+					}
+				}
+				
+			}
+		);
+	});
+});
+</script>
+</body>
+</html>

@@ -21,6 +21,15 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <style>
 .doc_menu_l_li_subm{background-color:#173045;color:#fff;}
+.doc_menu_l_li_subm_no {
+background-color:#fff;color:#333;
+    width: 95%;
+    padding-left: 5%;
+    min-height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    cursor: pointer;
+}
 .doc_menu_l_ul{background-color:#fff;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
@@ -34,10 +43,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;">ADMIN CONSOLE</div>
+			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:20px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">Notifications</li>
+							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
+							<!--
+							<li class="doc_menu_l_li_subm_no forum_cate" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumcatelist.html';">Forumcategory</li>
+							<li class="doc_menu_l_li_subm_no nav_forum" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumlist.html';">Forum</li>
+							-->
 					</ul>
 				</div>
 			</div>
@@ -45,14 +58,20 @@
 				<div style="width:95%;margin-left:5%;height:700px;">
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
 					<div style="float:left;width:50%;height:50px;line-height:50px;" class="notications">Notifications</div>
-					<div style="float:left;width:50%;height:50px;line-height:50px;"><button id="addnotify" class="addnotications" style="outline:none;border-radius:20px;float:right;font-size:12px;border:0px;width:120px;height:30px;line-height:30px;color:#18FFFF;background-color:#173045;">+ Notification</button></div>
+					<div style="float:left;width:50%;height:50px;line-height:50px;"><button id="addnotify" class="addnotications" style="outline:none;border-radius:20px;float:right;font-size:12px;border:0px;width:120px;height:30px;line-height:30px;color:#18FFFF;background-color:#173045;background-image:url('{$Think.const.PUBLIC_H}Home/images/add_bg.png');background-repeat: no-repeat;background-size: 9px;background-position-x: 10px;background-position-y: 11px;"> Notification</button></div>
 					</div>
 						<div style="width:100%;height:610px;">
 							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
 								<volist name="noticelist" id="vob">
 								<li onclick="javascript:window.location.href='noticedetail?id={$vob.id}';">
-									<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>
-									<eq name="vob.draft" value="0"><div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}</div></eq>
+									<eq name="lang" value="cn">
+										<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>
+										<eq name="vob.draft" value="0"><div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">{$vob.noticetitle}</div></eq>
+									</eq>
+									<eq name="lang" value="en">
+										<eq name="vob.draft" value="1"><div style="color:#999;float:left;width:70%;text-align:left;line-height:45px;">{$vob.noticetitleen}&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div></eq>
+										<eq name="vob.draft" value="0"><div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">{$vob.noticetitleen}</div></eq>
+									</eq>
 									<div style="float:left;color:#999;width:30%;text-align:left;line-height:45px;text-align:right;">{$vob.adddate}</div>
 								</li>
 								</volist>
@@ -132,7 +151,13 @@
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Pcenter/succful" />
@@ -147,6 +172,11 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+  if(sessionStorage.getItem('internationalWords')==1){
+	$("#addnotify").css("background-position-x","30px");
+  }else{
+	$("#addnotify").css("background-position-x","10px");
+  }
 function applyelasuccful_popup(){
   $("#applyelasuccful").modal("show");
   setTimeout(function(){$("#applyelasuccful").modal("hide");window.location.reload()},3000)
@@ -184,9 +214,17 @@ $('#pageLimit').bootstrapPaginator({
 					for(var i=0;i<callback.length;i++){
 						var htmla = '<li onclick="javascript:window.location.href=\'noticedetail?id='+ callback[i]['id'] +'\';">';
 									if(callback[i]['draft']==1){
-										htmla = htmla+'<div style="float:left;color:#999;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div>';
+										if(sessionStorage.getItem('internationalWords')==1){
+											htmla = htmla+'<div style="float:left;color:#999;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div>';
+										}else{
+											htmla = htmla+'<div style="float:left;color:#999;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitleen']+'&nbsp;&nbsp;<span style="font-size:10px;width:60px;height:20px;background-color:#aaa;color:#fff;">&nbsp;DRAFT&nbsp;</span></div>';
+										}
 									}else{
-										htmla = htmla +'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'</div>';
+										if(sessionStorage.getItem('internationalWords')==1){
+											htmla = htmla +'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitle']+'</div>';
+										}else{
+											htmla = htmla +'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;">'+callback[i]['noticetitleen']+'</div>';
+										}
 									}
 						htmla = htmla +'<div style="float:left;color:#999;width:30%;text-align:left;line-height:45px;text-align:right;">'+callback[i]['adddate']+'</div></li>';
 						$("#token-list").append(htmla);

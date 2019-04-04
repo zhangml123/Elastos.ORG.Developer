@@ -36,26 +36,81 @@
 <div class="body_c" style="padding-left:10px;margin-top:125px;" id="c_row">
 	<div class="container">
 		<div class="nav_instr_tip">
+		<eq name="lang" value="cn">
 		<span><a href="notifylist" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitle}</span>
+		</eq>
+		<eq name="lang" value="en">
+		<span><a href="notifylist" class="notifycenter">Notification Center</a></span><span>&nbsp;>&nbsp;</span><span>{$noticeinfo.noticetitleen}</span>
+		</eq>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
+							<!--
 							<li class="doc_menu_l_li_subm notications">Notifications</li>
+							-->
+					<eq name="lang" value="cn">
+							<volist name="noticelist" id="voa">
+								<eq name="voa.id" value="$noticeinfo.id">
+									<if condition="mb_strlen($voa['noticetitle'],'utf-8') egt 16"> 
+									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
+									<else/> 
+									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitle}</li>
+									</if>
+								</eq>
+								<neq name="voa.id" value="$noticeinfo.id">
+									<if condition="mb_strlen($voa['noticetitle'],'utf-8') egt 16"> 
+									<li class="doc_menu_l_li_subm" style="background-color:#fff;color:#333;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitle|msubstr=0,10,'utf-8',true}</li>
+									<else/> 
+									<li class="doc_menu_l_li_subm" style="background-color:#fff;color:#333;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitle}</li>
+									</if>
+								</neq>
+							</volist>
+					</eq>
+					<eq name="lang" value="en">
+							<volist name="noticelist" id="voa">
+								<eq name="voa.id" value="$noticeinfo.id">
+									<if condition="mb_strlen($voa['noticetitleen'],'utf-8') egt 23"> 
+									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitleen|msubstr=0,23,'utf-8',true}</li>
+									<else/> 
+									<li class="doc_menu_l_li_subm" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitleen}</li>
+									</if>
+								</eq>
+								<neq name="voa.id" value="$noticeinfo.id">
+									<if condition="mb_strlen($voa['noticetitleen'],'utf-8') egt 23"> 
+									<li class="doc_menu_l_li_subm" style="background-color:#fff;color:#333;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitleen|msubstr=0,23,'utf-8',true}</li>
+									<else/> 
+									<li class="doc_menu_l_li_subm" style="background-color:#fff;color:#333;" onclick="javascript:window.location.href='noticedetail?id={$voa.id}';">{$voa.noticetitleen}</li>
+									</if>
+								</neq>
+							</volist>
+					</eq>
 					</ul>
 				</div>
 			</div>
 			<div class="col-md-9">
 				<div style="width:95%;margin-left:5%;height:auto;">
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
+					<eq name="lang" value="cn">
 					<div style="float:left;width:50%;height:80px;line-height:30px;font-size:20px;font-weight:900;">{$noticeinfo.noticetitle}</div>
+					</eq>
+					<eq name="lang" value="en">
+					<div style="float:left;width:50%;height:80px;line-height:30px;font-size:20px;font-weight:900;">{$noticeinfo.noticetitleen}</div>
+					</eq>
 					<div style="float:left;width:50%;height:50px;line-height:50px;">
 					<eq name="noticeinfo.draft" value="1">
 						<button id="publishbtn" class="noticepublish" style="margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:0px;width:70px;height:30px;line-height:30px;color:#18FFFF;background-color:#173045;font-size:12px;">Publish</button>
 					</eq>
 						<button id="editnotify" class="noticedit" style="margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;width:70px;height:30px;line-height:30px;color:#333;background-color:#fff;font-size:12px;">Edit</button>
 						<button id="delnotify" class="noticedel" style="margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">Delete</button>
+						
+					<eq name="lang" value="cn">
+						<button onclick="change(2)" style="display:block;margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">English</button>
+						</eq>
+					<eq name="lang" value="en">
+						<button onclick="change(1)" style="display:block;margin-left:10px;outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;;width:70px;height:30px;line-height:30px;color:#333;font-size:12px;background-color:#fff;">简体中文</button>
+					</eq>
 					</div>
 					</div>
 					<div style="height:40px;line-height:40px;color:#333;">
@@ -63,7 +118,12 @@
 						<img src="{$Think.const.PUBLIC_H}Home/images/notify_view.png" style="width:15px;height:15px;" /><span style="font-size:12px;">&nbsp;&nbsp;{$noticeinfo.viewnum}&nbsp;<span class="noticeviews">views</span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						<img src="{$Think.const.PUBLIC_H}Home/images/notify_edit.png" style="width:15px;height:15px;" /><span style="font-size:12px;">&nbsp;&nbsp;&nbsp;<span class="noticelastedit">Last&nbsp;edit&nbsp;at&nbsp;</span>{$noticeinfo.lastedittime}</span>
 					</div>
+					<eq name="lang" value="cn">
 						<div style="width:100%;height:auto;margin-top:40px;">{$noticeinfo.contents}</div>
+					</eq>
+					<eq name="lang" value="en">
+						<div style="width:100%;height:auto;margin-top:40px;">{$noticeinfo.contentsen}</div>
+					</eq>
 				</div>
 			</div>
 		</div>
@@ -137,7 +197,13 @@
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Pcenter/succful" />
@@ -145,6 +211,8 @@
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
 <include file="Pcenter/delnotifysuccful" />
+<include file="Pcenter/tipdelnotify" />
+<include file="Pcenter/notifypublishtip" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -165,15 +233,20 @@ $("#addnotify").click(function(){
 	window.location.href="addnotify";
 });
 $("#delnotify").click(function(){
+  $("#tipdelnotify").modal("show");
+});
+$("#removenoticebtncan").click(function(){
+  $("#tipdelnotify").modal("hide");
+});
+$("#removenoticebtnc").click(function(){
 	var id = {$noticeinfo.id};
-	if(window.confirm("确定要删除？")){
-		$.post("delnotifyfunc",{id:id},function(data){
-			if(data==1){
-				window.location.href="notifylist";
-			}else{
-			}
-		});
-	}
+	$.post("delnotifyfunc",{id:id},function(data){
+		if(data==1){
+			$("#tipdelnotify").modal("hide");
+			window.location.href="notifylist";
+		}else{
+		}
+	});
 });
 $("#editnotify").click(function(){
 	var id = {$noticeinfo.id};
@@ -183,7 +256,9 @@ $("#publishbtn").click(function(){
 	var id = {$noticeinfo.id};
 	$.post("publishnotify",{id:id},function(data){
 		if(data==1){
-			window.location.href="notifylist";
+			///window.location.href="notifylist";
+			$("#notifypublishtip").modal("show");
+			setTimeout(function(){$("#notifypublishtip").modal("hide");window.location.href="notifylist";},2500);
 		}else{
 		}
 	});

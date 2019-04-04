@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <style>
 @media (min-width: 1200px)
 .container {
@@ -64,7 +65,7 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 #result-list li{width:100%;hegiht:120px;}
 #result-list li div:first-child{font-size:22px;height:40px;padding-bottom:5px;padding-top:5px;}
 #result-list li div:last-child{height:40px;color: #60d9ff;padding-bottom:5px;padding-top:5px;}
-#result-list li div:last-child a{color: #60d9ff;}
+#result-list li div:last-child a{color: #18C8FF;}
 </style>
 </head>
 <body>
@@ -73,16 +74,16 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 	<div class="div_one_line hidden-sm hidden-xs  hidden-md" style="height:95px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs  hidden-md">
 		<ul class="breadcrumb">
-		<li><a href="{$curhost}">Develop</a></li>
-		<li class="active">Documentation</li>
+		<li><a href="{$curhost}" class="seardevplop">Develop</a></li>
+		<li class="active searchdocs">Documentation</li>
 		</ul>
 		<div class="doc_search">
 			<span class="glyphicon glyphicon-search"></span>
 			<input type="text" value="{$searchcontents}" id="cursearc" placeholder="&nbsp;Search" />
 		</div>
 	</div>		
-	<div class="container">
-		<div style="width:100%;height:40px;line-height:40px;">{$rsnum} results found</div>
+	<div class="container" style="min-height:500px;">
+		<div style="width:100%;height:40px;line-height:40px;">{$rsnum} <span class="resultnumfound">results found</span></div>
 		<ul id="result-list">
 			<volist name="rslist" id="vob">
 			<li>
@@ -163,7 +164,13 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Index/loginsid" />
@@ -174,7 +181,6 @@ h3{font-size:20px;font-weight:600;padding-bottom:10px;}
 <include file="Index/loginoutfail" />
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
-<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>

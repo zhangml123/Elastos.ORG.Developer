@@ -341,7 +341,6 @@ class DocumentationController extends CommonbaseController {
 		array_multisort($arra,SORT_DESC,SORT_NUMERIC);//按名字排序
 		return $arra;
 	}
-	
 	public function getlocalfile(){
 		//取得当前文件所在目录
 		if($_SESSION ['eladevp']['lang']=="en"){
@@ -549,6 +548,7 @@ class DocumentationController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
+	  $where['publishtime'] = array("ELT",time());
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();

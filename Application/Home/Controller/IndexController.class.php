@@ -19,6 +19,11 @@ class IndexController extends CommonbaseController {
 				header('Location: '.$url);
 			} */
 		}
+		if($_SESSION ['eladevp']['lang']=="cn"){
+			$this->assign("lang","cn");
+		}else{
+			$this->assign("lang","en");
+		}
 		$isread = $this->getnoreadnotify();
 		$this->assign("isread",$isread);
 		$isreadrs = $this->getnoreadnotifyrs();
@@ -312,7 +317,7 @@ class IndexController extends CommonbaseController {
 		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=Elastos Developer Website&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=Elastos Developer Website";		
 		//var_dump($qurl);
 		$level=3;
-        $size=3;
+        $size=2;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
         $object->png($qurl, false, $errorCorrectionLevel, $matrixPointSize, 2);
@@ -409,15 +414,20 @@ class IndexController extends CommonbaseController {
 				 echo 2;
 			 }else{
 				 //构建User表数据，插入到User表，并构建User表与关系表联系
-				$where['mainuser'] = $rsa['mainuser'];
+				$where['mainuser'] =  $_SESSION ['eladevp']['userid'];
 				$dataa['didid'] = $staydidinfo['didid'];
 				$userrelation = M("userrelation");
-				$rsc = $userrelation->where($where)->save($dataa);
-				if($rsc){
-					echo 1;
-				}else{
-					echo 0;
-				}
+				//$rsw = $userrelation->where($where)->find();
+				//if($rsw['didid']!="" && $rsw['didid']!=null){
+				//	echo 3;
+				//}else{
+					$rsc = $userrelation->where($where)->save($dataa);
+					if($rsc){
+						echo 1;
+					}else{
+						echo 0;
+					}
+				//}
 			 }
 		 }else{
 			 echo 0;
@@ -746,6 +756,8 @@ class IndexController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotify(){
 	  $where['ishomepage'] = 1;
+	  $where['draft'] = 0;
+	  $where['publishtime'] = array("ELT",time());
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();
@@ -762,6 +774,8 @@ class IndexController extends CommonbaseController {
   //获取当前消息是否读取
   public function getnoreadnotifyrs(){
 	  $where['ishomepage'] = 1;
+	  $where['draft'] = 0;
+	  $where['publishtime'] = array("ELT",time());
 	  $where['edittime'] = array("EGT",strtotime("-3 day"));
 	  $notice = M("notice");
 	  $noticeinfo = $notice->where($where)->order("id desc")->find();

@@ -131,6 +131,7 @@ class EmailinfoController extends Controller {
 			$data['logintime'] = time();
 			$data['addtime'] = time();
 			$data['subucate'] = 1;
+			$data['email'] = $uid;
 			$user = M("user");
 			$rs = $user->add($data);
 			if($rs){

@@ -30,10 +30,11 @@
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 #token-list li div{cursor:pointer;}
 @import url("https://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css");
-.checkbox{width:140px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+.checkbox{width:350px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
     color: #fff;
     background: #173045;
 }
+.note-toolbar{width:100%;}
 </style>
 </head>
 <body>
@@ -42,37 +43,55 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;">ADMIN CONSOLE</div>
+			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;font-size:20px;font-weight:900;color:#173045;font-family: Komu;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">Notifications</li>
+							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div style="width:95%;margin-left:5%;height:940px;">
+				<div style="width:95%;margin-left:5%;height:1050px;">
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
 					<div style="float:left;width:50%;height:50px;line-height:50px;" class="newnotications">New Notifications</div>
 					<div style="float:left;width:50%;height:50px;line-height:50px;">
-					<button id="canclebtn" class="noticecancel" style="outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;width:100px;height:30px;line-height:30px;color:#222;background-color:#fff;">× Cancel</button>
+					<button id="canclebtn" class="noticecancel" style="outline:none;border-radius:20px;float:right;font-size:12px;border:1px solid #333;width:100px;height:30px;line-height:30px;color:#222;background-color:#fff;background-image:url('{$Think.const.PUBLIC_H}Home/images/del_black.png');background-repeat: no-repeat;background-size: 9px;background-position-x: 20px;background-position-y: 11px;">Cancel</button>
 					</div>
 					</div>
 						<div style="width:100%;height:610px;">
-							<div style="width:100%;height:40px;">
-								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticetitle">Title</div>
-								<div style="float:left;width:80%;height:40px;float:left;">
+							<div style="width:100%;margin-bottom:35px;padding-top:10px;height:50px;">
+								<div style="width:100px;height:30px;float:left;text-align:center;font-size:12px;border-bottom:2px solid #18FFFF;cursor:pointer;" id="changecn">简体中文</div>
+								<div style="width:100px;height:30px;float:left;text-align:center;font-size:12px;cursor:pointer;" id="changeen">English</div>
+							</div>
+							<div style="width:100%;height:40px;" id="noticetitle_out_cn">
+								<div style="float:left;width:30%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticetitle">Title</div>
+								<div style="float:left;width:70%;height:40px;float:left;" class="noticetitle_r">
 									<input type="text" placeholder=" Please enter the title" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitle" />
 								</div>
 							</div>
-							<div style="width:100%;height:480px;margin-top:30px;">
-								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;"  class="noticedescription">Description</div>
-								<div style="float:left;width:80%;height:240px;float:left;">
+							<div style="width:100%;height:480px;margin-top:30px;" id="des_out_cn">
+								<div style="float:left;width:30%;height:40px;float:left;line-height:40px;font-size:12px;"  class="noticedescription">Description</div>
+								<div style="float:left;width:70%;height:240px;float:left;"  class="noticedescription_r">
 									<div class="summernote" id="contents"></div>
 								</div>
 							</div>
+						
+							<div style="width:100%;height:40px;display:none;" id="noticetitle_out_en">
+								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticetitle">Title</div>
+								<div style="float:left;width:80%;height:40px;float:left;" class="noticetitle_r">
+									<input type="text" placeholder=" Please enter the title" style="width:100%;padding-left:10px;height:40px;border:1px solid #999;" id="notifytitleen" />
+								</div>
+							</div>
+							<div style="width:100%;height:480px;margin-top:30px;display:none;" id="des_out_en">
+								<div style="float:left;width:20%;height:40px;float:left;line-height:40px;font-size:12px;" class="noticedescription">Description</div>
+								<div style="float:left;width:80%;height:240px;float:left;"  class="noticedescription_r">
+									<div class="summernote" id="contentsen"></div>
+								</div>
+							</div>	
+							
 							<div style="width:100%;height:40px;margin-top:30px;">
-								<div style="float:left;width:20%;height:40px;line-height:40px;font-size:12px;" class="noticepushset">Push Notification Settings</div>
-								<div style="float:left;width:80%;height:40px;font-size:12px;font-weight:500;">
+								<div style="float:left;width:30%;height:40px;line-height:40px;font-size:12px;" class="noticepushset">Push Notification Settings</div>
+								<div style="float:left;width:70%;height:40px;font-size:12px;font-weight:500;" class="noticepushset_r">
 									<div class="checkbox">
 									<input id="checkbox1" class="styled" type="checkbox">
 									<label for="checkbox1" class="noticesendmail">Send email</label>
@@ -80,8 +99,8 @@
 								</div>
 							</div>
 							<div style="width:100%;height:40px;margin-top:30px;">
-								<div style="float:left;width:20%;height:40px;line-height:40px;font-size:12px;" class="noticeshowinhome">Show in home page</div>
-								<div style="float:left;width:80%;height:40px;font-size:12px;">
+								<div style="float:left;width:30%;height:40px;line-height:40px;font-size:12px;" class="noticeshowinhome">Show in home page</div>
+								<div style="float:left;width:70%;height:40px;font-size:12px;" class="noticeshowinhome_r">
 										<div style="width:100%;height:30px;margin-top:10px;">
 											<input id="ishomepage" data-on-text="Yes" data-off-text="No" type="checkbox" checked="checked" data-size="mini" name="test">
 										</div>
@@ -167,7 +186,13 @@
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Pcenter/succful" />
@@ -176,6 +201,7 @@
 <include file="Index/loginoutfail" />
 <include file="Pcenter/notifypublishtip" />
 <include file="Pcenter/notifytip" />
+<include file="Pcenter/confirmnotify" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
@@ -186,12 +212,117 @@
 <script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script>
+$("#changecn").click(function(){
+	$("#noticetitle_out_en").hide();
+	$("#des_out_en").hide();
+	$("#noticetitle_out_cn").show();
+	$("#des_out_cn").show();
+	$("#changeen").css("border-bottom","0px");
+	$(this).css("border-bottom","2px solid #18FFFF");
+});
+$("#changeen").click(function(){
+	$("#noticetitle_out_cn").hide();
+	$("#des_out_cn").hide();
+	$("#noticetitle_out_en").show();
+	$("#des_out_en").show();
+	$("#changecn").css("border-bottom","0px");
+	$(this).css("border-bottom","2px solid #18FFFF");
+});
+var myDate = new Date();
+$("#notify_year").val(myDate.getFullYear());
+var mons = myDate.getMonth()+1;
+if(mons<10){
+	var mon = "0"+mons;
+}else{
+	var mon = mons;
+}
+$("#notify_mon").val(mon);
+
+var days = myDate.getDate();
+if(days<10){
+	var day = "0"+days;
+}else{
+	var day = days;
+}
+$("#notify_day").val(day);
+
+var hours = myDate.getHours();
+if(hours<10){
+	var hour = "0"+hours;
+}else{
+	var hour = hours;
+}
+$("#notify_hour").val(hour);
+/*
+var mints = myDate.getMinutes();
+if(mints<10){
+	var mint = "0"+mints;
+}else{
+	var mint = mints;
+}
+$("#notify_minute").val(mint);
+*/
+
+var notify_years = $("#notify_year").val();
+var notify_mons = $("#notify_mon").val();
+var notify_days = $("#notify_day").val();
+var notify_hours = $("#notify_hour").val();
+var notify_minutes = $("#notify_minute").val();
+var pushdates = notify_years+"-"+notify_mons+"-"+notify_days+" "+notify_hours+":00:00";
+if(sessionStorage.getItem('internationalWords')==1){
+	$(".confirm_push_time_tip").html("此通知将在"+pushdates+"发布");
+	$(".noticetitle").css("width","20%");
+	$(".noticetitle_r").css("width","80%");
+	$(".noticedescription").css("width","20%");
+	$(".noticedescription_r").css("width","80%");
+	$(".noticepushset").css("width","20%");
+	$(".noticepushset_r").css("width","80%");
+	$(".noticeshowinhome").css("width","20%");
+	$(".noticeshowinhome_r").css("width","80%");
+}else{
+	$(".confirm_push_time_tip").html("This notification will be published at "+pushdates);
+	$(".noticetitle").css("width","30%");
+	$(".noticetitle_r").css("width","70%");
+	$(".noticedescription").css("width","30%");
+	$(".noticedescription_r").css("width","70%");
+	$(".noticepushset").css("width","30%");
+	$(".noticepushset_r").css("width","70%");
+	$(".noticeshowinhome").css("width","30%");
+	$(".noticeshowinhome_r").css("width","70%");
+}
 function changeState(el) {
 	if (el.readOnly) el.checked=el.readOnly=false;
 	else if (!el.checked) el.readOnly=el.indeterminate=true;
 }
 $("[name='test']").bootstrapSwitch();
 $(function(){
+	$("#pushbtn").click(function(){
+		var title = $("#notifytitle").val();
+		var titleen = $("#notifytitleen").val();
+		var contents = $('#contents').summernote('code');
+		var contentsen = $('#contentsen').summernote('code');
+		if(title==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		if(contents==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		if(titleen==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		if(contentsen==""){
+			$("#notifytip").modal("show")
+			setTimeout(function(){$("#notifytip").modal("hide");},2500);
+			return false;
+		}
+		$("#confirmnotify").modal("show");
+	})
 function changeState(stateValue){
 	if(stateValue==1){
 		$('#toggle-state-switch').bootstrapSwitch('setState', true);
@@ -199,6 +330,7 @@ function changeState(stateValue){
 		$('#toggle-state-switch').bootstrapSwitch('setState', false);
 	}
 }
+  if(sessionStorage.getItem('internationalWords')==1){
  $('.summernote').summernote({
         height: 400,
         tabsize: 2,
@@ -207,93 +339,127 @@ function changeState(stateValue){
 		maxHeight:400,
         lang: 'zh-CN'
     });
-var addnoticeid = window.setInterval(savedraft,5000);
+	}else{
+ $('.summernote').summernote({
+        height: 400,
+        tabsize: 2,
+		disableDragAndDrop:false,
+		minHeight:150,
+		maxHeight:400
+    });	
+	}
+var addnoticeid = window.setInterval(savedraft,15000);
+
 function savedraft(){
 	var randid = '{$randid}';
 	var title = $("#notifytitle").val();
+	var titleen = $("#notifytitleen").val();
 	var contents = $('#contents').summernote('code');
+	var contentsen = $('#contentsen').summernote('code');
 	if(title==""){
 		return false;
 	}
 	if($('#contents').summernote('isEmpty')){
 		return false;
 	}
+	if(titleen==""){
+		return false;
+	}
+	if(contentsen==""){
+		return false;
+	}
 	if ($('#checkbox1').prop("checked")){
 		checkbox1 = 1;
 	}else{
 		checkbox1 = 0;
 	}
-
-	//var pushnoticeset = checkbox1+""+checkbox2;
-	/*if ($('#checkbox3').prop("checked")){
-		checkbox3 = 1;
-	}else{
-		checkbox3 = 0;
-	}
-	if ($('#checkbox4').prop("checked")){
-		checkbox4 = 1;
-	}else{
-		checkbox4 = 0;
-	}
-	
-	var notifywho = checkbox3+""+checkbox4;
-	*/
 	if ($('#ishomepage').prop("checked")){
 		ishomepage = 1;
 	}else{
 		ishomepage = 0;
 	}
-	$.post('editdraftnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:"3143435435436"},function(data){});
+	$("#publishbtn").css("color","#eee");
+	$("#publishbtn").css("background-color","#A3A7AB");
+	$("#publishbtn").css("border","1px solid #A3A7AB");
+	$("#publishbtn").attr("disabled","disabled");
+	$("#pushbtn").css("color","#eee");
+	$("#pushbtn").css("background-color","#A3A7AB");
+	$("#pushbtn").css("border","1px solid #A3A7AB");
+	$("#pushbtn").attr("disabled","disabled");
+	
+	
+	$("#save_confirm_notify_btn").css("color","#eee");
+	$("#save_confirm_notify_btn").css("background-color","#A3A7AB");
+	$("#save_confirm_notify_btn").css("border","1px solid #A3A7AB");
+	$("#save_confirm_notify_btn").attr("disabled","disabled");
+	
+	
+	
+	$("#viewbtn").css("color","#eee");
+	$("#viewbtn").css("background-color","#A3A7AB");
+	$("#viewbtn").css("border","1px solid #A3A7AB");
+	$("#viewbtn").attr("disabled","disabled");
+	
+	$.post('editdraftnotifyfunc',{title:title,contents:contents,titleen:titleen,contentsen:contentsen,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
+		$("#publishbtn").css("color","#18FFFF");
+		$("#publishbtn").css("background-color","#173045");
+		$("#publishbtn").css("border","1px solid #333");
+		$('#publishbtn').removeAttr("disabled");
+		$("#pushbtn").css("color","#333");
+		$("#pushbtn").css("background-color","#fff");
+		$("#pushbtn").css("border","1px solid #333");
+		$('#pushbtn').removeAttr("disabled");
+		$("#viewbtn").css("color","#333");
+		$("#viewbtn").css("background-color","#fff");
+		$("#viewbtn").css("border","1px solid #333");
+		$('#viewbtn').removeAttr("disabled");
+		
+		
+		$("#save_confirm_notify_btn").css("color","#18FFFF");
+		$("#save_confirm_notify_btn").css("background-color","#173045");
+		$("#save_confirm_notify_btn").css("border","1px solid #333");
+		$('#save_confirm_notify_btn').removeAttr("disabled");
+	});
 }
  $("#publishbtn").click(function(){
 	var randid = '{$randid}';
 	var title = $("#notifytitle").val();
+	var titleen = $("#notifytitleen").val();
 	var contents = $('#contents').summernote('code');
+	var contentsen = $('#contentsen').summernote('code');
 	if ($('#checkbox1').prop("checked")){
 		checkbox1 = 1;
 	}else{
 		checkbox1 = 0;
 	}
-	
-	/*if ($('#checkbox2').prop("checked")){
-		checkbox2 = 1;
-	}else{
-		checkbox2 = 0;
-	}
-	var pushnoticeset = checkbox1+""+checkbox2;
-	if ($('#checkbox3').prop("checked")){
-		checkbox3 = 1;
-	}else{
-		checkbox3 = 0;
-	}
-	if ($('#checkbox4').prop("checked")){
-		checkbox4 = 1;
-	}else{
-		checkbox4 = 0;
-	}
-	var notifywho = checkbox3+""+checkbox4;
-	*/
 	if ($('#ishomepage').prop("checked")){
 		ishomepage = 1;
 	}else{
 		ishomepage = 0;
 	}
 	if(title==""){
-		//alert("标题不能为空！");
 		$("#notifytip").modal("show")
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
 	if(contents==""){
-		//alert("通知内容不能为空！");
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(titleen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(contentsen==""){
 		$("#notifytip").modal("show")
 		setTimeout(function(){$("#notifytip").modal("hide");},2500);
 		return false;
 	}
 	window.clearInterval(addnoticeid);
-	$.post('addnotifyfunc',{title:title,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:"3143435435436"},function(data){
+	$.post('addnotifyfunc',{title:title,titleen:titleen,contentsen:contentsen,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		if(data==1){
-			//alert("新增成功！");
 			$("#notifypublishtip").modal("show");
 			setTimeout(function(){$("#notifypublishtip").modal("hide");window.location.href="notifylist";},2500);
 		}else{
@@ -302,8 +468,44 @@ function savedraft(){
 	});
  });
  $("#viewbtn").click(function(){
-	var randid = '{$randid}';
-	window.open("noticedetailforrandid?randid="+randid);
+	var randids = '{$randid}';
+	var title = $("#notifytitle").val();
+	var titleen = $("#notifytitleen").val();
+	var contents = $('#contents').summernote('code');
+	var contentsen = $('#contentsen').summernote('code');
+	if(title==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(contents==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(titleen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if(contentsen==""){
+		$("#notifytip").modal("show")
+		setTimeout(function(){$("#notifytip").modal("hide");},2500);
+		return false;
+	}
+	if ($('#ishomepage').prop("checked")){
+		ishomepage = 1;
+	}else{
+		ishomepage = 0;
+	}
+	if ($('#checkbox1').prop("checked")){
+		checkbox1 = 1;
+	}else{
+		checkbox1 = 0;
+	}
+	$.post('editdraftnotifyfunc',{title:title,contents:contents,titleen:titleen,contentsen:contentsen,draft:0,randid:randids,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
+		window.location.href="noticedetailforrandid?randid="+randids;
+	})
  });
  $("#canclebtn").click(function(){
 	window.location.href="notifylist";

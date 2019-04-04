@@ -27,6 +27,15 @@
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 #token-list li div{background-color:#F6F9FD;cursor:pointer;}
+.doc_menu_l_li_subm_no {
+background-color:#fff;color:#333;
+    width: 95%;
+    padding-left: 5%;
+    min-height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -37,8 +46,11 @@
 			<div class="col-md-3">
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
-							<li class="doc_menu_l_li_subm leftmenmyprofile" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
-							<li class="doc_menu_l_li_subm leftmengettesttoken" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
+							<li class="doc_menu_l_li_subm leftmenmyprofile"  style="background-color:#F6F9FD;"  onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/index.html';">&nbsp;&nbsp;My Profile&nbsp;&nbsp;</li>
+							<li class="doc_menu_l_li_subm leftmengettesttoken" style="background-color:#173045;color:#fff;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/tokeninfo.html';">&nbsp;&nbsp;Get Test Token&nbsp;&nbsp;</li>
+							<!--
+							<li class="doc_menu_l_li_subm_no my_forum_topics" style="background-color:#F6F9FD;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';">&nbsp;&nbsp;My Topics&nbsp;&nbsp;</li>
+							-->
 					</ul>
 				</div>
 			</div>
@@ -145,7 +157,13 @@
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Pcenter/succful" />
