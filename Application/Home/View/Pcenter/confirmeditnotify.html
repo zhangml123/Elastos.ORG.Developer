@@ -126,6 +126,13 @@
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
 <script>
+function judgeyear(year){
+　　if(year%4==0&&year%100!=0||year%400==0){
+      return 2;
+　　}else{
+	  return 1;
+　　}
+}
 $("select").change(function(){
 	var notify_years = $("#notify_year").val();
 	var notify_mons = $("#notify_mon").val();
@@ -142,12 +149,25 @@ $("select").change(function(){
 			}
 			$("#notify_day").html(selecthtml);
 		}else if(notify_mons=="02"){
+			
+			
 			var selecthtml = "";
-			for(var i=1;i<29;i++){
-				if(i<10){
-					selecthtml = selecthtml+'<option value="0'+i+'">0'+i+'</option>';
-				}else{
-					selecthtml = selecthtml+'<option value="'+i+'">'+i+'</option>';
+			var yns = judgeyear(notify_years);
+			if(yns==2){
+				for(var i=1;i<30;i++){
+					if(i<10){
+						selecthtml = selecthtml+'<option value="0'+i+'">0'+i+'</option>';
+					}else{
+						selecthtml = selecthtml+'<option value="'+i+'">'+i+'</option>';
+					}
+				}			
+			}else{
+				for(var i=1;i<29;i++){
+					if(i<10){
+						selecthtml = selecthtml+'<option value="0'+i+'">0'+i+'</option>';
+					}else{
+						selecthtml = selecthtml+'<option value="'+i+'">'+i+'</option>';
+					}
 				}
 			}
 			$("#notify_day").html(selecthtml);

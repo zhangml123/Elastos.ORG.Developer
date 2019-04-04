@@ -317,6 +317,7 @@ $("#id_password_reg_l").keyup(function(){
 });
 function loginoutscuff_popup(){
 	$("#loginoutscuff").modal("show");
+	 sessionStorage.clear();
 	setTimeout(function(){window.location.href=internationalWords.hosturl},3000);
 }
 function loginouterror_popup(){
