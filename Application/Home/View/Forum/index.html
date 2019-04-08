@@ -163,7 +163,12 @@ width: 5px;
 				<div class="vlist_v">
 					<div class="vlist_v_title">
 						<div class="vlist_v_t_l">MY topics</div>
-						<div class="vlist_v_t_r">View All</div>
+						<eq name="profileinfo.roleid" value="1">
+							<div class="vlist_v_t_r" style="cursor:pointer;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';">View All</div>
+						</eq>
+						<neq name="profileinfo.roleid" value="1">
+							<div class="vlist_v_t_r" style="cursor:pointer;" >View All</div>
+						</neq>
 					</div>
 				</div>
 				<ul class="vlist_list">
@@ -173,7 +178,7 @@ width: 5px;
 						<div class="forummycommentedtip">Comented</div>
 					</li>
 					 <volist name="myforumlist" id="voc">
-						<li class="vlist_list_li"><a href="">{$voc.title|msubstr=0,12,'utf-8',true}</a></li>
+						<li class="vlist_list_li"><a href="forumdetail?forumid={$voc.id}';">{$voc.title}</a></li>
 					 </volist>
 				</ul>
 			</div>
@@ -251,7 +256,13 @@ width: 5px;
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Index/loginsid" />
@@ -387,7 +398,7 @@ $(document).ready(function(){
 				if(data!=""){
 					var data = $.parseJSON(data);
 					for(var i=0;i<data.length;i++){
-						htmlb ='<li class="vlist_list_li"><a href="">'+ data[i]['title'] +'</a></li>';
+						htmlb ='<li class="vlist_list_li"><a href="forumdetail?forumid='+ data[i]['id']  +'">'+ data[i]['title'] +'</a></li>';
 						$(".vlist_list").append(htmlb);
 					}
 				}
@@ -407,7 +418,7 @@ $(document).ready(function(){
 				if(data!=""){
 					var data = $.parseJSON(data);
 					for(var i=0;i<data.length;i++){
-						htmlc = '<li class="vlist_list_li"><a href="">'+ data[i]['title'] +'</a></li>';
+						htmlc = '<li class="vlist_list_li"><a href="forumdetail?forumid='+ data[i]['id']  +'">'+ data[i]['title'] +'</a></li>';
 					
 					$(".vlist_list").append(htmlc);	
 					}
@@ -430,7 +441,7 @@ $(document).ready(function(){
 					var data = $.parseJSON(data);
 					
 					for(var i=0;i<data.length;i++){
-						htmld = '<li class="vlist_list_li"><a href="">'+ data[i]['title'] +'</a></li>';
+						htmld = '<li class="vlist_list_li"><a href="forumdetail?forumid='+ data[i]['id'] +'">'+ data[i]['title'] +'</a></li>';
 					
 					$(".vlist_list").append(htmld);	
 					}

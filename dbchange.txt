@@ -1,0 +1,161 @@
+--
+-- 表的结构 `ela_article`
+--
+
+CREATE TABLE `ela_article` (
+  `id` bigint(20) NOT NULL,
+  `title` char(240) NOT NULL,
+  `contents` longtext NOT NULL,
+  `addtime` char(50) NOT NULL,
+  `updatetime` char(50) NOT NULL,
+  `views` bigint(20) NOT NULL,
+  `likes` int(11) NOT NULL,
+  `pid` bigint(11) NOT NULL,
+  `commentnum` bigint(20) NOT NULL,
+  `ip` char(50) NOT NULL,
+  `sender` char(240) NOT NULL,
+  `cate` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- 表的结构 `ela_articleabuse`
+--
+
+CREATE TABLE `ela_articleabuse` (
+  `id` bigint(20) NOT NULL,
+  `articleid` bigint(20) NOT NULL,
+  `userid` char(240) NOT NULL,
+  `addtime` char(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ela_articlecomment`
+--
+
+CREATE TABLE `ela_articlecomment` (
+  `id` bigint(20) NOT NULL,
+  `commentid` bigint(20) NOT NULL,
+  `userid` char(240) NOT NULL,
+  `articlecate` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ela_articlefollowed`
+--
+
+CREATE TABLE `ela_articlefollowed` (
+  `id` bigint(20) NOT NULL,
+  `followeduserid` char(240) NOT NULL,
+  `articleid` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 表的结构 `ela_category`
+--
+
+CREATE TABLE `ela_category` (
+  `id` int(11) NOT NULL,
+  `catename` char(240) NOT NULL,
+  `catenameen` char(240) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `ela_category`
+--
+
+INSERT INTO `ela_category` (`id`, `catename`, `catenameen`) VALUES
+(1, '应用', 'Dapps'),
+(2, '大象钱包', 'Elephant'),
+(3, '钱包', 'Wallet'),
+(4, '区块链', 'Blockchain'),
+(5, '去中心化ID', 'DID');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ela_forumzan`
+--
+
+CREATE TABLE `ela_forumzan` (
+  `id` bigint(20) NOT NULL,
+  `articleid` bigint(20) NOT NULL,
+  `sender` char(240) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `ela_article`
+--
+ALTER TABLE `ela_article`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ela_articleabuse`
+--
+ALTER TABLE `ela_articleabuse`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ela_articlecomment`
+--
+ALTER TABLE `ela_articlecomment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ela_articlefollowed`
+--
+ALTER TABLE `ela_articlefollowed`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ela_category`
+--
+ALTER TABLE `ela_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 在导出的表使用AUTO_INCREMENT
+--
+
+--
+-- 使用表AUTO_INCREMENT `ela_article`
+--
+ALTER TABLE `ela_article`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- 使用表AUTO_INCREMENT `ela_articleabuse`
+--
+ALTER TABLE `ela_articleabuse`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `ela_articlecomment`
+--
+ALTER TABLE `ela_articlecomment`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `ela_articlefollowed`
+--
+ALTER TABLE `ela_articlefollowed`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- 使用表AUTO_INCREMENT `ela_category`
+--
+ALTER TABLE `ela_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
