@@ -9,7 +9,9 @@
                     <h4 class="modal-title" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
 				</div>
                 <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
-					<div id="slideBar" style="margin-left:150px;"></div>
+						<div class="containera">
+						  <div id="captcha"></div>
+						</div>
 				</div>
                 <div class="modal-body" id="forum_c" style="padding:30px;padding-top:10px;">
                     <section class="box-login v5-input-txt" id="box-login" style="height:375px;">
@@ -60,14 +62,13 @@
 </div>
 </div>
 </div>
-<style>
+ <style>
+.containera{width: 310px;margin: 10px auto;}
 #editprofileul li{height:30px;}
 #editprofileul li div:first-child{width:158px;float:left;}
 #editprofileul li div:last-child{width:542px;float:left;}
 </style>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/slider/style.css">
-<script type="text/javascript" src="{$Think.const.PUBLIC_H}Home/slider/style.js"></script>
-
+<script type="text/javascript" src="{$Think.const.PUBLIC_H}Home/js/jigsaw.min.js"></script>
 <script>
 var dataList = ["0","1"];
 var options = {
@@ -84,10 +85,14 @@ var options = {
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
 <script>
-SliderBar("slideBar", options);
-$("#cancelforumbtn").click(function(){
-	$("#addforum").modal("hide");
-})
+  jigsaw.init({
+    el: document.getElementById('captcha'),
+    onSuccess: function() {
+		setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},1500);
+    },
+    onFail: function(){console.log("重新刷新");},
+    onRefresh: function(){console.log("重新刷新");}
+  })
 $("#saveforumbtn").click(function(){
 	var forumtitle=$("#forumtitle").val();
 	var forumcontents=$('#forumcontents').summernote('code');

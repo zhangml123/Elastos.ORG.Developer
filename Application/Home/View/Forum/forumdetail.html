@@ -80,7 +80,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 	<div class="div_one_line hidden-sm hidden-xs" style="height:75px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
 		<ul class="breadcrumb">
-		<li><a href="{$curhost}" class="forumtip">Forum</a></li>
+		<li><a href="{$curhost}" class="forumtip nav_forum">Forum</a></li>
 		<li class="active forumtitle">{$articleinfo.title}</li>
 		</ul>
 	</div>		
@@ -99,7 +99,11 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 			<div class="col-md-9">
 				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;">
 					<span id="curdocname" style="font-size:24px;">{$articleinfo.title}</span>
-					<button class="deletetoptic">Delete this topic</button>
+					<eq name="profileinfo.roleid" value="1">
+						<eq name="abuseyn" value="1">
+						<button class="deletetoptic" id="deletetopic" artid="{$articleinfo.id}">Delete this topic</button>
+						</eq>
+					</eq>
 					</div>
 					<div class="forum_list_posted" style="width:95%;padding-left:5%;margin-top:20px;margin-bottom:20px;height:30px;">
 					<div style="float:left;width:120px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
@@ -132,6 +136,9 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 											<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 											<div class="comment_bottom_icon">
 												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.nickname}, {$vob.adddatetime}</div>
+												<eq name="vob.abuse" value="1">
+													<div class="comment_bottom_icon_l  hidden-sm hidden-xs delete_comment_btn" commentid="{$vo.id}" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:18px;height:21px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>
+												</eq>
 												<div class="comment_bottom_icon_r">
 													<eq name="vob.zanyn" value="1">
 													<span class="glyphicon glyphicon-heart like" curid="{$vob.id}" style="cursor:pointer;padding:4px;color:#333;">{$vob.likes} </span>
@@ -147,10 +154,10 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 													<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="{$vob.id}" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div>
 												</div>
 												<eq name="vob.subcommentlist" value="0">
-												<div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">
+												<div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;height:auto;">
 												</eq>
 												<neq name="vob.subcommentlist" value="0">
-												<div class="replay_comment_list repaly{$vob.id}" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;">
+												<div class="replay_comment_list repaly{$vob.id}" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;height:auto;">
 												</neq>
 													<volist name="vob.subcommentlist" id="voc">
 													<div class="replay_c_list">
@@ -170,6 +177,12 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 															<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 															<div class="comment_bottom_icon  hidden-sm hidden-xs">
 																<div class="comment_bottom_icon_l">{$voc.nickname}, {$voc.adddatetime}</div>
+																	<eq name="voc.abuse" value="1">
+																		<div class="comment_bottom_icon_l delete_comment_btn" commentid="{$voc.id}" style="margin-left:12px;">
+																		<img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;
+																		<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span>
+																		</div>
+																	</eq>
 															</div>
 														</div>
 													</div>
@@ -263,7 +276,13 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Index/loginsid" />
@@ -428,6 +447,9 @@ $("#loadmorebtn").click(function(){
 						htmla = htmla +'<div class="c_c_list_r comment_r_c"><div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div>';
 						htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
 						htmla = htmla +'<div class="comment_bottom_icon"><div class="comment_bottom_icon_l  hidden-sm hidden-xs">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div><div class="comment_bottom_icon_r">';
+						if(data[i]['abuse']==1){
+							htmla = htmla +'<div class="comment_bottom_icon_l  hidden-sm hidden-xs delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:18px;height:21px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
+						}
 					if(data[i]['zanyn']=="1"){
 						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;color:#333;"> '+data[i]['likes']+'</span>';
 					}else if(data[i]['zanyn']=="0"){
@@ -437,9 +459,9 @@ $("#loadmorebtn").click(function(){
 						htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
 						htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
 					if(data[i]['subcommentlist']=="0"){
-						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;"></div></div></div></li>';
+						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;height:auto;"></div></div></div></li>';
 					}else{
-						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;">';
+						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;height:auto;">';
 						//console.log("子评论："+data[i]['subcommentlist']);
 						//var dataa = $.parseJSON(data[i]['subcommentlist']);
 						var dataa = data[i]['subcommentlist'];
@@ -454,7 +476,11 @@ $("#loadmorebtn").click(function(){
 							}							
 							htmla = htmla +'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
 							htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+dataa[j]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
-							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div></div></div></div>';
+							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
+							if(dataa[j]['abuse']==1){
+								htmla = htmla +'<div class="comment_bottom_icon_l delete_comment_btn" commentid="'+ dataa[j]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
+							}
+							htmla = htmla +'</div></div></div>';
 						}
 					htmla = htmla +'</div><div style="width:100%;height:70px;text-align:center;line-height:70px;overflow: hidden;"><a href="javascript:void(0);" curcommentid="'+data[i]['id']+'" class="loadsubmorebtn" id="loadsubmorebtn'+data[i]['id']+'" style="color:#333;font-size:14px;">加载更多</a></div>';
 					htmla = htmla +'</div></div></li>';
@@ -494,7 +520,11 @@ $(document).on("click",".loadsubmorebtn",function(){
 						htmla = htmla+'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 					}
 						htmla = htmla+'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div>';
-						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div></div></div>';
+						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div>';
+						if(data[i]['abuse']==1){
+							htmla = htmla +'<div class="comment_bottom_icon_l delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
+						}
+						htmla = htmla+'</div></div>';
 				}
 				$(".repaly"+curcommentid).append(htmla);
 				
@@ -504,6 +534,14 @@ $(document).on("click",".loadsubmorebtn",function(){
 });
 $(".forumbackbtn").click(function(){
 	window.location.href="index.html";
+});
+$(".deletetoptic").click(function(){
+	var topicid = $(this).attr("artid");
+	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){window.location.href="index.html";}});
+});
+$(document).on("click",".delete_comment_btn",function(){
+	var topicid = $(this).attr("commentid");
+	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){window.location.href="index.html";}});
 });
 </script>
 </body>
