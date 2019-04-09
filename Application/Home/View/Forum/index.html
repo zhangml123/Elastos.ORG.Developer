@@ -143,6 +143,10 @@ width: 5px;
 				</div>
 				<div class="forum_list">
 					<ul class="forum_list_ul">
+					<eq name="pcount" value="0">
+						<li style="border-bottom:0px;">暂无数据</li>
+					</eq>
+					<neq name="pcount" value="0">
 					  <volist name="forumlist" id="vob">
 						<li onclick="window.location.href='forumdetail?forumid={$vob.id}';">
 							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate}</div>
@@ -156,6 +160,7 @@ width: 5px;
 							</div>
 						</li>
 						</volist>
+					 </neq>
 					</ul>
 				</div>
 			</div>
@@ -288,43 +293,47 @@ width: 5px;
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
-$('#pageLimit').bootstrapPaginator({
-    currentPage: 1,
-    totalPages: {$pcount},
-    size:"normal",
-    bootstrapMajorVersion: 3,
-    alignment:"right",
-    numberOfPages:10,
-    itemTexts: function (type, page, current) {
-        switch (type) {
-			case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
-			case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
-			case "page": return page;
-        }
-    },
-	onPageClicked: function (event, originalEvent, type, page){
-		$.ajax({
-			url:'forumlistjson',
-			type:'POST',
-			data:{'curp':page},
-			dataType:'JSON',
-			success:function (callback) {
-					$(".forum_list_ul").html("");
-					console.log("列表："+callback[0]['adddate']);
-					for(var i=0;i<callback.length;i++){
-						var htmla = '<li onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';"><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'</div><div class="forum_list_li_title">'+callback[i]['title']+'</div>'
-									+'<div class="forum_list_shortc">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
-									+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
-									+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
-									+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
-									+'<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>'
-									+'</div></li>';
-						$(".forum_list_ul").append(htmla);
+var counts = "{$pcount}";
+if(counts!="0"){
+	$('#pageLimit').bootstrapPaginator({
+		currentPage: 1,
+		totalPages: {$pcount},
+		size:"normal",
+		bootstrapMajorVersion: 3,
+		alignment:"right",
+		numberOfPages:10,
+		itemTexts: function (type, page, current) {
+			switch (type) {
+				case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+				case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+				case "page": return page;
+			}
+		},
+		onPageClicked: function (event, originalEvent, type, page){
+			$.ajax({
+				url:'forumlistjson',
+				type:'POST',
+				data:{'curp':page},
+				dataType:'JSON',
+				success:function (callback) {
+						$(".forum_list_ul").html("");
+						console.log("列表："+callback[0]['adddate']);
+						for(var i=0;i<callback.length;i++){
+							var htmla = '<li onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';"><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'</div><div class="forum_list_li_title">'+callback[i]['title']+'</div>'
+										+'<div class="forum_list_shortc">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
+										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
+										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
+										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
+										+'<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>'
+										+'</div></li>';
+							$(".forum_list_ul").append(htmla);
+						}
 					}
-				}
-		})
-	}
-});
+			})
+		}
+	});	
+}
+
 $('.summernote').summernote({
 		height: 150,
 		tabsize: 2,
@@ -336,7 +345,12 @@ $('.summernote').summernote({
 	});
 $(document).ready(function(){
 	$("#addforumbtn").click(function(){
-		 $("#addforum").modal("show");
+		var loginstatus = '{$logincate}';
+		if(loginstatus!=""){
+			$("#addforum").modal("show");
+		 }else{
+			login_popup();
+		 }
 	});
 	$("#searchforumgobtn").click(function(){jumpurl();});
 	$(".forum_data_added").click(function(){
@@ -351,7 +365,6 @@ $(document).ready(function(){
 		window.location.href = "index.html?cate="+forumcate+"&sendtime="+added+"&puplarity="+popularity+"&searchword="+searchc;
 	});
 	$(".forum_popularity").click(function(){
-		//jumpurl();
 		var added = "";
 		var popularity=1;
 		var forumcate = $("#forumcate").val();

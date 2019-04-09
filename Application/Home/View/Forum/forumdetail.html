@@ -122,8 +122,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 									<div class="c_c_list">
 										<div class="c_c_list_l headimg" style="text-align:center;">
 											<eq name="vob.uheadimg" value="">
-											<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
-											<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+											<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;" /></span>
+											<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span>
 											</eq>
 											<neq name="vob.uheadimg" value="">
 											<img class="hidden-sm hidden-xs" src="{$vob.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
@@ -163,8 +163,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 													<div class="replay_c_list">
 														<div class="replay_c_list_l">
 															<eq name="voc.uheadimg" value="">
-															<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
-															<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+															<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"   /></span>
+															<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"   /></span>
 															</eq>
 															<neq name="voc.uheadimg" value="">
 															<img  class="hidden-sm hidden-xs" src="{$voc.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
@@ -436,10 +436,10 @@ $("#loadmorebtn").click(function(){
 				for(var i=0;i<data.length;i++){
 					htmla = htmla +'<li class="maincomment"><div class="c_c_list"><div class="c_c_list_l headimg" style="text-align:center;">';
 					if(data[i]['uheadimg']=="" || data[i]['uheadimg']==null){
-						htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;">';
-						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span>';
-						htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#173045;margin-right:10px;">';
-						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span></div>';
+						htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;">';
+						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span>';
+						htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#CED6E3;margin-right:10px;">';
+						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span></div>';
 					}else{
 						htmla = htmla +'<img class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
 						htmla = htmla +'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" /></div>';
@@ -468,8 +468,8 @@ $("#loadmorebtn").click(function(){
 						for(var j=0;j<dataa.length;j++){
 							htmla = htmla +'<div class="replay_c_list"><div class="replay_c_list_l">';
 							if(dataa[j]['uheadimg']=="" || dataa[j]['uheadimg']==null){
-									htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span>';
-									htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span>';
+									htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png"  /></span>';
+									htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png"  /></span>';
 							}else{
 									htmla = htmla +'<img  class="hidden-sm hidden-xs" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
 									htmla = htmla +'<img class="visible-xs-block" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
@@ -513,8 +513,8 @@ $(document).on("click",".loadsubmorebtn",function(){
 				for(var i=0;i<data.length;i++){
 					htmla = htmla+'<div class="replay_c_list"><div class="replay_c_list_l">';
 					if(data[i]['uheadimg']=="" || data[i]['uheadimg']==null){
-						htmla = htmla+'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>';
-						htmla = htmla+'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>';
+						htmla = htmla+'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png"  /></span>';
+						htmla = htmla+'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png"  /></span>';
 					}else{
 						htmla = htmla+'<img  class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
 						htmla = htmla+'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
@@ -542,6 +542,29 @@ $(".deletetoptic").click(function(){
 $(document).on("click",".delete_comment_btn",function(){
 	var topicid = $(this).attr("commentid");
 	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){window.location.href="index.html";}});
+});
+
+$(document).on("click",".like",function(){
+	var loginstatus = '{$logincate}';
+	if(loginstatus!=""){
+		var id = $(this).attr("curid");
+		var like = $(this);
+		$.post(
+			'{$curhost}index.php/Home/Forum/updateforumzan',
+			{id:id},
+			function(data){
+				if(data==1){
+					like.css("color","#333");
+					like.html(parseInt(like.html())+1);
+				}else if(data==2){
+					like.css("color","#CED6E3");
+					like.html(parseInt(like.html())-1);
+				}
+			}
+		)
+	}else{
+		login_popup();
+	}
 });
 </script>
 </body>
