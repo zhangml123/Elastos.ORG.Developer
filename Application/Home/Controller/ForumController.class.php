@@ -122,6 +122,11 @@ class ForumController extends Controller {
 				}else{
 					$forumcommentlist[$i]['abuse'] = 0;
 				}
+				if($this->findforumzan($forumcommentlist[$i]['id'])){
+					$forumcommentlist[$i]['zanyn'] = 1;
+				}else{
+					$forumcommentlist[$i]['zanyn'] = 0;
+				}
 			}
 		}
 		return $forumcommentlist;
@@ -148,6 +153,12 @@ class ForumController extends Controller {
 					}
 				}else{
 					$commentlist[$i]['abuse'] = 0;
+				}
+				
+				if($this->findforumzan($commentlist[$i]['id'])){
+					$commentlist[$i]['zanyn'] = 1;
+				}else{
+					$commentlist[$i]['zanyn'] = 0;
 				}
 			}
 		}
@@ -217,7 +228,11 @@ class ForumController extends Controller {
 				}else{
 					$commentlist[$i]['abuse'] = 0;
 				}
-				
+				if($this->findforumzan($forumcommentlist[$i]['id'])){
+					$forumcommentlist[$i]['zanyn'] = 1;
+				}else{
+					$forumcommentlist[$i]['zanyn'] = 0;
+				}
 			}
 			echo json_encode($commentlist);
 		}else{
@@ -247,6 +262,11 @@ class ForumController extends Controller {
 					}
 				}else{
 					$commentlist[$i]['abuse'] = 0;
+				}
+				if($this->findforumzan($commentlist[$i]['id'])){
+					$commentlist[$i]['zanyn'] = 1;
+				}else{
+					$commentlist[$i]['zanyn'] = 0;
 				}
 			}
 			echo json_encode($commentlist);
@@ -469,7 +489,7 @@ class ForumController extends Controller {
 		$where['id'] = $_POST['id'];
 		$article = M("article");
 		if($this->findforumzan($_POST['id'])){
-			$this->delcommenthistory($_POST['id']);
+			$this->delforumzan($_POST['id']);
 			$rs = $article->where($where)->setDec("likes");
 			if($rs){
 				echo 2;
@@ -510,7 +530,7 @@ class ForumController extends Controller {
 	}
 	//获取是否是赞过了
 	public function addforumzan($articleid){
-		$data['userid'] = $_SESSION['eladevp']['userid'];
+		$data['sender'] = $_SESSION['eladevp']['userid'];
 		$data['articleid'] = $articleid;
 		$forumzan = M("forumzan");
 		$rs = $forumzan->add($data);
@@ -518,7 +538,7 @@ class ForumController extends Controller {
 	}
 	//获取是否是赞过了
 	public function findforumzan($articleid){
-		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$where['sender'] = $_SESSION['eladevp']['userid'];
 		$where['articleid'] = $articleid;
 		$forumzan = M("forumzan");
 		$forumzaninfo = $forumzan->where($where)->find();
@@ -526,7 +546,7 @@ class ForumController extends Controller {
 	}
 	//删除赞过了的
 	public function delforumzan($articleid){
-		$where['userid'] = $_SESSION['eladevp']['userid'];
+		$where['sender'] = $_SESSION['eladevp']['userid'];
 		$where['articleid'] = $articleid;
 		$forumzan = M("forumzan");
 		$rs = $forumzan->where($where)->delete();
