@@ -19,21 +19,36 @@ class ForumcommentModel extends Model{
 					}
 					
 				}else{
-					$rs[$i]['uheadimg'] = "";
+					/* $rs[$i]['uheadimg'] = "";
 					if($rs[$i]['sender']=="匿名"){
 						$rs[$i]['nickname'] = "匿名";
 					}else{
 						$rs[$i]['nickname'] = "";
 					}
+					 */
 					
-					
+					if($_SESSION ['eladevp']['lang']=="en"){
+						$rs[$i]['uheadimg'] = "";
+						if($rs[$i]['sender']=="匿名" || $rs[$i]['sender']==null){
+							$rs[$i]['nickname'] = "Anonymous";
+						}else{
+							$rs[$i]['nickname'] = "";
+						}
+					}else{
+						$rs[$i]['uheadimg'] = "";
+						if($rs[$i]['sender']=="匿名" || $rs[$i]['sender']==null){
+							$rs[$i]['nickname'] = "匿名";
+						}else{
+							$rs[$i]['nickname'] = "";
+						}
+					}
 				}
-				$zanyn = $this->findcommenthistory($rs[$i]['id']);
+				/* $zanyn = $this->findcommenthistory($rs[$i]['id']);
 				if($zanyn){
 					$rs[$i]['zanyn'] = 1;
 				}else{
 					$rs[$i]['zanyn'] = 0;
-				}
+				} */
 			}
 			return $rs;
 		}else{

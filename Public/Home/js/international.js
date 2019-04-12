@@ -381,10 +381,34 @@ internationalWordsEN.confirm_push_time_tip='This notification will be published 
 internationalWordsZH.confirmdelnotify='确定删除？';
 internationalWordsEN.confirmdelnotify='Confirm Delete?';
 
+//论坛分类
+internationalWordsZH.addforumcate='新增';
+internationalWordsEN.addforumcate='Add';
+internationalWordsZH.forumcatenumber='编号';
+internationalWordsEN.forumcatenumber='Number';
+internationalWordsZH.forumcatesort='排序';
+internationalWordsEN.forumcatesort='Sort';
+internationalWordsZH.forumcatoperate='操作';
+internationalWordsEN.forumcatoperate='Operate';
+internationalWordsZH.forumcatesave='保存';
+internationalWordsEN.forumcatesave='Save';
+internationalWordsZH.forumcateshow='显示';
+internationalWordsEN.forumcateshow='Show';
+internationalWordsZH.forumcatehide='隐藏';
+internationalWordsEN.forumcatehide='Hidden';
+internationalWordsZH.forumcateedit='编辑';
+internationalWordsEN.forumcateedit='Edit';
+internationalWordsZH.forumcatetip='中文分类名称和英文分类名称不能为空。';
+internationalWordsEN.forumcatetip='Chinese and English classification names cannot be empty.';
+internationalWordsZH.forumcatesufful='保存成功。';
+internationalWordsEN.forumcatesufful='Save successfully.';
+
+
+
 
 //论坛
 internationalWordsZH.addforumcls='新增主题/问题';
-internationalWordsEN.addforumcls='add a topic/question';
+internationalWordsEN.addforumcls='Add a topic/question';
 internationalWordsZH.searchtopic='搜索主题/问题';
 internationalWordsEN.searchtopic='Search a topic/question';
 internationalWordsZH.forumdateadd='发布日期';
@@ -421,6 +445,22 @@ internationalWordsZH.deletetoptic='删除话题';
 internationalWordsEN.deletetoptic='Delete this topic';
 internationalWordsZH.deletesubcomment='删除该评论';
 internationalWordsEN.deletesubcomment='Delete this comment';
+
+//新增论坛
+internationalWordsZH.add_forum_title='标题';
+internationalWordsEN.add_forum_title='Title';
+internationalWordsZH.add_forum_desc='描述';
+internationalWordsEN.add_forum_desc='Description';
+internationalWordsZH.add_forum_cate='分类';
+internationalWordsEN.add_forum_cate='Category';
+internationalWordsZH.forumlist_no_data='暂无数据';
+internationalWordsEN.forumlist_no_data='No data';
+internationalWordsZH.add_forum_tip='新话题/问题';
+internationalWordsEN.add_forum_tip='New Topic/Question';
+internationalWordsZH.add_forum_cancel='取消';
+internationalWordsEN.add_forum_cancel='Cancel';
+internationalWordsZH.addforumtip='标题、内容和分类不能为空。';
+internationalWordsEN.addforumtip='Title, content and category cannot be empty.';
 
 
 

@@ -80,7 +80,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 	<div class="div_one_line hidden-sm hidden-xs" style="height:75px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
 		<ul class="breadcrumb">
-		<li><a href="{$curhost}" class="forumtip nav_forum">Forum</a></li>
+		<li><a href="{$curhost}index.php/Home/Forum/index.html" class="forumtip nav_forum">Forum</a></li>
 		<li class="active forumtitle">{$articleinfo.title}</li>
 		</ul>
 	</div>		
@@ -126,7 +126,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 											<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span>
 											</eq>
 											<neq name="vob.uheadimg" value="">
-											<img class="hidden-sm hidden-xs" src="{$vob.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
+											<img class="hidden-sm hidden-xs" src="{$vob.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top: 0px;" />
 											<img class="visible-xs-block" src="{$vob.uheadimg}" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" />
 											</neq>
 										</div>
@@ -167,7 +167,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 															<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"   /></span>
 															</eq>
 															<neq name="voc.uheadimg" value="">
-															<img  class="hidden-sm hidden-xs" src="{$voc.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
+															<img  class="hidden-sm hidden-xs" src="{$voc.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />
 															<img class="visible-xs-block" src="{$voc.uheadimg}" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />
 															</neq>
 														</div>
@@ -360,60 +360,71 @@ $(document).ready(function(){
 		}
 	});
 	$("#sendcomment").click(function(){
-		var contents = $("#comment_contents").val();
-		if(hasIllegalChar(contents)){
-			applyelatip_popup();
-			return false;
+		var loginyn = '{$logincate}';
+		if(loginyn==""){
+			login_popup();
+		}else{
+			var contents = $("#comment_contents").val();
+			if(hasIllegalChar(contents)){
+				applyelatip_popup();
+				return false;
+			}
+			
+			var commentid = "{$articleinfo.id}";
+			var forumcate = "{$articleinfo.cate}";
+			if(contents==""){
+				applyelatip_popup();
+				return false;
+			}
+			$.post(
+				'{$curhost}index.php/Home/Forum/addforumcomment',
+				{commentconents:contents,forumid:commentid,forumcate:forumcate},
+				function(data){
+					if(data==1){
+						$("#comment_contents").val("");
+						commentsuccful_popup();
+					}else{
+						commenterror_popup();
+					}
+				}
+			)
 		}
 		
-		var commentid = "{$articleinfo.id}";
-		var forumcate = "{$articleinfo.cate}";
-		if(contents==""){
-			applyelatip_popup();
-			return false;
-		}
-		$.post(
-			'{$curhost}index.php/Home/Forum/addcomment',
-			{commentconents:contents,forumid:commentid,forumcate:forumcate},
-			function(data){
-				if(data==1){
-					$("#comment_contents").val("");
-					commentsuccful_popup();
-				}else{
-					commenterror_popup();
-				}
-			}
-		)
 	});
 	function hasIllegalChar(str) {
         return new RegExp(".*?script[^>]*?.*?(<\/.*?script.*?>)*", "ig").test(str);
     }
 	$(document).on("click",".replaybtn",function(){
-		var contents = $(this).parent("div").prev("textarea").val();
-		var commentid = $(this).attr("commentid");
-		var forumcate = "{$articleinfo.cate}";
-		if(hasIllegalChar(contents)){
-			applyelatip_popup();
-			return false;
-		}
-		var obj = $(this);
-		if(contents==""){
-			applyelatip_popup();
-			return false;
-		}
-		$.post(
-			'{$curhost}index.php/Home/Forum/addcomment',
-			{commentconents:contents,forumid:commentid,forumcate:forumcate},
-			function(data){
-				if(data==1){
-					$(this).parent("div").prev("textarea").val("");
-					obj.parent(".replay_senddiv").parent(".replay_comment").hide();
-					commentsuccful_popup();
-				}else{
-					commenterror_popup();
-				}
+		var loginyn = '{$logincate}';
+		if(loginyn==""){
+			login_popup();
+		}else{
+			var contents = $(this).parent("div").prev("textarea").val();
+			var commentid = $(this).attr("commentid");
+			var forumcate = "{$articleinfo.cate}";
+			if(hasIllegalChar(contents)){
+				applyelatip_popup();
+				return false;
 			}
-		)
+			var obj = $(this);
+			if(contents==""){
+				applyelatip_popup();
+				return false;
+			}
+			$.post(
+				'{$curhost}index.php/Home/Forum/addforumcomment',
+				{commentconents:contents,forumid:commentid,forumcate:forumcate},
+				function(data){
+					if(data==1){
+						$(this).parent("div").prev("textarea").val("");
+						obj.parent(".replay_senddiv").parent(".replay_comment").hide();
+						commentsuccful_popup();
+					}else{
+						commenterror_popup();
+					}
+				}
+			)
+		}
 	})
 })
 $("#loadmorebtn").click(function(){
@@ -441,7 +452,7 @@ $("#loadmorebtn").click(function(){
 						htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#CED6E3;margin-right:10px;">';
 						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span></div>';
 					}else{
-						htmla = htmla +'<img class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
+						htmla = htmla +'<img class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />';
 						htmla = htmla +'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" /></div>';
 					}
 						htmla = htmla +'<div class="c_c_list_r comment_r_c"><div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div>';
@@ -471,7 +482,7 @@ $("#loadmorebtn").click(function(){
 									htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png"  /></span>';
 									htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png"  /></span>';
 							}else{
-									htmla = htmla +'<img  class="hidden-sm hidden-xs" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
+									htmla = htmla +'<img  class="hidden-sm hidden-xs" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />';
 									htmla = htmla +'<img class="visible-xs-block" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 							}							
 							htmla = htmla +'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
@@ -516,7 +527,7 @@ $(document).on("click",".loadsubmorebtn",function(){
 						htmla = htmla+'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png"  /></span>';
 						htmla = htmla+'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png"  /></span>';
 					}else{
-						htmla = htmla+'<img  class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
+						htmla = htmla+'<img  class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />';
 						htmla = htmla+'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 					}
 						htmla = htmla+'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div>';
