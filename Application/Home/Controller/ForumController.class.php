@@ -16,9 +16,12 @@ class ForumController extends Controller {
 		}else{
 			$this->assign("langs",2);
 		}
-		$order = "id desc";
+		$order = "";
 		if(isset($_GET['searchword']) && trim($_GET['searchword'],"")!=""){
-			$where['title'] = array("like","%".$_GET['searchword']."%");
+			$wheres['title'] = array("like","%".$_GET['searchword']."%");
+			$wheres['contents'] = array("like","%".$_GET['searchword']."%");
+		    $wheres['_logic'] = 'or';
+		    $where['_complex'] = $wheres;
 			$this->assign("searchword",$_GET['searchword']);
 		}else{
 			$this->assign("searchword","");
@@ -30,22 +33,25 @@ class ForumController extends Controller {
 			$this->assign("cate",0);
 		}
 		if(isset($_GET['sendtime']) && $_GET['sendtime']!=""){
-			$order = $order.",addtime desc";
+			$order = $order."addtime desc,";
 			$this->assign("sendtime",1);
 		}else{
 			$this->assign("sendtime","");
 		}
 		if(isset($_GET['puplarity']) && $_GET['puplarity']!=""){
-			$order = $order.",views desc";
+			$order = $order."views desc,";
 			$this->assign("puplarity",1);
 		}else{
 			$this->assign("puplarity","");
+		}
+		if($order==""){
+			$order = "id desc,";
 		}
 		$isread = $this->getnoreadnotify();
 		$this->assign("isread",$isread);
 		$where['pid'] = 0;
 		$this->assign("commentlist",$commentlist);
-		$this->assign("forumlist",$this->forumlist($where,$order));
+		$this->assign("forumlist",$this->forumlist($where,substr($order,0,(strlen($order)-1))));
 		$this->assign("pcount",$this->getforumcount($where));
 		$this->assign("myforumlist",$this->forumlistofmy());
 		$this->assign("curlang",$_SESSION ['eladevp']['lang']);
@@ -193,7 +199,11 @@ class ForumController extends Controller {
 		$data['likes'] = 1;
 		$data['pid'] = $_POST['forumid'];
 		$data['commentnum'] = 0;
-		$data['sender'] = $_SESSION['eladevp']['userid'];
+		if(isset($_SESSION['eladevp']['userid']) && $_SESSION['eladevp']['userid']!=""){
+			$data['sender'] = $_SESSION['eladevp']['userid'];
+		}else{
+			$data['sender'] = "匿名";
+		}
 		$data['cate'] = $_POST['forumcate'];
 		$article = M("article");
 		$rs = $article->add($data);
@@ -277,17 +287,20 @@ class ForumController extends Controller {
 	//获取分类
 	public function catelist(){
 		$category = M("category");
-		$catelist = $category->select();
+		$catelist = $category->order("sort desc")->select();
 		return $catelist;
 	}
 	//获取当前用户的主题列表
 	public function forumlistofmy(){
 		$where['sender'] = $_SESSION ['eladevp']['userid'];
+		$where['pid'] = 0;
 		$article = M("article");
 		$rslist = $article->where($where)->order("addtime desc")->limit("0,10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,12,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>12){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,12,'utf-8')."...";
+				}
 			}
 		}	
 		return $rslist;
@@ -295,11 +308,16 @@ class ForumController extends Controller {
 	//获取当前用户的主题列表
 	public function forumlistofmytopic(){
 		$where['sender'] = $_SESSION ['eladevp']['userid'];
+		$where['pid'] = 0;
 		$article = M("article");
 		$rslist = $article->where($where)->order("addtime desc")->limit("0,10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>12){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,12,'utf-8')."...";
+				}
+				
 			}	
 		}	
 		echo json_encode($rslist);
@@ -312,7 +330,9 @@ class ForumController extends Controller {
 		$rslist = $article->where($where)->order("addtime desc")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>12){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,12,'utf-8')."...";
+				}
 			}	
 		}	
 		echo json_encode($rslist);
@@ -328,14 +348,17 @@ class ForumController extends Controller {
 	//获取关注的主题
 	public function forumlistofmyfowlled(){
 		$where['id'] = array("in",$this->followedforum());
+		$where['pid'] = 0;
 		$article = M("article");
 		$rslist = $article->where($where)->order("addtime desc")->limit("0,10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>12){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,12,'utf-8')."...";
+				}
 			}	
 		}
-		return $rslist;
+		echo json_encode($rslist);
 	}
 	//获取指定主题的ID的关注
 	public function followedforum(){
@@ -351,21 +374,29 @@ class ForumController extends Controller {
 		if($rslist){
 			if($_SESSION ['eladevp']['lang']=="cn"){
 				for($i=0;$i<count($rslist);$i++){
+					$wherecate['id'] = $rslist[$i]['cate'];
+					$catedetail = $this->catedetail($wherecate);
+					
 					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					$cuinfo = $this->userinfo($wherea);
 					$rslist[$i]['nickname'] = $cuinfo['nickname'];
+					$rslist[$i]['catename'] = $catedetail['catename'];
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
+					$wherecate['id'] = $rslist[$i]['cate'];
+					$catedetail = $this->catedetail($wherecate);
 					$rslist[$i]['adddate'] = date("M d,Y h:i A",$rslist[$i]['addtime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					$cuinfo = $this->userinfo($wherea);
 					$rslist[$i]['nickname'] = $cuinfo['nickname'];
+					$rslist[$i]['catename'] = $catedetail['catenameen'];
 				}
 			}
 		}
 		$count = $article->where($where)->count();
+		//var_dump($article->getlastsql());
 		if($count!=0){
 			$pcount = ceil($count/10);
 		}else{
@@ -373,42 +404,73 @@ class ForumController extends Controller {
 		}
 		return $rslist;
 	}
+	//获取分类详细
+	public function catedetail($where){
+		$category = M("category");
+		$rsinfo = $category->where($where)->find();
+		//var_dump($category->getlastsql());
+		if($rsinfo){
+			return $rsinfo;
+		}else{
+		    return 0;
+		}
+	}
 	//获取论坛内容列表
 	public function forumlistjson(){
 		$where['pid'] = 0;
-		$order = "id desc";
+		$order = "";
 		if(isset($_POST['searchword']) && trim($_POST['searchword'],"")!=""){
-			$where['title'] = array("like","%".$_POST['searchword']."%");
+			//$where['title'] = array("like","%".$_POST['searchword']."%");
+			$wheres['title'] = array("like","%".$_POST['searchword']."%");
+			$wheres['contents'] = array("like","%".$_POST['searchword']."%");
+		    $wheres['_logic'] = 'or';
+		    $where['_complex'] = $wheres;
 		}
 		if(isset($_POST['cate']) && trim($_POST['cate'],"")!="" && trim($_POST['cate'],"")!=0){
 			$where['cate'] = $_POST['cate'];
 		}
 		if(isset($_POST['sendtime']) && $_POST['sendtime']!=""){
-			$order = $order.",addtime desc";
+			$order = $order."addtime desc,";
 		}
 		if(isset($_POST['puplarity']) && $_POST['puplarity']!=""){
-			$order = $order.",views desc";
+			$order = $order."views desc,";
+		}
+		if($order==""){
+			$order = "id desc,";
 		}
 		$curp = $_POST['curp'];
 		$startnum = ($curp - 1)*10;
 		$article = M("article");
-		$rslist = $article->where($where)->order($order)->limit($startnum.",10")->select();
+		$rslist = $article->where($where)->order(substr($order,0,(strlen($order)-1)))->limit($startnum.",10")->select();
 		if($rslist){
 			if($_SESSION ['eladevp']['lang']=="cn"){
 				for($i=0;$i<count($rslist);$i++){
-					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					$cuinfo = $this->userinfo($wherea);
+					$wherecate['id'] = $rslist[$i]['cate'];
+					$catedetail = $this->catedetail($wherecate);
+					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
 					$rslist[$i]['nickname'] = $cuinfo['nickname'];
-					$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,150,'utf-8');
+					$rslist[$i]['catename'] = $catedetail['catename'];
+					if(mb_strlen($rslist[$i]['contents'],"utf-8")>110){
+						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,110,'utf-8')."...";
+					}
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
+					$wherecate['id'] = $rslist[$i]['cate'];
+					$catedetail = $this->catedetail($wherecate);
 					$rslist[$i]['adddate'] = date("M d,Y h:i A",$rslist[$i]['addtime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					$cuinfo = $this->userinfo($wherea);
 					$rslist[$i]['nickname'] = $cuinfo['nickname'];
-					$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,150,'utf-8');
+					$rslist[$i]['catename'] = $catedetail['catenameen'];
+					
+					//$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,150,'utf-8');
+					if(mb_strlen($rslist[$i]['contents'],"utf-8")>110){
+						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,110,'utf-8')."...";
+					}
+					
 				}
 			}
 		}
@@ -455,7 +517,7 @@ class ForumController extends Controller {
 	//发布评论
 	public function addforumcomment(){
 		$data['title'] = "评论";
-		$data['contents'] = $_POST['contents'];
+		/* $data['contents'] = $_POST['contents'];
 		$data['addtime'] = time();
 		$data['updatetime'] = time();
 		$data['views'] = 1;
@@ -463,11 +525,28 @@ class ForumController extends Controller {
 		$data['pid'] = $_POST['pid'];
 		$data['commentnum'] = 0;
 		$data['sender'] = $_SESSION['eladevp']['userid'];
-		$data['cate'] = 0;
+		$data['cate'] = 0; */
+		
+		
+		$data['contents'] = $_POST['commentconents'];
+		$data['addtime'] = time();
+		$data['updatetime'] = time();
+		$data['views'] = 1;
+		$data['likes'] = 1;
+		$data['pid'] = $_POST['forumid'];
+		$data['commentnum'] = 0;
+		if(isset($_SESSION['eladevp']['userid']) && $_SESSION['eladevp']['userid']!=""){
+			$data['sender'] = $_SESSION['eladevp']['userid'];
+		}else{
+			$data['sender'] = "匿名";
+		}
+		$data['cate'] = $_POST['forumcate'];
+		
+		
 		$article = M("article");
 		$rs = $article->add($data);
 		if($rs){
-			$this->addforumcommentnum($_POST['pid']);
+			$this->addforumcommentnum($_POST['forumid']);
 			echo 1;
 		}else{
 			echo 0;
@@ -478,11 +557,11 @@ class ForumController extends Controller {
 		$article = M("article");
 		$where['id'] = $id;
 		$rs = $article->where($where)->setInc("commentnum");
-		if($rs){
+		/* if($rs){
 			echo 1;
 		}else{
 			echo 0;
-		}
+		} */
 	}
 	//新增赞
 	public function updateforumzan(){

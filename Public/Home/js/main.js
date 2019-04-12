@@ -220,6 +220,24 @@ function guojihua(){
 	$("#removenoticebtncan").html(internationalWords.removeuserbtncan);
 	$(".deletetoptic").html(internationalWords.deletetoptic);
 	$(".deletesubcomment").html(internationalWords.deletesubcomment);
+	$(".add_forum_title").html(internationalWords.add_forum_title);
+	$(".add_forum_desc").html(internationalWords.add_forum_desc);
+	$(".add_forum_cate").html(internationalWords.add_forum_cate);
+	$(".addforumcate").html(internationalWords.addforumcate);
+	$(".number").html(internationalWords.forumcatenumber);
+	$(".sort_title").html(internationalWords.forumcatesort);
+	$(".operator_title").html(internationalWords.forumcatoperate);
+	$(".savesortbtn").html(internationalWords.forumcatesave);
+	$(".savebtn").html(internationalWords.forumcatesave);
+	$(".cateshow").html(internationalWords.forumcateshow);
+	$(".catehide").html(internationalWords.forumcatehide);
+	$(".editbtn").html(internationalWords.forumcateedit);
+	$(".forumcatetip").html(internationalWords.forumcatetip);
+	$(".forumcatesufful").html(internationalWords.forumcatesufful);
+	$(".forumlist_no_data").html(internationalWords.forumlist_no_data);
+	$(".add_forum_tip").html(internationalWords.add_forum_tip);
+	$(".cancelbtn").html(internationalWords.add_forum_cancel);
+	$(".addforumtip").html(internationalWords.addforumtip);
 }
 guojihua();
 

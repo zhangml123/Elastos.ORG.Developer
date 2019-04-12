@@ -36,17 +36,17 @@
 ::-webkit-scrollbar {
 width: 5px;
 }
-.searchforum{outline:none;height:35px;border:1px solid #aaa;float:left;width:400px;border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:15px;}
+.searchforum{outline:none;height:35px;border:1px solid #aaa;float:left;width:350px;border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:15px;}
 .forumgo{outline:none;height:35px;width:50px;border:1px solid #173045;float:left;border-bottom-right-radius:20px;border-top-right-radius:20px;color:#18FFFF;background-color:#173045;text-align:center;}
 .addforumcls{outline:none;float:right;width:200px;border:1px solid #173045;color:#18FFFF;background-color:#173045;text-align:center;border-radius:20px;height:35px;}
 .forum_list_title{width:90%;height:50px;margin-top:10px;margin-right:10%;}
 .forum_list{width:90%;margin-right:10%;height:700px;}
-.vlist_v{width:90%;margin-left:10%;height:30px;margin-top:30px;margin-bottom:20px;}
+.vlist_v{width:96%;margin-left:4%;height:30px;margin-top:30px;margin-bottom:20px;}
 .vlist_v_t_l{width:60%;height:30px;float:left;font-size:20px;font-family: Komu;}
 .vlist_v_t_r{width:40%;height:30px;float:right;font-size:14px;line-height:30px;}
-.vlist_list{width:90%;margin-left:10%;min-height:560px;height:auto;list-style-type:none;}
+.vlist_list{width:96%;margin-left:2%;min-height:560px;height:auto;list-style-type:none;}
 .vlist_list li:first-child{width:100%;height:40px;}
-.vlist_list li div{width:100%;height:40px;float:left;width:30%;font-size:14px;color:#A7B2BC;text-align:center;line-height:50px;}
+.vlist_list li div{height:40px;float:left;width:32%;font-size:12px;color:#A7B2BC;text-align:center;line-height:50px;}
 .vlist_r{background-color:#F2F6FB;}
 .vlist_list_li{height:50px;line-height:50px;}
 .vlist_list_li a{height:50px;line-height:50px;color:#333;font-size:16px;font-weight:500;}
@@ -144,17 +144,21 @@ width: 5px;
 				<div class="forum_list">
 					<ul class="forum_list_ul">
 					<eq name="pcount" value="0">
-						<li style="border-bottom:0px;">暂无数据</li>
+						<li style="border-bottom:0px;" class="forumlist_no_data">暂无数据</li>
 					</eq>
 					<neq name="pcount" value="0">
 					  <volist name="forumlist" id="vob">
 						<li onclick="window.location.href='forumdetail?forumid={$vob.id}';">
-							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate}</div>
-							<div class="forum_list_li_title">{$vob.title}</div>
-							<div class="forum_list_shortc">{$vob.contents|msubstr=0,140,'utf-8',true}</div>
+							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate} <span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;{$vob.catename}&nbsp;</span></div>
+							<div class="forum_list_li_title"  style="cursor:pointer;">{$vob.title}</div>
+								<if condition="mb_strlen($vob['contents'],'utf-8') egt 110"> 
+									<div class="forum_list_shortc"  style="cursor:pointer;">{$vob.contents|msubstr=0,105,'utf-8',true}</div>
+								<else/> 
+									<div class="forum_list_shortc"  style="cursor:pointer;">{$vob.contents}</div>
+								</if>
 							<div class="forum_list_icon_list">
 								<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.likes}</span></div>
-								<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.views}</span></div>
+								<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.commentnum}</span></div>
 								<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>{$vob.views}</span></div>
 								<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>
 							</div>
@@ -168,19 +172,19 @@ width: 5px;
 				<div class="vlist_v">
 					<div class="vlist_v_title">
 						<div class="vlist_v_t_l">MY topics</div>
-						<eq name="profileinfo.roleid" value="1">
+						<neq name="logincate" value="">
 							<div class="vlist_v_t_r" style="cursor:pointer;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';">View All</div>
-						</eq>
-						<neq name="profileinfo.roleid" value="1">
-							<div class="vlist_v_t_r" style="cursor:pointer;" >View All</div>
 						</neq>
+						<eq name="logincate" value="">
+							<div class="vlist_v_t_r" style="cursor:pointer;" >View All</div>
+						</eq>
 					</div>
 				</div>
 				<ul class="vlist_list">
 					<li style="margin-bottom:10px;">
-						<div class="forummyaddedtip" style="border-bottom:3px solid #18FFFF">Added</div>
-						<div class="forummyfollowedtip">Followed</div>
-						<div class="forummycommentedtip">Comented</div>
+						<div class="forummyaddedtip" style="border-bottom:3px solid #18FFFF;width:25%;">Added</div>
+						<div class="forummyfollowedtip" style="width:40%;">Followed</div>
+						<div class="forummycommentedtip" style="width:35%;">Commented</div>
 					</li>
 					 <volist name="myforumlist" id="voc">
 						<li class="vlist_list_li"><a href="forumdetail?forumid={$voc.id}';">{$voc.title}</a></li>
@@ -285,6 +289,9 @@ width: 5px;
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
 <include file="Forum/addforum" />
+<include file="Forum/addforumtip" />
+<include file="Forum/addforumsuccful" />
+<include file="Forum/addforumerror" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -317,12 +324,12 @@ if(counts!="0"){
 				dataType:'JSON',
 				success:function (callback) {
 						$(".forum_list_ul").html("");
-						console.log("列表："+callback[0]['adddate']);
+						//console.log("列表："+callback[0]['adddate']);
 						for(var i=0;i<callback.length;i++){
-							var htmla = '<li onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';"><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'</div><div class="forum_list_li_title">'+callback[i]['title']+'</div>'
+							var htmla = '<li onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';"><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div class="forum_list_li_title">'+callback[i]['title']+'</div>'
 										+'<div class="forum_list_shortc">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
-										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
+										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
 										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
 										+'<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>'
 										+'</div></li>';
@@ -357,8 +364,8 @@ $(document).ready(function(){
 		var added = 1;
 		var popularity="";
 		var forumcate = $("#forumcate").val();
-		if($("#searchforumgobtn").val()!=""){
-			var searchc = $(this).val();
+		if($(".searchforum").val()!=""){
+			var searchc = $(".searchforum").val();
 		}else{
 			var searchc = "";
 		}
@@ -368,8 +375,8 @@ $(document).ready(function(){
 		var added = "";
 		var popularity=1;
 		var forumcate = $("#forumcate").val();
-		if($("#searchforumgobtn").val()!=""){
-			var searchc = $(this).val();
+		if($(".searchforum").val()!=""){
+			var searchc = $(".searchforum").val();
 		}else{
 			var searchc = "";
 		}
@@ -390,8 +397,8 @@ $(document).ready(function(){
 		}else{
 			var popularity = "";
 		}
-		if($("#searchforumgobtn").val()!=""){
-			var searchc = $(this).val();
+		if($(".searchforum").val()!=""){
+			var searchc = $(".searchforum").val();
 		}else{
 			var searchc = "";
 		}
@@ -399,9 +406,9 @@ $(document).ready(function(){
 	}
 	$(document).on('click','.forummyaddedtip',function(){
 		if(sessionStorage.getItem('internationalWords')==1){
-			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip"  style="border-bottom:3px solid #18FFFF">创建的</div><div class="forummyfollowedtip">关注的</div><div class="forummycommentedtip">评论的</div></li>'
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip"  style="border-bottom:3px solid #18FFFF;width:25%;">创建的</div><div class="forummyfollowedtip" style="width:40%;">关注的</div><div class="forummycommentedtip" style="width:35%;">评论的</div></li>'
 		}else{
-			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip" style="border-bottom:3px solid #18FFFF">Added</div><div class="forummyfollowedtip">Followed</div><div class="forummycommentedtip" >Comented</div></li>'
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip" style="border-bottom:3px solid #18FFFF;width:25%;">Added</div><div class="forummyfollowedtip" style="width:40%;">Followed</div><div class="forummycommentedtip"  style="width:35%;">Commented</div></li>'
 		}
 		$(".vlist_list").html(html);
 		$.post(
@@ -420,9 +427,9 @@ $(document).ready(function(){
 	});
 	$(document).on('click','.forummyfollowedtip',function(){
 		if(sessionStorage.getItem('internationalWords')==1){
-			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">创建的</div><div class="forummyfollowedtip"  style="border-bottom:3px solid #18FFFF">关注的</div><div class="forummycommentedtip">评论的</div></li>'
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip"  style="width:25%;">创建的</div><div class="forummyfollowedtip"  style="border-bottom:3px solid #18FFFF;width:40%;">关注的</div><div class="forummycommentedtip"  style="width:35%;">评论的</div></li>'
 		}else{
-			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">Added</div><div class="forummyfollowedtip"  style="border-bottom:3px solid #18FFFF">Followed</div><div class="forummycommentedtip">Comented</div></li>'
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip" style="width:25%;">Added</div><div class="forummyfollowedtip"  style="border-bottom:3px solid #18FFFF;width:40%;">Followed</div><div class="forummycommentedtip" style="width:35%;">Commented</div></li>'
 		}$(".vlist_list").html(html);
 		$.post(
 			"forumlistofmyfowlled",
@@ -441,9 +448,9 @@ $(document).ready(function(){
 	});
 	$(document).on('click','.forummycommentedtip',function(){
 		if(sessionStorage.getItem('internationalWords')==1){
-			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">创建的</div><div class="forummyfollowedtip">关注的</div><div class="forummycommentedtip"  style="border-bottom:3px solid #18FFFF">评论的</div></li>'
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip" style="width:25%;">创建的</div><div class="forummyfollowedtip" style="width:40%;">关注的</div><div class="forummycommentedtip"  style="border-bottom:3px solid #18FFFF;width:35%;">评论的</div></li>'
 		}else{
-			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip">Added</div><div class="forummyfollowedtip">Followed</div><div class="forummycommentedtip"  style="border-bottom:3px solid #18FFFF">Comented</div></li>'
+			var html = '<li style="margin-bottom:10px;"><div class="forummyaddedtip"   style="width:25%;">Added</div><div class="forummyfollowedtip"  style="width:40%;">Followed</div><div class="forummycommentedtip"  style="border-bottom:3px solid #18FFFF;width:35%;">Commented</div></li>'
 		}
 		$(".vlist_list").html(html);
 		$.post(

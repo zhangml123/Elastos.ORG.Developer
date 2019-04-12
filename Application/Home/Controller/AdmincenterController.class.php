@@ -87,10 +87,34 @@ class AdmincenterController extends BaseController {
 			echo 0;
 		}
 	}
+	//论坛分类编辑功能排序
+	public function editforumcatesort(){
+		$where['id'] = $_POST['cateid'];
+		$data['sort'] = $_POST['sortnum'];
+		$category = M("category");
+		$rs = $category->where($where)->save($data);
+		if($rs!==false){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	//论坛分类编辑功能状态
+	public function editforumcatestatus(){
+		$where['id'] = $_POST['cateid'];
+		$data['status'] = $_POST['status'];
+		$category = M("category");
+		$rs = $category->where($where)->save($data);
+		if($rs!==false){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
 	//获取论坛内容列表
 	public function adminforumcatelist(){
 		$category = M("category");
-		$rslist = $category->order("id asc")->select();
+		$rslist = $category->order("sort desc")->select();
 		return $rslist;
 	}
 	  //获取当前消息是否读取

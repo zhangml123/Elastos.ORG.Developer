@@ -6,7 +6,7 @@
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:700px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
                     <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
+                    <h4 class="modal-title add_forum_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
 				</div>
                 <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
 						<div class="containera">
@@ -31,12 +31,12 @@
                                 <li class="form-group">
 								<div class="add_forum_cate">Category</div>
 								<div>
-								<select name="cate" id="forumcate" style="outline:none;height:25px;line-height:25px;width:120px;">
+								<select name="cate" id="forumcates" style="outline:none;height:25px;line-height:25px;width:160px;">
 									<eq name="langs" value="1">
-										<option value="0">所有</option>
+										<option value="">选择分类</option>
 									</eq>
 									<eq name="langs" value="2">
-										<option value="0">All</option>
+										<option value="">Choose category</option>
 									</eq>
 									<volist name="catelist" id="voa">
 										<eq name="langs" value="1">
@@ -88,36 +88,51 @@ var options = {
   jigsaw.init({
     el: document.getElementById('captcha'),
     onSuccess: function() {
-		setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},1500);
+		var rs = savedata();
+		//if(rs=="1"){
+			//$("#addforum").modal("hide");
+			$("#addforumsuccful").modal("show");
+			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.href="index";},2500);
+		//}else{
+			//$("#addforum").modal("hide");
+		//	$("#addforumerror").modal("show");
+		//	setTimeout(function(){$("#addforumerror").modal("hide");window.location.href="index";},2500);
+		//}
     },
     onFail: function(){console.log("重新刷新");},
     onRefresh: function(){console.log("重新刷新");}
   })
-$("#saveforumbtn").click(function(){
+function savedata(){
 	var forumtitle=$("#forumtitle").val();
 	var forumcontents=$('#forumcontents').summernote('code');
-	var forumcate=$("#forumcate").val();
-	if(forumtitle==""){
-		alert("标题不能为空！");
-		return false;
-	}
-	if(forumcontents==""){
-		alert("内容不能为空！");
-		return false;
-	}
-	if(forumcate==""){
-		alert("类型不能为空！");
+	var forumcate=$("#forumcates").val();
+	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
 	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate},function(data){
 		if(data==1){
-			$("#addforum").modal("show");
-			setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
+			//setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
+			return 1;
 		}else{
-			
+			return 0;
 		}
 	});
+}
+$("#saveforumbtn").click(function(){
+	var forumtitle=$("#forumtitle").val();
+	var forumcontents=$('#forumcontents').summernote('code');
+	var forumcate=$("#forumcates").val();
+	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
 	$("#forum_c").hide();
 	$("#slider_img").show();
+});
+$("#cancelforumbtn").click(function(){
+	$("#addforum").modal("hide");
 });
 </script>
