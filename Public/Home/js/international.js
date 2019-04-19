@@ -108,11 +108,11 @@ internationalWordsZH.docpagehome='开发';
 internationalWordsEN.docpagehome='Develop';
 internationalWordsZH.docpagedevlopdoc='开发者文档';
 internationalWordsEN.docpagedevlopdoc='Documentation';
-internationalWordsZH.docpagecommenttipc='评论内容不能为空，且不能有非法字符.';
+internationalWordsZH.docpagecommenttipc='评论内容不能为空，且不能有非法字符。';
 internationalWordsEN.docpagecommenttipc='The comment description is required and special characters is not allowed.';
-internationalWordsZH.docpagecommenttipscuf='评论成功.';
+internationalWordsZH.docpagecommenttipscuf='评论成功。';
 internationalWordsEN.docpagecommenttipscuf='Comment added.';
-internationalWordsZH.docpagecommenterror='评论失败,请稍后再试.';
+internationalWordsZH.docpagecommenterror='评论失败,请稍后再试。';
 internationalWordsEN.docpagecommenterror='Failed to add comment, please try again later.';
 internationalWordsZH.docpagecommentloadmore='加载更多';
 internationalWordsEN.docpagecommentloadmore='load more';
@@ -157,7 +157,7 @@ internationalWordsEN.loginerror='Invalid email or password.';
 internationalWordsZH.loginscanqrcode ='请打开手机Elephant钱包App,扫码授权';
 internationalWordsEN.loginscanqrcode='Please open the Elephant wallet app on your mobile phone , then scan the code.';
 internationalWordsZH.emailcode ='验证码';
-internationalWordsEN.emailcode='Code';
+internationalWordsEN.emailcode='Confirmation Code';
 
 
 
@@ -191,7 +191,7 @@ internationalWordsZH.resetpwdconfirmpwd ='确认密码';
 internationalWordsEN.resetpwdconfirmpwd="Confirm password";
 internationalWordsZH.resetpwdbtn ='重置';
 internationalWordsEN.resetpwdbtn="Reset";
-internationalWordsZH.resetpwdtip ='两次输入密码不一致,且不能为空！';
+internationalWordsZH.resetpwdtip ='两次输入密码不一致,且不能为空。';
 internationalWordsEN.resetpwdtip="Two passwords you typed do not match, and are required.";
 //注册页面
 internationalWordsZH.signuptitle ='注册';
@@ -272,7 +272,7 @@ internationalWordsZH.profileeditsavesfail='更新失败，请重试';
 internationalWordsEN.profileeditsavesfail='Failed to update your profile, please try again later.';
 internationalWordsZH.githubbinderror='该Github账户已经绑定，请解绑后再绑定！';
 internationalWordsEN.githubbinderror='The GitHub account is already associated. Please un-associate it and associate again.';
-internationalWordsZH.bindsuc='解除绑定成功.';
+internationalWordsZH.bindsuc='解除绑定成功。';
 internationalWordsEN.bindsuc='Un-associated successfully.';
 internationalWordsZH.confirmunbind='确定要解除绑定？';
 internationalWordsEN.confirmunbind='Are you sure you want to un-assocate it?';
@@ -290,6 +290,8 @@ internationalWordsZH.bindwechattip='绑定微信';
 internationalWordsEN.bindwechattip='Associate with Wechat';
 internationalWordsZH.binddidtip='绑定ELA DID';
 internationalWordsEN.binddidtip='Associate with ELA DID';
+internationalWordsZH.profileeditnickname='昵称';
+internationalWordsEN.profileeditnickname='Nick Name';
 
 //get test token
 internationalWordsZH.applytokentip='测试ELA钱包地址';
@@ -306,9 +308,9 @@ internationalWordsZH.applytokenlisttitletow='数量';
 internationalWordsEN.applytokenlisttitletow='Amount';
 internationalWordsZH.applytokenlisttitlethree='状态';
 internationalWordsEN.applytokenlisttitlethree='Status';
-internationalWordsZH.applytokensuccfully='申请已提交,大约5分钟后收到你的测试币.';
+internationalWordsZH.applytokensuccfully='申请已提交,大约5分钟后收到你的测试币。';
 internationalWordsEN.applytokensuccfully='Application submitted, it will take around 5 minutes to receive your test token.';
-internationalWordsZH.applytokenfail='测试币申请提交失败，请重试.';
+internationalWordsZH.applytokenfail='测试币申请提交失败，请重试。';
 internationalWordsEN.applytokenfail='Failed to submit your application, please try again later.';
 internationalWordsZH.applytokentips='测试ELA钱包地址必须填写';
 internationalWordsEN.applytokentips='Test ELA wallet address is required.';
@@ -461,6 +463,14 @@ internationalWordsZH.add_forum_cancel='取消';
 internationalWordsEN.add_forum_cancel='Cancel';
 internationalWordsZH.addforumtip='标题、内容和分类不能为空。';
 internationalWordsEN.addforumtip='Title, content and category cannot be empty.';
+internationalWordsZH.addforumsuccfultip='发布成功。';
+internationalWordsEN.addforumsuccfultip='Publish successfully.';
+internationalWordsZH.addforumerrortip='发布失败。';
+internationalWordsEN.addforumerrortip='Publish Failed.';
+internationalWordsZH.addforumslidtip='向右滑动填充拼图';
+internationalWordsEN.addforumslidtip='Slide right to fill in the puzzle';
+
+
 
 
 

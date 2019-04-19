@@ -333,6 +333,7 @@ class PcenterController extends BaseController {
 		$data['moreurl'] = $_POST['moreurl'];
 		$data['company'] = $_POST['company'];
 		$data['email'] = $_POST['email'];
+		$data['nickname'] = $_POST['nickname'];
 		$where['userid'] = $_SESSION['eladevp']['userid'];
 		$user = M("user");
 		$rs = $user->where($where)->save($data);
@@ -1471,7 +1472,7 @@ class PcenterController extends BaseController {
 			for($i=0;$i<count($ulist);$i++){
 				if($ulist[$i]['email']!=""){
 					if($_SESSION ['eladevp']['lang']=="cn"){
-						$rs = SendMail($ulist[$i]['email']," [新公告] ".$title."","<p>亦来云开发者网站有一条新公告：</p><p>".$title."</p><p>点击链接查看更多：</p><p><a href='".$url."'>".$url."</a></p><p>谢谢</p><p>亦来云团队</p>");
+						$rs = SendMail($ulist[$i]['email'],"[New Notification] ".$title." [新公告] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$title."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p><br><br><br><br><br><p>亦来云开发者网站有一条新公告：</p><p>".$title."</p><p>点击链接查看更多：</p><p><a href='".$url."'>".$url."</a></p><p>谢谢</p><p>亦来云团队</p>");
 					}else{
 						$rs = SendMail($ulist[$i]['email']," [New Notification] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$title."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p>");
 					}
@@ -1656,14 +1657,30 @@ class PcenterController extends BaseController {
 		$where['sender'] = $_SESSION ['eladevp']['userid'];
 		$where['pid'] = array("NEQ",0);
 		$article = M("article");
-		$rslist = $article->where($where)->field("pid")->select();
+		$rslist = $article->where($where)->select();
 		$arra = array();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$arra[$i] = $rslist[$i]['pid'];
+				$wherea['id'] = $rslist[$i]['pid'];
+				$rsinfo = $this->getforumdetail($wherea);
+				if($rsinfo['title']!="评论"){
+					$arra[$i] = $rslist[$i]['pid'];
+				}else{
+					$arra[$i] = $rsinfo['pid'];
+				}
 			}
 		}
 		return $arra;
+	}
+	//获取论坛详情
+	public function getforumdetail($where){
+		$article = M("article");
+		$rsinfo = $article->where($where)->find();
+		if($rsinfo){
+			return $rsinfo;
+		}else{
+			return 0;
+		}
 	}
 	//获取论坛内容列表
 	public function forumlistjson(){

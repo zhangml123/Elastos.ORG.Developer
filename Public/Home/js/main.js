@@ -238,6 +238,11 @@ function guojihua(){
 	$(".add_forum_tip").html(internationalWords.add_forum_tip);
 	$(".cancelbtn").html(internationalWords.add_forum_cancel);
 	$(".addforumtip").html(internationalWords.addforumtip);
+	$(".addforumsuccful").html(internationalWords.addforumsuccfultip);
+	$(".addforumerror").html(internationalWords.addforumerrortip);
+	$(".sliderText").html(internationalWords.addforumslidtip);
+	$(".profileeditnickname").html(internationalWords.profileeditnickname);
+	
 }
 guojihua();
 

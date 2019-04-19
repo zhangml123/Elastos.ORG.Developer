@@ -8,7 +8,7 @@
                     <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title profileedit" id="loginModalLabel" style="margin-top:35px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">Edit My Profile</h4>
 				</div>
-                <div class="modal-body" style="padding:30px;">
+                <div class="modal-body" style="padding:30px;padding-top:10px;">
                     <section class="box-login v5-input-txt" id="box-login" style="height:500px;">
                         <form id="login_form" action="" method="post" autocomplete="off">
                             <ul style="list-style-type:none;" id="editprofileul">
@@ -23,6 +23,9 @@
 								</li>
                                 <li class="form-group">
 								<div class="profileeditlastname">Last Name</div><div><input type="text" id="lastname" value="{$uinfo.lastname}"  style="padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" /></div>
+								</li>
+                                <li class="form-group">
+								<div class="profileeditnickname">Nick Name</div><div><input type="text" id="nickname" value="{$uinfo.nickname}"  style="padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" /></div>
 								</li>
                                 <li class="form-group">
 								<div class="profileeditlocation">Location</div><div>
@@ -56,7 +59,7 @@
                         </form>
                     </section>
 					<div class="loginbtn" style="height:55px;text-align:center;">
-						<button class="loginbtn_b profileeditsave" id="saveprofilebtn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:20%;border-radius:20px;height:40px;line-height:40px;">Save</button>
+						<button class="loginbtn_b profileeditsave" id="saveprofilebtn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:20%;border-radius:20px;height:40px;line-height:40px;margin-top:10px;">Save</button>
 					</div>
                 </div>
             </div>
@@ -84,9 +87,10 @@ $("#saveprofilebtn").click(function(){
 	var city = $("#city").val();
 	var bio = $("#bio").val();
 	var moreurl = $("#moreurl").val();
+	var nickname = $("#nickname").val();
 	$.post(
 		internationalWords.hosturl+'index.php/Home/Pcenter/editprofile',
-		{email:email,firstname:firstname,lastname:lastname,company:company,country:country,city:city,bio:bio,moreurl:moreurl},
+		{email:email,firstname:firstname,lastname:lastname,company:company,nickname:nickname,country:country,city:city,bio:bio,moreurl:moreurl},
 		function(data){
 			if(data==1){
 				profile_popup();

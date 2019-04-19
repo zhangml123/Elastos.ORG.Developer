@@ -150,13 +150,23 @@ $("#sendemailbtn").on("click",function(){
 		}
 	)
 });
+document.onkeydown = function(e){
+	var ev = document.all ? window.event : e;
+	if(ev.keyCode==13) {
+		document.getElementById("sendemailbtn").click();
+	}
+}
 var mytime;
 function daojishi(){
    var i = 60;
   mytime =  setInterval(function(){
 	  if(i>0){
 		  i = i-1; 
-		  $(".resendcode").html("(已发送 "+i+"s)");
+			if(sessionStorage.getItem('internationalWords')==1){
+				$(".resendcode").html("(已发送 "+i+"s)");
+			}else{
+				$(".resendcode").html("(has been sent "+i+"s)");
+			}
 		  $(".resendcode").css("color","#A7B2BC");
 		  if(i==57){
 			$("#resendtip").modal("hide");
