@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/iconfont/iconfont.css">
 <link href="{$Think.const.PUBLIC_H}Home/summernote/summernote.css" rel="stylesheet" />
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
@@ -40,7 +41,7 @@ width: 5px;
 .forumgo{outline:none;height:35px;width:50px;border:1px solid #173045;float:left;border-bottom-right-radius:20px;border-top-right-radius:20px;color:#18FFFF;background-color:#173045;text-align:center;}
 .addforumcls{outline:none;float:right;width:200px;border:1px solid #173045;color:#18FFFF;background-color:#173045;text-align:center;border-radius:20px;height:35px;}
 .forum_list_title{width:90%;height:50px;margin-top:10px;margin-right:10%;}
-.forum_list{width:90%;margin-right:10%;height:700px;}
+.forum_list{width:90%;margin-right:10%;min-height:700px;height:auto;}
 .vlist_v{width:96%;margin-left:4%;height:30px;margin-top:30px;margin-bottom:20px;}
 .vlist_v_t_l{width:60%;height:30px;float:left;font-size:20px;font-family: Komu;}
 .vlist_v_t_r{width:40%;height:30px;float:right;font-size:14px;line-height:30px;}
@@ -50,11 +51,12 @@ width: 5px;
 .vlist_r{background-color:#F2F6FB;}
 .vlist_list_li{height:50px;line-height:50px;}
 .vlist_list_li a{height:50px;line-height:50px;color:#333;font-size:16px;font-weight:500;}
-.forum_list_ul{height:700px;list-style-type:none;padding:0px;margin:0px;}
-.forum_list_ul li{height:185px;width:100%;border-bottom:1px solid #ccc;margin-bottom:20px;margin-top:20px;}
+.forum_list_ul{min-height:700px;list-style-type:none;padding:0px;margin:0px;height:auto;}
+.forum_list_ul li{max-height:185px;width:100%;border-bottom:1px solid #ccc;margin-bottom:20px;margin-top:20px;}
 .forum_list_posted{width:100%;height:30px;line-height:30px;color:#bbb;font-size:12px;}
 .forum_list_li_title{font-size:18px;height:40px;line-height:40px;width:100%;}
-.forum_list_shortc{width:100%;height:60px;line-height:30px;font-size:12px;}
+.forum_list_shortc{width:100%;max-height:60px;line-height:30px;font-size:12px;}
+.forum_list_shortc p{margin:0px 0px 0px;}
 .forum_list_icon_list{height:40px;width:100%;}
 .forum_list_icon_list_one,.forum_list_icon_list_tow,.forum_list_icon_list_three,.forum_list_icon_list_four{float:left;width:70px;height:40px;line-height:40px;}
 .forum_list_icon_list div img{width:25px;height:20px;margin-top:15px;float:left;}
@@ -84,7 +86,7 @@ width: 5px;
 		<li class="active nav_forum" style="font-family: Komu;font-size:42px;color:#173045;">FORUM</li>
 		</ul>
 	</div>		
-	<div class="container">
+	<div class="container" style="overflow:hidden;min-height:1300px;height:auto;">
 		<div class="row">
 			<div class="col-md-9">
 				<div class="forum_list_title">
@@ -128,17 +130,23 @@ width: 5px;
 							</eq>
 						</volist>
 					</select>
-					<neq name="sendtime" value="">
-						<div class="forum_data_added" style="border-bottom:3px solid #18FFFF">Date Added</div>
-					</neq>
-					<eq name="sendtime" value="">
-						<div class="forum_data_added">Date Added</div>
+					<eq name="sendtime" value="1">
+						<div class="forum_data_added" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:-2px 9px;" sort="{$sendtime}">Date Added</div>
 					</eq>
-					<neq name="puplarity" value="">
-						<div class="forum_popularity" style="border-bottom:3px solid #18FFFF">Popularity</div>
-					</neq>
+					<eq name="sendtime" value="2">
+						<div class="forum_data_added" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:-2px 9px;" sort="{$sendtime}">Date Added</div>
+					</eq>
+					<eq name="sendtime" value="">
+						<div class="forum_data_added" sort="1">Date Added</div>
+					</eq>
+					<eq name="puplarity" value="1">
+						<div class="forum_popularity" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:9px 9px;" sort="{$puplarity}">Popularity</div>
+					</eq>
+					<eq name="puplarity" value="2">
+						<div class="forum_popularity" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:9px 9px;" sort="{$puplarity}">Popularity</div>
+					</eq>
 					<eq name="puplarity" value="">
-						<div class="forum_popularity">Popularity</div>
+						<div class="forum_popularity" sort="1">Popularity</div>
 					</eq>
 				</div>
 				<div class="forum_list">
@@ -148,13 +156,13 @@ width: 5px;
 					</eq>
 					<neq name="pcount" value="0">
 					  <volist name="forumlist" id="vob">
-						<li onclick="window.location.href='forumdetail?forumid={$vob.id}';">
+						<li>
 							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate} <span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;{$vob.catename}&nbsp;</span></div>
-							<div class="forum_list_li_title"  style="cursor:pointer;">{$vob.title}</div>
+							<div class="forum_list_li_title"   onclick="window.location.href='forumdetail?forumid={$vob.id}';" style="cursor:pointer;overflow:hidden;text-overflow: ellipsis;">{$vob.title}</div>
 								<if condition="mb_strlen($vob['contents'],'utf-8') egt 110"> 
-									<div class="forum_list_shortc"  style="cursor:pointer;">{$vob.contents|msubstr=0,105,'utf-8',true}</div>
+									<div class="forum_list_shortc"  onclick="window.location.href='forumdetail?forumid={$vob.id}';" style="cursor:pointer;overflow:hidden;text-overflow: ellipsis;">{$vob.contents|msubstr=0,105,'utf-8',true}</div>
 								<else/> 
-									<div class="forum_list_shortc"  style="cursor:pointer;">{$vob.contents}</div>
+									<div class="forum_list_shortc"  onclick="window.location.href='forumdetail?forumid={$vob.id}';" style="cursor:pointer;overflow:hidden;">{$vob.contents}</div>
 								</if>
 							<div class="forum_list_icon_list">
 								<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.likes}</span></div>
@@ -173,10 +181,10 @@ width: 5px;
 					<div class="vlist_v_title">
 						<div class="vlist_v_t_l">MY topics</div>
 						<neq name="logincate" value="">
-							<div class="vlist_v_t_r" style="cursor:pointer;" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';">View All</div>
+							<div class="vlist_v_t_r" style="cursor:pointer;"  onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';">View All</div>
 						</neq>
 						<eq name="logincate" value="">
-							<div class="vlist_v_t_r" style="cursor:pointer;" >View All</div>
+							<div class="vlist_v_t_r" style="cursor:pointer;"  id="viewall">View All</div>
 						</eq>
 					</div>
 				</div>
@@ -326,8 +334,8 @@ if(counts!="0"){
 						$(".forum_list_ul").html("");
 						//console.log("列表："+callback[0]['adddate']);
 						for(var i=0;i<callback.length;i++){
-							var htmla = '<li onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';"><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div class="forum_list_li_title">'+callback[i]['title']+'</div>'
-										+'<div class="forum_list_shortc">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
+							var htmla = '<li><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
 										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
@@ -341,15 +349,27 @@ if(counts!="0"){
 	});	
 }
 
+  if(sessionStorage.getItem('internationalWords')==1){
+
 $('.summernote').summernote({
 		height: 150,
 		tabsize: 2,
 		disableDragAndDrop:false,
 		minHeight:150,
 		maxHeight:150,
-		placeholder: 'When youth departs, may wisdom prove enouth.When youth departs, may wisdom prove enouth.',
+		placeholder: '当青春远去，愿智慧已足够。',
 		lang: 'zh-CN'
 	});
+	}else{
+		$('.summernote').summernote({
+			height: 150,
+			tabsize: 2,
+			disableDragAndDrop:false,
+			minHeight:150,
+			maxHeight:150,
+			placeholder: 'When youth departs, may wisdom prove enouth.'
+		});
+	}
 $(document).ready(function(){
 	$("#addforumbtn").click(function(){
 		var loginstatus = '{$logincate}';
@@ -361,7 +381,13 @@ $(document).ready(function(){
 	});
 	$("#searchforumgobtn").click(function(){jumpurl();});
 	$(".forum_data_added").click(function(){
-		var added = 1;
+		if($(this).attr("sort")=="1"){
+			var added = 2;
+			//$(this).attr("sort","2");
+		}else{
+			var added = 1;
+			//$(this).attr("sort","1");
+		}
 		var popularity="";
 		var forumcate = $("#forumcate").val();
 		if($(".searchforum").val()!=""){
@@ -373,7 +399,14 @@ $(document).ready(function(){
 	});
 	$(".forum_popularity").click(function(){
 		var added = "";
-		var popularity=1;
+		//var popularity=1;
+		if($(this).attr("sort")=="1"){
+			var popularity = 2;
+			//$(this).attr("sort","2");
+		}else{
+			var popularity = 1;
+			//$(this).attr("sort","1");
+		}
 		var forumcate = $("#forumcate").val();
 		if($(".searchforum").val()!=""){
 			var searchc = $(".searchforum").val();
@@ -469,6 +502,15 @@ $(document).ready(function(){
 				
 			}
 		);
+	});
+	$("#viewall").click(function(){
+		var loginstatus = '{$logincate}';
+		if(loginstatus!=""){
+			window.location.href='{$curhost}index.php/Home/Pcenter/forumlistshow.html';
+		 }else{
+			login_popup();
+		 }
+	
 	});
 });
 </script>

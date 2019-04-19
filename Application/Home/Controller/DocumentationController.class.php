@@ -97,7 +97,7 @@ class DocumentationController extends CommonbaseController {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 			}
 		}
@@ -278,7 +278,7 @@ class DocumentationController extends CommonbaseController {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 			}
 		}
@@ -500,7 +500,7 @@ class DocumentationController extends CommonbaseController {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 			}
 		}
@@ -518,7 +518,7 @@ class DocumentationController extends CommonbaseController {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 			}
 			echo json_encode($commentlist);
@@ -537,7 +537,7 @@ class DocumentationController extends CommonbaseController {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 			}
 			echo json_encode($commentlist);

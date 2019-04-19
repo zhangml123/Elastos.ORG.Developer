@@ -23,19 +23,35 @@
 <div class="container">
 	<div class="notications" style="width:100%;height:50px;line-height:50px;font-size:20px;margin-top:120px;color:#173045;font-weight:900;">NOTIFICATIONS</div>
 	<div style="width:100%;height:610px;">
-		<ul id="token-list" style="list-style-type:none;background-color:#F6F9FD;margin:0px;">
+		<ul id="token-list" style="list-style-type:none;min-height:490px;height:auto;margin:0px;">
 			<volist name="noticelist" id="voa">
 				<eq name="lang" value="cn">
+					<eq name="voa.threeday" value="Y">
 					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
 						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitle} </div>
 						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
 					</li>
+					</eq>
+					<eq name="voa.threeday" value="N">
+					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
+						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitle} <span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;"> NEW </span></div>
+						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
+					</li>
+					</eq>
 				</eq>
 				<eq name="lang" value="en">
+					<eq name="voa.threeday" value="Y">
 					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
 						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitleen} </div>
 						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
 					</li>
+					</eq>
+					<eq name="voa.threeday" value="N">
+					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
+						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitleen} </div>
+						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}<span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;"> NEW </span></div>
+					</li>
+					</eq>
 				</eq>
 			</volist>
 		</ul>
@@ -186,14 +202,28 @@ $('#pageLimit').bootstrapPaginator({
 					$("#token-list").html("");
 					for(var i=0;i<callback.length;i++){
 						if(sessionStorage.getItem('internationalWords')==1){
-							var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
+							if(callback[i]['threeday']=="Y"){
+								var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
 										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitle']+'</div>'
 										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
+							}else{	
+								var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
+										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitle']+'&nbsp;<span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;">NEW</span></div>'
+										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
+								
+							}
+								
+										
 						}else{
+							if(callback[i]['threeday']=="N"){
 							var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
 										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitleen']+'</div>'
 										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
-
+							}else{	
+							var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
+										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitleen']+'&nbsp;<span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;">NEW</span></div>'
+										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
+							}
 						}
 						$("#token-list").append(htmla);
 					}

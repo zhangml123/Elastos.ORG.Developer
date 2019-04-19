@@ -15,7 +15,7 @@ class CommentController extends Controller {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 				$uinfo = $this->findcommenthead($commentlist[$i]['userid'],$commentlist[$i]['cate']);
 				if($uinfo){
@@ -45,7 +45,7 @@ class CommentController extends Controller {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 				$uinfo = $this->findcommenthead($commentlist[$i]['userid'],$commentlist[$i]['cate']);
 				if($uinfo){
@@ -74,7 +74,7 @@ class CommentController extends Controller {
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
-					$commentlist[$i]['adddatetime'] = date("M d - h:i A",$commentlist[$i]['addtime']);
+					$commentlist[$i]['adddatetime'] = date("M d Y h:i A",$commentlist[$i]['addtime']);
 				}
 				$uinfo = $this->findcommenthead($commentlist[$i]['userid'],$commentlist[$i]['cate']);
 				if($uinfo){
