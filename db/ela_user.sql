@@ -1,0 +1,1 @@
+delete from ela_user where userid is NULL;
