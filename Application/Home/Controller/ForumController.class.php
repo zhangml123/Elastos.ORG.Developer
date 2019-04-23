@@ -90,9 +90,58 @@ class ForumController extends Controller {
 			}else{
 				$articleinfo['adddate'] = date("M d,Y h:i A",$articleinfo['addtime']);;
 			}
+			if(mb_strlen($articleinfo['title'],"utf-8")>21){
+				$articleinfo['nav_title'] = mb_substr($articleinfo['title'],0,20,'utf-8')."...";
+			}else{
+				$articleinfo['nav_title'] = $articleinfo['title'];
+			}
+			
 			$wherea['userid'] = $articleinfo['sender'];
 			$cuinfo = $this->userinfo($wherea);
 			$articleinfo['nickname'] = $cuinfo['nickname'];
+			
+			
+			if($cuinfo['nickname']==""){
+				if($cuinfo['subucate']=="1"){
+					if(strlen($cuinfo['userid'])>11){
+						$articleinfo['nickname'] = substr($cuinfo['userid'],0,4)."...".substr($cuinfo['userid'],(strlen($cuinfo['userid'])-6),6);
+					}else{
+						$articleinfo['nickname'] = $cuinfo['userid'];
+					}
+				}elseif($cuinfo['subucate']=="2"){
+					if(strlen($cuinfo['rcuid'])>11){
+						$articleinfo['nickname'] = substr($cuinfo['rcuid'],0,4)."...".substr($cuinfo['rcuid'],(strlen($cuinfo['rcuid'])-6),6);
+					}else{
+						$articleinfo['nickname'] = $cuinfo['rcuid'];
+					}
+				}elseif($cuinfo['subucate']=="3"){
+					if(strlen($cuinfo['githubuid'])>11){
+						$articleinfo['nickname'] = substr($cuinfo['githubuid'],0,4)."...".substr($cuinfo['githubuid'],(strlen($cuinfo['githubuid'])-6),6);
+					}else{
+						$articleinfo['nickname'] = $cuinfo['githubuid'];
+					}
+				}elseif($cuinfo['subucate']=="4"){
+					if(strlen($cuinfo['wechatuid'])>11){
+						$articleinfo['nickname'] = substr($cuinfo['wechatuid'],0,4)."...".substr($cuinfo['wechatuid'],(strlen($cuinfo['wechatuid'])-6),6);
+					}else{
+						$articleinfo['nickname'] = $cuinfo['wechatuid'];
+					}
+				}elseif($cuinfo['subucate']=="5"){
+					if(strlen($cuinfo['didid'])>11){
+						$articleinfo['nickname'] = substr($cuinfo['didid'],0,4)."...".substr($cuinfo['didid'],(strlen($cuinfo['didid'])-6),6);
+					}else{
+						$articleinfo['nickname'] = $cuinfo['didid'];
+					}
+				}else{
+					$articleinfo['nickname'] = "";
+				}
+			}else{
+				$articleinfo['nickname'] = $cuinfo['nickname'];
+			}
+			
+			
+			
+			
 			$wherec['pid'] = $_GET['forumid'];
 			$commentlist = $this->initcommentlist($wherec);
 			$this->assign("commentlist",$commentlist);
@@ -120,6 +169,52 @@ class ForumController extends Controller {
 		$forumcommentlist = $forumcomment->commentlist($where,0,10);
 		if($forumcommentlist){
 			for($i=0;$i<count($forumcommentlist);$i++){
+				
+			$wherea['userid'] = $forumcommentlist[$i]['sender'];
+			$cuinfo = $this->userinfo($wherea);
+			$forumcommentlist[$i]['nickname'] = $cuinfo['nickname'];
+			
+			
+			if($cuinfo['nickname']==""){
+				if($cuinfo['subucate']=="1"){
+					if(strlen($cuinfo['userid'])>11){
+						$forumcommentlist[$i]['nickname'] = substr($cuinfo['userid'],0,4)."...".substr($cuinfo['userid'],(strlen($cuinfo['userid'])-6),6);
+					}else{
+						$forumcommentlist[$i]['nickname'] = $cuinfo['userid'];
+					}
+				}elseif($cuinfo['subucate']=="2"){
+					if(strlen($cuinfo['rcuid'])>11){
+						$forumcommentlist[$i]['nickname'] = substr($cuinfo['rcuid'],0,4)."...".substr($cuinfo['rcuid'],(strlen($cuinfo['rcuid'])-6),6);
+					}else{
+						$forumcommentlist[$i]['nickname'] = $cuinfo['rcuid'];
+					}
+				}elseif($cuinfo['subucate']=="3"){
+					if(strlen($cuinfo['githubuid'])>11){
+						$forumcommentlist[$i]['nickname'] = substr($cuinfo['githubuid'],0,4)."...".substr($cuinfo['githubuid'],(strlen($cuinfo['githubuid'])-6),6);
+					}else{
+						$forumcommentlist[$i]['nickname'] = $cuinfo['githubuid'];
+					}
+				}elseif($cuinfo['subucate']=="4"){
+					if(strlen($cuinfo['wechatuid'])>11){
+						$forumcommentlist[$i]['nickname'] = substr($cuinfo['wechatuid'],0,4)."...".substr($cuinfo['wechatuid'],(strlen($cuinfo['wechatuid'])-6),6);
+					}else{
+						$forumcommentlist[$i]['nickname'] = $cuinfo['wechatuid'];
+					}
+				}elseif($cuinfo['subucate']=="5"){
+					if(strlen($cuinfo['didid'])>11){
+						$forumcommentlist[$i]['nickname'] = substr($cuinfo['didid'],0,4)."...".substr($cuinfo['didid'],(strlen($cuinfo['didid'])-6),6);
+					}else{
+						$forumcommentlist[$i]['nickname'] = $cuinfo['didid'];
+					}
+				}else{
+					$forumcommentlist[$i]['nickname'] = "";
+				}
+			}else{
+				$forumcommentlist[$i]['nickname'] = $cuinfo['nickname'];
+			}
+				
+				
+				
 				$forumcommentlist[$i]['subcommentlist'] = $this->subcommentlist($forumcommentlist[$i]['id']);
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$forumcommentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$forumcommentlist[$i]['addtime']);
@@ -152,6 +247,51 @@ class ForumController extends Controller {
 		$commentlist = $forumcomment->commentlist($where,0,5);
 		if($commentlist){
 			for($i=0;$i<count($commentlist);$i++){
+				
+				$wherea['userid'] = $commentlist[$i]['sender'];
+			$cuinfo = $this->userinfo($wherea);
+			$commentlist[$i]['nickname'] = $cuinfo['nickname'];
+			
+			
+			if($cuinfo['nickname']==""){
+				if($cuinfo['subucate']=="1"){
+					if(strlen($cuinfo['userid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['userid'],0,4)."...".substr($cuinfo['userid'],(strlen($cuinfo['userid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['userid'];
+					}
+				}elseif($cuinfo['subucate']=="2"){
+					if(strlen($cuinfo['rcuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['rcuid'],0,4)."...".substr($cuinfo['rcuid'],(strlen($cuinfo['rcuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['rcuid'];
+					}
+				}elseif($cuinfo['subucate']=="3"){
+					if(strlen($cuinfo['githubuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['githubuid'],0,4)."...".substr($cuinfo['githubuid'],(strlen($cuinfo['githubuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['githubuid'];
+					}
+				}elseif($cuinfo['subucate']=="4"){
+					if(strlen($cuinfo['wechatuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['wechatuid'],0,4)."...".substr($cuinfo['wechatuid'],(strlen($cuinfo['wechatuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['wechatuid'];
+					}
+				}elseif($cuinfo['subucate']=="5"){
+					if(strlen($cuinfo['didid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['didid'],0,4)."...".substr($cuinfo['didid'],(strlen($cuinfo['didid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['didid'];
+					}
+				}else{
+					$commentlist[$i]['nickname'] = "";
+				}
+			}else{
+				$commentlist[$i]['nickname'] = $cuinfo['nickname'];
+			}
+				
+				
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
 				}else{
@@ -228,6 +368,55 @@ class ForumController extends Controller {
 		$commentlist = $forumcomment->commentlist($where,$_POST['startn'],10);
 		if($commentlist){
 			for($i=0;$i<count($commentlist);$i++){
+				
+				
+				
+					
+				$wherea['userid'] = $commentlist[$i]['sender'];
+			$cuinfo = $this->userinfo($wherea);
+			$commentlist[$i]['nickname'] = $cuinfo['nickname'];
+			
+			
+			if($cuinfo['nickname']==""){
+				if($cuinfo['subucate']=="1"){
+					if(strlen($cuinfo['userid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['userid'],0,4)."...".substr($cuinfo['userid'],(strlen($cuinfo['userid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['userid'];
+					}
+				}elseif($cuinfo['subucate']=="2"){
+					if(strlen($cuinfo['rcuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['rcuid'],0,4)."...".substr($cuinfo['rcuid'],(strlen($cuinfo['rcuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['rcuid'];
+					}
+				}elseif($cuinfo['subucate']=="3"){
+					if(strlen($cuinfo['githubuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['githubuid'],0,4)."...".substr($cuinfo['githubuid'],(strlen($cuinfo['githubuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['githubuid'];
+					}
+				}elseif($cuinfo['subucate']=="4"){
+					if(strlen($cuinfo['wechatuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['wechatuid'],0,4)."...".substr($cuinfo['wechatuid'],(strlen($cuinfo['wechatuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['wechatuid'];
+					}
+				}elseif($cuinfo['subucate']=="5"){
+					if(strlen($cuinfo['didid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['didid'],0,4)."...".substr($cuinfo['didid'],(strlen($cuinfo['didid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['didid'];
+					}
+				}else{
+					$commentlist[$i]['nickname'] = "";
+				}
+			}else{
+				$commentlist[$i]['nickname'] = $cuinfo['nickname'];
+			}
+				
+				
+				
 				$commentlist[$i]['subcommentlist'] = $this->subcommentlist($commentlist[$i]['id']);
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
@@ -264,6 +453,53 @@ class ForumController extends Controller {
 		$commentlist = $forumcomment->commentlist($where,$_POST['startn'],10);
 		if($commentlist){
 			for($i=0;$i<count($commentlist);$i++){
+				
+					
+				$wherea['userid'] = $commentlist[$i]['sender'];
+			$cuinfo = $this->userinfo($wherea);
+			$commentlist[$i]['nickname'] = $cuinfo['nickname'];
+			
+			
+			if($cuinfo['nickname']==""){
+				if($cuinfo['subucate']=="1"){
+					if(strlen($cuinfo['userid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['userid'],0,4)."...".substr($cuinfo['userid'],(strlen($cuinfo['userid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['userid'];
+					}
+				}elseif($cuinfo['subucate']=="2"){
+					if(strlen($cuinfo['rcuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['rcuid'],0,4)."...".substr($cuinfo['rcuid'],(strlen($cuinfo['rcuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['rcuid'];
+					}
+				}elseif($cuinfo['subucate']=="3"){
+					if(strlen($cuinfo['githubuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['githubuid'],0,4)."...".substr($cuinfo['githubuid'],(strlen($cuinfo['githubuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['githubuid'];
+					}
+				}elseif($cuinfo['subucate']=="4"){
+					if(strlen($cuinfo['wechatuid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['wechatuid'],0,4)."...".substr($cuinfo['wechatuid'],(strlen($cuinfo['wechatuid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['wechatuid'];
+					}
+				}elseif($cuinfo['subucate']=="5"){
+					if(strlen($cuinfo['didid'])>11){
+						$commentlist[$i]['nickname'] = substr($cuinfo['didid'],0,4)."...".substr($cuinfo['didid'],(strlen($cuinfo['didid'])-6),6);
+					}else{
+						$commentlist[$i]['nickname'] = $cuinfo['didid'];
+					}
+				}else{
+					$commentlist[$i]['nickname'] = "";
+				}
+			}else{
+				$commentlist[$i]['nickname'] = $cuinfo['nickname'];
+			}
+				
+				
+				
 				$commentlist[$i]['subcommentlist'] = $this->subcommentlist($commentlist[$i]['id']);
 				if($_SESSION ['eladevp']['lang']=="cn"){
 					$commentlist[$i]['adddatetime'] = date("Y-m-d H:i:s",$commentlist[$i]['addtime']);
@@ -333,7 +569,8 @@ class ForumController extends Controller {
 	}
 	//获取当前用户的参与评论的主题
 	public function forumlistofmycomment(){
-		$where['id'] = array("in",$this->myforumcomment());
+		//$where['id'] = array("in",$this->myforumcomment());
+		$where['id'] =array("in", array_unique($this->myforumcomment()));
 		$where['pid'] = 0;
 		$article = M("article");
 		$rslist = $article->where($where)->order("addtime desc")->select();
@@ -347,13 +584,46 @@ class ForumController extends Controller {
 		echo json_encode($rslist);
 	}
 	//我评论的主题
-	public function myforumcomment(){
+/* 	public function myforumcomment(){
 		$where['sender'] = $_SESSION ['eladevp']['userid'];
 		$where['pid'] = array("NEQ",0);
 		$article = M("article");
 		$rslist = $article->where($where)->getField("pid");
 		return $rslist;
+	} */
+	
+	
+	//我评论的主题
+	public function myforumcomment(){
+		$where['sender'] = $_SESSION ['eladevp']['userid'];
+		$where['pid'] = array("NEQ",0);
+		$article = M("article");
+		$rslist = $article->where($where)->select();
+		$arra = array();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				$wherea['id'] = $rslist[$i]['pid'];
+				$rsinfo = $this->getforumdetail($wherea);
+				if($rsinfo['title']!="评论"){
+					$arra[$i] = $rslist[$i]['pid'];
+				}else{
+					$arra[$i] = $rsinfo['pid'];
+				}
+			}
+		}
+		return $arra;
 	}
+	//获取论坛详情
+	public function getforumdetail($where){
+		$article = M("article");
+		$rsinfo = $article->where($where)->find();
+		if($rsinfo){
+			return $rsinfo;
+		}else{
+			return 0;
+		}
+	}
+	
 	//获取关注的主题
 	public function forumlistofmyfowlled(){
 		$where['id'] = array("in",$this->followedforum());
@@ -525,10 +795,20 @@ class ForumController extends Controller {
 			$where['cate'] = $_POST['cate'];
 		}
 		if(isset($_POST['sendtime']) && $_POST['sendtime']!=""){
-			$order = $order."addtime desc,";
+			if($_POST['sendtime']=="1"){
+				$order = $order."addtime desc,";
+			}else{
+				$order = $order."addtime asc,";
+			}
+			//$order = $order."addtime desc,";
 		}
 		if(isset($_POST['puplarity']) && $_POST['puplarity']!=""){
-			$order = $order."views desc,";
+			//$order = $order."views desc,";
+			if($_POST['puplarity']=="1"){
+				$order = $order."views desc,";
+			}else{
+				$order = $order."views asc,";
+			}
 		}
 		if($order==""){
 			$order = "id desc,";

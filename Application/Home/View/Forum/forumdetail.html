@@ -81,7 +81,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
 		<ul class="breadcrumb">
 		<li><a href="{$curhost}index.php/Home/Forum/index.html" class="forumtip nav_forum">Forum</a></li>
-		<li class="active forumtitle">{$articleinfo.title}</li>
+		<li class="active forumtitle">{$articleinfo.nav_title}</li>
 		</ul>
 	</div>		
 	<div class="container">
@@ -97,8 +97,10 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;">
-					<span id="curdocname" style="font-size:24px;">{$articleinfo.title}</span>
+				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;min-height:40px;height:auto;overflow:hidden;">
+					<span id="curdocname" style="font-size:24px;min-height:40px;height:auto;width:100%;">{$articleinfo.title}</span>
+					</div>
+					<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;min-height:40px;height:auto;">
 					<eq name="profileinfo.roleid" value="1">
 						<eq name="abuseyn" value="1">
 						<button class="deletetoptic" id="deletetopic" artid="{$articleinfo.id}">Delete this topic</button>
@@ -106,7 +108,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 					</eq>
 					</div>
 					<div class="forum_list_posted" style="width:95%;padding-left:5%;margin-top:20px;margin-bottom:20px;height:30px;">
-					<div style="float:left;width:120px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
+					<div style="float:left;width:150px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
 					<div style="float:left;width:80px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:15px;height:10px;" />&nbsp;&nbsp;{$articleinfo.views}&nbsp;&nbsp;<span class="forumviews">views</span> </div>
 					<div style="float:left;width:220px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-post.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostat">Posted at</span>&nbsp;&nbsp;{$articleinfo.adddate}</div>
 					</div>
