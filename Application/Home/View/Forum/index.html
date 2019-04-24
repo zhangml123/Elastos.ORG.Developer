@@ -80,6 +80,7 @@ width: 5px;
 <body>
 <include file="Index/topnav" />
 <div class="body_c" style="padding-left:10px;margin-top:0px;" id="c_row">
+	<div class="visible-xs-block" style="height:120px;">&nbsp;</div>
 	<div class="div_one_line hidden-sm hidden-xs" style="height:95px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
 		<ul class="breadcrumb">
@@ -308,7 +309,31 @@ width: 5px;
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+function judgepc() {
+  var sUserAgent = navigator.userAgent.toLowerCase();
+  var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+  var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+  var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+  var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+  var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+  var bIsAndroid = sUserAgent.match(/android/i) == "android";
+  var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+  var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+  if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+	console.log("phone");
+	$(".searchforum").css("width","270px");
+	$("#addforumbtn").css("margin-top","10px");
+	$("#addforumbtn").css("margin-bottom","10px");
+  } else {
+	console.log("pc");
+	$(".searchforum").css("width","350px");
+  }
+}
 var counts = "{$pcount}";
+var searchword = "{$searchword}";
+var cate = "{$cate}";
+var sendtime = "{$sendtime}";
+var puplarity = "{$puplarity}";
 if(counts!="0"){
 	$('#pageLimit').bootstrapPaginator({
 		currentPage: 1,
@@ -328,7 +353,7 @@ if(counts!="0"){
 			$.ajax({
 				url:'forumlistjson',
 				type:'POST',
-				data:{'curp':page},
+				data:{'curp':page,puplarity:puplarity,cate:cate,searchword:searchword,sendtime:sendtime},
 				dataType:'JSON',
 				success:function (callback) {
 						$(".forum_list_ul").html("");

@@ -103,7 +103,12 @@ function daojishis(){
   mytimes =  setInterval(function(){
 	  if(i1>0){
 		  i1 = i1-1; 
-		  $("#resendbtn").html("(已发送 "+i1+"s)");
+		  //$("#resendbtn").html("(已发送 "+i1+"s)");
+			if(sessionStorage.getItem('internationalWords')==1){
+				$("#resendbtn").html("(已发送 "+i1+"s)");
+			}else{
+				$("#resendbtn").html("(has been sent "+i1+"s)");
+			}
 		  $("#resendbtn").css("color","#A7B2BC");
 		  if(i1==57){
 			$("#resendtip").modal("hide");
