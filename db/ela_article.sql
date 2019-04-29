@@ -1,0 +1,1 @@
+alter table ela_article add isnewidea int(1) DEFAULT NULL

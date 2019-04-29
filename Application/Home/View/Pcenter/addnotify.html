@@ -30,7 +30,8 @@
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 #token-list li div{cursor:pointer;}
 @import url("https://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css");
-.checkbox{width:350px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+.checkbox{width:350px;float:left;}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
     color: #fff;
     background: #173045;
 }
@@ -458,6 +459,7 @@ function savedraft(){
 		return false;
 	}
 	window.clearInterval(addnoticeid);
+	$(this).attr("disabled","disabled");
 	$.post('addnotifyfunc',{title:title,titleen:titleen,contentsen:contentsen,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		if(data==1){
 			$("#notifypublishtip").modal("show");
