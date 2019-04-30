@@ -37,6 +37,7 @@ function guojihua(){
     $('.nav-login').html(internationalWords.login);
     $('.nav-cn').html(internationalWords.langcn);
     $('.nav-en').html(internationalWords.langen);
+    $('.nav_voting').html(internationalWords.nav_voting);
     $('.nav_develop_subdoc').html(internationalWords.navdevlopdoc);
     $('.pcenter_myprofile').html(internationalWords.pcentersubprofile);
     $('.pcenter_gettoken').html(internationalWords.pcentergettoken);
@@ -147,6 +148,7 @@ function guojihua(){
     $('#wechatbindedtip').html(internationalWords.wechatbindedtip);
     $('#didbindedtip').html(internationalWords.didbindedtip);
     $('#loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
+    $('.loadsubmorebtn').html(internationalWords.docpagecommentsubloadmore);
     $('#loadmorebtn').html(internationalWords.docpagecommentloadmore);
     $('#checkemailbtn').html(internationalWords.checkemailbtn);
     $('.resendtip').html(internationalWords.resendtip);
@@ -179,6 +181,8 @@ function guojihua(){
 	$(".noticescheduledpush").html(internationalWords.noticescheduledpush);
 	$("#ishomepage").attr("data-on-text",internationalWords.noticeshowhomeis);
 	$("#ishomepage").attr("data-off-text",internationalWords.noticeshowhomeno);
+	$("#isnewidea").attr("data-on-text",internationalWords.noticeshowhomeis);
+	$("#isnewidea").attr("data-off-text",internationalWords.noticeshowhomeno);
 	$("#notifytitle").attr("placeholder",internationalWords.noticetitleplaceholder);
 	$("#notifytitleen").attr("placeholder",internationalWords.noticetitleplaceholder);
 	$(".noticeview").html(internationalWords.noticeview);
@@ -242,6 +246,17 @@ function guojihua(){
 	$(".addforumerror").html(internationalWords.addforumerrortip);
 	$(".sliderText").html(internationalWords.addforumslidtip);
 	$(".profileeditnickname").html(internationalWords.profileeditnickname);
+	$(".add_forum_new_idea").html(internationalWords.add_forum_new_idea);
+	$(".new_idea_des").html(internationalWords.new_idea_des);
+	$(".forum_moremenu_pin").html(internationalWords.forum_moremenu_pin);
+	$(".forum_moremenu_del").html(internationalWords.forum_moremenu_del);
+	$(".forum_moremenu_fllow").html(internationalWords.forum_moremenu_fllow);
+	$(".forum_moremenu_report").html(internationalWords.forum_moremenu_report);
+	$(".forum_moremenu_cancle_fllow").html(internationalWords.forum_moremenu_cancle_fllow);
+	$(".forum_moremenu_cancle_report").html(internationalWords.forum_moremenu_cancle_report);
+	$("#tran_desc").html(internationalWords.tran_desc);
+	$(".tranby").html(internationalWords.tranby);
+	
 	
 }
 guojihua();

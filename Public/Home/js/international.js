@@ -3,14 +3,14 @@ var internationalWordsEN = new Object();
 internationalWordsZH.hosturl='https://devsite.matrixyz.cn/';
 internationalWordsEN.hosturl='https://devsite.matrixyz.cn/';
 //导航部分
-internationalWordsZH.home='开发';
-internationalWordsEN.home='Develop';
+internationalWordsZH.home='开发&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
+internationalWordsEN.home='Develop&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 internationalWordsZH.navdevlopdoc='开发者文档';
 internationalWordsEN.navdevlopdoc='Documentation';
-internationalWordsZH.dapp='EApps';
-internationalWordsEN.dapp='EApps';
-internationalWordsZH.community='开发者社区';
-internationalWordsEN.community='Community';
+internationalWordsZH.dapp='EApps&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
+internationalWordsEN.dapp='EApps&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
+internationalWordsZH.community='开发者社区&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
+internationalWordsEN.community='Community&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 internationalWordsZH.login='登录';
 internationalWordsEN.login='LOG IN';
 internationalWordsZH.langcn='简体中文';
@@ -27,6 +27,8 @@ internationalWordsZH.planned='规划中';
 internationalWordsEN.planned='Planned';
 internationalWordsZH.nav_forum='论坛';
 internationalWordsEN.nav_forum='Forum';
+internationalWordsZH.nav_voting='投票';
+internationalWordsEN.nav_voting='Voting';
 /*
 	首页部分
 */
@@ -409,15 +411,15 @@ internationalWordsEN.forumcatesufful='Save successfully.';
 
 
 //论坛
-internationalWordsZH.addforumcls='新增主题/问题';
+internationalWordsZH.addforumcls='新增话题/问题';
 internationalWordsEN.addforumcls='Add a topic/question';
-internationalWordsZH.searchtopic='搜索主题/问题';
+internationalWordsZH.searchtopic='搜索话题/问题';
 internationalWordsEN.searchtopic='Search a topic/question';
 internationalWordsZH.forumdateadd='发布日期';
 internationalWordsEN.forumdateadd='Date Added';
 internationalWordsZH.forumpopularity='热度';
 internationalWordsEN.forumpopularity='Popularity';
-internationalWordsZH.forummytopic='我的主题';
+internationalWordsZH.forummytopic='我的话题';
 internationalWordsEN.forummytopic='MY TOPICS';
 internationalWordsZH.forummyviewalltip='查看所有';
 internationalWordsEN.forummyviewalltip='View All';
@@ -447,6 +449,28 @@ internationalWordsZH.deletetoptic='删除话题';
 internationalWordsEN.deletetoptic='Delete this topic';
 internationalWordsZH.deletesubcomment='删除该评论';
 internationalWordsEN.deletesubcomment='Delete this comment';
+internationalWordsZH.forum_moremenu_pin='置顶';
+internationalWordsEN.forum_moremenu_pin='Pin to top';
+internationalWordsZH.forum_moremenu_del='删除';
+internationalWordsEN.forum_moremenu_del='Delete';
+internationalWordsZH.forum_moremenu_fllow='关注';
+internationalWordsEN.forum_moremenu_fllow='Follow';
+internationalWordsZH.forum_moremenu_report='投诉';
+internationalWordsEN.forum_moremenu_report='Report Abuse';
+internationalWordsZH.forum_moremenu_cancle_fllow='取消关注';
+internationalWordsEN.forum_moremenu_cancle_fllow='Follow';
+internationalWordsZH.forum_moremenu_cancle_report='取消投诉';
+internationalWordsEN.forum_moremenu_cancle_report='Report Abuse';
+internationalWordsZH.forum_moremenu_cancle_fllow='取消关注';
+internationalWordsEN.forum_moremenu_cancle_fllow='Cancel Follow';
+internationalWordsZH.forum_moremenu_cancle_report='取消投诉';
+internationalWordsEN.forum_moremenu_cancle_report='Cancel Abuse';
+internationalWordsZH.tran_desc='翻译为：';
+internationalWordsEN.tran_desc='Translate in:';
+internationalWordsZH.tranby='谷歌翻译';
+internationalWordsEN.tranby='Translated by Google';
+
+
 
 //新增论坛
 internationalWordsZH.add_forum_title='标题';
@@ -469,6 +493,12 @@ internationalWordsZH.addforumerrortip='发布失败。';
 internationalWordsEN.addforumerrortip='Publish Failed.';
 internationalWordsZH.addforumslidtip='向右滑动填充拼图';
 internationalWordsEN.addforumslidtip='Slide right to fill in the puzzle';
+internationalWordsZH.add_forum_new_idea='有个新的主意？';
+internationalWordsEN.add_forum_new_idea='Is a new idea?';
+internationalWordsZH.new_idea_des='(如果他们喜欢你的想法，他们会投票给你，你可以从亦来云基金会获得资金，一旦你的投票在那个月排名前三，就需要一个PoC演示来获得资金。)';
+internationalWordsEN.new_idea_des='(The cummunity will vote for it if they like your idea, you can get funding from Elastos foundation once your votes ranks top 3 in that month, a POC demo is required to get the funding.)';
+
+
 
 
 

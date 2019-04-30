@@ -10,6 +10,7 @@
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap-switch.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
@@ -75,6 +76,17 @@ width: 5px;
 .forummyaddedtip{cursor:pointer;}
 .forummyfollowedtip{cursor:pointer;}
 .forummycommentedtip{cursor:pointer;}
+.checkbox{width:350px;float:left;}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+    color: #fff;
+    background: #173045;
+	height:26px;
+}
+.bootstrap-switch-container{height:26px;}
+.idead div:first-child{height:28px;}
+.moremeun{width:110px;min-height:100px;height:auto;padding-bottom:5px;float:right;margin-top:5px;border:1px solid #aaa;box-shadow:2px 2px 2px #333;background-color:#fff;position:relative;display:none;}
+.moremeun a{height:30px;line-height:30px;padding-left:10px;text-decoration:none;display:block;color:#333;}
+.moremeun a:hover{background-color:#F6F9FD;}
 </style>
 </head>
 <body>
@@ -132,19 +144,19 @@ width: 5px;
 						</volist>
 					</select>
 					<eq name="sendtime" value="1">
-						<div class="forum_data_added" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:-2px 9px;" sort="{$sendtime}">Date Added</div>
+						<div class="forum_data_added" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:-2px 9px;" sort="{$sendtime}">Date Added</div>
 					</eq>
 					<eq name="sendtime" value="2">
-						<div class="forum_data_added" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:-2px 9px;" sort="{$sendtime}">Date Added</div>
+						<div class="forum_data_added" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:-2px 9px;" sort="{$sendtime}">Date Added</div>
 					</eq>
 					<eq name="sendtime" value="">
 						<div class="forum_data_added" sort="1">Date Added</div>
 					</eq>
 					<eq name="puplarity" value="1">
-						<div class="forum_popularity" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:9px 9px;" sort="{$puplarity}">Popularity</div>
+						<div class="forum_popularity" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:5px 10px;" sort="{$puplarity}">Popularity</div>
 					</eq>
 					<eq name="puplarity" value="2">
-						<div class="forum_popularity" style="border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:9px 9px;" sort="{$puplarity}">Popularity</div>
+						<div class="forum_popularity" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:9px 10px;" sort="{$puplarity}">Popularity</div>
 					</eq>
 					<eq name="puplarity" value="">
 						<div class="forum_popularity" sort="1">Popularity</div>
@@ -169,7 +181,30 @@ width: 5px;
 								<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.likes}</span></div>
 								<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>{$vob.commentnum}</span></div>
 								<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>{$vob.views}</span></div>
-								<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>
+								<div class="forum_list_icon_list_four" style="float:right;">
+									<img style="width:20px;height:5px;margin-top:25px;float:right;cursor:pointer;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">
+									<div class="moremeun">
+										<a href="javascript:void(0);" curid="{$vob.id}_{$vob.followed}_{$vob.abuse}" class="forum_moremenu_pin">Pin to top</a>
+										<eq name="profileinfo.roleid" value="1">
+											<eq name="vob.abuseyn" value="1">
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_del">Delete</a>
+											</eq>
+										</eq>
+										<neq name="vob.followed" value="1">
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_fllow">Follow</a>
+										</neq>
+										<eq name="vob.followed" value="1">
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_fllow">Cancle Follow</a>
+										</eq>
+										<neq name="vob.abuse" value="1">
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_report">Report Abuse</a>
+										</neq>
+										<eq name="vob.abuse" value="1">
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_report">Cancle Abuse</a>
+										</eq>
+									</div>
+								</div>
+								
 							</div>
 						</li>
 						</volist>
@@ -302,6 +337,7 @@ width: 5px;
 <include file="Forum/addforumsuccful" />
 <include file="Forum/addforumerror" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
@@ -309,6 +345,7 @@ width: 5px;
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+$("[name='test']").bootstrapSwitch("state",false);
 function judgepc() {
   var sUserAgent = navigator.userAgent.toLowerCase();
   var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
@@ -321,19 +358,28 @@ function judgepc() {
   var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
   if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
 	console.log("phone");
-	$(".searchforum").css("width","270px");
-	$("#addforumbtn").css("margin-top","10px");
+	$(".searchforum").css("width","210px");
+	$("#addforumbtn").css("width","60px");
 	$("#addforumbtn").css("margin-bottom","10px");
+	if(sessionStorage.getItem('internationalWords')==1){
+		$("#addforumbtn").html("新增");
+	}else{
+		$("#addforumbtn").html("Add");
+	}
+	window.localStorage.curdevice  = "mobile";
   } else {
+	window.localStorage.curdevice  = "pc";
 	console.log("pc");
 	$(".searchforum").css("width","350px");
   }
 }
+judgepc();
 var counts = "{$pcount}";
 var searchword = "{$searchword}";
 var cate = "{$cate}";
 var sendtime = "{$sendtime}";
 var puplarity = "{$puplarity}";
+var roleid = "{$profileinfo.roleid}";
 if(counts!="0"){
 	$('#pageLimit').bootstrapPaginator({
 		currentPage: 1,
@@ -357,15 +403,63 @@ if(counts!="0"){
 				dataType:'JSON',
 				success:function (callback) {
 						$(".forum_list_ul").html("");
-						//console.log("列表："+callback[0]['adddate']);
+						var htmla = "";
 						for(var i=0;i<callback.length;i++){
-							var htmla = '<li><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+							if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">发布者</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
 										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
 										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
-										+'<div class="forum_list_icon_list_four" style="float:right;"><img style="width:20px;height:5px;margin-top:25px;float:right;" src="{$Think.const.PUBLIC_H}Home/images/more button.png"></div>'
-										+'</div></li>';
+										+'<div class="forum_list_icon_list_four" style="float:right;">'
+										+'<img style="width:20px;height:5px;margin-top:25px;float:right;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">'
+										+'<div class="moremeun">'
+										+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_pin">置顶</a>';
+										if(roleid=="1"){
+											if(callback[i]['abuseyn']=="1"){
+												htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_del">删除</a>';
+											}
+										}
+										if(callback[i]['abuseyn']=="1"){
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">关注</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">取消关注</a>';
+										}
+										if(callback[i]['abuseyn']=="1"){
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">投诉</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">取消投诉</a>';
+										}
+										htmla = htmla+'</div></div></div></li>';
+							}else{
+							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
+										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
+										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
+										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
+										+'<div class="forum_list_icon_list_four" style="float:right;">'
+										+'<img style="width:20px;height:5px;margin-top:25px;float:right;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">'
+										+'<div class="moremeun">'
+										+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_pin">Pin to top</a>';
+										if(roleid=="1"){
+											if(callback[i]['abuseyn']=="1"){
+												htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_del">Delete</a>';
+											}
+										}
+										if(callback[i]['abuseyn']=="1"){
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">Cancle Follow</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Follow</a>';
+										}
+										if(callback[i]['abuseyn']=="1"){
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">Cancle Abuse</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a>';
+										}
+										htmla = htmla+'</div></div></div></li>';
+										//htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Fallow</a><a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a></div></div></div></li>';
+										
+							}
 							$(".forum_list_ul").append(htmla);
 						}
 					}
@@ -396,14 +490,24 @@ $('.summernote').summernote({
 		});
 	}
 $(document).ready(function(){
+	
 	$("#addforumbtn").click(function(){
-		var loginstatus = '{$logincate}';
-		if(loginstatus!=""){
-			$("#addforum").modal("show");
+		if(window.localStorage.curdevice=="pc"){
+			var loginstatus = '{$logincate}';
+			if(loginstatus!=""){
+				$("#addforum").modal("show");
+			 }else{
+				login_popup();
+			 }
 		 }else{
-			login_popup();
+			if(sessionStorage.getItem('internationalWords')==1){
+				alert("请在PC端新增话题");
+			}else{
+				alert("Please add a new topic on the PC.");
+			}
 		 }
 	});
+	
 	$("#searchforumgobtn").click(function(){jumpurl();});
 	$(".forum_data_added").click(function(){
 		if($(this).attr("sort")=="1"){
@@ -535,8 +639,118 @@ $(document).ready(function(){
 		 }else{
 			login_popup();
 		 }
-	
 	});
+	$(document).on("click",".moremeun_btn",function(){
+		var loginstatus = '{$logincate}';
+		if(loginstatus!=""){
+			$(".moremeun").hide();
+			var obja = $(this).next(".moremeun");
+			if(obja.is(':hidden')){
+				obja.show();
+			}else{
+				obja.hide();
+			}
+		}else{
+			login_popup();
+		}
+	})
+	$(document).click(function(e){
+		var target = $(e.target);
+		 if(target.closest(".moremeun_btn").length != 0) return;
+		$(".moremeun").hide();
+	})
+	$(document).on("click",".forum_moremenu_fllow",function(){
+		var id = $(this).attr("curid");
+		var objb = $(this);
+		$.post('{$curhost}index.php/Home/Forum/addfollow',{articleid:id},function(data){
+			if(data=="1"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("取消关注");
+				}else{
+					objb.html("Cancel Follow");
+				}
+				alert("关注！");
+			}else if(data=="2"){
+			if(sessionStorage.getItem('internationalWords')==1){
+			    objb.html("关注");
+			}else{
+			    objb.html("Follow");
+			}
+				alert("取消关注！");
+			}else{
+				alert("操作失败！");
+			}
+		})
+	})
+	$(document).on("click",".forum_moremenu_cancle_fllow",function(){
+		var id = $(this).attr("curid");
+		var objb = $(this);
+		$.post('{$curhost}index.php/Home/Forum/addfollow',{articleid:id},function(data){
+			if(data=="1"){
+			if(sessionStorage.getItem('internationalWords')==1){
+			    objb.html("取消关注");
+			}else{
+					objb.html("Cancel Follow");
+			}
+				alert("关注！");
+			}else if(data=="2"){
+			if(sessionStorage.getItem('internationalWords')==1){
+			    objb.html("关注");
+			}else{
+			    objb.html("Follow");
+			}
+				alert("取消关注！");
+			}else{
+				alert("操作失败！");
+			}
+		})
+	})
+	$(document).on("click",".forum_moremenu_report",function(){
+		var id = $(this).attr("curid");
+		var objb = $(this);
+		$.post('{$curhost}index.php/Home/Forum/addabuse',{articleid:id},function(data){
+			if(data=="1"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("取消投诉");
+				}else{
+					objb.html("Cancel Abuse");
+				}
+				alert("投诉！");
+			}else if(data=="2"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("投诉");
+				}else{
+					objb.html("Report Abuse");
+				}
+				alert("取消投诉！");
+			}else{
+				alert("操作失败！");
+			}
+		})
+	})
+	$(document).on("click",".forum_moremenu_cancle_report",function(){
+		var id = $(this).attr("curid");
+		var objb = $(this);
+		$.post('{$curhost}index.php/Home/Forum/addabuse',{articleid:id},function(data){
+			if(data=="1"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("取消投诉");
+				}else{
+					objb.html("Cancel Abuse");
+				}
+				alert("投诉");
+			}else if(data=="2"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("投诉");
+				}else{
+					objb.html("Report Abuse");
+				}
+				alert("取消投诉！");
+			}else{
+				alert("操作失败！");
+			}
+		})
+	})
 });
 </script>
 </body>

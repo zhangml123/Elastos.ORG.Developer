@@ -91,7 +91,12 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 				<div class="doc_menu_l_li_t"></div>
 				<ul class="doc_menu_l_ul">
 					<li class="doc_menu_l_li_m" style="padding-top:1px;padding-bottom:10px;height:50px;">
-						<button class="forumbackbtn" style="outline: none;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_left_arrow.png);background-repeat:no-repeat;background-position-x: 51px;background-position-y: 11px;background-size:20px;background-color:#fff;width:200px;height:30px;border-radius:15px;border:1px solid #333;font-weight:500;">back</button>
+						<eq name="psa" value="">
+							<button class="forumbackbtn" onclick="javascript:window.location.href='index.html';" style="outline: none;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_left_arrow.png);background-repeat:no-repeat;background-position-x: 51px;background-position-y: 11px;background-size:20px;background-color:#fff;width:200px;height:30px;border-radius:15px;border:1px solid #333;font-weight:500;">back</button>
+						</eq>
+						<neq name="psa" value="">
+							<button class="forumbackbtn" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumlist.html';" style="outline: none;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_left_arrow.png);background-repeat:no-repeat;background-position-x: 51px;background-position-y: 11px;background-size:20px;background-color:#fff;width:200px;height:30px;border-radius:15px;border:1px solid #333;font-weight:500;">back</button>
+						</neq>
 					</li>
 				</ul>
 				</div>
@@ -108,11 +113,12 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 					</eq>
 					</div>
 					<div class="forum_list_posted" style="width:95%;padding-left:5%;margin-top:20px;margin-bottom:20px;height:30px;">
-					<div style="float:left;width:150px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
+					<div style="float:left;width:200px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
 					<div style="float:left;width:80px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:15px;height:10px;" />&nbsp;&nbsp;{$articleinfo.views}&nbsp;&nbsp;<span class="forumviews">views</span> </div>
 					<div style="float:left;width:220px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-post.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostat">Posted at</span>&nbsp;&nbsp;{$articleinfo.adddate}</div>
 					</div>
 					<div class="doc_content_c" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;">{$articleinfo.contents}</div>
+					<div style="height:50px;line-height:50px;width: 95%;margin-left: 5%;"><span id="tran_desc">Translate in:</span>&nbsp;&nbsp;<span id="trancn" style="cursor:pointer;">简体中文</span>&nbsp;|&nbsp;<span id="tranen" style="cursor:pointer;">Enlish</span></div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
 						<textarea id="comment_contents" class="docpagecommentstip" style="padding:15px;padding-left:10px;font-family:'HelveticaNeue-Light'"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
@@ -301,6 +307,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <include file="Index/loginoutfail" />
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
+<include file="Forum/tranrs" />
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -339,7 +346,7 @@ $(document).ready(function(){
 			console.log(doc.substring(1));
 			window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
 	});
-	$(document).on("click",".like",function(){
+	/*$(document).on("click",".like",function(){
 		var loginstatus = '{$logincate}';
 		if(loginstatus!=""){
 			var id = $(this).attr("curid");
@@ -361,6 +368,7 @@ $(document).ready(function(){
 			login_popup();
 		}
 	});
+	*/
 	$("#sendcomment").click(function(){
 		var loginyn = '{$logincate}';
 		if(loginyn==""){
@@ -464,13 +472,19 @@ $("#loadmorebtn").click(function(){
 							htmla = htmla +'<div class="comment_bottom_icon_l  hidden-sm hidden-xs delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:18px;height:21px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
 						}
 					if(data[i]['zanyn']=="1"){
-						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;color:#333;"> '+data[i]['likes']+'</span>';
+						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;color:#333;">'+data[i]['likes']+'</span>';
 					}else if(data[i]['zanyn']=="0"){
 						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;">'+data[i]['likes']+' </span>';
 					}
-						htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span></div></div>';
-						htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
-						htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
+					if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">回复</span></div></div>';
+							htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
+							htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >回复</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
+					}else{
+							htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span></div></div>';
+							htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
+							htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
+					}	
 					if(data[i]['subcommentlist']=="0"){
 						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;height:auto;"></div></div></div></li>';
 					}else{
@@ -495,7 +509,11 @@ $("#loadmorebtn").click(function(){
 							}
 							htmla = htmla +'</div></div></div>';
 						}
+				if(sessionStorage.getItem('internationalWords')==1){
 					htmla = htmla +'</div><div style="width:100%;height:70px;text-align:center;line-height:70px;overflow: hidden;"><a href="javascript:void(0);" curcommentid="'+data[i]['id']+'" class="loadsubmorebtn" id="loadsubmorebtn'+data[i]['id']+'" style="color:#333;font-size:14px;">加载更多</a></div>';
+				}else{
+					htmla = htmla +'</div><div style="width:100%;height:70px;text-align:center;line-height:70px;overflow: hidden;"><a href="javascript:void(0);" curcommentid="'+data[i]['id']+'" class="loadsubmorebtn" id="loadsubmorebtn'+data[i]['id']+'" style="color:#333;font-size:14px;">load more</a></div>';
+				}	
 					htmla = htmla +'</div></div></li>';
 					}						
 				}
@@ -545,9 +563,6 @@ $(document).on("click",".loadsubmorebtn",function(){
 		}
 	)
 });
-$(".forumbackbtn").click(function(){
-	window.location.href="index.html";
-});
 $(".deletetoptic").click(function(){
 	var topicid = $(this).attr("artid");
 	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){window.location.href="index.html";}});
@@ -578,6 +593,28 @@ $(document).on("click",".like",function(){
 	}else{
 		login_popup();
 	}
+});
+$("#tranen").click(function(){
+	$("#tranrs").modal("show");
+	$("#tranresult").html("<img src='{$Think.const.PUBLIC_H}Home/images/tran_loading.gif' style='width:100%;height:auto;' />");
+	var c = $(".doc_content_c").html();
+	var sl = "zh_CN";
+	var tl = "en";
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#tranresult").html("&nbsp;&nbsp;"+data);
+	});
+});
+$("#trancn").click(function(){
+	$("#tranrs").modal("show");
+	$("#tranresult").html("<img src='{$Think.const.PUBLIC_H}Home/images/tran_loading.gif' style='width:100%;height:auto;' />");
+	var c = $(".doc_content_c").html();
+	var tl = "zh_CN";
+	var sl = "en";
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#tranresult").html("&nbsp;&nbsp;"+data);
+	});
 });
 </script>
 </body>

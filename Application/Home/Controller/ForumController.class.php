@@ -81,6 +81,11 @@ class ForumController extends Controller {
 		}else{
 			$this->assign("langs",2);
 		}
+		if(isset($_GET['psa']) && $_GET['psa']!=""){
+			$this->assign("psa","1");
+		}else{
+			$this->assign("psa","");
+		}
 		$where['id'] = $_GET['forumid'];
 		$article = M("article");
 		$articleinfo = $article->where($where)->find();
@@ -435,10 +440,10 @@ class ForumController extends Controller {
 				}else{
 					$commentlist[$i]['abuse'] = 0;
 				}
-				if($this->findforumzan($forumcommentlist[$i]['id'])){
-					$forumcommentlist[$i]['zanyn'] = 1;
+				if($this->findforumzan($commentlist[$i]['id'])){
+					$commentlist[$i]['zanyn'] = 1;
 				}else{
-					$forumcommentlist[$i]['zanyn'] = 0;
+					$commentlist[$i]['zanyn'] = 0;
 				}
 			}
 			echo json_encode($commentlist);
@@ -643,7 +648,7 @@ class ForumController extends Controller {
 	public function followedforum(){
 		$where['followeduserid'] = $_SESSION ['eladevp']['userid'];
 		$articlefollowed = M("articlefollowed");
-		$articlefollowedlist = $articlefollowed->where($where)->getField("articleid");
+		$articlefollowedlist = $articlefollowed->where($where)->getField("articleid",true);
 		return $articlefollowedlist;
 	}
 	//获取论坛内容列表
@@ -655,8 +660,8 @@ class ForumController extends Controller {
 				for($i=0;$i<count($rslist);$i++){
 					$wherecate['id'] = $rslist[$i]['cate'];
 					$catedetail = $this->catedetail($wherecate);
-					if(strlen($rslist[$i]['title'])>40){
-						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,39,"utf-8")."...";
+					if(strlen($rslist[$i]['title'])>33){
+						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,33,"utf-8")."...";
 					}
 					if(strlen($rslist[$i]['contents'])>110){
 						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,105,"utf-8")."...";
@@ -704,6 +709,9 @@ class ForumController extends Controller {
 						}
 					
 					$rslist[$i]['catename'] = $catedetail['catename'];
+					$rslist[$i]['abuseyn'] = $this->judgeabuse($rslist[$i]['id']);
+					$rslist[$i]['abuse'] = $this->judgeabuseofuid($rslist[$i]['id']);
+					$rslist[$i]['followed'] = $this->judgefollowofuid($rslist[$i]['id']);
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
@@ -757,6 +765,9 @@ class ForumController extends Controller {
 							$rslist[$i]['nickname'] = $cuinfo['nickname'];
 						}
 					$rslist[$i]['catename'] = $catedetail['catenameen'];
+					$rslist[$i]['abuseyn'] = $this->judgeabuse($rslist[$i]['id']);
+					$rslist[$i]['abuse'] = $this->judgeabuseofuid($rslist[$i]['id']);
+					$rslist[$i]['followed'] = $this->judgefollowofuid($rslist[$i]['id']);
 				}
 			}
 		}
@@ -870,6 +881,9 @@ class ForumController extends Controller {
 					if(mb_strlen($rslist[$i]['contents'],"utf-8")>110){
 						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,110,'utf-8')."...";
 					}
+					$rslist[$i]['abuseyn'] = $this->judgeabuse($rslist[$i]['id']);
+					$rslist[$i]['abuse'] = $this->judgeabuseofuid($rslist[$i]['id']);
+					$rslist[$i]['followed'] = $this->judgefollowofuid($rslist[$i]['id']);
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
@@ -925,9 +939,12 @@ class ForumController extends Controller {
 					if(mb_strlen($rslist[$i]['contents'],"utf-8")>110){
 						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,110,'utf-8')."...";
 					}
-					
+					$rslist[$i]['abuseyn'] = $this->judgeabuse($rslist[$i]['id']);
+					$rslist[$i]['abuse'] = $this->judgeabuseofuid($rslist[$i]['id']);
+					$rslist[$i]['followed'] = $this->judgefollowofuid($rslist[$i]['id']);
 				}
 			}
+					
 		}
 		
 		$count = $article->where($where)->count();
@@ -961,6 +978,7 @@ class ForumController extends Controller {
 		$data['commentnum'] = 0;
 		$data['sender'] = $_SESSION['eladevp']['userid'];
 		$data['cate'] = $_POST['forumcate'];
+		$data['isnewidea'] = $_POST['isnewidea'];
 		$article = M("article");
 		$rs = $article->add($data);
 		if($rs){
@@ -981,8 +999,6 @@ class ForumController extends Controller {
 		$data['commentnum'] = 0;
 		$data['sender'] = $_SESSION['eladevp']['userid'];
 		$data['cate'] = 0; */
-		
-		
 		$data['contents'] = $_POST['commentconents'];
 		$data['addtime'] = time();
 		$data['updatetime'] = time();
@@ -1011,35 +1027,88 @@ class ForumController extends Controller {
 	public function addforumcommentnum($id){
 		$article = M("article");
 		$where['id'] = $id;
-		$rs = $article->where($where)->setInc("commentnum");
-		/* if($rs){
-			echo 1;
+		$ainfo = $article->where($where)->find();
+		if($ainfo['pid']==0){
+			$rs = $article->where($where)->setInc("commentnum");
 		}else{
-			echo 0;
-		} */
+			$wherea['id'] = $ainfo['pid'];
+			$rs = $article->where($wherea)->setInc("commentnum");
+		}
 	}
 	//新增赞
 	public function updateforumzan(){
 		$where['id'] = $_POST['id'];
 		$article = M("article");
-		if($this->findforumzan($_POST['id'])){
-			$this->delforumzan($_POST['id']);
-			$rs = $article->where($where)->setDec("likes");
-			if($rs){
+		$wherea['id'] = $_POST['id'];
+		$ainfo = $article->where($where)->find();
+		if($ainfo){
+			$whereb['id'] = $ainfo['pid'];
+			if($this->findforumzan($_POST['id'])){
+				$this->delforumzan($_POST['id']);
+				$rs = $article->where($where)->setDec("likes");
+				$rsa = $article->where($whereb)->setDec("likes");
+				
+				if($rs){
+					echo 2;
+				}else{
+					echo 0;
+				}
+			}else{ 
+				$this->addforumzan($_POST['id']);
+				$rs = $article->where($where)->setInc("likes");
+				$rsa = $article->where($whereb)->setInc("likes");
+				if($rs){
+					echo 1;
+				}else{
+					echo 0;
+				}
+			}
+		}else{
+			if($this->findforumzan($_POST['id'])){
+				$this->delforumzan($_POST['id']);
+				$rs = $article->where($where)->setDec("likes");
+				
+				if($rs){
+					echo 2;
+				}else{
+					echo 0;
+				}
+			}else{ 
+				$this->addforumzan($_POST['id']);
+				$rs = $article->where($where)->setInc("likes");
+				if($rs){
+					echo 1;
+				}else{
+					echo 0;
+				}
+			}			
+		}
+	}
+	//新增关注
+	public function addfollow(){
+		$articleid = $_POST['articleid'];
+		$where['followeduserid'] = $_SESSION['eladevp']['userid'];
+		$where['articleid'] = $articleid;
+		$articlefollowed = M("articlefollowed");
+		$rs = $articlefollowed->where($where)->find();
+		if($rs){
+			$rsa = $articlefollowed->where($where)->delete();
+			if($rsa){
 				echo 2;
 			}else{
 				echo 0;
 			}
-		}else{ 
-			$this->addforumzan($_POST['id']);
-			$rs = $article->where($where)->setInc("likes");
-			if($rs){
+		}else{
+			$data['articleid'] = $articleid;
+			$data['followeduserid'] = $_SESSION['eladevp']['userid'];
+			$data['addtime'] = time();
+			$rsa = $articlefollowed->add($data);
+			if($rsa){
 				echo 1;
 			}else{
 				echo 0;
 			}
 		}
-		
 	}
 	//新增举报
 	public function addabuse(){
@@ -1049,7 +1118,12 @@ class ForumController extends Controller {
 		$articleabuse = M("articleabuse");
 		$rs = $articleabuse->where($where)->find();
 		if($rs){
-			echo 1;
+			$rsa = $articleabuse->where($where)->delete();
+			if($rsa){
+				echo 2;
+			}else{
+				echo 0;
+			}
 		}else{
 			$data['articleid'] = $articleid;
 			$data['userid'] = $_SESSION['eladevp']['userid'];
@@ -1146,6 +1220,52 @@ class ForumController extends Controller {
 		  echo 0;
 	  }
   }
-  
+  //判断当前账户是否是关注过
+  public function judgeabuseofuid($id){
+		$where['articleid'] = $id;
+		if(isset($_SESSION['eladevp']['userid']) && $_SESSION['eladevp']['userid']!=""){
+			$where['userid'] = $_SESSION['eladevp']['userid'];
+			$articleabuse = M("articleabuse");
+			$articleabuseinfo = $articleabuse->where($where)->find();
+			if($articleabuseinfo){
+				return "1";
+			}else{
+				return "0";
+			}
+		}else{
+			return "0";
+		}
+
+  }
+  //判断当前账户是否是投诉过
+  public function judgefollowofuid($id){
+		$where['articleid'] = $id;
+		if(isset($_SESSION['eladevp']['userid']) && $_SESSION['eladevp']['userid']!=""){
+			$where['followeduserid'] = $_SESSION['eladevp']['userid'];
+			$articlefollowed = M("articlefollowed");
+			$articlefollowedinfo = $articlefollowed->where($where)->find();
+			if($articlefollowedinfo){
+				return "1";
+			}else{
+				return "0";
+			}
+		}else{
+			return "0";
+		}
+  }
+  //谷歌翻译
+  public function googletranapi(){
+	  $sl = $_POST['sl'];
+	  $tl = $_POST['tl'];
+	  //$c = strip_tags($_POST['c']);
+	  $c = $_POST['c'];
+	  $contents = file_get_contents("https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=".$sl."&tl=".$tl."&q=".$c);
+	  $arra = json_decode($contents,true);
+	  if($contents){
+		  echo $arra['sentences'][0]["trans"];
+	  }else{
+		  echo "";
+	  }
+  }
 }
 ?>

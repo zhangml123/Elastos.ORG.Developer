@@ -14,7 +14,7 @@
 						</div>
 				</div>
                 <div class="modal-body" id="forum_c" style="padding:30px;padding-top:10px;">
-                    <section class="box-login v5-input-txt" id="box-login" style="height:375px;">
+                    <section class="box-login v5-input-txt" id="box-login" style="height:500px;">
                             <ul style="list-style-type:none;">
                                 <li class="form-group">
 									<div class="add_forum_title">Title</div>
@@ -47,6 +47,22 @@
 										</eq>
 									</volist>
 								</select>
+								</div>
+								</li>
+                                <li class="form-group idead">
+								<div class="add_forum_new_idea" style="line-height:45px;height:40px;">Is a new idea?</div>
+								<div>
+									<div style="width:100%;height:30px;margin-top:10px;">
+										<input id="isnewidea" data-on-text="Yes" data-off-text="No" type="checkbox" checked="checked" data-size="mini" name="test">
+									</div>
+								</div>
+								</li>
+                                <li class="form-group">
+								<div>&nbsp;</div>
+								<div>
+									<div style="width:100%;height:70px;margin-top:10px;" class="new_idea_des">
+										(The cummunity will vote for it if they like your idea, you can get funding from Elastos foundation once your votes ranks top 3 in that month, a POC demo is required to get the funding.)
+									</div>
 								</div>
 								</li>
                              </ul>
@@ -111,7 +127,12 @@ function savedata(){
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
-	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate},function(data){
+	if ($('#isnewidea').prop("checked")){
+		isnewidea = 1;
+	}else{
+		isnewidea = 0;
+	}
+	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate,isnewidea:isnewidea},function(data){
 		if(data==1){
 			//setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
 			return 1;
@@ -129,8 +150,14 @@ $("#saveforumbtn").click(function(){
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
+	if ($('#isnewidea').prop("checked")){
+		isnewidea = 1;
+	}else{
+		isnewidea = 0;
+	}
 	$("#forum_c").hide();
 	$("#slider_img").show();
+	
 });
 $("#cancelforumbtn").click(function(){
 	$("#addforum").modal("hide");
