@@ -9,51 +9,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
     <title>Developer - Elastos</title>
-    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/home.css">
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/checkbox.css">
 	<link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
 	<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+	<style>
+		@font-face {
+			/* font-properties */
+			font-family: Komu;
+			src:url('{$Think.const.PUBLIC_H}Home/fonts/KOMU.OTF'),  
+			url('{$Think.const.PUBLIC_H}Home/fonts/KOMU.OTF'),
+			url('{$Think.const.PUBLIC_H}Home/fonts/KOMU.OTF'); /* IE9 */
+		}
+		.voting{float:left;width:155px;font-size:42px;font-family: Komu;}
+		.searchvoting{outline:none;height:35px;border:1px solid #aaa;float:left;width:150px;border-top-left-radius:20px;border-bottom-left-radius:20px;padding-left:15px;line-height: 35px;}
+		.allvoting,.allvoting_newidea,.allvoting_createdbyme,.allvoting_search{float:right;height:35px;font-size:12px;font-weight:400;margin-left:20px;line-height: 35px;}
+		.forumgo{outline:none;height:35px;width:50px;border:1px solid #173045;float:left;border-bottom-right-radius:20px;border-top-right-radius:20px;color:#18FFFF;background-color:#173045;text-align:center;}
+		.addvotingcls{margin-left:20px;outline:none;float:right;width:140px;border:1px solid #173045;color:#18FFFF;background-color:#173045;text-align:center;border-radius:20px;height:35px;}
+		.voting_head{width:100%;height:50px;line-height:50px;background-color:#173045;}
+		.voting_head div{float:left;height:50px;color:#fff;text-align:center;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
+		.voting_head_title{width:20%;}
+		.voting_head_type{width:10%;}
+		.voting_head_status{width:15%;}
+		.voting_head_createdate{width:11%;}
+		.voting_head_enddate{width:11%;}
+		.voting_head_createby{width:10%;}
+		.voting_head_views{width:10%;}
+		.voting_head_participants{width:13%;}
+		.voting_c{width:100%;height:50px;line-height:50px;background-color:#F6F9FD;}
+		.voting_c div{float:left;height:50px;color:#111;text-align:center;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
+		.form-group{width:100%;height:30px;}
+		.form-group div:first-child{float:left;width:30%;height:40px;}
+		.form-group div:last-child{float:left;width:70%;height:40px;}
+		</style>
 </head>
 <body style="padding-right:0px;">
 <include file="Index/topnav" />
 <div class="body_c">
 <div class="container">
-	<div class="notications" style="width:100%;height:50px;line-height:50px;font-size:20px;margin-top:120px;color:#173045;font-weight:900;">NOTIFICATIONS</div>
-	<div style="width:100%;height:610px;">
+	<div style="width:100%;height:50px;line-height:50px;font-size:20px;margin-top:120px;color:#173045;font-weight:900;">
+	<div class="voting">VOTINGS</div>
+	<div style="width:80%;height:50px;float:right;">
+		<div class="allvoting_search">
+			<input type="" value="{$searchword}" class="searchvoting" placeholder="&nbsp;&nbsp;Search a Voting" />
+			<button class="forumgo towpartsubbtn" id="searchvotinggobtn">GO</button>
+			<button class="addvotingcls" id="addvotebtn">+ Create a voting</button>
+		</div>
+		<div class="allvoting_createdbyme">Created by me</div>
+		<div class="allvoting_newidea">New Idea</div>
+		<div class="allvoting">All</div>
+	</div>
+	</div>
+	<div style="width:100%;height:610px;margin-top:40px;">
+		<div class="voting_head">
+			<div class="voting_head_title">Title</div>
+			<div class="voting_head_type">Type</div>
+			<div class="voting_head_status">Status</div>
+			<div class="voting_head_createdate">Create date</div>
+			<div class="voting_head_enddate">End date</div>
+			<div class="voting_head_createby">Created by</div>
+			<div class="voting_head_views">Views</div>
+			<div class="voting_head_participants">#of Participants</div>
+		</div>
 		<ul id="token-list" style="list-style-type:none;min-height:490px;height:auto;margin:0px;">
-			<volist name="noticelist" id="voa">
-				<eq name="lang" value="cn">
-					<eq name="voa.threeday" value="Y">
-					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
-						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitle} </div>
-						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
-					</li>
-					</eq>
-					<eq name="voa.threeday" value="N">
-					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
-						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitle} <span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;"> NEW </span></div>
-						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
-					</li>
-					</eq>
-				</eq>
-				<eq name="lang" value="en">
-					<eq name="voa.threeday" value="Y">
-					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
-						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitleen} </div>
-						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
-					</li>
-					</eq>
-					<eq name="voa.threeday" value="N">
-					<li onclick="javascript:window.location.href='detail?id={$voa.id}';" style="cursor:pointer;">
-						<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">{$voa.noticetitleen} <span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;"> NEW </span> </div>
-						<div style="float:left;color:#A7B2BC;width:30%;text-align:right;line-height:45px;font-family: Synthese;font-size:14px;font-weight:900;">{$voa.adddate}</div>
-					</li>
-					</eq>
-				</eq>
-			</volist>
+			<li class="voting_c">
+				<div class="voting_head_title"> I am a voting idea ....</div>
+				<div class="voting_head_type">New idea</div>
+				<div class="voting_head_status">Viting in progress</div>
+				<div class="voting_head_createdate">Apr 20,2019</div>
+				<div class="voting_head_enddate">Apr 20,2019</div>
+				<div class="voting_head_createby">Admin</div>
+				<div class="voting_head_views">3000</div>
+				<div class="voting_head_participants">40001</div>
+			</li>
 		</ul>
 		<div id="example" style="text-align: center;margin-top:30px;"> <ul id="pageLimit"></ul></div>
 	</div>
@@ -148,6 +181,7 @@
 <include file="Index/loginoutfail" />
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
+<include file="Voting/addvoting" />
 <style>
 .div_four_f_r .tooltip{
 	width:150px;
@@ -172,64 +206,43 @@
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 </style>
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
-$('#pageLimit').bootstrapPaginator({
-    currentPage: 1,
-    totalPages: {$pcount},
-    size:"normal",
-    bootstrapMajorVersion: 3,
-    alignment:"right",
-    numberOfPages:5,
-    itemTexts: function (type, page, current) {
-        switch (type) {
-			case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
-			case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
-			case "page": return page;
-        }
-    },
-	onPageClicked: function (event, originalEvent, type, page){
-		$.ajax({
-			url:'noticelimit',
-			type:'POST',
-			data:{'curp':page},
-			dataType:'JSON',
-			success:function (callback) {
-					$("#token-list").html("");
-					for(var i=0;i<callback.length;i++){
-						if(sessionStorage.getItem('internationalWords')==1){
-							if(callback[i]['threeday']=="Y"){
-								var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
-										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitle']+'</div>'
-										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
-							}else{	
-								var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
-										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitle']+'&nbsp;<span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;">NEW</span></div>'
-										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
-								
-							}
-								
-										
-						}else{
-							if(callback[i]['threeday']=="N"){
-							var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
-										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitleen']+'</div>'
-										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
-							}else{	
-							var htmla = '<li onclick="javascript:window.location.href=\'detail?id='+ callback[i]['id'] +'\';" style="cursor:pointer;">'
-										+'<div style="float:left;color:#173045;width:70%;text-align:left;line-height:45px;font-family: Synthese;font-weight:900;">'+callback[i]['noticetitleen']+'&nbsp;<span style="background-color:red;color:#fff;padding-left:4px;padding-right:4px;font-size:12px;">NEW</span></div>'
-										+'<div style="float:left;color:#A7B2BC;width:30%;text-align:left;line-height:45px;text-align:right;font-family: Synthese;font-weight:900;">'+callback[i]['adddate']+'</div></li>';
-							}
-						}
-						$("#token-list").append(htmla);
-					}
-				}
-		})
+$(document).on("click","#addvotebtn",function(){
+	var loginstatus = '{$logincate}';
+	if(loginstatus!=""){
+		$("#addvoting").modal("show");
+	}else{
+		login_popup();
 	}
+})
+
+if(sessionStorage.getItem('internationalWords')==1){
+$('.summernote').summernote({
+	height: 150,
+	tabsize: 2,
+	disableDragAndDrop:false,
+	minHeight:150,
+	maxHeight:150,
+	placeholder: '当青春远去，愿智慧已足够。',
+	lang: 'zh-CN'
 });
+}else{
+	$('.summernote').summernote({
+		height: 150,
+		tabsize: 2,
+		disableDragAndDrop:false,
+		minHeight:150,
+		maxHeight:150,
+		placeholder: 'When youth departs, may wisdom prove enouth.'
+	});
+}
 </script>
 </body>

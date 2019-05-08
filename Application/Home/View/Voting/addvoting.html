@@ -1,4 +1,4 @@
-<div class="modal fade" id="addforum" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="addvoting" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
 	<div style="display:table; width:100%; height:100%;">
 	<div style="vertical-align:middle; display:table-cell;">
 	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:700px;border-radius:10px;">
@@ -6,63 +6,65 @@
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:700px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
                     <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title add_forum_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
+                    <h4 class="modal-title add_voting_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Voting</h4>
 				</div>
                 <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
 						<div class="containera">
 						  <div id="captcha"></div>
 						</div>
 				</div>
-                <div class="modal-body" id="forum_c" style="padding:30px;padding-top:10px;">
+                <div class="modal-body" id="forum_c" style="padding:20px;padding-top:10px;">
                     <section class="box-login v5-input-txt" id="box-login" style="height:500px;">
                             <ul style="list-style-type:none;">
                                 <li class="form-group">
-									<div class="add_forum_title">Title</div>
+									<div class="add_voting_type_tip" style="font-size:12px;color:#aaa;">Type</div>
+									<div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;">
+										<input id="vote_newidea" class="styled" type="checkbox">
+										<label for="vote_newidea">
+										New idea
+										</label>
+										</div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;">
+										<input id="vote_community" class="styled" type="checkbox">
+										<label for="vote_community">
+										Community
+										</label>
+										</div>
+									</div>
+								</li>
+                                <li class="form-group">
+									<div class="add_voting_type_tip" style="font-size:12px;color:#aaa;">Options<br>(Community Type only)</div>
+									<div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;">
+										<input id="singleoption" class="styled" type="checkbox">
+										<label for="singleoption">
+										Single option
+										</label>
+										</div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;">
+										<input id="multioptions" class="styled" type="checkbox">
+										<label for="multioptions">
+										Multi options
+										</label>
+										</div>
+									</div>
+								</li>
+                                <li class="form-group">
+									<div class="add_voting_title">Title</div>
 								<div>
 									<input type="text" id="forumtitle" value=""  style="outline:none;padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" />
 								</div>
 								</li>
                                 <li style="width:100%;height:280px;">
-									<div class="add_forum_desc" style="height:280px;float:left;width:20%;">Description</div>
+									<div class="add_voting_desc" style="height:280px;float:left;width:20%;">Description</div>
 									<div style="height:280px;float:left;width:80%;">
 										<div class="summernote" id="forumcontents"></div>
 									</div>
 								</li>
                                 <li class="form-group">
-								<div class="add_forum_cate">Category</div>
+								<div class="add_voting_cate">End date</div>
 								<div>
-								<select name="cate" id="forumcates" style="outline:none;height:25px;line-height:25px;width:160px;">
-									<eq name="langs" value="1">
-										<option value="">选择分类</option>
-									</eq>
-									<eq name="langs" value="2">
-										<option value="">Choose category</option>
-									</eq>
-									<volist name="catelist" id="voa">
-										<eq name="langs" value="1">
-										<option value="{$voa.id}">{$voa.catename}</option>
-										</eq>
-										<eq name="langs" value="2">
-										<option value="{$voa.id}">{$voa.catenameen}</option>
-										</eq>
-									</volist>
-								</select>
-								</div>
-								</li>
-                                <li class="form-group idead">
-								<div class="add_forum_new_idea" style="line-height:45px;height:40px;">Is a new idea?</div>
-								<div>
-									<div style="width:100%;height:30px;margin-top:10px;">
-										<input id="isnewidea" data-on-text="Yes" data-off-text="No" type="checkbox" checked="checked" data-size="mini" name="test">
-									</div>
-								</div>
-								</li>
-                                <li class="form-group">
-								<div>&nbsp;</div>
-								<div>
-									<div style="width:100%;height:70px;margin-top:10px;" class="new_idea_des">
-										(The cummunity will vote for it if they like your idea, you can get funding from Elastos foundation once your votes ranks top 3 in that month, a POC demo is required to get the funding.)
-									</div>
 								</div>
 								</li>
                              </ul>
@@ -150,17 +152,6 @@ $("#saveforumbtn").click(function(){
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
-	console.log(forumcontents);
-	if (isNull(forumtitle)){
-		$("#addforumtip").modal("show")
-		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
-		return false;
-	}
-	if (isNull(forumcontents) || forumcontents=="<p><br></p>" || iskong(forumcontents)){
-		$("#addforumtip").modal("show")
-		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
-		return false;
-	}
 	if ($('#isnewidea').prop("checked")){
 		isnewidea = 1;
 	}else{
@@ -173,25 +164,4 @@ $("#saveforumbtn").click(function(){
 $("#cancelforumbtn").click(function(){
 	$("#addforum").modal("hide");
 });
-function iskong(str){
-	if ( str == "" ){
-		return true;
-	}else{
-		str = str.replace(/&nbsp;/g,"")
-			if(str=="<p></p>"){
-				return true;
-			}else{
-				return false;
-			}
-	}
-}
-function isNull(str){
-	if ( str == "" ){
-		return true;
-	}else{
-		var regu = "^[ ]+$";
-		var re = new RegExp(regu);
-		return re.test(str);
-	}
-}
 </script>

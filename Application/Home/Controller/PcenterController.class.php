@@ -1629,7 +1629,9 @@ class PcenterController extends BaseController {
 		$rslist = $article->where($where)->order($order)->limit("0,10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>40){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,40,'utf-8')."...";
+				}
 			}
 		}
 		$count = $article->where($where)->count();
@@ -1709,7 +1711,9 @@ class PcenterController extends BaseController {
 		$rslist = $article->where($where)->order($order)->limit($startnum.",10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>40){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,40,'utf-8')."...";
+				}
 			}
 		}
 		$count = $article->where($where)->count();

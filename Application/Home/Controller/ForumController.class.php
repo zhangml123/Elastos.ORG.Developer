@@ -16,7 +16,7 @@ class ForumController extends Controller {
 		}else{
 			$this->assign("langs",2);
 		}
-		$order = "";
+		$order = "pintotop desc,updatetime desc,";
 		if(isset($_GET['searchword']) && trim($_GET['searchword'],"")!=""){
 			$wheres['title'] = array("like","%".$_GET['searchword']."%");
 			$wheres['contents'] = array("like","%".$_GET['searchword']."%");
@@ -100,7 +100,7 @@ class ForumController extends Controller {
 			}else{
 				$articleinfo['nav_title'] = $articleinfo['title'];
 			}
-			
+			$articleinfo['code_contents'] = strip_tags($articleinfo['contents']);
 			$wherea['userid'] = $articleinfo['sender'];
 			$cuinfo = $this->userinfo($wherea);
 			$articleinfo['nickname'] = $cuinfo['nickname'];
@@ -141,7 +141,9 @@ class ForumController extends Controller {
 					$articleinfo['nickname'] = "";
 				}
 			}else{
-				$articleinfo['nickname'] = $cuinfo['nickname'];
+				if(strlen($cuinfo['userid'])>11){
+					$articleinfo['nickname'] = substr($cuinfo['nickname'],0,12)."...";
+				}
 			}
 			
 			
@@ -159,6 +161,7 @@ class ForumController extends Controller {
 		$this->assign("isread",$isread);
 		$this->assign("articleinfo",$articleinfo);
 		$this->assign("curlang",$_SESSION ['eladevp']['lang']);
+		$this->assign("catelist",$this->catelist());
 		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
@@ -349,7 +352,7 @@ class ForumController extends Controller {
 		$data['addtime'] = time();
 		$data['updatetime'] = time();
 		$data['views'] = 1;
-		$data['likes'] = 1;
+		$data['likes'] = 0;
 		$data['pid'] = $_POST['forumid'];
 		$data['commentnum'] = 0;
 		if(isset($_SESSION['eladevp']['userid']) && $_SESSION['eladevp']['userid']!=""){
@@ -663,8 +666,8 @@ class ForumController extends Controller {
 					if(strlen($rslist[$i]['title'])>33){
 						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,33,"utf-8")."...";
 					}
-					if(strlen($rslist[$i]['contents'])>110){
-						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,105,"utf-8")."...";
+					if(strlen(strip_tags($rslist[$i]['contents']))>110){
+						$rslist[$i]['contents'] = mb_substr(strip_tags($rslist[$i]['contents']),0,105,"utf-8")."...";
 					}
 					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
@@ -705,7 +708,10 @@ class ForumController extends Controller {
 								$rslist[$i]['nickname'] = "";
 							}
 						}else{
-							$rslist[$i]['nickname'] = $cuinfo['nickname'];
+							//$rslist[$i]['nickname'] = $cuinfo['nickname'];
+							if(strlen($cuinfo['userid'])>11){
+								$rslist[$i]['nickname'] = substr($cuinfo['nickname'],0,12)."...";
+							}
 						}
 					
 					$rslist[$i]['catename'] = $catedetail['catename'];
@@ -794,7 +800,8 @@ class ForumController extends Controller {
 	//获取论坛内容列表
 	public function forumlistjson(){
 		$where['pid'] = 0;
-		$order = "";
+		//$order = "";
+		$order = "pintotop desc,updatetime desc,";
 		if(isset($_POST['searchword']) && trim($_POST['searchword'],"")!=""){
 			//$where['title'] = array("like","%".$_POST['searchword']."%");
 			$wheres['title'] = array("like","%".$_POST['searchword']."%");
@@ -972,8 +979,8 @@ class ForumController extends Controller {
 		$data['contents'] = $_POST['forumcontents'];
 		$data['addtime'] = time();
 		$data['updatetime'] = time();
-		$data['views'] = 1;
-		$data['likes'] = 1;
+		$data['views'] = 0;
+		$data['likes'] = 0;
 		$data['pid'] = 0;
 		$data['commentnum'] = 0;
 		$data['sender'] = $_SESSION['eladevp']['userid'];
@@ -981,6 +988,22 @@ class ForumController extends Controller {
 		$data['isnewidea'] = $_POST['isnewidea'];
 		$article = M("article");
 		$rs = $article->add($data);
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	//编辑
+	public function editforum(){
+		$where['id'] = $_POST['id'];
+		$data['title'] = $_POST['forumtitle'];
+		$data['contents'] = $_POST['forumcontents'];
+		$data['updatetime'] = time();
+		$data['cate'] = $_POST['forumcate'];
+		$data['isnewidea'] = $_POST['isnewidea'];
+		$article = M("article");
+		$rs = $article->where($where)->save($data);
 		if($rs){
 			echo 1;
 		}else{
@@ -1003,7 +1026,7 @@ class ForumController extends Controller {
 		$data['addtime'] = time();
 		$data['updatetime'] = time();
 		$data['views'] = 1;
-		$data['likes'] = 1;
+		$data['likes'] = 0;
 		$data['pid'] = $_POST['forumid'];
 		$data['commentnum'] = 0;
 		if(isset($_SESSION['eladevp']['userid']) && $_SESSION['eladevp']['userid']!=""){
@@ -1110,6 +1133,38 @@ class ForumController extends Controller {
 			}
 		}
 	}
+	//置顶操作
+	public function addpintotop(){
+		$articleid = $_POST['articleid'];
+		$where['id'] = $articleid;
+		$article = M("article");
+		$ainfo = $article->where($where)->find();
+		if($ainfo){
+			if($ainfo['pintotop']==1){
+				$data['pintotop'] = 0;
+				$rs = $article->where($where)->save($data);
+				if($rs){
+					echo 2;
+				}else{
+					echo 0;
+				}
+			}else{
+				//$wherea['id'] = array("NEQ",0);
+				//$dataa['pintotop'] = 0;
+				//$rsa = $article->where($wherea)->save($dataa);
+				$data['pintotop'] = 1;
+				$rs = $article->where($where)->save($data);
+				if($rs){
+					echo 1;
+				}else{
+					echo 0;
+				}
+			}
+		}else{
+			echo 0;
+		}
+	}
+	
 	//新增举报
 	public function addabuse(){
 		$articleid = $_POST['articleid'];
@@ -1257,12 +1312,16 @@ class ForumController extends Controller {
   public function googletranapi(){
 	  $sl = $_POST['sl'];
 	  $tl = $_POST['tl'];
-	  //$c = strip_tags($_POST['c']);
-	  $c = $_POST['c'];
+	  $c = urlencode(strip_tags(str_replace("&nbsp;"," ",$_POST['c'])));
 	  $contents = file_get_contents("https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=".$sl."&tl=".$tl."&q=".$c);
 	  $arra = json_decode($contents,true);
+	  $arrb = $arra['sentences'];
+	  $trans = "";
+	  for($i=0;$i<count($arrb);$i++){
+		  $trans  = $trans."".$arrb[$i]["trans"];
+	  }
 	  if($contents){
-		  echo $arra['sentences'][0]["trans"];
+		  echo $trans;
 	  }else{
 		  echo "";
 	  }

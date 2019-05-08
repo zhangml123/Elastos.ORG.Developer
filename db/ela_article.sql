@@ -1,1 +1,1 @@
-alter table ela_article add isnewidea int(1) DEFAULT NULL
+ALTER TABLE ela_article add `pintotop` int(11) default 0;
