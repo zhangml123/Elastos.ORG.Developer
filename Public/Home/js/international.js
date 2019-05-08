@@ -1,7 +1,7 @@
 var internationalWordsZH = new Object();
 var internationalWordsEN = new Object();
-internationalWordsZH.hosturl='https://devsite.matrixyz.cn/';
-internationalWordsEN.hosturl='https://devsite.matrixyz.cn/';
+internationalWordsZH.hosturl='http://127.0.0.1:8087/';
+internationalWordsEN.hosturl='http://127.0.0.1:8087/';
 //导航部分
 internationalWordsZH.home='开发';
 internationalWordsEN.home='Develop';
@@ -13,10 +13,17 @@ internationalWordsZH.community='开发者社区';
 internationalWordsEN.community='Community';
 internationalWordsZH.login='登录';
 internationalWordsEN.login='LOG IN';
-internationalWordsZH.langcn='简体中文';
-internationalWordsEN.langcn='简体中文';
-internationalWordsZH.langen='English';
-internationalWordsEN.langen='English';
+/*
+internationalWordsZH.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;CN-简体中文';
+internationalWordsEN.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;CN-简体中文';
+internationalWordsZH.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;US-English';
+internationalWordsEN.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;US-English';
+*/
+internationalWordsZH.langcn='&nbsp;CN-简体中文';
+internationalWordsEN.langcn='&nbsp;CN-简体中文';
+internationalWordsZH.langen='&nbsp;US-English';
+internationalWordsEN.langen='&nbsp;US-English';
+
 internationalWordsZH.pcentersubprofile='我的';
 internationalWordsEN.pcentersubprofile='My Profile';
 internationalWordsZH.pcentergettoken='申请测试币';

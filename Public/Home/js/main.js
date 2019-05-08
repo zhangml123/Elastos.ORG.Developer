@@ -8,14 +8,15 @@ if(sessionStorage.getItem('internationalWords')!=null && sessionStorage.getItem(
 	var INKEY0 =1;
 }
 INKEY0?INKEY=INKEY0:INKEY0=1;
+
 if(INKEY==1){
     internationalWords=internationalWordsZH;
-	document.getElementById("setlang").innerHTML = "简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "&nbsp;CN-简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "&nbsp;CN-简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
 }else{
     internationalWords=internationalWordsEN;
-	document.getElementById("setlang").innerHTML = "English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "&nbsp;US-English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "&nbsp;US-English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
 }
 function change(num){
     if(num==1){
