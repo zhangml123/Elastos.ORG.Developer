@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap-switch.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
@@ -100,7 +100,7 @@ width: 5px;
 		</ul>
 	</div>		
 	<div class="container" style="overflow:hidden;min-height:1300px;height:auto;">
-		<div class="row">
+		<div class="row" style="min-height:1900px;">
 			<div class="col-md-9">
 				<div class="forum_list_title">
 					<input type="" value="{$searchword}" class="searchforum" placeholder="&nbsp;&nbsp;Search a topic/question" /><button class="forumgo towpartsubbtn" id="searchforumgobtn">GO</button>
@@ -156,7 +156,7 @@ width: 5px;
 						<div class="forum_popularity" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_down_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:5px 10px;" sort="{$puplarity}">Popularity</div>
 					</eq>
 					<eq name="puplarity" value="2">
-						<div class="forum_popularity" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:9px 10px;" sort="{$puplarity}">Popularity</div>
+						<div class="forum_popularity" style="width:100px;border-bottom:3px solid #18FFFF;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_up_arrow.png);background-size:20px;background-repeat:no-repeat;background-position:5px 10px;" sort="{$puplarity}">Popularity</div>
 					</eq>
 					<eq name="puplarity" value="">
 						<div class="forum_popularity" sort="1">Popularity</div>
@@ -169,7 +169,13 @@ width: 5px;
 					</eq>
 					<neq name="pcount" value="0">
 					  <volist name="forumlist" id="vob">
+					  <eq name="vob.pintotop" value="1">
+						<li style="background-color:#F2F6FB;">
+						</eq>
+					  <neq name="vob.pintotop" value="1">
 						<li>
+						</neq>
+							<div style="width:96%;padding-left:2%;padding-right:2%;padding-top:10px;padding-bottom:10px;">
 							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate} <span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;{$vob.catename}&nbsp;</span></div>
 							<div class="forum_list_li_title"   onclick="window.location.href='forumdetail?forumid={$vob.id}';" style="cursor:pointer;overflow:hidden;text-overflow: ellipsis;">{$vob.title}</div>
 								<if condition="mb_strlen($vob['contents'],'utf-8') egt 110"> 
@@ -184,7 +190,14 @@ width: 5px;
 								<div class="forum_list_icon_list_four" style="float:right;">
 									<img style="width:20px;height:5px;margin-top:25px;float:right;cursor:pointer;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">
 									<div class="moremeun">
-										<a href="javascript:void(0);" curid="{$vob.id}_{$vob.followed}_{$vob.abuse}" class="forum_moremenu_pin">Pin to top</a>
+										<eq name="profileinfo.roleid" value="1">
+											<eq name="vob.pintotop" value="0">
+												<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_pin">Pin to top</a>
+											</eq>
+											<eq name="vob.pintotop" value="1">
+												<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_pin">Cancle top</a>
+											</eq>
+										</eq>
 										<eq name="profileinfo.roleid" value="1">
 											<eq name="vob.abuseyn" value="1">
 											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_del">Delete</a>
@@ -205,6 +218,7 @@ width: 5px;
 									</div>
 								</div>
 								
+							</div>
 							</div>
 						</li>
 						</volist>
@@ -336,7 +350,15 @@ width: 5px;
 <include file="Forum/addforumtip" />
 <include file="Forum/addforumsuccful" />
 <include file="Forum/addforumerror" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<include file="Forum/followsuccful" />
+<include file="Forum/canclefollowsuccful" />
+<include file="Forum/abusesuccful" />
+<include file="Forum/cancleabusesuccful" />
+<include file="Forum/pinsuccful" />
+<include file="Forum/canclepinsuccful" />
+<include file="Forum/opforumerro" />
+<include file="Forum/delforumsuccful" />
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -345,6 +367,38 @@ width: 5px;
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+function followsuccful_popup(){
+  $("#followsuccful").modal("show");
+  setTimeout(function(){$("#followsuccful").modal("hide")},3000)
+}
+function canclefollowsuccful_popup(){
+  $("#canclefollowsuccful").modal("show");
+  setTimeout(function(){$("#canclefollowsuccful").modal("hide")},3000)
+}
+function abusesuccful_popup(){
+  $("#abusesuccful").modal("show");
+  setTimeout(function(){$("#abusesuccful").modal("hide")},3000)
+}
+function cancleabusesuccful_popup(){
+  $("#cancleabusesuccful").modal("show");
+  setTimeout(function(){$("#cancleabusesuccful").modal("hide")},3000)
+}
+function pinsuccful_popup(){
+  $("#pinsuccful").modal("show");
+  setTimeout(function(){$("#pinsuccful").modal("hide")},3000)
+}
+function canclepinsuccful_popup(){
+  $("#canclepinsuccful").modal("show");
+  setTimeout(function(){$("#canclepinsuccful").modal("hide")},3000)
+}
+function opforumerro_popup(){
+  $("#opforumerro").modal("show");
+  setTimeout(function(){$("#opforumerro").modal("hide")},3000)
+}
+function delforumsuccful_popup(){
+  $("#delforumsuccful").modal("show");
+  setTimeout(function(){$("#delforumsuccful").modal("hide");window.location.href="index.html";},3000)
+}
 $("[name='test']").bootstrapSwitch("state",false);
 function judgepc() {
   var sUserAgent = navigator.userAgent.toLowerCase();
@@ -412,23 +466,29 @@ if(counts!="0"){
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
 										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
 										+'<div class="forum_list_icon_list_four" style="float:right;">'
-										+'<img style="width:20px;height:5px;margin-top:25px;float:right;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">'
+										+'<img style="width:20px;height:5px;margin-top:25px;float:right;cursor:pointer;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">'
 										+'<div class="moremeun">'
-										+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_pin">置顶</a>';
+										if(roleid=="1"){
+											if(callback[i]['pintotop']=="1"){
+												htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_pin">取消置顶</a>';
+											}else{
+												htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_pin">置顶</a>';
+											}
+										}
 										if(roleid=="1"){
 											if(callback[i]['abuseyn']=="1"){
 												htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_del">删除</a>';
 											}
 										}
 										if(callback[i]['abuseyn']=="1"){
-											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">关注</a>';
-										}else{
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">取消关注</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">关注</a>';
 										}
 										if(callback[i]['abuseyn']=="1"){
-											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">投诉</a>';
-										}else{
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">取消投诉</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">投诉</a>';
 										}
 										htmla = htmla+'</div></div></div></li>';
 							}else{
@@ -438,29 +498,35 @@ if(counts!="0"){
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
 										+'<div class="forum_list_icon_list_three"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:25px;height:14px;">&nbsp;&nbsp;<span>'+callback[i]['views']+'</span></div>'
 										+'<div class="forum_list_icon_list_four" style="float:right;">'
-										+'<img style="width:20px;height:5px;margin-top:25px;float:right;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">'
-										+'<div class="moremeun">'
-										+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_pin">Pin to top</a>';
+										+'<img style="width:20px;height:5px;margin-top:25px;float:right;cursor:pointer;" class="moremeun_btn" src="{$Think.const.PUBLIC_H}Home/images/more button.png">'
+										+'<div class="moremeun">';
+										if(roleid=="1"){
+											if(callback[i]['pintotop']=="1"){
+												htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_pin">Cancel top</a>';
+											}else{
+												htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_pin">Pin to top</a>';
+											}
+										}
 										if(roleid=="1"){
 											if(callback[i]['abuseyn']=="1"){
 												htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_del">Delete</a>';
 											}
 										}
 										if(callback[i]['abuseyn']=="1"){
-											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">Cancle Follow</a>';
-										}else{
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Follow</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">Cancle Follow</a>';
 										}
 										if(callback[i]['abuseyn']=="1"){
-											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">Cancle Abuse</a>';
-										}else{
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">Cancle Abuse</a>';
 										}
 										htmla = htmla+'</div></div></div></li>';
 										//htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Fallow</a><a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a></div></div></div></li>';
 										
 							}
-							$(".forum_list_ul").append(htmla);
+							$(".forum_list_ul").html(htmla);
 						}
 					}
 			})
@@ -669,16 +735,16 @@ $(document).ready(function(){
 				}else{
 					objb.html("Cancel Follow");
 				}
-				alert("关注！");
+				followsuccful_popup();
 			}else if(data=="2"){
 			if(sessionStorage.getItem('internationalWords')==1){
 			    objb.html("关注");
 			}else{
 			    objb.html("Follow");
 			}
-				alert("取消关注！");
+			canclefollowsuccful_popup();
 			}else{
-				alert("操作失败！");
+				opforumerro_popup();
 			}
 		})
 	})
@@ -692,16 +758,16 @@ $(document).ready(function(){
 			}else{
 					objb.html("Cancel Follow");
 			}
-				alert("关注！");
+				followsuccful_popup();
 			}else if(data=="2"){
 			if(sessionStorage.getItem('internationalWords')==1){
 			    objb.html("关注");
 			}else{
 			    objb.html("Follow");
 			}
-				alert("取消关注！");
+			canclefollowsuccful_popup();
 			}else{
-				alert("操作失败！");
+				opforumerro_popup();
 			}
 		})
 	})
@@ -715,16 +781,16 @@ $(document).ready(function(){
 				}else{
 					objb.html("Cancel Abuse");
 				}
-				alert("投诉！");
+				abusesuccful_popup();
 			}else if(data=="2"){
 				if(sessionStorage.getItem('internationalWords')==1){
 					objb.html("投诉");
 				}else{
 					objb.html("Report Abuse");
 				}
-				alert("取消投诉！");
+				cancleabusesuccful_popup();
 			}else{
-				alert("操作失败！");
+				opforumerro_popup();
 			}
 		})
 	})
@@ -738,19 +804,77 @@ $(document).ready(function(){
 				}else{
 					objb.html("Cancel Abuse");
 				}
-				alert("投诉");
+				abusesuccful_popup();
 			}else if(data=="2"){
 				if(sessionStorage.getItem('internationalWords')==1){
 					objb.html("投诉");
 				}else{
 					objb.html("Report Abuse");
 				}
-				alert("取消投诉！");
+				cancleabusesuccful_popup();
 			}else{
-				alert("操作失败！");
+				opforumerro_popup();
 			}
 		})
 	})
+	$(document).on("click",".forum_moremenu_pin",function(){
+		var id = $(this).attr("curid");
+		var objb = $(this);
+		$.post('{$curhost}index.php/Home/Forum/addpintotop',{articleid:id},function(data){
+			if(data=="1"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("取消置顶");
+				}else{
+					objb.html("Unpin to top");
+				}
+				pinsuccful_popup();
+			}else if(data=="2"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("置顶");
+				}else{
+					objb.html("Pin to top");
+				}
+				unpinsuccful_popup();
+			}else{
+				opforumerro_popup();
+			}
+		})
+	})
+	$(document).on("click",".forum_moremenu_cancle_pin",function(){
+		var id = $(this).attr("curid");
+		var objb = $(this);
+		$.post('{$curhost}index.php/Home/Forum/addpintotop',{articleid:id},function(data){
+			if(data=="1"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("取消置顶");
+				}else{
+					objb.html("Unpin to top");
+				}
+				pinsuccful_popup();
+			}else if(data=="2"){
+				if(sessionStorage.getItem('internationalWords')==1){
+					objb.html("置顶");
+				}else{
+					objb.html("Pin to top");
+				}
+				unpinsuccful_popup();
+			}else{
+				opforumerro_popup();
+			}
+		})
+	})
+	$(document).on("click",".forum_moremenu_del",function(){
+		var topicid = $(this).attr("curid");
+		$.post(
+			"{$curhost}index.php/Home/Forum/delarticle",
+			{forumcommentid:topicid},
+			function(data){
+				if(data==1){
+				delforumsuccful_popup();
+				}
+			}
+		);
+	});
 });
 </script>
 </body>

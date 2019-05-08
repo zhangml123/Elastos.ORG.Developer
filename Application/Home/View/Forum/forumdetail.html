@@ -9,13 +9,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link href="{$Think.const.PUBLIC_H}Home/summernote/summernote.css" rel="stylesheet" />
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
@@ -72,6 +73,10 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 .doc_content_c li,.doc_content_c a,.doc_content_c p,.doc_content_c h1,.doc_content_c h2,.doc_content_c h3,.doc_content_c h4{word-break: break-word;}
 .forum_list_posted{width:100%;height:30px;line-height:30px;color:#bbb;font-size:12px;}
 .deletetoptic{float:right;width:140px;height:30px;border:0px;border-radius:15px;background-color:#FD5151;color:#fff;line-height:30px;}
+.edittoptic{float:right;width:140px;height:30px;border:0px;border-radius:15px;background-color:#173045;color:#fff;line-height:30px;border: 1px solid #173045;}
+.form-group{width:100%;height:30px;}
+.form-group div:first-child{float:left;width:20%;height:40px;}
+.form-group div:last-child{float:left;width:80%;height:40px;}
 </style>
 </head>
 <body>
@@ -111,6 +116,9 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 						<button class="deletetoptic" id="deletetopic" artid="{$articleinfo.id}">Delete this topic</button>
 						</eq>
 					</eq>
+						<eq name="profileinfo.userid" value="$articleinfo.sender">
+						<button class="edittoptic" id="edittoptic" artid="{$articleinfo.id}">Edit this topic</button>
+						</eq>
 					</div>
 					<div class="forum_list_posted" style="width:95%;padding-left:5%;margin-top:20px;margin-bottom:20px;height:30px;">
 					<div style="float:left;width:200px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
@@ -118,7 +126,12 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 					<div style="float:left;width:220px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-post.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostat">Posted at</span>&nbsp;&nbsp;{$articleinfo.adddate}</div>
 					</div>
 					<div class="doc_content_c" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;">{$articleinfo.contents}</div>
-					<div style="height:50px;line-height:50px;width: 95%;margin-left: 5%;"><span id="tran_desc">Translate in:</span>&nbsp;&nbsp;<span id="trancn" style="cursor:pointer;">简体中文</span>&nbsp;|&nbsp;<span id="tranen" style="cursor:pointer;">Enlish</span></div>
+					
+					<div style="height:50px;line-height:50px;width: 95%;margin-left: 5%;display:none;"><span id="tran_desc">Translate in:</span>&nbsp;&nbsp;<span id="trancn" style="cursor:pointer;">简体中文</span>&nbsp;|&nbsp;<span id="tranen" style="cursor:pointer;">Enlish</span></div>
+					<div style="height:30px;line-height:30px;width: 95%;margin-left: 5%;font-size:12px;border-top:1px solid #888;">以下来自谷歌自动翻译：</div>
+					<div class="doc_content_c" id="tran_res" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;color:#999;">
+						<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:150px;height:150px;" />
+					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
 						<textarea id="comment_contents" class="docpagecommentstip" style="padding:15px;padding-left:10px;font-family:'HelveticaNeue-Light'"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
@@ -141,6 +154,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 										<div class="c_c_list_r comment_r_c">
 											<div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">{$vob.nickname}, {$vob.adddatetime}</div>
 											<div class="comment_c" style="word-break: break-all;">{$vob.contents}</div>
+											<div class="comment_c_trans" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>
+											<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>
 											<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 											<div class="comment_bottom_icon">
 												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.nickname}, {$vob.adddatetime}</div>
@@ -308,7 +323,9 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
 <include file="Forum/tranrs" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<include file="Forum/delforumsuccful" />
+<include file="Forum/editforum" />
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/doc.js"></script>
@@ -316,6 +333,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script>
 function applyelatip_popup(){
   $("#commenttip").modal("show");
@@ -325,17 +344,49 @@ function commentsuccful_popup(){
   $("#commentsuccful").modal("show");
   setTimeout(function(){$("#commentsuccful").modal("hide");window.location.reload();},3000)
 }
+function delforumsuccful_popup(){
+  $("#delforumsuccful").modal("show");
+  setTimeout(function(){$("#delforumsuccful").modal("hide");window.location.href="index.html";},3000)
+}
+function delforumsuccfuls_popup(){
+  $("#delforumsuccful").modal("show");
+  setTimeout(function(){$("#delforumsuccful").modal("hide");window.location.reload();},3000)
+}
 function commenterror_popup(){
   $("#commenterror").modal("show");
   setTimeout(function(){$("#commenterror").modal("hide");},3000)
 }
+function editforum_popup(){
+  $("#editforum").modal("show");
+}
+  if(sessionStorage.getItem('internationalWords')==1){
+
+$('.summernote').summernote({
+		height: 150,
+		tabsize: 2,
+		disableDragAndDrop:false,
+		minHeight:150,
+		maxHeight:150,
+		placeholder: '当青春远去，愿智慧已足够。',
+		lang: 'zh-CN'
+	});
+	}else{
+		$('.summernote').summernote({
+			height: 150,
+			tabsize: 2,
+			disableDragAndDrop:false,
+			minHeight:150,
+			maxHeight:150,
+			placeholder: 'When youth departs, may wisdom prove enouth.'
+		});
+	}
+ $("#forumcontents").summernote('code','{$articleinfo.code_contents}');
 $(document).ready(function(){
 	$(".doc_menu_l_li_subm").click(function(){
 		var filename = $(this).attr("filecname");
 		var doc = filename.replace(/\|\|\|/g,"/");
 		var docc = doc.replace('.md','');
 		console.log(doc.substring(1));
-		//console.log("跳转地址："+);
 		window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
 		
 	});
@@ -565,11 +616,15 @@ $(document).on("click",".loadsubmorebtn",function(){
 });
 $(".deletetoptic").click(function(){
 	var topicid = $(this).attr("artid");
-	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){window.location.href="index.html";}});
+	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){
+	delforumsuccful_popup();
+	
+	
+	}});
 });
 $(document).on("click",".delete_comment_btn",function(){
 	var topicid = $(this).attr("commentid");
-	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){window.location.href="index.html";}});
+	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){delforumsuccfuls_popup();}});
 });
 
 $(document).on("click",".like",function(){
@@ -594,27 +649,38 @@ $(document).on("click",".like",function(){
 		login_popup();
 	}
 });
-$("#tranen").click(function(){
-	$("#tranrs").modal("show");
+var language = navigator.browserLanguage?navigator.browserLanguage:navigator.language;
+	var c = $(".doc_content_c").html();
+	var sl = "auto";
+	var tl = language;
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#tran_res").html("&nbsp;&nbsp;"+data);
+	});
+$(".comment_c_trans").click(function(){
+	var objc = $(this);
+	var c = objc.prev(".comment_c").html();
+	objc.next(".comment_c").html('<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:50px;height:50px;" />');
+	var sl = "auto";
+	var tl = language;
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		objc.next(".comment_c").html("&nbsp;&nbsp;"+data);
+	});
+});
+$("#trancn").click(function(){
+	//$("#tranrs").modal("show");
 	$("#tranresult").html("<img src='{$Think.const.PUBLIC_H}Home/images/tran_loading.gif' style='width:100%;height:auto;' />");
 	var c = $(".doc_content_c").html();
-	var sl = "zh_CN";
-	var tl = "en";
+	var sl = "en";
+	var tl = "zh_CN";
 	var url ='{$curhost}index.php/Home/Forum/googletranapi';
 	$.post(url,{sl:sl,tl:tl,c:c},function(data){
 		$("#tranresult").html("&nbsp;&nbsp;"+data);
 	});
 });
-$("#trancn").click(function(){
-	$("#tranrs").modal("show");
-	$("#tranresult").html("<img src='{$Think.const.PUBLIC_H}Home/images/tran_loading.gif' style='width:100%;height:auto;' />");
-	var c = $(".doc_content_c").html();
-	var tl = "zh_CN";
-	var sl = "en";
-	var url ='{$curhost}index.php/Home/Forum/googletranapi';
-	$.post(url,{sl:sl,tl:tl,c:c},function(data){
-		$("#tranresult").html("&nbsp;&nbsp;"+data);
-	});
+$("#edittoptic").click(function(){
+	editforum_popup();
 });
 </script>
 </body>

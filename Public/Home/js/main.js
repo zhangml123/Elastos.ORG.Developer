@@ -10,12 +10,12 @@ if(sessionStorage.getItem('internationalWords')!=null && sessionStorage.getItem(
 INKEY0?INKEY=INKEY0:INKEY0=1;
 if(INKEY==1){
     internationalWords=internationalWordsZH;
-	document.getElementById("setlang").innerHTML = "简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
 }else{
     internationalWords=internationalWordsEN;
-	document.getElementById("setlang").innerHTML = "English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
 }
 function change(num){
     if(num==1){
@@ -254,9 +254,19 @@ function guojihua(){
 	$(".forum_moremenu_report").html(internationalWords.forum_moremenu_report);
 	$(".forum_moremenu_cancle_fllow").html(internationalWords.forum_moremenu_cancle_fllow);
 	$(".forum_moremenu_cancle_report").html(internationalWords.forum_moremenu_cancle_report);
+	$(".forum_moremenu_cancle_pin").html(internationalWords.forum_moremenu_cancle_pin);
 	$("#tran_desc").html(internationalWords.tran_desc);
 	$(".tranby").html(internationalWords.tranby);
-	
+	$(".delforumsuccful").html(internationalWords.delforumsuccfultip);
+	$(".edittoptic").html(internationalWords.edittoptic);
+	$(".edit_forum_tip").html(internationalWords.edit_forum_tip);
+	$(".followsuccful").html(internationalWords.followsuccful);
+	$(".canclefollowsuccful").html(internationalWords.canclefollowsuccful);
+	$(".abusesuccful").html(internationalWords.abusesuccful);
+	$(".cancleabusesuccful").html(internationalWords.cancleabusesuccful);
+	$(".pinsuccful").html(internationalWords.pinsuccful);
+	$(".unpinsuccful").html(internationalWords.unpinsuccful);
+	$(".opforumerro").html(internationalWords.opforumerro);
 	
 }
 guojihua();

@@ -7,16 +7,16 @@ internationalWordsZH.home='开发&nbsp;&nbsp;<img id="imgarrow" src="../../../Pu
 internationalWordsEN.home='Develop&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 internationalWordsZH.navdevlopdoc='开发者文档';
 internationalWordsEN.navdevlopdoc='Documentation';
-internationalWordsZH.dapp='EApps&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
-internationalWordsEN.dapp='EApps&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
+internationalWordsZH.dapp='EApps';
+internationalWordsEN.dapp='EApps';
 internationalWordsZH.community='开发者社区&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 internationalWordsEN.community='Community&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 internationalWordsZH.login='登录';
 internationalWordsEN.login='LOG IN';
-internationalWordsZH.langcn='简体中文';
-internationalWordsEN.langcn='简体中文';
-internationalWordsZH.langen='English';
-internationalWordsEN.langen='English';
+internationalWordsZH.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;简体中文';
+internationalWordsEN.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;简体中文';
+internationalWordsZH.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;English';
+internationalWordsEN.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;English';
 internationalWordsZH.pcentersubprofile='我的';
 internationalWordsEN.pcentersubprofile='My Profile';
 internationalWordsZH.pcentergettoken='申请测试币';
@@ -366,8 +366,8 @@ internationalWordsZH.notifypublishtips='公告成功创建并发布';
 internationalWordsEN.notifypublishtips='Notification published successfully.';
 internationalWordsZH.delnotifysuccful='公告成功删除';
 internationalWordsEN.delnotifysuccful='Notification deleted successfully.';
-internationalWordsZH.notifytips='标题和内容不能为空！';
-internationalWordsEN.notifytips='Title and Contents is not empty!';
+internationalWordsZH.notifytips='公告标题和描述的中英文都不能为空。';
+internationalWordsEN.notifytips='Notification title and description are required for both English and Chinese. Please fill and try again.';
 internationalWordsZH.notify_year_tip='年';
 internationalWordsEN.notify_year_tip='Year';
 internationalWordsZH.notify_mon_tip='月';
@@ -457,8 +457,8 @@ internationalWordsZH.forum_moremenu_fllow='关注';
 internationalWordsEN.forum_moremenu_fllow='Follow';
 internationalWordsZH.forum_moremenu_report='投诉';
 internationalWordsEN.forum_moremenu_report='Report Abuse';
-internationalWordsZH.forum_moremenu_cancle_fllow='取消关注';
-internationalWordsEN.forum_moremenu_cancle_fllow='Follow';
+internationalWordsZH.forum_moremenu_cancle_pin='取消置顶';
+internationalWordsEN.forum_moremenu_cancle_pin='Unpin to top';
 internationalWordsZH.forum_moremenu_cancle_report='取消投诉';
 internationalWordsEN.forum_moremenu_cancle_report='Report Abuse';
 internationalWordsZH.forum_moremenu_cancle_fllow='取消关注';
@@ -469,6 +469,8 @@ internationalWordsZH.tran_desc='翻译为：';
 internationalWordsEN.tran_desc='Translate in:';
 internationalWordsZH.tranby='谷歌翻译';
 internationalWordsEN.tranby='Translated by Google';
+internationalWordsZH.edittoptic='编辑话题';
+internationalWordsEN.edittoptic='Edit this topic';
 
 
 
@@ -483,6 +485,8 @@ internationalWordsZH.forumlist_no_data='暂无数据';
 internationalWordsEN.forumlist_no_data='No data';
 internationalWordsZH.add_forum_tip='新话题/问题';
 internationalWordsEN.add_forum_tip='New Topic/Question';
+internationalWordsZH.edit_forum_tip='编辑话题/问题';
+internationalWordsEN.edit_forum_tip='Edit Topic/Question';
 internationalWordsZH.add_forum_cancel='取消';
 internationalWordsEN.add_forum_cancel='Cancel';
 internationalWordsZH.addforumtip='标题、内容和分类不能为空。';
@@ -497,8 +501,23 @@ internationalWordsZH.add_forum_new_idea='有个新的主意？';
 internationalWordsEN.add_forum_new_idea='Is a new idea?';
 internationalWordsZH.new_idea_des='(如果他们喜欢你的想法，他们会投票给你，你可以从亦来云基金会获得资金，一旦你的投票在那个月排名前三，就需要一个PoC演示来获得资金。)';
 internationalWordsEN.new_idea_des='(The cummunity will vote for it if they like your idea, you can get funding from Elastos foundation once your votes ranks top 3 in that month, a POC demo is required to get the funding.)';
+internationalWordsZH.delforumsuccfultip='删除成功';
+internationalWordsEN.delforumsuccfultip='Delete successfully.';
 
-
+internationalWordsZH.followsuccful='关注成功';
+internationalWordsEN.followsuccful='Follow successfully.';
+internationalWordsZH.canclefollowsuccful='取消关注';
+internationalWordsEN.canclefollowsuccful='Cancel follow.';
+internationalWordsZH.abusesuccful='投诉成功';
+internationalWordsEN.abusesuccful='Abuse successfully.';
+internationalWordsZH.cancleabusesuccful='取消投诉';
+internationalWordsEN.cancleabusesuccful='Cancel abuse.';
+internationalWordsZH.pinsuccful='置顶成功';
+internationalWordsEN.pinsuccful='Pin to top successfully.';
+internationalWordsZH.unpinsuccful='取消置顶';
+internationalWordsEN.unpinsuccful='Unpin to top successfully.';
+internationalWordsZH.opforumerro='操作失败';
+internationalWordsEN.opforumerro='operation failed.';
 
 
 

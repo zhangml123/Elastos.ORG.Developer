@@ -1,4 +1,4 @@
-<div class="modal fade" id="addforum" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="editforum" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
 	<div style="display:table; width:100%; height:100%;">
 	<div style="vertical-align:middle; display:table-cell;">
 	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:700px;border-radius:10px;">
@@ -6,20 +6,21 @@
             <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:700px;">
                 <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
                     <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title add_forum_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
+                    <h4 class="modal-title edit_forum_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
 				</div>
                 <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
 						<div class="containera">
 						  <div id="captcha"></div>
 						</div>
 				</div>
-                <div class="modal-body" id="forum_c" style="padding:30px;padding-top:10px;">
+                <div class="modal-body" id="forum_cs" style="padding:30px;padding-top:10px;">
                     <section class="box-login v5-input-txt" id="box-login" style="height:500px;">
                             <ul style="list-style-type:none;">
+								<input type="hidden" value="{$articleinfo.id}" id="articleid"/>
                                 <li class="form-group">
 									<div class="add_forum_title">Title</div>
 								<div>
-									<input type="text" id="forumtitle" value=""  style="outline:none;padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" />
+									<input type="text" id="forumtitle" value="{$articleinfo.title}"  style="outline:none;padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" />
 								</div>
 								</li>
                                 <li style="width:100%;height:280px;">
@@ -39,12 +40,22 @@
 										<option value="">Choose category</option>
 									</eq>
 									<volist name="catelist" id="voa">
-										<eq name="langs" value="1">
-										<option value="{$voa.id}">{$voa.catename}</option>
+										<eq name="voa.id" value="$articleinfo.cate">
+											<eq name="langs" value="1">
+											<option value="{$voa.id}" selected="selected">{$voa.catename}</option>
+											</eq>
+											<eq name="langs" value="2">
+											<option value="{$voa.id}" selected="selected">{$voa.catenameen}</option>
+											</eq>
 										</eq>
-										<eq name="langs" value="2">
-										<option value="{$voa.id}">{$voa.catenameen}</option>
-										</eq>
+										<neq name="voa.id" value="$articleinfo.cate">
+											<eq name="langs" value="1">
+											<option value="{$voa.id}">{$voa.catename}</option>
+											</eq>
+											<eq name="langs" value="2">
+											<option value="{$voa.id}">{$voa.catenameen}</option>
+											</eq>
+										</neq>
 									</volist>
 								</select>
 								</div>
@@ -108,7 +119,7 @@ var options = {
 		//if(rs=="1"){
 			//$("#addforum").modal("hide");
 			$("#addforumsuccful").modal("show");
-			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.href="index";},2500);
+			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.reload();},2500);
 		//}else{
 			//$("#addforum").modal("hide");
 		//	$("#addforumerror").modal("show");
@@ -119,6 +130,7 @@ var options = {
     onRefresh: function(){console.log("重新刷新");}
   })
 function savedata(){
+	var articleid=$("#articleid").val();
 	var forumtitle=$("#forumtitle").val();
 	var forumcontents=$('#forumcontents').summernote('code');
 	var forumcate=$("#forumcates").val();
@@ -132,7 +144,7 @@ function savedata(){
 	}else{
 		isnewidea = 0;
 	}
-	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate,isnewidea:isnewidea},function(data){
+	$.post('editforum',{id:articleid,forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate,isnewidea:isnewidea},function(data){
 		if(data==1){
 			//setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
 			return 1;
@@ -142,6 +154,7 @@ function savedata(){
 	});
 }
 $("#saveforumbtn").click(function(){
+	var articleid=$("#articleid").val();
 	var forumtitle=$("#forumtitle").val();
 	var forumcontents=$('#forumcontents').summernote('code');
 	var forumcate=$("#forumcates").val();
@@ -166,12 +179,12 @@ $("#saveforumbtn").click(function(){
 	}else{
 		isnewidea = 0;
 	}
-	$("#forum_c").hide();
+	$("#forum_cs").hide();
 	$("#slider_img").show();
 	
 });
 $("#cancelforumbtn").click(function(){
-	$("#addforum").modal("hide");
+	$("#editforum").modal("hide");
 });
 function iskong(str){
 	if ( str == "" ){

@@ -342,6 +342,8 @@ class IndexController extends CommonbaseController {
 		 if($yn=1){
 			 $data['didid'] = $njson['DID'];
 			 $data['nickname'] = $njson['NickName'];
+			 $data['Elaaddress'] = $njson['ELAAddress'];
+			 $data['PhoneNumber'] = "";
 			 $staydid = M("staydid");
 			 $rs = $staydid->where($where)->save($data);
 		 }
