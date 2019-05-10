@@ -65,7 +65,7 @@ width: 5px;
 .searchword{width:100%;height:50px;margin-top:20px;}
 .searchword select{float:left;width:150px;font-size:14px;height:35px;}
 .searchword div{float:left;width:80px;height:40px;line-height:40px;font-size:12px;margin-left:25px;text-align:center;cursor:pointer;}
-.pagelist{width:100%;height:80px;text-align:center;margin-top:30px;}
+.pagelist{width:100%;height:80px;text-align:center;margin-top:100px;}
 .form-group{width:100%;height:30px;}
 .form-group div:first-child{float:left;width:20%;height:40px;}
 .form-group div:last-child{float:left;width:80%;height:40px;}
@@ -84,7 +84,7 @@ width: 5px;
 }
 .bootstrap-switch-container{height:26px;}
 .idead div:first-child{height:28px;}
-.moremeun{width:110px;min-height:100px;height:auto;padding-bottom:5px;float:right;margin-top:5px;border:1px solid #aaa;box-shadow:2px 2px 2px #333;background-color:#fff;position:relative;display:none;}
+.moremeun{width:110px;min-height:60px;height:auto;padding-bottom:5px;float:right;margin-top:5px;border:1px solid #aaa;box-shadow:2px 2px 2px #333;background-color:#fff;position:relative;display:none;}
 .moremeun a{height:30px;line-height:30px;padding-left:10px;text-decoration:none;display:block;color:#333;}
 .moremeun a:hover{background-color:#F6F9FD;}
 </style>
@@ -176,7 +176,7 @@ width: 5px;
 						<li>
 						</neq>
 							<div style="width:96%;padding-left:2%;padding-right:2%;padding-top:10px;padding-bottom:10px;">
-							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.adddate} <span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;{$vob.catename}&nbsp;</span></div>
+							<div class="forum_list_posted"><span class="forumpostby">Posted by</span> {$vob.nickname} {$vob.updatedate} <span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;{$vob.catename}&nbsp;</span></div>
 							<div class="forum_list_li_title"   onclick="window.location.href='forumdetail?forumid={$vob.id}';" style="cursor:pointer;overflow:hidden;text-overflow: ellipsis;">{$vob.title}</div>
 								<if condition="mb_strlen($vob['contents'],'utf-8') egt 110"> 
 									<div class="forum_list_shortc"  onclick="window.location.href='forumdetail?forumid={$vob.id}';" style="cursor:pointer;overflow:hidden;text-overflow: ellipsis;">{$vob.contents|msubstr=0,105,'utf-8',true}</div>
@@ -192,28 +192,28 @@ width: 5px;
 									<div class="moremeun">
 										<eq name="profileinfo.roleid" value="1">
 											<eq name="vob.pintotop" value="0">
-												<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_pin">Pin to top</a>
+												<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_pin"></a>
 											</eq>
 											<eq name="vob.pintotop" value="1">
-												<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_pin">Cancle top</a>
+												<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_pin"></a>
 											</eq>
 										</eq>
 										<eq name="profileinfo.roleid" value="1">
 											<eq name="vob.abuseyn" value="1">
-											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_del">Delete</a>
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_del"></a>
 											</eq>
 										</eq>
 										<neq name="vob.followed" value="1">
-											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_fllow">Follow</a>
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_fllow"></a>
 										</neq>
 										<eq name="vob.followed" value="1">
-											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_fllow">Cancle Follow</a>
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_fllow"></a>
 										</eq>
 										<neq name="vob.abuse" value="1">
-											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_report">Report Abuse</a>
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_report"></a>
 										</neq>
 										<eq name="vob.abuse" value="1">
-											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_report">Cancle Abuse</a>
+											<a href="javascript:void(0);" curid="{$vob.id}" class="forum_moremenu_cancle_report"></a>
 										</eq>
 									</div>
 								</div>
@@ -355,8 +355,9 @@ width: 5px;
 <include file="Forum/abusesuccful" />
 <include file="Forum/cancleabusesuccful" />
 <include file="Forum/pinsuccful" />
-<include file="Forum/canclepinsuccful" />
+<include file="Forum/unpinsuccful" />
 <include file="Forum/opforumerro" />
+<include file="Forum/eqthree" />
 <include file="Forum/delforumsuccful" />
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
@@ -387,19 +388,23 @@ function pinsuccful_popup(){
   $("#pinsuccful").modal("show");
   setTimeout(function(){$("#pinsuccful").modal("hide")},3000)
 }
-function canclepinsuccful_popup(){
-  $("#canclepinsuccful").modal("show");
-  setTimeout(function(){$("#canclepinsuccful").modal("hide")},3000)
+function unpinsuccful_popup(){
+  $("#unpinsuccful").modal("show");
+  setTimeout(function(){$("#unpinsuccful").modal("hide")},3000)
 }
 function opforumerro_popup(){
   $("#opforumerro").modal("show");
   setTimeout(function(){$("#opforumerro").modal("hide")},3000)
 }
+function eqthree_popup(){
+  $("#eqthree").modal("show");
+  setTimeout(function(){$("#eqthree").modal("hide")},3000)
+}
 function delforumsuccful_popup(){
   $("#delforumsuccful").modal("show");
   setTimeout(function(){$("#delforumsuccful").modal("hide");window.location.href="index.html";},3000)
 }
-$("[name='test']").bootstrapSwitch("state",false);
+$("[name='test']").bootstrapSwitch("state",true);
 function judgepc() {
   var sUserAgent = navigator.userAgent.toLowerCase();
   var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
@@ -460,7 +465,7 @@ if(counts!="0"){
 						var htmla = "";
 						for(var i=0;i<callback.length;i++){
 							if(sessionStorage.getItem('internationalWords')==1){
-							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">发布者</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">发布者</span>  '+callback[i]['nickname']+' '+callback[i]['updatedate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
 										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
@@ -492,7 +497,7 @@ if(counts!="0"){
 										}
 										htmla = htmla+'</div></div></div></li>';
 							}else{
-							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['updatedate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
 										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
@@ -515,12 +520,12 @@ if(counts!="0"){
 										if(callback[i]['abuseyn']=="1"){
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Follow</a>';
 										}else{
-											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">Cancle Follow</a>';
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_fllow">Cancel Follow</a>';
 										}
 										if(callback[i]['abuseyn']=="1"){
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a>';
 										}else{
-											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">Cancle Abuse</a>';
+											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">Cancel Abuse</a>';
 										}
 										htmla = htmla+'</div></div></div></li>';
 										//htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Fallow</a><a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a></div></div></div></li>';
@@ -835,6 +840,8 @@ $(document).ready(function(){
 					objb.html("Pin to top");
 				}
 				unpinsuccful_popup();
+			}else if(data=="3"){
+				eqthree_popup();
 			}else{
 				opforumerro_popup();
 			}
@@ -858,6 +865,8 @@ $(document).ready(function(){
 					objb.html("Pin to top");
 				}
 				unpinsuccful_popup();
+			}else if(data=="3"){
+				eqthree_popup();
 			}else{
 				opforumerro_popup();
 			}

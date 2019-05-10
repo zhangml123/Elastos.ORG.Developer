@@ -1,1 +1,1 @@
-ALTER TABLE ela_article add `pintotop` int(11) default 0;
+ALTER TABLE ela_article add `pintime` char(18);

@@ -13,10 +13,10 @@ internationalWordsZH.community='开发者社区&nbsp;&nbsp;<img id="imgarrow" sr
 internationalWordsEN.community='Community&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 internationalWordsZH.login='登录';
 internationalWordsEN.login='LOG IN';
-internationalWordsZH.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;简体中文';
-internationalWordsEN.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;简体中文';
-internationalWordsZH.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;English';
-internationalWordsEN.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;English';
+internationalWordsZH.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;CN-简体中文';
+internationalWordsEN.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;CN-简体中文';
+internationalWordsZH.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;US-English';
+internationalWordsEN.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;US-English';
 internationalWordsZH.pcentersubprofile='我的';
 internationalWordsEN.pcentersubprofile='My Profile';
 internationalWordsZH.pcentergettoken='申请测试币';
@@ -471,6 +471,10 @@ internationalWordsZH.tranby='谷歌翻译';
 internationalWordsEN.tranby='Translated by Google';
 internationalWordsZH.edittoptic='编辑话题';
 internationalWordsEN.edittoptic='Edit this topic';
+internationalWordsZH.followtrans='以下来自谷歌自动翻译：';
+internationalWordsEN.followtrans='The following is from Google Translate:';
+internationalWordsZH.eqthree='已置顶三个';
+internationalWordsEN.eqthree='Has been topped three.';
 
 
 

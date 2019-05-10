@@ -62,9 +62,9 @@
 								</li>
                                 <li class="form-group idead">
 								<div class="add_forum_new_idea" style="line-height:45px;height:40px;">Is a new idea?</div>
-								<div>
+								<div style="height:30px;">
 									<div style="width:100%;height:30px;margin-top:10px;">
-										<input id="isnewidea" data-on-text="Yes" data-off-text="No" type="checkbox" checked="checked" data-size="mini" name="test">
+										<input id="isnewideaedit" data-on-text="Yes" data-off-text="No" type="checkbox" checked="checked" data-size="mini" name="test">
 									</div>
 								</div>
 								</li>
@@ -139,7 +139,7 @@ function savedata(){
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
-	if ($('#isnewidea').prop("checked")){
+	if ($('#isnewideaedit').prop("checked")){
 		isnewidea = 1;
 	}else{
 		isnewidea = 0;
@@ -174,7 +174,7 @@ $("#saveforumbtn").click(function(){
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
-	if ($('#isnewidea').prop("checked")){
+	if ($('#isnewideaedit').prop("checked")){
 		isnewidea = 1;
 	}else{
 		isnewidea = 0;
