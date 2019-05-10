@@ -267,6 +267,8 @@ function guojihua(){
 	$(".pinsuccful").html(internationalWords.pinsuccful);
 	$(".unpinsuccful").html(internationalWords.unpinsuccful);
 	$(".opforumerro").html(internationalWords.opforumerro);
+	$(".followtrans").html(internationalWords.followtrans);
+	$(".eqthree").html(internationalWords.eqthree);
 	
 }
 guojihua();

@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
     <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/checkbox.css">
+    <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap-datetimepicker.min.css">
+<link href="{$Think.const.PUBLIC_H}Home/summernote/summernote.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
 	<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
 	<style>
@@ -207,6 +209,8 @@
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 </style>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/moment-with-locales.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-datetimepicker.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
@@ -215,6 +219,10 @@
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+$('#datetimepicker1').datetimepicker({
+	format: 'YYYY-MM-DD',
+	locale: moment.locale('en')
+});
 $(document).on("click","#addvotebtn",function(){
 	var loginstatus = '{$logincate}';
 	if(loginstatus!=""){

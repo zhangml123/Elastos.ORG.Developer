@@ -1,0 +1,1 @@
+ALTER TABLE ela_articlefollowed add `addtime` int(12);

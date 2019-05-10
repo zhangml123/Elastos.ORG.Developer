@@ -16,7 +16,7 @@ class ForumController extends Controller {
 		}else{
 			$this->assign("langs",2);
 		}
-		$order = "pintotop desc,updatetime desc,";
+		$order = "pintotop desc,pintime desc,";
 		if(isset($_GET['searchword']) && trim($_GET['searchword'],"")!=""){
 			$wheres['title'] = array("like","%".$_GET['searchword']."%");
 			$wheres['contents'] = array("like","%".$_GET['searchword']."%");
@@ -670,6 +670,7 @@ class ForumController extends Controller {
 						$rslist[$i]['contents'] = mb_substr(strip_tags($rslist[$i]['contents']),0,105,"utf-8")."...";
 					}
 					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
+					$rslist[$i]['updatedate'] = date("Y年m月d日 H:i",$rslist[$i]['updatetime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					$cuinfo = $this->userinfo($wherea);
 					
@@ -724,6 +725,7 @@ class ForumController extends Controller {
 					$wherecate['id'] = $rslist[$i]['cate'];
 					$catedetail = $this->catedetail($wherecate);
 					$rslist[$i]['adddate'] = date("M d,Y h:i A",$rslist[$i]['addtime']);
+					$rslist[$i]['updatedate'] = date("M d,Y h:i A",$rslist[$i]['updatetime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					$cuinfo = $this->userinfo($wherea);
 					//$rslist[$i]['nickname'] = $cuinfo['nickname'];
@@ -801,7 +803,7 @@ class ForumController extends Controller {
 	public function forumlistjson(){
 		$where['pid'] = 0;
 		//$order = "";
-		$order = "pintotop desc,updatetime desc,";
+		$order = "pintotop desc,pintime desc,";
 		if(isset($_POST['searchword']) && trim($_POST['searchword'],"")!=""){
 			//$where['title'] = array("like","%".$_POST['searchword']."%");
 			$wheres['title'] = array("like","%".$_POST['searchword']."%");
@@ -843,6 +845,7 @@ class ForumController extends Controller {
 					$wherecate['id'] = $rslist[$i]['cate'];
 					$catedetail = $this->catedetail($wherecate);
 					$rslist[$i]['adddate'] = date("Y年m月d日 H:i",$rslist[$i]['addtime']);
+					$rslist[$i]['updatedate'] = date("Y年m月d日 H:i",$rslist[$i]['updatetime']);
 					if(strlen($rslist[$i]['title'])>40){
 						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,39,"utf-8")."...";
 					}
@@ -897,6 +900,7 @@ class ForumController extends Controller {
 					$wherecate['id'] = $rslist[$i]['cate'];
 					$catedetail = $this->catedetail($wherecate);
 					$rslist[$i]['adddate'] = date("M d,Y h:i A",$rslist[$i]['addtime']);
+					$rslist[$i]['updatedate'] = date("M d,Y h:i A",$rslist[$i]['updatetime']);
 					$wherea['userid'] = $rslist[$i]['sender'];
 					if(strlen($rslist[$i]['title'])>40){
 						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,39,"utf-8")."...";
@@ -1135,34 +1139,42 @@ class ForumController extends Controller {
 	}
 	//置顶操作
 	public function addpintotop(){
-		$articleid = $_POST['articleid'];
-		$where['id'] = $articleid;
+		//判断置顶是否超过三个
 		$article = M("article");
-		$ainfo = $article->where($where)->find();
-		if($ainfo){
-			if($ainfo['pintotop']==1){
-				$data['pintotop'] = 0;
-				$rs = $article->where($where)->save($data);
-				if($rs){
-					echo 2;
+			$articleid = $_POST['articleid'];
+			$where['id'] = $articleid;
+			$ainfo = $article->where($where)->find();
+			if($ainfo){
+				if($ainfo['pintotop']==1){
+					
+					
+						$data['pintotop'] = 0;
+						$rs = $article->where($where)->save($data);
+						if($rs){
+							echo 2;
+						}else{
+							echo 0;
+						}
 				}else{
-					echo 0;
+					$whereb['pintotop'] = 1;
+					$rsw = $article->where($whereb)->select();
+					if(count($rsw)<3){
+						$data['pintotop'] = 1;
+						$data['updatetime'] = time();
+						$data['pintime'] = time();
+						$rs = $article->where($where)->save($data);
+						if($rs){
+							echo 1;
+						}else{
+							echo 0;
+						}
+					}else{
+						echo 3;
+					}
 				}
 			}else{
-				//$wherea['id'] = array("NEQ",0);
-				//$dataa['pintotop'] = 0;
-				//$rsa = $article->where($wherea)->save($dataa);
-				$data['pintotop'] = 1;
-				$rs = $article->where($where)->save($data);
-				if($rs){
-					echo 1;
-				}else{
-					echo 0;
-				}
+				echo 0;
 			}
-		}else{
-			echo 0;
-		}
 	}
 	
 	//新增举报
