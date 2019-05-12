@@ -135,10 +135,10 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 					</div>
 					<div class="doc_content_c" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;">{$articleinfo.contents}</div>
 					
-					<div style="height:50px;line-height:50px;width: 95%;margin-left: 5%;display:none;"><span id="tran_desc">Translate in:</span>&nbsp;&nbsp;<span id="trancn" style="cursor:pointer;">简体中文</span>&nbsp;|&nbsp;<span id="tranen" style="cursor:pointer;">Enlish</span></div>
+					<div style="height:50px;line-height:50px;width: 95%;margin-left: 5%;"><span id="tran_desc" style="cursor:pointer;">选择:</span>&nbsp;&nbsp;<span id="trancn" style="cursor:pointer;">语言</span></div>
 					<div style="height:30px;line-height:30px;width: 95%;margin-left: 5%;font-size:12px;border-top:1px solid #888;" class="followtrans">以下来自谷歌自动翻译：</div>
 					<div class="doc_content_c" id="tran_res" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;color:#999;">
-						<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:150px;height:150px;" />
+						<!-- <img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:150px;height:150px;" /> -->
 					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
@@ -162,7 +162,7 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 										<div class="c_c_list_r comment_r_c">
 											<div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">{$vob.nickname}, {$vob.adddatetime}</div>
 											<div class="comment_c" style="word-break: break-all;">{$vob.contents}</div>
-											<div class="comment_c_trans" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>
+											<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>
 											<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>
 											<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 											<div class="comment_bottom_icon">
@@ -205,6 +205,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 														<div class="replay_c_list_r">
 																<div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">{$voc.nickname}, {$voc.adddatetime}</div>
 															<div class="comment_c"  style="word-break: break-all;">{$voc.contents}</div>
+															<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>
+															<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>
 															<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 															<div class="comment_bottom_icon  hidden-sm hidden-xs">
 																<div class="comment_bottom_icon_l">{$voc.nickname}, {$voc.adddatetime}</div>
@@ -333,6 +335,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <include file="Forum/tranrs" />
 <include file="Forum/delforumsuccful" />
 <include file="Forum/editforum" />
+<include file="Forum/langs" />
+<include file="Forum/langss" />
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
@@ -532,7 +536,16 @@ $("#loadmorebtn").click(function(){
 						htmla = htmla +'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" /></div>';
 					}
 						htmla = htmla +'<div class="c_c_list_r comment_r_c"><div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div>';
-						htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
+						htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div>';
+						
+						if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}else{
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[Translated by Google]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}	
+						htmla = htmla +'<div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
 						htmla = htmla +'<div class="comment_bottom_icon"><div class="comment_bottom_icon_l  hidden-sm hidden-xs">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div><div class="comment_bottom_icon_r">';
 						if(data[i]['abuse']==1){
 							htmla = htmla +'<div class="comment_bottom_icon_l  hidden-sm hidden-xs delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:18px;height:21px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
@@ -568,7 +581,18 @@ $("#loadmorebtn").click(function(){
 									htmla = htmla +'<img class="visible-xs-block" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 							}							
 							htmla = htmla +'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
-							htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+dataa[j]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
+							htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+dataa[j]['contents']+'</div>';
+							
+							
+							
+							if(sessionStorage.getItem('internationalWords')==1){
+								htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>';
+								htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+							}else{
+								htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[Translated by Google]</div>';
+								htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+							}	
+							htmla = htmla +'<div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
 							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
 							if(dataa[j]['abuse']==1){
 								htmla = htmla +'<div class="comment_bottom_icon_l delete_comment_btn" commentid="'+ dataa[j]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
@@ -617,7 +641,19 @@ $(document).on("click",".loadsubmorebtn",function(){
 						htmla = htmla+'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 					}
 						htmla = htmla+'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div>';
-						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div>';
+						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div>';
+						
+						if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}else{
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[Translated by Google]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}	
+
+						
+						
+						htmla = htmla+'<div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div>';
 						if(data[i]['abuse']==1){
 							htmla = htmla +'<div class="comment_bottom_icon_l delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
 						}
@@ -664,6 +700,7 @@ $(document).on("click",".like",function(){
 		login_popup();
 	}
 });
+/*
 var language = navigator.browserLanguage?navigator.browserLanguage:navigator.language;
 	var c = $(".doc_content_c").html();
 	var sl = "auto";
@@ -672,17 +709,41 @@ var language = navigator.browserLanguage?navigator.browserLanguage:navigator.lan
 	$.post(url,{sl:sl,tl:tl,c:c},function(data){
 		$("#tran_res").html("&nbsp;&nbsp;"+data);
 	});
+*/
 $(".comment_c_trans").click(function(){
 	var objc = $(this);
+	objc.attr("weiid","subc");
+    $("#langss").modal("show");
+	$("#langlists").show();
+	$("#langlist_loadings").hide();
+	/*
 	var c = objc.prev(".comment_c").html();
 	objc.next(".comment_c").html('<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:50px;height:50px;" />');
 	var sl = "auto";
 	var tl = language;
-	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	var url ='{$curhost}index.php/Home/Forum/googletranapis';
 	$.post(url,{sl:sl,tl:tl,c:c},function(data){
 		objc.next(".comment_c").html("&nbsp;&nbsp;"+data);
 	});
+	*/
 });
+$(".lang_selects").click(function(){
+	var objd = $("[weiid='subc']");
+	$("#langlists").hide();
+	$("#langlist_loadings").show();
+	var curlang = $(this).attr("langs");
+	var c = objd.prev(".comment_c").html();
+	var sl = "auto";
+	var tl = curlang;
+	var url ='{$curhost}index.php/Home/Forum/googletranapis';
+	objd.next(".comment_c").html('<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:50px;height:50px;" />');
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$(".comment_c_trans").attr("weiid","");
+		$("#langss").modal("hide");
+		objd.next(".comment_c").html("&nbsp;&nbsp;"+data);
+	});
+});
+
 $("#trancn").click(function(){
 	//$("#tranrs").modal("show");
 	$("#tranresult").html("<img src='{$Think.const.PUBLIC_H}Home/images/tran_loading.gif' style='width:100%;height:auto;' />");
@@ -696,6 +757,25 @@ $("#trancn").click(function(){
 });
 $("#edittoptic").click(function(){
 	editforum_popup();
+});
+$("#tran_desc").click(function(){
+    $("#langs").modal("show");
+	$("#langlist").show();
+	$("#langlist_loading").hide();
+})
+$(".lang_select").click(function(){
+	$("#langlist").hide();
+	$("#langlist_loading").show();
+	$("#trancn").html($(this).html());
+	var curlang = $(this).attr("langs");
+	var c = $("#curdocname").html()+"||||||||||"+$(".doc_content_c").html();
+	var sl = "auto";
+	var tl = curlang;
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#langs").modal("hide");
+		$("#tran_res").html("&nbsp;&nbsp;"+data);
+	});
 });
 </script>
 </body>

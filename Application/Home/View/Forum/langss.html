@@ -1,0 +1,122 @@
+<div class="modal fade" id="langss" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:365px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:365px;">
+                <div class="modal-header langs_t" style="border:0px;color:#333;">选择语言</div>
+                <div class="modal-body" id="langlist_loadings" style="padding:10px;height:222px;padding-top:10px;display:none;text-align:center;margin:0px auto;background-color:#fff;">
+					<img src='{$Think.const.PUBLIC_H}Home/images/trans_loading.gif' style='width:200px;height:200px;' />
+				</div>
+                <div class="modal-body" id="langlists" style="padding:10px;height:222px;padding-top:10px;overflow-x:hidden;overflow-y:auto;">
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sq" class="lang_selects albanian">阿尔巴尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ar"  class="lang_selects arabic">阿拉伯语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="am"  class="lang_selects amharic">阿姆哈拉语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="az"  class="lang_selects azerbaijani">阿塞拜疆语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ga" class="lang_selects irish">爱尔兰语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="et"  class="lang_selects estonian">爱沙尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="eu" class="lang_selects basque">巴斯克语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="be"  class="lang_selects belarusian">白俄罗斯语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="bg"  class="lang_selects bulgarian">保加利亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="is"  class="lang_selects icelandic">冰岛语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="pl"  class="lang_selects polish">波兰语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="bs"  class="lang_selects bosnian">波斯尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="fa"  class="lang_selects persian">波斯语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="af"  class="lang_selects boolean_afrikaans">布尔语(南非荷兰语)</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="da"  class="lang_selects danish">丹麦语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="de"  class="lang_selects german">德语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ru"  class="lang_selects russian">俄语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="fr"  class="lang_selects french">法语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="tl"  class="lang_selects filipino">菲律宾语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="fi"  class="lang_selects finnish">芬兰语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="fy"  class="lang_selects frisian">弗里西语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="km"  class="lang_selects cambodian">高棉语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ka"  class="lang_selects georgian">格鲁吉亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="gu"  class="lang_selects gujarati">古吉拉特语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="kk"  class="lang_selects kazakh">哈萨克语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ht"  class="lang_selects haitian_creole">海地克里奥尔语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ko"  class="lang_selects korean">韩语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ha" class="lang_selects hausa">豪萨语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="nl"  class="lang_selects dutch">荷兰语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ky"  class="lang_selects kyrgyz">吉尔吉斯语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="gl"  class="lang_selects galician">加利西亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ca"  class="lang_selects catalan">加泰罗尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="cs"  class="lang_selects czech">捷克语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="kn"  class="lang_selects kannada">卡纳达语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="co"  class="lang_selects corsican">科西嘉语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="hr"  class="lang_selects croatian">克罗地亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ku"  class="lang_selects kurdish">库尔德语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="la"  class="lang_selects latin">拉丁语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="lv"  class="lang_selects latvian">拉脱维亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="lo"  class="lang_selects laotian">老挝语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="lt"  class="lang_selects lithuanian">立陶宛语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="lb"  class="lang_selects luxembourgish">卢森堡语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ro"  class="lang_selects romanian">罗马尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="mg"  class="lang_selects malagasy">马尔加什语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="mt"  class="lang_selects maltese">马耳他语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="mr"  class="lang_selects marathi">马拉地语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ml"  class="lang_selects malayalam">马拉雅拉姆语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ms"  class="lang_selects malay">马来语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="mk"  class="lang_selects macedonian">马其顿语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;"  langs="mi" class="lang_selects maori">毛利语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;"  langs="mn" class="lang_selects mongolian">蒙古语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;"  langs="bn" class="lang_selects bengali">孟加拉语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="my"  class="lang_selects burmese">缅甸语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="hmn"  class="lang_selects hmong">苗语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="xh"  class="lang_selects south_african_xhosa">南非科萨语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="zu"  class="lang_selects south_african_zulu">南非祖鲁语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ne"  class="lang_selects nepali">尼泊尔语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="no"  class="lang_selects norwegian">挪威语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="pa"  class="lang_selects punjabi">旁遮普语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="pt"  class="lang_selects portuguese">葡萄牙语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ps"  class="lang_selects pashto">普什图语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ny"  class="lang_selects chichewa">齐切瓦语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ja"  class="lang_selects japanese">日语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sv"  class="lang_selects swedish">瑞典语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sm"  class="lang_selects samoan">萨摩亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sr"  class="lang_selects serbian">塞尔维亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="st"  class="lang_selects sesotho">塞索托语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="si"  class="lang_selects sinhalese">僧伽罗语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="eo"  class="lang_selects esperanto">世界语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sk"  class="lang_selects slovak">斯洛伐克语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sl"  class="lang_selects slovenian">斯洛文尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sw"  class="lang_selects swahili">斯瓦希里语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="gd"  class="lang_selects scottish_gaelic">苏格兰盖尔语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ceb"  class="lang_selects cebu_language">宿务语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="so"  class="lang_selects somali">索马里语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="tg"  class="lang_selects tajik">塔吉克语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="te"  class="lang_selects telugu">泰卢固语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ta"  class="lang_selects tamil">泰米尔语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="th"  class="lang_selects thai">泰语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="tr"  class="lang_selects turkish">土耳其语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="cy"  class="lang_selects welsh">威尔士语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ur"  class="lang_selects urdu">乌尔都语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="uk"  class="lang_selects ukrainian">乌克兰语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="uz"  class="lang_selects uzbek">乌兹别克语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="es"  class="lang_selects spanish">西班牙语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="iw"  class="lang_selects hebrew">希伯来语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="el"  class="lang_selects greek">希腊语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="haw"  class="lang_selects hawaiian">夏威夷语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sd"  class="lang_selects sindhi">信德语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="hu"  class="lang_selects hungarian">匈牙利语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="sn"  class="lang_selects shuna">修纳语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="hy"  class="lang_selects armenian">亚美尼亚语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="ig"  class="lang_selects igbo">伊博语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="it"  class="lang_selects italian">意大利语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="yi"  class="lang_selects yiddish">意第绪语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="hi"  class="lang_selects hindi">印地语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="su"  class="lang_selects indonesian_language">印尼巽他语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="id"  class="lang_selects indonesian">印尼语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="jw"  class="lang_selects indonesian_javanese">印尼爪哇语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="en"  class="lang_selects english">英语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="yo"  class="lang_selects yoruba">约鲁巴语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="vi"  class="lang_selects vietnamese">越南语</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="zh-TW"  class="lang_selects traditional_cn">中文(繁体)</div>
+							<div style="width:90%;margin-left:5%;font-size:14px;text-align:left;height:30px;padding-top:5px;line-height:30px;cursor:pointer;" langs="zh-CN"  class="lang_selects chinese_cn">中文(简体)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
