@@ -76,6 +76,7 @@ class DocumentationController extends CommonbaseController {
 			
 			$contents = str_replace($stra,"",$contents);
 			$contents = str_replace('<img src="\/','<img src="https://github.com',$contents);
+			$contents = str_replace('<img ','<img style="width:100%;height:auto;"',$contents);
 			$contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
 			
 			$isread = $this->getnoreadnotify();

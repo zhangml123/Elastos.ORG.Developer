@@ -1324,6 +1324,39 @@ class ForumController extends Controller {
   public function googletranapi(){
 	  $sl = $_POST['sl'];
 	  $tl = $_POST['tl'];
+	  $contentsarr = explode("||||||||||",$_POST['c']);
+	  $str = "";
+	  for($j=0;$j<count($contentsarr);$j++){
+		  $c = urlencode(strip_tags(str_replace("&nbsp;"," ",$contentsarr[$j])));
+		  $contents = file_get_contents("https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=".$sl."&tl=".$tl."&q=".$c);
+		  $arra = json_decode($contents,true);
+		  $arrb = $arra['sentences'];
+		 //var_dump($arrb);
+		  $trans = "";
+		  for($i=0;$i<count($arrb);$i++){
+			  $trans  = $trans."".$arrb[$i]["trans"];
+		  }
+		  if($contents){
+		   if($j==1){
+			if($_SESSION ['eladevp']['lang']=="cn"){
+			  $str = $str."<br>正文：<br>".$trans;
+			}else{
+			  $str = $str."<br>Text：<br>".$trans;
+			}
+		  }else{
+			  $str = $str.$trans;
+		  }
+		  }else{
+			  $str= "";
+		  }
+		  //var_dump($contentsarr);
+	  }
+	 echo $str;
+  }
+  //谷歌翻译
+  public function googletranapis(){
+	  $sl = $_POST['sl'];
+	  $tl = $_POST['tl'];
 	  $c = urlencode(strip_tags(str_replace("&nbsp;"," ",$_POST['c'])));
 	  $contents = file_get_contents("https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=".$sl."&tl=".$tl."&q=".$c);
 	  $arra = json_decode($contents,true);
