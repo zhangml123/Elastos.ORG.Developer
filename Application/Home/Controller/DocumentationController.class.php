@@ -33,10 +33,11 @@ class DocumentationController extends CommonbaseController {
 			$where['commentid'] = array('exp','is null');
 			$commentlist = $this->initcommentlist($where);
 				
-			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
+			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/".$doc);
 			$stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
 			$contents = str_replace($stra,"",$contents);
-			$contents = str_replace('<img src="','<img src="https://github.com',$contents);
+			//$contents = str_replace('<img src="','<img src="https://github.com',$contents);
+			$contents = str_replace('<img src="\/','<img src="https://github.com',$contents);
 			 //$contents = str_replace($stra,"",$contents);
 			 $contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
 			 $this->assign("commentlist",$commentlist);
@@ -49,7 +50,7 @@ class DocumentationController extends CommonbaseController {
 			$this->assign("curlang",$_SESSION ['eladevp']['lang']);
 			$this->assign("localdirfile",$this->getlocalfile());
 			$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
-			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
+			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/".$doc);
 			$this->assign("dirdocname",str_replace("/","|",$doc));
 			$this->display();
 		}else{
@@ -64,9 +65,10 @@ class DocumentationController extends CommonbaseController {
 			$where['commentid'] = array('exp','is null');
 			$commentlist = $this->initcommentlist($where);
 			$stra = '<svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>';
-			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
+			$contents = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/".$doc);
 			$contents = str_replace($stra,"",$contents);
-			$contents = str_replace('<img src="','<img src="https://github.com',$contents);
+			//$contents = str_replace('<img src="','<img src="https://github.com',$contents);
+			$contents = str_replace('<img src="\/','<img src="https://github.com',$contents);
 			$contents = str_replace('href="/elastos/Elastos.Developer.Doc/blob/master/Ignore/','target="__blank" href="https://github.com/elastos/Elastos.Developer.Doc/blob/master/Ignore/',$contents);
 			
 			$isread = $this->getnoreadnotify();
@@ -79,7 +81,7 @@ class DocumentationController extends CommonbaseController {
 			$this->assign("curlang",$_SESSION ['eladevp']['lang']);
 			$this->assign("localdirfile",$this->getlocalfile());
 			$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
-			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/".$doc);
+			$this->assign("curf",$_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/".$doc);
 			$this->assign("dirdocname",str_replace("/","|",$doc));
 			$this->display();
 		}
@@ -190,9 +192,9 @@ class DocumentationController extends CommonbaseController {
 	//循环查询指定目录下所有文件的内容
 	public function searchfilecontents($sw){
 		if($_SESSION ['eladevp']['lang']=="en"){
-			$rootdir =$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/EN";
+			$rootdir =$_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/EN";
 		}else{
-			$rootdir =$_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/CN";
+			$rootdir =$_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/CN";
 		}
 		$arr_files = array();
 		$this->trees($arr_files, $rootdir);
@@ -287,9 +289,9 @@ class DocumentationController extends CommonbaseController {
 	public function getlocalfiles(){
 		//取得当前文件所在目录
 		if($_SESSION ['eladevp']['lang']=="en"){
-			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/EN/";
+			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/EN/";
 		}else{
-			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/CN/";
+			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/CN/";
 		}
 		$result = glob($path.'/*');
 		$arra = array();
@@ -298,7 +300,7 @@ class DocumentationController extends CommonbaseController {
 				$arr = explode("/",$result[$i]);
 				$arra[$i]['filename'] = $arr[count($arr)-1];
 				$arra[$i]['localdir'] = $result[$i];
-				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/Elastos.Developer.Doc/Doc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "dir";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$arr[count($arr)-1];
 				$arra[$i]['shortname'] = "";
@@ -311,7 +313,7 @@ class DocumentationController extends CommonbaseController {
 					$arrw = explode(".",$arr[count($arr)-1]);
 					$arra[$i]['filename'] = $arr[count($arr)-1];
 					$arra[$i]['localdir'] = $result[$i];
-					$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
+					$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/Elastos.Developer.Doc/Doc/".$arr[count($arr)-1];
 					$arra[$i]['type'] = "file";
 					$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/".$arr[count($arr)-1];
 					$arra[$i]['shortname'] = $arrw[0];
@@ -326,7 +328,7 @@ class DocumentationController extends CommonbaseController {
 				$arrw = explode(".",$arr[count($arr)-1]);
 				$arra[$i]['filename'] = $arr[count($arr)-1];
 				$arra[$i]['localdir'] = $result[$i];
-				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/Doc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/Elastos.Developer.Doc/Doc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "file";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/blob/master/Doc/".$arr[count($arr)-1];
 				$arra[$i]['shortname'] = $arrw[0];
@@ -344,10 +346,10 @@ class DocumentationController extends CommonbaseController {
 	public function getlocalfile(){
 		//取得当前文件所在目录
 		if($_SESSION ['eladevp']['lang']=="en"){
-			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/EN";
+			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/EN";
 			$lang = "EN";
 		}else{
-			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/CN";
+			$path  = $_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/CN";
 			$lang = "CN";
 		}
 		$arr_file = array();
@@ -370,7 +372,7 @@ class DocumentationController extends CommonbaseController {
 				$arra[$i]['pai'] = $this->pjnum($arrw[0],0);
 				$arra[$i]['localdir'] = $path."/".$arr_file[$i];
 				//$arra[$i]['localdir'] = str_replace("/","|||",$arr_file[$i]);
-				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/Public/developerdoc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/Public/Elastos.Developer.Doc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "dir";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$arr[count($arr)-1];
 				$arra[$i]['shortname'] = "";
@@ -390,7 +392,7 @@ class DocumentationController extends CommonbaseController {
 				//$arra[$i]['pai'] = substr($patharr[1],1);
 				$arra[$i]['pai'] = $this->pjnum(substr($arrya[0],1),$arrw[0]);
 				$arra[$i]['localdir'] = $path.$arr_file[$i];
-				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/developerdoc/".$arr[count($arr)-1];
+				$arra[$i]['hostfile'] = "https://".$_SERVER['HTTP_HOST']."/eladevp/Elastos.Developer.Doc/".$arr[count($arr)-1];
 				$arra[$i]['type'] = "file";
 				$arra[$i]['githuburl'] = "https://github.com/elastos/Elastos.Developer.Doc/tree/master/".$lang.$arr_file[$i];
 				$arra[$i]['shortname'] = $arrw[0].".".$arrw[1];
@@ -454,14 +456,14 @@ class DocumentationController extends CommonbaseController {
 		/* $narr = array();
 		for($a=0;$a<count($arr);$a++){
 			if($arr[$a]['type']=="file" && $arr[$a]['filelang']=="CN"){
-				$narr[0]['filedir'] = $_SERVER['DOCUMENT_ROOT']."/eladevp/developerdoc/Doc/".$arr[$a]['filename'];
+				$narr[0]['filedir'] = $_SERVER['DOCUMENT_ROOT']."/eladevp/Elastos.Developer.Doc/Doc/".$arr[$a]['filename'];
 				$narr[0]['githuburl'] = $arr[$a]['githuburl'];
 				if($a==1){
-					$narr[1]['filedir'] = $_SERVER['DOCUMENT_ROOT']."/eladevp/developerdoc/Doc/".$arr[0]['filename'];
+					$narr[1]['filedir'] = $_SERVER['DOCUMENT_ROOT']."/eladevp/Elastos.Developer.Doc/Doc/".$arr[0]['filename'];
 					$narr[1]['githuburl'] = $arr[0]['githuburl'];
 				}
 			}else($arr[$a]['type']=="file" ){
-				$narr[0]['filedir'] = $_SERVER['DOCUMENT_ROOT']."/eladevp/developerdoc/Doc/".$arr[$a]['filename'];
+				$narr[0]['filedir'] = $_SERVER['DOCUMENT_ROOT']."/eladevp/Elastos.Developer.Doc/Doc/".$arr[$a]['filename'];
 				$narr[0]['githuburl'] = $arr[$a]['githuburl'];
 			}
 		} */
@@ -470,10 +472,10 @@ class DocumentationController extends CommonbaseController {
 		if($_POST['fname']!="" ){
 				//取得当前文件所在目录
 				if($_SESSION ['eladevp']['lang']=="en"){
-					$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/EN";
+					$path  = $_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/EN";
 					$lang = "EN";
 				}else{
-					$path  = $_SERVER['DOCUMENT_ROOT']."/Public/developerdoc/CN";
+					$path  = $_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc/CN";
 					$lang = "CN";
 				}
 			 $str = file_get_contents($path.str_replace("|||","/",$_POST['fname']));
