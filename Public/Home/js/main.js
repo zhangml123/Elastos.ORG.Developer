@@ -10,12 +10,12 @@ if(sessionStorage.getItem('internationalWords')!=null && sessionStorage.getItem(
 INKEY0?INKEY=INKEY0:INKEY0=1;
 if(INKEY==1){
     internationalWords=internationalWordsZH;
-	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17.5px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17.5px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
 }else{
     internationalWords=internationalWordsEN;
-	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17.5px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17.5px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
 }
 function change(num){
     if(num==1){
@@ -257,7 +257,7 @@ function guojihua(){
 	$(".forum_moremenu_cancle_pin").html(internationalWords.forum_moremenu_cancle_pin);
 	$("#tran_desc").html(internationalWords.tran_desc);
 	$(".langs_t").html(internationalWords.tran_desc);
-	$("#trancn").html(internationalWords.trancn);
+	//$("#trancn").html(internationalWords.trancn);
 	$(".tranby").html(internationalWords.tranby);
 	$(".delforumsuccful").html(internationalWords.delforumsuccfultip);
 	$(".edittoptic").html(internationalWords.edittoptic);

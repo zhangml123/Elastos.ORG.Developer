@@ -465,7 +465,12 @@ if(counts!="0"){
 						var htmla = "";
 						for(var i=0;i<callback.length;i++){
 							if(sessionStorage.getItem('internationalWords')==1){
-							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">发布者</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+								if(callback[i]['pintotop']=="1"){
+									htmla = htmla+'<li style="background-color:#F2F6FB;"><div style="width:96%;padding-left:2%;padding-right:2%;padding-top:10px;padding-bottom:10px;">';
+								}else{
+									htmla = htmla+'<li><div style="width:96%;padding-left:2%;padding-right:2%;padding-top:10px;padding-bottom:10px;">';
+								}
+							htmla = htmla+'<div class="forum_list_posted"><span class="forumpostby">发布者</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
 										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
@@ -495,9 +500,14 @@ if(counts!="0"){
 										}else{
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">投诉</a>';
 										}
-										htmla = htmla+'</div></div></div></li>';
+										htmla = htmla+'</div></div></div></div></li>';
 							}else{
-							htmla = htmla+'<li><div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
+								if(callback[i]['pintotop']=="1"){
+									htmla = htmla+'<li style="background-color:#F2F6FB;"><div style="width:96%;padding-left:2%;padding-right:2%;padding-top:10px;padding-bottom:10px;">';
+								}else{
+									htmla = htmla+'<li><div style="width:96%;padding-left:2%;padding-right:2%;padding-top:10px;padding-bottom:10px;">';
+								}
+							htmla = htmla+'<div class="forum_list_posted"><span class="forumpostby">Posted by</span>  '+callback[i]['nickname']+' '+callback[i]['adddate']+'<span style="background-color:#5E6D82;color:#fff;margin-left:15px;font-size:12px;">&nbsp;'+callback[i]['catename']+'&nbsp;</span></div><div onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';" style="overflow:hidden;text-overflow: ellipsis;" class="forum_list_li_title">'+callback[i]['title']+'</div>'
 										+'<div class="forum_list_shortc" style="overflow:hidden;text-overflow: ellipsis;" onclick="window.location.href=\'forumdetail?forumid='+ callback[i]['id'] +'\';">'+callback[i]['contents']+'</div><div class="forum_list_icon_list">'
 										+'<div class="forum_list_icon_list_one"><img src="{$Think.const.PUBLIC_H}Home/images/zan.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['likes']+'</span></div>'
 										+'<div class="forum_list_icon_list_tow"><img src="{$Think.const.PUBLIC_H}Home/images/icon-comment_num.png" style="width:20px;height:15px;">&nbsp;&nbsp;<span>'+callback[i]['commentnum']+'</span></div>'
@@ -527,7 +537,7 @@ if(counts!="0"){
 										}else{
 											htmla = htmla+'<a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_cancle_report">Cancel Abuse</a>';
 										}
-										htmla = htmla+'</div></div></div></li>';
+										htmla = htmla+'</div></div></div></div></li>';
 										//htmla = htmla+'<a href="javascript:void(0);" curid="'+ callback[i]['id'] +'"  class="forum_moremenu_fllow">Fallow</a><a href="javascript:void(0);"  curid="'+ callback[i]['id'] +'"  class="forum_moremenu_report">Report Abuse</a></div></div></div></li>';
 										
 							}
