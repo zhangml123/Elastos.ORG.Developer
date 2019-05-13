@@ -352,6 +352,9 @@ class IndexController extends CommonbaseController {
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
 		 $staydid = M("staydid");
 		 $staydidinfo = $staydid->where($wherea)->find();
+		 //删除超过一个小时的
+		 $wherec['addtime'] = array("elt",time()-1800);
+		 $rsa = $staydid->where($wherec)->delete();
 		 if($staydidinfo['didid']!=""){
 			 //判断关联表有无信息，如果有关联，则找出User表信息，标明登录类型，如果没有登录信息，则构建User新信息，并构建关联
 			 $rsa = $this->getuserrelation("","","","",$staydidinfo['didid']);
@@ -800,4 +803,37 @@ class IndexController extends CommonbaseController {
 		$userinfo = $user->where($where)->find();
 		return $userinfo;
 	}
+	//同步github
+	public function sync(){
+		if(is_dir($_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc")){
+			exec("rm -rf ".$_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc && cd ".$_SERVER['DOCUMENT_ROOT']."/Public && git clone https://github.com/elastos/Elastos.Developer.Doc.git",$array, $state);
+			if($state==0){
+				echo "同步成功！";
+			}else{
+				echo "同步失败！";
+			}
+		}else{
+			exec("cd ".$_SERVER['DOCUMENT_ROOT']."/Public && git clone https://github.com/elastos/Elastos.Developer.Doc.git",$array, $state);
+			if($state==0){
+				echo "同步成功！";
+			}else{
+				echo "同步失败！";
+			}
+		}
+	}
+	//清除一下staydid相关信息
+	public function cleandate(){
+		 $staydid = M("staydid");
+		 $staywechat = M("staywechat");
+		 //删除超过一个小时的ela_staywechat
+		 $wherec['addtime'] = array("elt",time()-1800);
+		 $rsa = $staydid->where($wherec)->delete();
+		 $rsb = $staywechat->where($wherec)->delete();
+		 if($rsa && $rsb){
+			 echo "删除成功！";
+		 }else{
+			 echo "删除失败！";
+		 }
+	}
+	
 }
