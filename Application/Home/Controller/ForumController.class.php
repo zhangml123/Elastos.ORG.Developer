@@ -1145,11 +1145,13 @@ class ForumController extends Controller {
 			$where['id'] = $articleid;
 			$ainfo = $article->where($where)->find();
 			if($ainfo){
+				
 				if($ainfo['pintotop']==1){
-					
-					
 						$data['pintotop'] = 0;
 						$rs = $article->where($where)->save($data);
+						$wherew['pintotop'] = 0;
+						$dataaa['pintime'] = "";
+						$rsa = $article->where($wherew)->save($dataaa);
 						if($rs){
 							echo 2;
 						}else{
@@ -1163,6 +1165,10 @@ class ForumController extends Controller {
 						$data['updatetime'] = time();
 						$data['pintime'] = time();
 						$rs = $article->where($where)->save($data);
+						
+						$wherew['pintotop'] = 0;
+						$dataaa['pintime'] = "";
+						$rsa = $article->where($wherew)->save($dataaa);
 						if($rs){
 							echo 1;
 						}else{

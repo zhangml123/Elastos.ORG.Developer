@@ -386,11 +386,11 @@ function cancleabusesuccful_popup(){
 }
 function pinsuccful_popup(){
   $("#pinsuccful").modal("show");
-  setTimeout(function(){$("#pinsuccful").modal("hide")},3000)
+  setTimeout(function(){$("#pinsuccful").modal("hide");window.location.reload();},3000)
 }
 function unpinsuccful_popup(){
   $("#unpinsuccful").modal("show");
-  setTimeout(function(){$("#unpinsuccful").modal("hide")},3000)
+  setTimeout(function(){$("#unpinsuccful").modal("hide");window.location.reload();},3000)
 }
 function opforumerro_popup(){
   $("#opforumerro").modal("show");

@@ -835,5 +835,16 @@ class IndexController extends CommonbaseController {
 			 echo "删除失败！";
 		 }
 	}
-	
+	//清除一下staydid相关信息
+	public function cleandates(){
+		$article = M("article");
+		$wherew['pintotop'] = 0;
+		$dataaa['pintime'] = "";
+		$rsa = $article->where($wherew)->save($dataaa);
+		if($rsa){
+			 echo "删除成功！";
+		 }else{
+			 echo "删除失败！";
+		 }
+	}
 }
