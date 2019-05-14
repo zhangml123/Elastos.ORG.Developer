@@ -19,10 +19,22 @@ class NotifyController extends CommonbaseController {
 			if($_SESSION ['eladevp']['lang']=="cn"){
 				for($i=0;$i<count($noticelist);$i++){
 					$noticelist[$i]['adddate'] = date("Y-m-d",$noticelist[$i]['addtime']);
+					//判断公告是否是三天前发布的
+					if((time()-$noticelist[$i]['addtime'])>3*24*60*60){
+						$noticelist[$i]['threeday'] = "Y";
+					}else{
+						$noticelist[$i]['threeday'] = "N";
+					}
 				}
 			}else{
 				for($i=0;$i<count($noticelist);$i++){
 					$noticelist[$i]['adddate'] = date("M d,Y",$noticelist[$i]['addtime']);
+					//判断公告是否是三天前发布的
+					if((time()-$noticelist[$i]['addtime'])>3*24*60*60){
+						$noticelist[$i]['threeday'] = "Y";
+					}else{
+						$noticelist[$i]['threeday'] = "N";
+					}
 				}
 			}
 		}
@@ -80,14 +92,6 @@ class NotifyController extends CommonbaseController {
 		$rslista = $notice->where($where)->order("addtime desc")->limit($startnum,10)->select();
 		return $rslista;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	//获取指定数量的页面
 	public function noticelimit(){
 		$curp = $_POST['curp'];
@@ -103,12 +107,22 @@ class NotifyController extends CommonbaseController {
 					$rslist[$i]['adddate'] = date("Y-m-d",$rslist[$i]['addtime']);
 					$rslist[$i]['lastedittime'] = date("Y-m-d",$rslist[$i]['edittime']);
 					$rslist[$i]['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$rslist[$i]['contents']);
+					if((time()-$rslist[$i]['addtime'])>3*24*60*60){
+						$rslist[$i]['threeday'] = "Y";
+					}else{
+						$rslist[$i]['threeday'] = "N";
+					}
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
 					$rslist[$i]['adddate'] = date("M d,Y",$rslist[$i]['addtime']);
 					$rslist[$i]['lastedittime'] = date("M d,Y",$rslist[$i]['edittime']);
 					$rslist[$i]['contents'] = str_replace("<img","<img style='width:100%;height:auto;' ",$rslist[$i]['contents']);
+					if((time()-$rslist[$i]['addtime'])>3*24*60*60){
+						$rslist[$i]['threeday'] = "Y";
+					}else{
+						$rslist[$i]['threeday'] = "N";
+					}
 				}
 			}
 		}

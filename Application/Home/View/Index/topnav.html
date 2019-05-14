@@ -32,10 +32,10 @@
 		  <ul class="nav navbar-nav navbar-right" style="height:190px;text-align: center;">
 		  
 			<neq name="isread" value="0">
-				<img src="{$Think.const.PUBLIC_H}Home/images/notify.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
+				<img src="{$Think.const.PUBLIC_H}Home/images/notify.png"  id="setnotify" style="width:23px;height:27px;cursor:pointer;"/>
 			</neq>
 			<eq name="isread" value="0">
-				<img src="{$Think.const.PUBLIC_H}Home/images/notify_no.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
+				<img src="{$Think.const.PUBLIC_H}Home/images/notify_no.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';"style="width:23px;height:27px;cursor:pointer;"/>
 			</eq>
 		  
 			<li class="dropdown" style="margin-top:16px;">
@@ -70,9 +70,20 @@
 	  </ul>
 	  
 	  <ul class="nav navbar-nav navbar-right">
-		<li class="cative" style="text-align:center;height:45px;margin-top:10px;text-align:center;"><a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-dapps planned" style="color:#173045;"></a></li>
-		<li class="cative" style="text-align:center;height:45px;margin-top:10px;text-align:center;"><a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-community planned" style="color:#173045;"></a></li>
-		<li class="cative" style="text-align:center;height:50px;margin-top:10px;text-align:center;">
+		<li class="cative" style="text-align:center;height:45px;margin-top:10px;text-align:center;">
+		<a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-dapps planned" style="color:#173045;"></a>
+		
+		</li>
+		<li class="cative" style="text-align:center;height:45px;margin-top:10px;text-align:center;">
+		<a href="#" class="nav-community" style="color:#173045;"></a>
+		
+		<ul  style="margin-top:10px;height:42px;display:block;padding:0px;margin:0px;list-style-type:none;background-color:#fff;display:none;">
+			<li style="margin-top:0px;line-height:40px;height:45px;text-align:center;background-color:#fff;float:left;width:100%;">
+			<a href="#" class="nav_forum" onclick="javascript:window.location.href='{$curhost}index.php/Home/Forum/index.html';" style="color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;text-align: center;">Forum</a>
+			</li>
+		</ul>
+		</li>
+		<li class="cative" style="text-align:center;height:50px;margin-top:40px;text-align:center;">
 		<a href="#" class="nav-lang" id="setlangs" data-toggle="dropdown" style="color:#173045;"></a>
 		</li>
 		
@@ -91,7 +102,7 @@
 	<div class="collapse navbar-collapse  visible-lg-block" style="max-height: 569px;" id="navbar-menu">
         <div class="navbar-form navbar-right" style="margin-top:47px;" action="" role="search">
 			<neq name="isread" value="0">
-				<img src="{$Think.const.PUBLIC_H}Home/images/notify.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
+				<img src="{$Think.const.PUBLIC_H}Home/images/notify.png"  id="setnotifys"  style="width:23px;height:27px;cursor:pointer;"/>
 			</neq>
 			<eq name="isread" value="0">
 				<img src="{$Think.const.PUBLIC_H}Home/images/notify_no.png" onclick="window.location.href='{$curhost}index.php/Home/Notify/index.html';" style="width:23px;height:27px;cursor:pointer;"/>
@@ -136,19 +147,24 @@
 		</li>
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right"  id="nav_ul">
-		<li class="cative"><a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-dapps planned" style="color:#173045;"></a></li>
-		
+		<li class="cative">
+			<!--
+			<a href="#" data-toggle="tooltip" data-placement="top"  title="Planned" class="nav-dapps planned" style="color:#173045;"><b class="caret"></b></a>
+			-->
+			<a href="#" class="nav-dapps dropdown-toggle" style="color:#173045;background-color:#fff;"   data-toggle="dropdown" ></a>
+			<ul class="submenu dropdown-menu" style="min-width: 124px;display:none;">
+				<li style="margin-top:0px;text-align:center;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Voting/index.html" class="nav_voting" style="text-align: left;padding-left:10px;padding-right:0px;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;">Voting</a></li>
+			</ul>
+		</li>
 		<li class="cative">
 		<a href="#" class="dropdown-toggle nav-community" style="color:#173045;background-color:#fff;"   data-toggle="dropdown" ></a>
-		<!--
 		<ul class="submenu dropdown-menu" style="min-width: 124px;">
 			<li style="margin-top:0px;text-align:center;line-height:30px;height:35px;"><a href="{$curhost}index.php/Home/Forum/index.html" class="nav_forum" style="text-align: left;padding-left:10px;padding-right:0px;color:#173045;display:inline-table;width:100%;height:30px;line-height:33px;">Fourm</a></li>
 		</ul>
-		-->
 		</li>
 		<li class="cative">
 		<a href="#" class="dropdown-toggle nav-lang" id="setlang" data-toggle="dropdown" style="color:#173045;background-color:#fff;"><b class="caret"></b></a>
-		<ul class="submenu dropdown-menu" style="min-width: 124px;">
+		<ul class="submenu dropdown-menu" style="min-width: 150px;">
 			<li style="margin-top:0px;line-height:30px;height:35px;"><a href="#" class="nav-cn" onclick="change(1)" style="color:#173045;display:inline-table;width:100%;height:30px;padding-left:10%;padding-right:10%;line-height:33px;text-align: left;">简体中文</a></li>
 			<li style="margin-top:0px;line-height:30px;height:35px;"><a href="#" class="nav-en" onclick="change(2)" style="color:#173045;display:inline-table;width:100%;height:30px;padding-left:10%;padding-right:10%;line-height:33px;text-align: left;">English</a></li>
 		</ul>
@@ -222,4 +238,16 @@ $("#showmenuall").click(function(){
 $("#mweblogin").click(function(){
 	window.location.href=internationalWords.hosturl+'index.php/Home/Index/weblogin';
 });
+ $("#setnotify").click(function(){
+    var id = '{$isread.id}';
+	$.post(internationalWords.hosturl+'index.php/Home/Index/setnotifycookie',{id:id},function(data){ 
+	window.location.href=internationalWords.hosturl+'index.php/Home/Notify/index.html';
+	});
+ });
+ $("#setnotifys").click(function(){
+    var id = '{$isread.id}';
+	$.post(internationalWords.hosturl+'index.php/Home/Index/setnotifycookie',{id:id},function(data){ 
+	window.location.href=internationalWords.hosturl+'index.php/Home/Notify/index.html';
+	});
+ });
 </script>

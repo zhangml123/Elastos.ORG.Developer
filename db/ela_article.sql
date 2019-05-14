@@ -1,0 +1,1 @@
+ALTER TABLE ela_article add `pintime` char(18);

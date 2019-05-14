@@ -333,6 +333,7 @@ class PcenterController extends BaseController {
 		$data['moreurl'] = $_POST['moreurl'];
 		$data['company'] = $_POST['company'];
 		$data['email'] = $_POST['email'];
+		$data['nickname'] = $_POST['nickname'];
 		$where['userid'] = $_SESSION['eladevp']['userid'];
 		$user = M("user");
 		$rs = $user->where($where)->save($data);
@@ -1226,8 +1227,9 @@ class PcenterController extends BaseController {
 				if($_POST['pushnotifyset']==1){
 					$url = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Notify/detail?id=".$rsa["id"];
 					$title = $_POST['title'];
+					$titleen = $_POST['titleen'];
 					//var_dump($url);
-					$this->sendmailfornotify($url,$title);	
+					$this->sendmailfornotify($url,$title,$titleen);	
 				}
 				echo 1;
 			}else{
@@ -1258,8 +1260,9 @@ class PcenterController extends BaseController {
 				if($_POST['pushnotifyset']==1){
 					$url = "https://".$_SERVER['HTTP_HOST']."/index.php/Home/Notify/detail?id=".$rs;
 					$title = $_POST['title'];
+					$titleen = $_POST['titleen'];
 					//var_dump($url);
-					$this->sendmailfornotify($url,$title);	
+					$this->sendmailfornotify($url,$title,$titleen);	
 				}
 				echo 1;
 				
@@ -1464,17 +1467,17 @@ class PcenterController extends BaseController {
 		}
 	}
 	//发送邮件到存在邮箱的用户
-	public function sendmailfornotify($url,$title){
+	public function sendmailfornotify($url,$title,$titleen){
 		$user = M("user");
 		$ulist = $user->select();
 		if($ulist){
 			for($i=0;$i<count($ulist);$i++){
 				if($ulist[$i]['email']!=""){
-					if($_SESSION ['eladevp']['lang']=="cn"){
-						$rs = SendMail($ulist[$i]['email']," [新公告] ".$title."","<p>亦来云开发者网站有一条新公告：</p><p>".$title."</p><p>点击链接查看更多：</p><p><a href='".$url."'>".$url."</a></p><p>谢谢</p><p>亦来云团队</p>");
-					}else{
-						$rs = SendMail($ulist[$i]['email']," [New Notification] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$title."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p>");
-					}
+					//if($_SESSION ['eladevp']['lang']=="cn"){
+						$rs = SendMail($ulist[$i]['email'],"[New Notification] ".$titleen." [新公告] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$titleen."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p><br><br><br><br><br><p>亦来云开发者网站有一条新公告：</p><p>".$title."</p><p>点击链接查看更多：</p><p><a href='".$url."'>".$url."</a></p><p>谢谢</p><p>亦来云团队</p>");
+					//}else{
+					//	$rs = SendMail($ulist[$i]['email']," [New Notification] ".$title."","<p>There is a new notification from Elastos Developer website.</p><p>".$title."</p><p>Click this link to view more details:</p><p><a href='".$url."'>".$url."</a></p><p>Thanks</p><p>Elastos Team</p>");
+					//}
 				}
 			}
 		}
@@ -1626,7 +1629,9 @@ class PcenterController extends BaseController {
 		$rslist = $article->where($where)->order($order)->limit("0,10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>40){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,40,'utf-8')."...";
+				}
 			}
 		}
 		$count = $article->where($where)->count();
@@ -1656,14 +1661,30 @@ class PcenterController extends BaseController {
 		$where['sender'] = $_SESSION ['eladevp']['userid'];
 		$where['pid'] = array("NEQ",0);
 		$article = M("article");
-		$rslist = $article->where($where)->field("pid")->select();
+		$rslist = $article->where($where)->select();
 		$arra = array();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$arra[$i] = $rslist[$i]['pid'];
+				$wherea['id'] = $rslist[$i]['pid'];
+				$rsinfo = $this->getforumdetail($wherea);
+				if($rsinfo['title']!="评论"){
+					$arra[$i] = $rslist[$i]['pid'];
+				}else{
+					$arra[$i] = $rsinfo['pid'];
+				}
 			}
 		}
 		return $arra;
+	}
+	//获取论坛详情
+	public function getforumdetail($where){
+		$article = M("article");
+		$rsinfo = $article->where($where)->find();
+		if($rsinfo){
+			return $rsinfo;
+		}else{
+			return 0;
+		}
 	}
 	//获取论坛内容列表
 	public function forumlistjson(){
@@ -1690,7 +1711,9 @@ class PcenterController extends BaseController {
 		$rslist = $article->where($where)->order($order)->limit($startnum.",10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,20,'utf-8');
+				if(mb_strlen($rslist[$i]['contents'],"utf-8")>40){
+					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,40,'utf-8')."...";
+				}
 			}
 		}
 		$count = $article->where($where)->count();

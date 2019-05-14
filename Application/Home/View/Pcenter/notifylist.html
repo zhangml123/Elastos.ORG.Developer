@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
@@ -22,7 +22,7 @@
 <style>
 .doc_menu_l_li_subm{background-color:#173045;color:#fff;}
 .doc_menu_l_li_subm_no {
-background-color:#fff;color:#333;
+background-color:#fff;color:#333;font-family: Synthese;
     width: 95%;
     padding-left: 5%;
     min-height: 30px;
@@ -30,7 +30,7 @@ background-color:#fff;color:#333;
     font-size: 12px;
     cursor: pointer;
 }
-.doc_menu_l_ul{background-color:#fff;}
+.doc_menu_l_ul{background-color:#fff;font-family: Synthese;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
@@ -47,10 +47,8 @@ background-color:#fff;color:#333;
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
-							<!--
 							<li class="doc_menu_l_li_subm_no forum_cate" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumcatelist.html';">Forumcategory</li>
 							<li class="doc_menu_l_li_subm_no nav_forum" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumlist.html';">Forum</li>
-							-->
 					</ul>
 				</div>
 			</div>
@@ -164,7 +162,7 @@ background-color:#fff;color:#333;
 <include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
@@ -29,8 +29,9 @@ background-color:#fff;color:#333;
     line-height: 30px;
     font-size: 12px;
     cursor: pointer;
+	font-family: Synthese;
 }
-.doc_menu_l_ul{background-color:#fff;}
+.doc_menu_l_ul{background-color:#fff;font-family: Synthese;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
@@ -43,7 +44,7 @@ background-color:#fff;color:#333;
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:25px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
+			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:20px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm_no notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
@@ -55,26 +56,45 @@ background-color:#fff;color:#333;
 			<div class="col-md-9">
 				<div style="width:95%;margin-left:5%;height:700px;">
 					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
-						<div style="float:left;height:40px;">
-							<div style="float:left;width:250px;height:40px;font-size:12px;line-height:40px;">中文分类名称:<input type="text" id="catename" style="height:40px;width:150px;font-size:12px;color:#333;"  placeholder="" /></div>
-							<div style="float:left;width:250px;height:40px;margin-left:20px;font-size:12px;line-height:40px;">英文分类名称:<input type="text" id="catenameen" style="height:40px;width:150px;font-size:12px;color:#333;"   placeholder="" /></div>
+						<div style="float:left;height:40px;width:80%;">
+							<div style="float:left;width:50%;height:40px;font-size:12px;line-height:40px;">中文类名:<input type="text" id="catename" style="height:40px;width:185px;font-size:12px;color:#333;"  placeholder="" /></div>
+							<div style="float:left;width:50%;height:40px;font-size:12px;line-height:40px;">English category name:<input type="text" id="catenameen" style="height:40px;width:120px;font-size:12px;color:#333;"   placeholder="" /></div>
 						</div>
+						<div style="float:left;width:20%;">
 						<button class="addforumcate" id="addforumcatebtn" style="float:right;height:30px;width:70px;font-size:12px;text-align:center;line-height:30px;background-color:#173045;color:#fff;border:0px;">新增分类</button>
+						</div>
 					</div>
+						<div style="width:100%;height:45px;">
+								<div style="float:left;color:#173045;width:5%;text-align:left;line-height:45px;text-align:center;" class="number">编号</div>
+								<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;text-align:center;">中文类名</div>
+								<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;text-align:center;">English category</div>
+								<div style="float:left;color:#173045;width:15%;text-align:left;line-height:45px;text-align:center;" class="sort_title">排序</div>
+								<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;text-align:center;" class="operator_title">操作</div>
+						</div>
 						<div style="width:100%;height:610px;">
 							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
-								<volist name="forumcatelist" id="vob">
+								<volist name="forumcatelist" id="vob" key="k">
 								<li style="border-bottom:1px solid #e5e5e5;height:55px;">
-									<div style="float:left;color:#173045;width:10%;text-align:left;line-height:45px;">{$vob.id}</div>
-									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
+									<div style="float:left;color:#173045;width:5%;text-align:left;line-height:45px;text-align:center;">{$k}</div>
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">
 										<input type="text" class="catename" value="{$vob.catename}" style="width:90%;height:30px;margin-top:7px;line-height:30px;" disabled="disabled" />
 									</div>
-									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">
 										<input type="text" class="catenameen" value="{$vob.catenameen}" style="width:90%;height:30px;margin-top:7px;line-height:30px;" disabled="disabled" />
+									</div>
+									<div style="float:left;color:#173045;width:15%;text-align:left;line-height:45px;">
+										<input type="text" class="sortnum" value="{$vob.sort}" style="float:left;width:50%;height:30px;margin-top:7px;line-height:30px;" />
+										<button style="float:left;width:45%;height:30px;line-height:30px;margin-top:7px" cateid="{$vob.id}" class="savesortbtn">保存</button>
 									</div>
 									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
 										<button class="editbtn" cateid="{$vob.id}" style="outline:none;width:70px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">编辑</button>
 										<button class="savebtn" cateid="{$vob.id}" style="outline:none;display:none;margin-left:10px;width:70px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">保存</button>
+										<eq name="vob.status" value="1">
+										<button class="showorhide catehide" cateid="{$vob.id}" status="0" style="outline:none;margin-right:10px;width:60px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;background-color:#173045;color:#fff;">隐藏</button>
+										</eq>
+										<eq name="vob.status" value="0">
+										<button class="showorhide cateshow" cateid="{$vob.id}" status="1"  style="outline:none;margin-right:10px;width:60px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">显示</button>
+										</eq>
 									</div>
 								</li>
 								</volist>
@@ -154,14 +174,22 @@ background-color:#fff;color:#333;
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Pcenter/succful" />
 <include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<include file="Admincenter/catetip" />
+<include file="Admincenter/tipsuccful" />
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
@@ -169,13 +197,13 @@ background-color:#fff;color:#333;
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
-function applyelasuccful_popup(){
-  $("#applyelasuccful").modal("show");
-  setTimeout(function(){$("#applyelasuccful").modal("hide");window.location.reload()},3000)
+function succful_popup(){
+  $("#forumcatesufful").modal("show");
+  setTimeout(function(){$("#forumcatesufful").modal("hide");window.location.reload()},3000)
 }
-function applyelatip_popup(){
-  $("#applyelatip").modal("show");
-  setTimeout(function(){$("#applyelatip").modal("hide")},3000)
+function forum_cate_tip_popup(){
+  $("#forumcatetip").modal("show");
+  setTimeout(function(){$("#forumcatetip").modal("hide");},3000)
 }
 $(".editbtn").click(function(){
 	$(this).parent("div").parent("li").find(".catename").removeAttr("disabled");
@@ -189,41 +217,49 @@ $(".savebtn").click(function(){
 	var cateid = $(this).attr("cateid");
 	var catename = $(this).parent("div").parent("li").find(".catename").val();
 	var catenameen = $(this).parent("div").parent("li").find(".catenameen").val();
-	if(catename==""){
-		alert("中文分类名称不能为空！");
-		return false;
-	}
-	if(catenameen==""){
-		alert("英文分类名称不能为空！");
+	if(catename=="" || catenameen==""){
+		forum_cate_tip_popup();
 		return false;
 	}
 	$(this).hide();
 	$(this).parent("div").find(".editbtn").show();
-	$.post("editforumcate",{cateid:cateid,catename:catename,catenameen:catenameen},function(){
+	$.post("editforumcate",{cateid:cateid,catename:catename,catenameen:catenameen},function(data){
 		if(data==1){
-			alert("保存成功！");
+			succful_popup();
 		}
 	});
 });
 $("#addforumcatebtn").click(function(){
 	var catename = $("#catename").val();
 	var catenameen = $("#catenameen").val();
-	if(catename==""){
-		alert("中文分类名称不能为空！");
-		return false;
-	}
-	if(catenameen==""){
-		alert("英文分类名称不能为空！");
+	if(catename=="" || catenameen==""){
+		forum_cate_tip_popup();
 		return false;
 	}
 	$.post("addforumcate",{catename:catename,catenameen:catenameen},function(data){
 		if(data==1){
-			alert("新增成功！");
-			window.location.reload();
+			succful_popup();
 		}
 	});
 })
-
+$(".savesortbtn").click(function(){
+	var cateid = $(this).attr("cateid");
+	var sortnum = $(this).prev(".sortnum").val();
+	$.post("editforumcatesort",{cateid:cateid,sortnum:sortnum},function(data){
+		if(data==1){
+			succful_popup();
+		}
+	});
+});
+$(".showorhide").click(function(){
+	var cateid = $(this).attr("cateid");
+	var status =$(this).attr("status");
+	$.post("editforumcatestatus",{cateid:cateid,status:status},function(data){
+		if(data==1){
+			succful_popup();
+		}
+	});
+});
 </script>
 </body>
 </html>

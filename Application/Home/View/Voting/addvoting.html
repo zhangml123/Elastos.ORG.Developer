@@ -1,0 +1,182 @@
+<div class="modal fade" id="addvoting" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:700px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:800px;">
+                <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
+                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title add_voting_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Voting</h4>
+				</div>
+                <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
+						<div class="containera">
+						  <div id="captcha"></div>
+						</div>
+				</div>
+                <div class="modal-body" id="forum_c" style="padding:20px;padding-top:10px;">
+                    <section class="box-login v5-input-txt" id="box-login" style="height:550px;">
+                            <ul style="list-style-type:none;">
+                                <li class="form-group">
+									<div class="add_voting_type_tip" style="font-size:12px;color:#000;">Type</div>
+									<div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;margin-left:20px;">
+										<input id="vote_newidea" class="styled" type="checkbox">
+										<label for="vote_newidea">
+										New idea
+										</label>
+										</div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;">
+										<input id="vote_community" class="styled" type="checkbox">
+										<label for="vote_community">
+										Community
+										</label>
+										</div>
+									</div>
+								</li>
+                                <li class="form-group">
+									<div class="add_voting_type_tip" style="font-size:12px;color:#000;">Options<br><span style="font-size:12px;color:#aaa;">(Community Type only)</span></div>
+									<div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;margin-left:20px;">
+										<input id="singleoption" class="styled" type="checkbox">
+										<label for="singleoption">
+										Single option
+										</label>
+										</div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;">
+										<input id="multioptions" class="styled" type="checkbox">
+										<label for="multioptions">
+										Multi options
+										</label>
+										</div>
+									</div>
+								</li>
+                                <li class="form-group">
+									<div class="add_voting_title">Title</div>
+								<div>
+									<input type="text" id="forumtitle" value=""  style="outline:none;padding-left:2%;width:100%;height:30px;border:1px solid #e5e5e5;" />
+								</div>
+								</li>
+                                <li style="width:100%;height:280px;">
+									<div class="add_voting_desc" style="height:280px;float:left;width:30%;">Description</div>
+									<div style="height:280px;float:left;width:70%;">
+										<div class="summernote" id="forumcontents"></div>
+									</div>
+								</li>
+                                <li class="form-group">
+								<div class="add_voting_cate">End date</div>
+								<div class='input-group date' id='datetimepicker1' style="width:200px;">
+									<input type='text' class="form-control" id="enddate" placeholder="End date" style="background-color:#fff;" />
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+								</li>
+                                <li class="form-group" style="height:40px;margin-top:40px;">
+									<div class="add_voting_type_tip" style="font-size:12px;font-weight:900;">Repeat<br><span style="font-size:12px;color:#aaa;">(for “New Idea” type voting only)</span></div>
+									<div>
+										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;margin-left:20px;">
+										<input id="repeatoption" class="styled" type="checkbox">
+										<label for="repeatoption">
+										Monthly
+										</label>
+										</div>
+									</div>
+								</li>
+                             </ul>
+                    </section>
+					<div class="loginbtn" style="height:55px;text-align:center;">
+						<button class="cancelbtn" id="cancelforumbtn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Cancel</button>
+						<button class="savebtn " id="saveforumbtn" style="border:1px solid #173045;outline:none;background-color:#173045;color:#18FFFF;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Save</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+ <style>
+.containera{width: 310px;margin: 10px auto;}
+#editprofileul li{height:30px;}
+#editprofileul li div:first-child{width:158px;float:left;}
+#editprofileul li div:last-child{width:542px;float:left;}
+</style>
+<script type="text/javascript" src="{$Think.const.PUBLIC_H}Home/js/jigsaw.min.js"></script>
+<script>
+var dataList = ["0","1"];
+var options = {
+	dataList: dataList,
+	success:function(){  
+		console.log("show");  
+	},
+	fail: function(){
+		console.log("fail");  
+	}
+};
+</script>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script>
+  jigsaw.init({
+    el: document.getElementById('captcha'),
+    onSuccess: function() {
+		var rs = savedata();
+		//if(rs=="1"){
+			//$("#addforum").modal("hide");
+			$("#addforumsuccful").modal("show");
+			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.href="index";},2500);
+		//}else{
+			//$("#addforum").modal("hide");
+		//	$("#addforumerror").modal("show");
+		//	setTimeout(function(){$("#addforumerror").modal("hide");window.location.href="index";},2500);
+		//}
+    },
+    onFail: function(){console.log("重新刷新");},
+    onRefresh: function(){console.log("重新刷新");}
+  })
+function savedata(){
+	var forumtitle=$("#forumtitle").val();
+	var forumcontents=$('#forumcontents').summernote('code');
+	var forumcate=$("#forumcates").val();
+	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
+	if ($('#isnewidea').prop("checked")){
+		isnewidea = 1;
+	}else{
+		isnewidea = 0;
+	}
+	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate,isnewidea:isnewidea},function(data){
+		if(data==1){
+			//setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
+			return 1;
+		}else{
+			return 0;
+		}
+	});
+}
+$("#saveforumbtn").click(function(){
+	var forumtitle=$("#forumtitle").val();
+	var forumcontents=$('#forumcontents').summernote('code');
+	var forumcate=$("#forumcates").val();
+	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
+	if ($('#isnewidea').prop("checked")){
+		isnewidea = 1;
+	}else{
+		isnewidea = 0;
+	}
+	$("#forum_c").hide();
+	$("#slider_img").show();
+	
+});
+$("#cancelforumbtn").click(function(){
+	$("#addforum").modal("hide");
+});
+</script>

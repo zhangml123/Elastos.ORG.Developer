@@ -1,0 +1,210 @@
+<div class="modal fade" id="editforum" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:700px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:700px;">
+                <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
+                    <button type="button" id="login_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title edit_forum_tip" id="loginModalLabel" style="margin-top:15px;padding-bottom: 10px;font-size: 34px;color:#173045;width:90%;margin-left:4%;font-family:'Doppio One';">New Topic/Question</h4>
+				</div>
+                <div class="modal-body" id="slider_img" style="text-align:center;padding:30px;padding-top:10px;display:none;height:300px;">
+						<div class="containera">
+						  <div id="captcha"></div>
+						</div>
+				</div>
+                <div class="modal-body" id="forum_cs" style="padding:30px;padding-top:10px;">
+                    <section class="box-login v5-input-txt" id="box-login" style="height:500px;">
+                            <ul style="list-style-type:none;">
+								<input type="hidden" value="{$articleinfo.id}" id="articleid"/>
+                                <li class="form-group">
+									<div class="add_forum_title">Title</div>
+								<div>
+									<input type="text" id="forumtitle" value="{$articleinfo.title}"  style="outline:none;padding-left:2%;width:98%;height:30px;border:1px solid #e5e5e5;" />
+								</div>
+								</li>
+                                <li style="width:100%;height:280px;">
+									<div class="add_forum_desc" style="height:280px;float:left;width:20%;">Description</div>
+									<div style="height:280px;float:left;width:80%;">
+										<div class="summernote" id="forumcontents"></div>
+									</div>
+								</li>
+                                <li class="form-group">
+								<div class="add_forum_cate">Category</div>
+								<div>
+								<select name="cate" id="forumcates" style="outline:none;height:25px;line-height:25px;width:160px;">
+									<eq name="langs" value="1">
+										<option value="">选择分类</option>
+									</eq>
+									<eq name="langs" value="2">
+										<option value="">Choose category</option>
+									</eq>
+									<volist name="catelist" id="voa">
+										<eq name="voa.id" value="$articleinfo.cate">
+											<eq name="langs" value="1">
+											<option value="{$voa.id}" selected="selected">{$voa.catename}</option>
+											</eq>
+											<eq name="langs" value="2">
+											<option value="{$voa.id}" selected="selected">{$voa.catenameen}</option>
+											</eq>
+										</eq>
+										<neq name="voa.id" value="$articleinfo.cate">
+											<eq name="langs" value="1">
+											<option value="{$voa.id}">{$voa.catename}</option>
+											</eq>
+											<eq name="langs" value="2">
+											<option value="{$voa.id}">{$voa.catenameen}</option>
+											</eq>
+										</neq>
+									</volist>
+								</select>
+								</div>
+								</li>
+                                <li class="form-group idead">
+								<div class="add_forum_new_idea" style="line-height:45px;height:40px;">Is a new idea?</div>
+								<div style="height:30px;">
+									<div style="width:100%;height:30px;margin-top:10px;">
+										<input id="isnewideaedit" data-on-text="Yes" data-off-text="No" type="checkbox" checked="checked" data-size="mini" name="test">
+									</div>
+								</div>
+								</li>
+                                <li class="form-group">
+								<div>&nbsp;</div>
+								<div>
+									<div style="width:100%;height:70px;margin-top:10px;" class="new_idea_des">
+										(The cummunity will vote for it if they like your idea, you can get funding from Elastos foundation once your votes ranks top 3 in that month, a POC demo is required to get the funding.)
+									</div>
+								</div>
+								</li>
+                             </ul>
+                    </section>
+					<div class="loginbtn" style="height:55px;text-align:center;">
+						<button class="cancelbtn" id="cancelforumbtn" style="border:1px solid #173045;outline:none;background-color:#fff;color:#173045;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Cancel</button>
+						<button class="savebtn " id="saveforumbtn" style="border:1px solid #173045;outline:none;background-color:#173045;color:#18FFFF;width:16%;border-radius:20px;height:30px;line-height:28px;font-size:14px;">Save</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+ <style>
+.containera{width: 310px;margin: 10px auto;}
+#editprofileul li{height:30px;}
+#editprofileul li div:first-child{width:158px;float:left;}
+#editprofileul li div:last-child{width:542px;float:left;}
+</style>
+<script type="text/javascript" src="{$Think.const.PUBLIC_H}Home/js/jigsaw.min.js"></script>
+<script>
+var dataList = ["0","1"];
+var options = {
+	dataList: dataList,
+	success:function(){  
+		console.log("show");  
+	},
+	fail: function(){
+		console.log("fail");  
+	}
+};
+</script>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script>
+  jigsaw.init({
+    el: document.getElementById('captcha'),
+    onSuccess: function() {
+		var rs = savedata();
+		//if(rs=="1"){
+			//$("#addforum").modal("hide");
+			$("#addforumsuccful").modal("show");
+			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.reload();},2500);
+		//}else{
+			//$("#addforum").modal("hide");
+		//	$("#addforumerror").modal("show");
+		//	setTimeout(function(){$("#addforumerror").modal("hide");window.location.href="index";},2500);
+		//}
+    },
+    onFail: function(){console.log("重新刷新");},
+    onRefresh: function(){console.log("重新刷新");}
+  })
+function savedata(){
+	var articleid=$("#articleid").val();
+	var forumtitle=$("#forumtitle").val();
+	var forumcontents=$('#forumcontents').summernote('code');
+	var forumcate=$("#forumcates").val();
+	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
+	if ($('#isnewideaedit').prop("checked")){
+		isnewidea = 1;
+	}else{
+		isnewidea = 0;
+	}
+	$.post('editforum',{id:articleid,forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate,isnewidea:isnewidea},function(data){
+		if(data==1){
+			//setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
+			return 1;
+		}else{
+			return 0;
+		}
+	});
+}
+$("#saveforumbtn").click(function(){
+	var articleid=$("#articleid").val();
+	var forumtitle=$("#forumtitle").val();
+	var forumcontents=$('#forumcontents').summernote('code');
+	var forumcate=$("#forumcates").val();
+	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
+	console.log(forumcontents);
+	if (isNull(forumtitle)){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
+	if (isNull(forumcontents) || forumcontents=="<p><br></p>" || iskong(forumcontents)){
+		$("#addforumtip").modal("show")
+		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
+		return false;
+	}
+	if ($('#isnewideaedit').prop("checked")){
+		isnewidea = 1;
+	}else{
+		isnewidea = 0;
+	}
+	$("#forum_cs").hide();
+	$("#slider_img").show();
+	
+});
+$("#cancelforumbtn").click(function(){
+	$("#editforum").modal("hide");
+});
+function iskong(str){
+	if ( str == "" ){
+		return true;
+	}else{
+		str = str.replace(/&nbsp;/g,"")
+			if(str=="<p></p>"){
+				return true;
+			}else{
+				return false;
+			}
+	}
+}
+function isNull(str){
+	if ( str == "" ){
+		return true;
+	}else{
+		var regu = "^[ ]+$";
+		var re = new RegExp(regu);
+		return re.test(str);
+	}
+}
+</script>

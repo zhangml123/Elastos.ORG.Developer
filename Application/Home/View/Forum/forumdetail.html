@@ -9,13 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap-switch.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/star-rating.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/font-awesome.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/login_index.css">
+<link href="{$Think.const.PUBLIC_H}Home/summernote/summernote.css" rel="stylesheet" />
 <link href="{$Think.const.PUBLIC_H}Home/css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Doppio+One" rel="stylesheet">
 <script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
@@ -72,6 +74,17 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 .doc_content_c li,.doc_content_c a,.doc_content_c p,.doc_content_c h1,.doc_content_c h2,.doc_content_c h3,.doc_content_c h4{word-break: break-word;}
 .forum_list_posted{width:100%;height:30px;line-height:30px;color:#bbb;font-size:12px;}
 .deletetoptic{float:right;width:140px;height:30px;border:0px;border-radius:15px;background-color:#FD5151;color:#fff;line-height:30px;}
+.edittoptic{float:right;width:140px;height:30px;border:0px;border-radius:15px;background-color:#173045;color:#fff;line-height:30px;border: 1px solid #173045;}
+.form-group{width:100%;height:30px;}
+.form-group div:first-child{float:left;width:20%;height:40px;}
+.form-group div:last-child{float:left;width:80%;height:28px;}
+.checkbox{width:350px;float:left;}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+    color: #fff;
+    background: #173045;
+	height:26px;
+}
+.bootstrap-switch-container{height:26px;}
 </style>
 </head>
 <body>
@@ -80,8 +93,8 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 	<div class="div_one_line hidden-sm hidden-xs" style="height:75px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
 		<ul class="breadcrumb">
-		<li><a href="{$curhost}" class="forumtip">Forum</a></li>
-		<li class="active forumtitle">{$articleinfo.title}</li>
+		<li><a href="{$curhost}index.php/Home/Forum/index.html" class="forumtip nav_forum">Forum</a></li>
+		<li class="active forumtitle">{$articleinfo.nav_title}</li>
 		</ul>
 	</div>		
 	<div class="container">
@@ -91,22 +104,42 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 				<div class="doc_menu_l_li_t"></div>
 				<ul class="doc_menu_l_ul">
 					<li class="doc_menu_l_li_m" style="padding-top:1px;padding-bottom:10px;height:50px;">
-						<button class="forumbackbtn" style="outline: none;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_left_arrow.png);background-repeat:no-repeat;background-position-x: 51px;background-position-y: 11px;background-size:20px;background-color:#fff;width:200px;height:30px;border-radius:15px;border:1px solid #333;font-weight:500;">back</button>
+						<eq name="psa" value="">
+							<button class="forumbackbtn" onclick="javascript:window.location.href='index.html';" style="outline: none;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_left_arrow.png);background-repeat:no-repeat;background-position-x: 51px;background-position-y: 11px;background-size:20px;background-color:#fff;width:200px;height:30px;border-radius:15px;border:1px solid #333;font-weight:500;">back</button>
+						</eq>
+						<neq name="psa" value="">
+							<button class="forumbackbtn" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumlist.html';" style="outline: none;background-image:url({$Think.const.PUBLIC_H}Home/images/forum_left_arrow.png);background-repeat:no-repeat;background-position-x: 51px;background-position-y: 11px;background-size:20px;background-color:#fff;width:200px;height:30px;border-radius:15px;border:1px solid #333;font-weight:500;">back</button>
+						</neq>
 					</li>
 				</ul>
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;">
-					<span id="curdocname" style="font-size:24px;">{$articleinfo.title}</span>
-					<button class="deletetoptic">Delete this topic</button>
+				<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;min-height:40px;height:auto;overflow:hidden;">
+					<span id="curdocname" style="font-size:24px;min-height:40px;height:auto;width:100%;">{$articleinfo.title}</span>
+					</div>
+					<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;min-height:40px;height:auto;">
+					<eq name="profileinfo.roleid" value="1">
+						<eq name="abuseyn" value="1">
+						<button class="deletetoptic" id="deletetopic" artid="{$articleinfo.id}">Delete this topic</button>
+						</eq>
+					</eq>
+						<eq name="profileinfo.userid" value="$articleinfo.sender">
+						<button class="edittoptic" id="edittoptic" artid="{$articleinfo.id}">Edit this topic</button>
+						</eq>
 					</div>
 					<div class="forum_list_posted" style="width:95%;padding-left:5%;margin-top:20px;margin-bottom:20px;height:30px;">
-					<div style="float:left;width:120px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
+					<div style="float:left;width:200px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-admin.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostby">Posted by</span> {$articleinfo.nickname}</div>
 					<div style="float:left;width:80px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-eyes.png" style="width:15px;height:10px;" />&nbsp;&nbsp;{$articleinfo.views}&nbsp;&nbsp;<span class="forumviews">views</span> </div>
 					<div style="float:left;width:220px;margin-left:15px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-post.png" style="width:15px;height:15px;" />&nbsp;<span class="forumpostat">Posted at</span>&nbsp;&nbsp;{$articleinfo.adddate}</div>
 					</div>
 					<div class="doc_content_c" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;">{$articleinfo.contents}</div>
+					
+					<div style="height:50px;line-height:50px;width: 95%;margin-left: 5%;"><span id="tran_desc" style="cursor:pointer;display:block;width:160px;height:30px;line-height:30px;float:left;border: 1px solid #333;background-color: #173045;color: #fff;text-align: center;"></span>&nbsp;&nbsp;<span id="trancn" style="width:200px;height:30px;line-height:30px;float:left;text-align:center;"></span></div>
+					<div style="height:30px;line-height:30px;width: 95%;margin-left: 5%;font-size:12px;border-top:1px solid #888;" class="followtrans">以下来自谷歌自动翻译：</div>
+					<div class="doc_content_c" id="tran_res" style="word-break:break-all;margin-top:10px;width:95%;padding-left:5%;margin-bottom:40px;color:#999;">
+						<!-- <img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:150px;height:150px;" /> -->
+					</div>
 					<div class="commontlist" style="width:95%;margin-left:5%;">
 						<div class="commont_t docpagecomments">Comments</div>
 						<textarea id="comment_contents" class="docpagecommentstip" style="padding:15px;padding-left:10px;font-family:'HelveticaNeue-Light'"  placeholder="&nbsp;The more you tell us,the more we can help."></textarea>
@@ -118,20 +151,25 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 									<div class="c_c_list">
 										<div class="c_c_list_l headimg" style="text-align:center;">
 											<eq name="vob.uheadimg" value="">
-											<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
-											<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+											<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;" /></span>
+											<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span>
 											</eq>
 											<neq name="vob.uheadimg" value="">
-											<img class="hidden-sm hidden-xs" src="{$vob.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
+											<img class="hidden-sm hidden-xs" src="{$vob.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top: 0px;" />
 											<img class="visible-xs-block" src="{$vob.uheadimg}" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" />
 											</neq>
 										</div>
 										<div class="c_c_list_r comment_r_c">
 											<div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">{$vob.nickname}, {$vob.adddatetime}</div>
 											<div class="comment_c" style="word-break: break-all;">{$vob.contents}</div>
+											<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>
+											<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>
 											<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 											<div class="comment_bottom_icon">
 												<div class="comment_bottom_icon_l  hidden-sm hidden-xs">{$vob.nickname}, {$vob.adddatetime}</div>
+												<eq name="vob.abuse" value="1">
+													<div class="comment_bottom_icon_l  hidden-sm hidden-xs delete_comment_btn" commentid="{$vo.id}" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:18px;height:21px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>
+												</eq>
 												<div class="comment_bottom_icon_r">
 													<eq name="vob.zanyn" value="1">
 													<span class="glyphicon glyphicon-heart like" curid="{$vob.id}" style="cursor:pointer;padding:4px;color:#333;">{$vob.likes} </span>
@@ -147,29 +185,37 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 													<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="{$vob.id}" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div>
 												</div>
 												<eq name="vob.subcommentlist" value="0">
-												<div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;">
+												<div class="replay_comment_list" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;height:auto;">
 												</eq>
 												<neq name="vob.subcommentlist" value="0">
-												<div class="replay_comment_list repaly{$vob.id}" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;">
+												<div class="replay_comment_list repaly{$vob.id}" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;height:auto;">
 												</neq>
 													<volist name="vob.subcommentlist" id="voc">
 													<div class="replay_c_list">
 														<div class="replay_c_list_l">
 															<eq name="voc.uheadimg" value="">
-															<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
-															<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>
+															<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"   /></span>
+															<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"   /></span>
 															</eq>
 															<neq name="voc.uheadimg" value="">
-															<img  class="hidden-sm hidden-xs" src="{$voc.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />
+															<img  class="hidden-sm hidden-xs" src="{$voc.uheadimg}" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />
 															<img class="visible-xs-block" src="{$voc.uheadimg}" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />
 															</neq>
 														</div>
 														<div class="replay_c_list_r">
 																<div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">{$voc.nickname}, {$voc.adddatetime}</div>
 															<div class="comment_c"  style="word-break: break-all;">{$voc.contents}</div>
+															<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>
+															<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>
 															<div class="commentline hidden-sm hidden-xs">&nbsp;</div>
 															<div class="comment_bottom_icon  hidden-sm hidden-xs">
 																<div class="comment_bottom_icon_l">{$voc.nickname}, {$voc.adddatetime}</div>
+																	<eq name="voc.abuse" value="1">
+																		<div class="comment_bottom_icon_l delete_comment_btn" commentid="{$voc.id}" style="margin-left:12px;">
+																		<img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;
+																		<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span>
+																		</div>
+																	</eq>
 															</div>
 														</div>
 													</div>
@@ -263,7 +309,13 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Index/loginsid" />
@@ -280,7 +332,13 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <include file="Index/loginoutfail" />
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<include file="Forum/tranrs" />
+<include file="Forum/delforumsuccful" />
+<include file="Forum/editforum" />
+<include file="Forum/langs" />
+<include file="Forum/langss" />
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/doc.js"></script>
@@ -288,7 +346,15 @@ textarea:-ms-input-placeholder {color:#A7B2BC;font-size:14px;font-family:"Helvet
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/summernote.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script>
+var isnewideayn = "{$articleinfo.isnewidea}";
+if(isnewideayn=="1"){
+	$("[name='test']").bootstrapSwitch("state",true);
+}else{
+	$("[name='test']").bootstrapSwitch("state",false);
+}
 function applyelatip_popup(){
   $("#commenttip").modal("show");
   setTimeout(function(){$("#commenttip").modal("hide")},3000)
@@ -297,17 +363,49 @@ function commentsuccful_popup(){
   $("#commentsuccful").modal("show");
   setTimeout(function(){$("#commentsuccful").modal("hide");window.location.reload();},3000)
 }
+function delforumsuccful_popup(){
+  $("#delforumsuccful").modal("show");
+  setTimeout(function(){$("#delforumsuccful").modal("hide");window.location.href="index.html";},3000)
+}
+function delforumsuccfuls_popup(){
+  $("#delforumsuccful").modal("show");
+  setTimeout(function(){$("#delforumsuccful").modal("hide");window.location.reload();},3000)
+}
 function commenterror_popup(){
   $("#commenterror").modal("show");
   setTimeout(function(){$("#commenterror").modal("hide");},3000)
 }
+function editforum_popup(){
+  $("#editforum").modal("show");
+}
+  if(sessionStorage.getItem('internationalWords')==1){
+
+$('.summernote').summernote({
+		height: 150,
+		tabsize: 2,
+		disableDragAndDrop:false,
+		minHeight:150,
+		maxHeight:150,
+		placeholder: '当青春远去，愿智慧已足够。',
+		lang: 'zh-CN'
+	});
+	}else{
+		$('.summernote').summernote({
+			height: 150,
+			tabsize: 2,
+			disableDragAndDrop:false,
+			minHeight:150,
+			maxHeight:150,
+			placeholder: 'When youth departs, may wisdom prove enouth.'
+		});
+	}
+ $("#forumcontents").summernote('code','{$articleinfo.code_contents}');
 $(document).ready(function(){
 	$(".doc_menu_l_li_subm").click(function(){
 		var filename = $(this).attr("filecname");
 		var doc = filename.replace(/\|\|\|/g,"/");
 		var docc = doc.replace('.md','');
 		console.log(doc.substring(1));
-		//console.log("跳转地址："+);
 		window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
 		
 	});
@@ -318,7 +416,7 @@ $(document).ready(function(){
 			console.log(doc.substring(1));
 			window.location.href=internationalWords.hosturl+'/index.php/Home/Documentation/index.html?doc='+docc.substring(1);
 	});
-	$(document).on("click",".like",function(){
+	/*$(document).on("click",".like",function(){
 		var loginstatus = '{$logincate}';
 		if(loginstatus!=""){
 			var id = $(this).attr("curid");
@@ -340,61 +438,73 @@ $(document).ready(function(){
 			login_popup();
 		}
 	});
+	*/
 	$("#sendcomment").click(function(){
-		var contents = $("#comment_contents").val();
-		if(hasIllegalChar(contents)){
-			applyelatip_popup();
-			return false;
+		var loginyn = '{$logincate}';
+		if(loginyn==""){
+			login_popup();
+		}else{
+			var contents = $("#comment_contents").val();
+			if(hasIllegalChar(contents)){
+				applyelatip_popup();
+				return false;
+			}
+			
+			var commentid = "{$articleinfo.id}";
+			var forumcate = "{$articleinfo.cate}";
+			if(contents==""){
+				applyelatip_popup();
+				return false;
+			}
+			$.post(
+				'{$curhost}index.php/Home/Forum/addforumcomment',
+				{commentconents:contents,forumid:commentid,forumcate:forumcate},
+				function(data){
+					if(data==1){
+						$("#comment_contents").val("");
+						commentsuccful_popup();
+					}else{
+						commenterror_popup();
+					}
+				}
+			)
 		}
 		
-		var commentid = "{$articleinfo.id}";
-		var forumcate = "{$articleinfo.cate}";
-		if(contents==""){
-			applyelatip_popup();
-			return false;
-		}
-		$.post(
-			'{$curhost}index.php/Home/Forum/addcomment',
-			{commentconents:contents,forumid:commentid,forumcate:forumcate},
-			function(data){
-				if(data==1){
-					$("#comment_contents").val("");
-					commentsuccful_popup();
-				}else{
-					commenterror_popup();
-				}
-			}
-		)
 	});
 	function hasIllegalChar(str) {
         return new RegExp(".*?script[^>]*?.*?(<\/.*?script.*?>)*", "ig").test(str);
     }
 	$(document).on("click",".replaybtn",function(){
-		var contents = $(this).parent("div").prev("textarea").val();
-		var commentid = $(this).attr("commentid");
-		var forumcate = "{$articleinfo.cate}";
-		if(hasIllegalChar(contents)){
-			applyelatip_popup();
-			return false;
-		}
-		var obj = $(this);
-		if(contents==""){
-			applyelatip_popup();
-			return false;
-		}
-		$.post(
-			'{$curhost}index.php/Home/Forum/addcomment',
-			{commentconents:contents,forumid:commentid,forumcate:forumcate},
-			function(data){
-				if(data==1){
-					$(this).parent("div").prev("textarea").val("");
-					obj.parent(".replay_senddiv").parent(".replay_comment").hide();
-					commentsuccful_popup();
-				}else{
-					commenterror_popup();
-				}
+		var loginyn = '{$logincate}';
+		if(loginyn==""){
+			login_popup();
+		}else{
+			var contents = $(this).parent("div").prev("textarea").val();
+			var commentid = $(this).attr("commentid");
+			var forumcate = "{$articleinfo.cate}";
+			if(hasIllegalChar(contents)){
+				applyelatip_popup();
+				return false;
 			}
-		)
+			var obj = $(this);
+			if(contents==""){
+				applyelatip_popup();
+				return false;
+			}
+			$.post(
+				'{$curhost}index.php/Home/Forum/addforumcomment',
+				{commentconents:contents,forumid:commentid,forumcate:forumcate},
+				function(data){
+					if(data==1){
+						$(this).parent("div").prev("textarea").val("");
+						obj.parent(".replay_senddiv").parent(".replay_comment").hide();
+						commentsuccful_popup();
+					}else{
+						commenterror_popup();
+					}
+				}
+			)
+		}
 	})
 })
 $("#loadmorebtn").click(function(){
@@ -417,46 +527,83 @@ $("#loadmorebtn").click(function(){
 				for(var i=0;i<data.length;i++){
 					htmla = htmla +'<li class="maincomment"><div class="c_c_list"><div class="c_c_list_l headimg" style="text-align:center;">';
 					if(data[i]['uheadimg']=="" || data[i]['uheadimg']==null){
-						htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;">';
-						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span>';
-						htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#173045;margin-right:10px;">';
-						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span></div>';
+						htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;">';
+						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span>';
+						htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:30px;display:block;width:30px;height:30px;background-color:#CED6E3;margin-right:10px;">';
+						htmla = htmla +'<img src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png" style="width:45%;height:50%;border-radius:0px;"  /></span></div>';
 					}else{
-						htmla = htmla +'<img class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
+						htmla = htmla +'<img class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />';
 						htmla = htmla +'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:30px;display:block;width:30px;height:30px;margin-right:10px;" /></div>';
 					}
 						htmla = htmla +'<div class="c_c_list_r comment_r_c"><div class="comment_bottom_icon_l visible-xs-block" style="width:100%;">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div>';
-						htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
+						htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div>';
+						
+						if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}else{
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[Translated by Google]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}	
+						htmla = htmla +'<div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
 						htmla = htmla +'<div class="comment_bottom_icon"><div class="comment_bottom_icon_l  hidden-sm hidden-xs">'+data[i]['nickname']+','+data[i]['adddatetime']+'</div><div class="comment_bottom_icon_r">';
+						if(data[i]['abuse']==1){
+							htmla = htmla +'<div class="comment_bottom_icon_l  hidden-sm hidden-xs delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:18px;height:21px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
+						}
 					if(data[i]['zanyn']=="1"){
-						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;color:#333;"> '+data[i]['likes']+'</span>';
+						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;color:#333;">'+data[i]['likes']+'</span>';
 					}else if(data[i]['zanyn']=="0"){
 						htmla = htmla +'<span class="glyphicon glyphicon-heart like" curid="'+data[i]['id']+'" style="cursor:pointer;padding:4px;">'+data[i]['likes']+' </span>';
 					}
-						htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span></div></div>';
-						htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
-						htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
-					if(data[i]['subcommentlist']=="0"){
-						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;"></div></div></div></li>';
+					if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">回复</span></div></div>';
+							htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
+							htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >回复</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
 					}else{
-						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;">';
+							htmla = htmla +'<span class="glyphicon glyphicon-comment showrepaly docpageresendbtn" style="cursor:pointer;padding:4px;letter-spacing:0.5px;">Reply</span></div></div>';
+							htmla = htmla +'<div class="replay_comment"><textarea class="docpagecommentstip"   style="padding:15px;padding-left:10px;font-family:\'HelveticaNeue-Light\'"   placeholder="&nbsp;The more you tell us,the more we can help."></textarea>';
+							htmla = htmla +'<div class="replay_senddiv"><button class="replaybtn docpageresendbtn" commentid="'+data[i]['id']+'" >Reply</button><button class="canclebtn docpagerecancelbtn">Cancel</button></div></div>';
+					}	
+					if(data[i]['subcommentlist']=="0"){
+						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="background-color:#F6F9FD;overflow:hidden;margin-bottom:20px;height:auto;"></div></div></div></li>';
+					}else{
+						htmla = htmla +'<div class="replay_comment_list repaly'+ data[i]['id'] +'" style="overflow:hidden;margin-bottom:20px;padding-bottom:10px;padding-top:10px;height:auto;">';
 						//console.log("子评论："+data[i]['subcommentlist']);
 						//var dataa = $.parseJSON(data[i]['subcommentlist']);
 						var dataa = data[i]['subcommentlist'];
 						for(var j=0;j<dataa.length;j++){
 							htmla = htmla +'<div class="replay_c_list"><div class="replay_c_list_l">';
 							if(dataa[j]['uheadimg']=="" || dataa[j]['uheadimg']==null){
-									htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span>';
-									htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="'+internationalWords.hosturl+'Public/Home/images/pdefault.png"  /></span>';
+									htmla = htmla +'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png"  /></span>';
+									htmla = htmla +'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="'+internationalWords.hosturl+'Public/Home/images/pcenter_perfile_logo.png"  /></span>';
 							}else{
-									htmla = htmla +'<img  class="hidden-sm hidden-xs" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
+									htmla = htmla +'<img  class="hidden-sm hidden-xs" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />';
 									htmla = htmla +'<img class="visible-xs-block" src="'+dataa[j]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 							}							
 							htmla = htmla +'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
-							htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+dataa[j]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
-							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div></div></div></div>';
+							htmla = htmla +'<div class="comment_c"  style="word-break: break-all;">'+dataa[j]['contents']+'</div>';
+							
+							
+							
+							if(sessionStorage.getItem('internationalWords')==1){
+								htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>';
+								htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+							}else{
+								htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[Translated by Google]</div>';
+								htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+							}	
+							htmla = htmla +'<div class="commentline hidden-sm hidden-xs">&nbsp;</div>';
+							htmla = htmla +'<div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+dataa[j]['nickname']+', '+dataa[j]['adddatetime']+'</div>';
+							if(dataa[j]['abuse']==1){
+								htmla = htmla +'<div class="comment_bottom_icon_l delete_comment_btn" commentid="'+ dataa[j]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
+							}
+							htmla = htmla +'</div></div></div>';
 						}
+				if(sessionStorage.getItem('internationalWords')==1){
 					htmla = htmla +'</div><div style="width:100%;height:70px;text-align:center;line-height:70px;overflow: hidden;"><a href="javascript:void(0);" curcommentid="'+data[i]['id']+'" class="loadsubmorebtn" id="loadsubmorebtn'+data[i]['id']+'" style="color:#333;font-size:14px;">加载更多</a></div>';
+				}else{
+					htmla = htmla +'</div><div style="width:100%;height:70px;text-align:center;line-height:70px;overflow: hidden;"><a href="javascript:void(0);" curcommentid="'+data[i]['id']+'" class="loadsubmorebtn" id="loadsubmorebtn'+data[i]['id']+'" style="color:#333;font-size:14px;">load more</a></div>';
+				}	
 					htmla = htmla +'</div></div></li>';
 					}						
 				}
@@ -487,14 +634,30 @@ $(document).on("click",".loadsubmorebtn",function(){
 				for(var i=0;i<data.length;i++){
 					htmla = htmla+'<div class="replay_c_list"><div class="replay_c_list_l">';
 					if(data[i]['uheadimg']=="" || data[i]['uheadimg']==null){
-						htmla = htmla+'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>';
-						htmla = htmla+'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#173045;margin-right:10px;"><img src="{$Think.const.PUBLIC_H}Home/images/pdefault.png"  /></span>';
+						htmla = htmla+'<span class="hidden-sm hidden-xs" style="float:right;border-radius:50px;display:block;width:50px;height:50px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png"  /></span>';
+						htmla = htmla+'<span class="visible-xs-block" style="float:right;border-radius:25px;display:block;width:25px;height:25px;background-color:#CED6E3;margin-right:10px;"><img style="width:45%;height:50%;border-radius:0px;"  src="{$Think.const.PUBLIC_H}Home/images/pcenter_perfile_logo.png"  /></span>';
 					}else{
-						htmla = htmla+'<img  class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;" />';
+						htmla = htmla+'<img  class="hidden-sm hidden-xs" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:50px;display:block;width:50px;height:50px;margin-right:10px;margin-top:0px;" />';
 						htmla = htmla+'<img class="visible-xs-block" src="'+data[i]['uheadimg']+'" style="float:right;border-radius:25px;display:block;width:25px;height:25px;margin-right:10px;" />';
 					}
 						htmla = htmla+'</div><div class="replay_c_list_r"><div class="comment_bottom_icon_l  visible-xs-block"  style="width:100%;">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div>';
-						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div><div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div></div></div>';
+						htmla = htmla+'<div class="comment_c"  style="word-break: break-all;">'+data[i]['contents']+'</div>';
+						
+						if(sessionStorage.getItem('internationalWords')==1){
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[谷歌翻译]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}else{
+							htmla = htmla +'<div class="comment_c_trans tranby" style="width:100%;height:40px;line-height:40px;word-break: break-all;border-top:1px solid #aaa;font-size:12px;cursor:pointer;color:#888;">[Translated by Google]</div>';
+							htmla = htmla +'<div class="comment_c" style="word-break: break-all;color:#777;margin-top:2px;"></div>';
+						}	
+
+						
+						
+						htmla = htmla+'<div class="commentline hidden-sm hidden-xs">&nbsp;</div><div class="comment_bottom_icon  hidden-sm hidden-xs"><div class="comment_bottom_icon_l">'+data[i]['nickname']+', '+data[i]['adddatetime']+'</div></div>';
+						if(data[i]['abuse']==1){
+							htmla = htmla +'<div class="comment_bottom_icon_l delete_comment_btn" commentid="'+ data[i]['i'] +'" style="margin-left:12px;"><img src="{$Think.const.PUBLIC_H}Home/images/icon-forum-delete.png" style="width:16px;height:19px;" />&nbsp;&nbsp;<span class="deletesubcomment" style="color:red;font-weight:900;">Delete this comment</span></div>';
+						}
+						htmla = htmla+'</div></div>';
 				}
 				$(".repaly"+curcommentid).append(htmla);
 				
@@ -502,8 +665,117 @@ $(document).on("click",".loadsubmorebtn",function(){
 		}
 	)
 });
-$(".forumbackbtn").click(function(){
-	window.location.href="index.html";
+$(".deletetoptic").click(function(){
+	var topicid = $(this).attr("artid");
+	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){
+	delforumsuccful_popup();
+	
+	
+	}});
+});
+$(document).on("click",".delete_comment_btn",function(){
+	var topicid = $(this).attr("commentid");
+	$.post("delarticle",{forumcommentid:topicid},function(data){if(data==1){delforumsuccfuls_popup();}});
+});
+
+$(document).on("click",".like",function(){
+	var loginstatus = '{$logincate}';
+	if(loginstatus!=""){
+		var id = $(this).attr("curid");
+		var like = $(this);
+		$.post(
+			'{$curhost}index.php/Home/Forum/updateforumzan',
+			{id:id},
+			function(data){
+				if(data==1){
+					like.css("color","#333");
+					like.html(parseInt(like.html())+1);
+				}else if(data==2){
+					like.css("color","#CED6E3");
+					like.html(parseInt(like.html())-1);
+				}
+			}
+		)
+	}else{
+		login_popup();
+	}
+});
+/*
+var language = navigator.browserLanguage?navigator.browserLanguage:navigator.language;
+	var c = $(".doc_content_c").html();
+	var sl = "auto";
+	var tl = language;
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#tran_res").html("&nbsp;&nbsp;"+data);
+	});
+*/
+$(".comment_c_trans").click(function(){
+	var objc = $(this);
+	objc.attr("weiid","subc");
+    $("#langss").modal("show");
+	$("#langlists").show();
+	$("#langlist_loadings").hide();
+	/*
+	var c = objc.prev(".comment_c").html();
+	objc.next(".comment_c").html('<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:50px;height:50px;" />');
+	var sl = "auto";
+	var tl = language;
+	var url ='{$curhost}index.php/Home/Forum/googletranapis';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		objc.next(".comment_c").html("&nbsp;&nbsp;"+data);
+	});
+	*/
+});
+$(".lang_selects").click(function(){
+	var objd = $("[weiid='subc']");
+	$("#langlists").hide();
+	$("#langlist_loadings").show();
+	var curlang = $(this).attr("langs");
+	var c = objd.prev(".comment_c").html();
+	var sl = "auto";
+	var tl = curlang;
+	var url ='{$curhost}index.php/Home/Forum/googletranapis';
+	objd.next(".comment_c").html('<img src="{$Think.const.PUBLIC_H}Home/images/trans_loading.gif" style="width:50px;height:50px;" />');
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$(".comment_c_trans").attr("weiid","");
+		$("#langss").modal("hide");
+		objd.next(".comment_c").html("&nbsp;&nbsp;"+data);
+	});
+});
+
+$("#trancn").click(function(){
+	//$("#tranrs").modal("show");
+	$("#tranresult").html("<img src='{$Think.const.PUBLIC_H}Home/images/tran_loading.gif' style='width:100%;height:auto;' />");
+	var c = $(".doc_content_c").html();
+	var sl = "en";
+	var tl = "zh_CN";
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#tranresult").html("&nbsp;&nbsp;"+data);
+	});
+});
+$("#edittoptic").click(function(){
+	editforum_popup();
+});
+$("#tran_desc").click(function(){
+    $("#langs").modal("show");
+	$("#langlist").show();
+	$("#langlist_loading").hide();
+})
+$(".lang_select").click(function(){
+	$("#langlist").hide();
+	$("#langlist_loading").show();
+	$("#trancn").html($(this).html());
+	var curlang = $(this).attr("langs");
+	var c = $("#curdocname").html()+"||||||||||"+$(".doc_content_c").html();
+	var sl = "auto";
+	var tl = curlang;
+	var url ='{$curhost}index.php/Home/Forum/googletranapi';
+	$.post(url,{sl:sl,tl:tl,c:c},function(data){
+		$("#langs").modal("hide");
+		$("#tran_res").html("&nbsp;&nbsp;"+data);
+	});
 });
 </script>
 </body>

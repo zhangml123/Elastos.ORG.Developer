@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/animate.min.css">
@@ -22,7 +22,7 @@
 <style>
 .doc_menu_l_li_subm{background-color:#173045;color:#fff;}
 .doc_menu_l_li_subm_no {
-background-color:#fff;color:#333;
+background-color:#fff;color:#333;font-family: Synthese;
     width: 95%;
     padding-left: 5%;
     min-height: 30px;
@@ -30,7 +30,7 @@ background-color:#fff;color:#333;
     font-size: 12px;
     cursor: pointer;
 }
-.doc_menu_l_ul{background-color:#fff;}
+.doc_menu_l_ul{background-color:#fff;font-family: Synthese;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
 .pagination>.active> a,.pagination>.active>a:hover{color:#18FFFF;background-color:#2B3C55;}
 .pagination>li>a:focus{color:#333;background-color:#fff;}
@@ -43,7 +43,7 @@ background-color:#fff;color:#333;
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:25px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
+			<div class="pcenter_admin_console" style="height:50px;line-height:50px;width:100%;color:#173045;font-size:20px;font-weight:900;font-family: Komu;">ADMIN CONSOLE</div>
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm_no notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
@@ -70,7 +70,7 @@ background-color:#fff;color:#333;
 						<div style="width:100%;height:610px;">
 							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
 								<volist name="forumlist" id="vob">
-								<li onclick="javascript:window.location.href='noticedetail?id={$vob.id}';">
+								<li onclick="javascript:window.location.href='{$curhost}index.php/Home/Forum/forumdetail?forumid={$vob.id}&psa=1';">
 									<div style="float:left;color:#173045;width:90%;text-align:left;line-height:45px;">{$vob.title}</div>
 								</li>
 								</volist>
@@ -150,14 +150,20 @@ background-color:#fff;color:#333;
 		</div>
 		<div class="col-md-4">
 		</div>
+			<div class="hidden-sm hidden-xs  hidden-md" style="float:right;width:140px;height:140px;margin-top:-47px;margin-right:-43px;">
+				<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100%;height:100%;">
+			</div>
 	</div>
+		<div class="visible-xs-block" style="float:right;width:100%;height:100px;text-align:center;margin-top:30px;">
+			<img src="{$Think.const.PUBLIC_H}Home/images/elastos_wechat_code.png" style="width:100px;height:100px;">
+		</div>
 	</div>
 </div>
 <include file="Pcenter/succful" />
 <include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
@@ -198,7 +204,7 @@ $('#pageLimit').bootstrapPaginator({
 					$("#token-list").html("");
 					console.log("列表："+callback[0]['adddate']);
 					for(var i=0;i<callback.length;i++){
-						var htmla = '<li onclick="javascript:window.location.href=\'noticedetail?id='+ callback[i]['id'] +'\';">';
+						var htmla = '<li onclick="javascript:window.location.href=\'{$curhost}index.php/Home/Forum/forumdetail?forumid='+ callback[i]['id'] +'&psa=1\';">';
 						htmla = htmla+'<div style="float:left;color:#333;width:90%;text-align:left;line-height:45px;">'+callback[i]['title']+'</div>';
 						$("#token-list").append(htmla);
 					}

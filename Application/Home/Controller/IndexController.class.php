@@ -311,12 +311,12 @@ class IndexController extends CommonbaseController {
 		$url ="http://203.189.235.252:8080/trucks/signdid.jsp";
 		$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
 		$sign = trim(file_get_contents($url."".$parms));
-		$random ="111";
+		$random =rand(1000,9999);
  		$ReturnUrl = urlencode("https://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
  		$callbackurl = urlencode("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
-		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=Elastos Developer Website&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=Elastos Developer Website";		
+		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=developer.elastos.org&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=developer.elastos.org";		
 		//var_dump($qurl);
-		$level=3;
+	 	$level=3;
         $size=2;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
@@ -334,21 +334,27 @@ class IndexController extends CommonbaseController {
 		 $rs = file_get_contents("php://input");
 		 $jsona = json_decode($rs,true);
 		 $njson = json_decode($jsona['Data'],true);
-		 //$where['didrandom'] = $njson['RandomNumber'];
 		 $where['didrandom'] = $_GET['state'];
 		 $didpubkey = $jsona['PublicKey'];
-		 $url ="http://203.189.235.252:8080/trucks/getdidfrompubkey.jsp";
-		 $parms = "?didpubkey=".$didpubkey;
-		 $did = trim(file_get_contents($url."".$parms));
-	     $data['didid'] = $did;
-		 $data['nickname'] = $njson['NickName'];
-		 $staydid = M("staydid");
-		 $rs = $staydid->where($where)->save($data);
+		 $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
+		 $parms = "?didpubkey=".$didpubkey."&msg=".$jsona['Data']."&sig=".$jsona['Sign'];
+		 $yn = trim(file_get_contents($url."".$parms));
+		 if($yn=1){
+			 $data['didid'] = $njson['DID'];
+			 $data['nickname'] = $njson['NickName'];
+			 $data['Elaaddress'] = $njson['ELAAddress'];
+			 $data['PhoneNumber'] = "";
+			 $staydid = M("staydid");
+			 $rs = $staydid->where($where)->save($data);
+		 }
 	}
 	public function judgedid(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
 		 $staydid = M("staydid");
 		 $staydidinfo = $staydid->where($wherea)->find();
+		 //删除超过一个小时的
+		 $wherec['addtime'] = array("elt",time()-1800);
+		 $rsa = $staydid->where($wherec)->delete();
 		 if($staydidinfo['didid']!=""){
 			 //判断关联表有无信息，如果有关联，则找出User表信息，标明登录类型，如果没有登录信息，则构建User新信息，并构建关联
 			 $rsa = $this->getuserrelation("","","","",$staydidinfo['didid']);
@@ -797,7 +803,6 @@ class IndexController extends CommonbaseController {
 		$userinfo = $user->where($where)->find();
 		return $userinfo;
 	}
-	
 	//同步github
 	public function sync(){
 		if(is_dir($_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc")){
@@ -825,6 +830,18 @@ class IndexController extends CommonbaseController {
 		 $rsa = $staydid->where($wherec)->delete();
 		 $rsb = $staywechat->where($wherec)->delete();
 		 if($rsa && $rsb){
+			 echo "删除成功！";
+		 }else{
+			 echo "删除失败！";
+		 }
+	}
+	//清除一下staydid相关信息
+	public function cleandates(){
+		$article = M("article");
+		$wherew['pintotop'] = 0;
+		$dataaa['pintime'] = "";
+		$rsa = $article->where($wherew)->save($dataaa);
+		if($rsa){
 			 echo "删除成功！";
 		 }else{
 			 echo "删除失败！";

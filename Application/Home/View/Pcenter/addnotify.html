@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="{$Think.const.PUBLIC_H}Home/images/favicon.png">
 <title>Developer - Elastos</title>
-<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/bootstrap.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/bootstrap/css/bootstrap-switch.min.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/common.css">
 <link rel="stylesheet" href="{$Think.const.PUBLIC_H}Home/css/document.css">
@@ -30,7 +30,8 @@
 .pagination>li>a:focus{color:#333;background-color:#fff;}
 #token-list li div{cursor:pointer;}
 @import url("https://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css");
-.checkbox{width:350px;float:left;}.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+.checkbox{width:350px;float:left;}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
     color: #fff;
     background: #173045;
 }
@@ -202,7 +203,7 @@
 <include file="Pcenter/notifypublishtip" />
 <include file="Pcenter/notifytip" />
 <include file="Pcenter/confirmnotify" />
-<script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/bootstrap/js/bootstrap-switch.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -458,6 +459,7 @@ function savedraft(){
 		return false;
 	}
 	window.clearInterval(addnoticeid);
+	$(this).attr("disabled","disabled");
 	$.post('addnotifyfunc',{title:title,titleen:titleen,contentsen:contentsen,contents:contents,draft:0,randid:randid,ishomepage:ishomepage,pushnotifyset:checkbox1,publishtime:""},function(data){
 		if(data==1){
 			$("#notifypublishtip").modal("show");
