@@ -753,5 +753,3 @@ internationalWordsZH.yoruba='约鲁巴语';
 internationalWordsZH.vietnamese='越南语';
 internationalWordsZH.traditional_cn='中文(繁体)';
 internationalWordsZH.chinese_cn='中文(简体)';
-
-
