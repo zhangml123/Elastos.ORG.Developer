@@ -342,7 +342,7 @@ class IndexController extends CommonbaseController {
 		 $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
 		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
-		 fwrite($myfile, $yn."\r\n");
+		 fwrite($myfile, "值："+$yn."\r\n");
 		 fclose($myfile);
 		 if(isset($njson['NickName']) && $njson['NickName']!=""){
 			 $nickname = $njson['NickName'];
@@ -359,7 +359,7 @@ class IndexController extends CommonbaseController {
 		 }else{
 			 $phonejson = "";
 		 }
-		 if($yn=1){
+		 if($yn==1){
 			 $data['didid'] = $njson['DID'];
 			 $data['nickname'] = $nickname;
 			 $data['Elaaddress'] = $eladdress;
