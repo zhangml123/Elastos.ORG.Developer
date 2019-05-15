@@ -332,13 +332,18 @@ class IndexController extends CommonbaseController {
 	//处理DID回调值
 	public function didcallback(){
 		 $rs = file_get_contents("php://input");
+		 $myfile = fopen($_SERVER['DOCUMENT_ROOT']."/log.txt", "w") or die("Unable to open file!");
+		 fwrite($myfile, $rs."\r\n");
 		 $jsona = json_decode($rs,true);
 		 $njson = json_decode($jsona['Data'],true);
 		 $where['didrandom'] = $_GET['state'];
 		 $didpubkey = $jsona['PublicKey'];
 		 $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
 		 $parms = "?didpubkey=".$didpubkey."&msg=".$jsona['Data']."&sig=".$jsona['Sign'];
+		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
+		 fwrite($myfile, $yn."\r\n");
+		 fclose($myfile);
 		 if($yn=1){
 			 $data['didid'] = $njson['DID'];
 			 $data['nickname'] = $njson['NickName'];
