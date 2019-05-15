@@ -339,7 +339,7 @@ class IndexController extends CommonbaseController {
 		 $where['didrandom'] = $_GET['state'];
 		 $didpubkey = $njson['PublicKey'];
 		 $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
-		 $parms = "?didpubkey=".$didpubkey."&msg=".$jsona['Data']."&sig=".$jsona['Sign'];
+		 $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
 		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
 		 fwrite($myfile, $yn."\r\n");
