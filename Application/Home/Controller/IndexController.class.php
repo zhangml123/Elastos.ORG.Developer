@@ -337,18 +337,33 @@ class IndexController extends CommonbaseController {
 		 $jsona = json_decode($rs,true);
 		 $njson = json_decode($jsona['Data'],true);
 		 $where['didrandom'] = $_GET['state'];
-		 $didpubkey = $jsona['PublicKey'];
+		 $didpubkey = $njson['PublicKey'];
 		 $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
 		 $parms = "?didpubkey=".$didpubkey."&msg=".$jsona['Data']."&sig=".$jsona['Sign'];
 		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
 		 fwrite($myfile, $yn."\r\n");
 		 fclose($myfile);
+		 if(isset($njson['NickName']) && $njson['NickName']!=""){
+			 $nickname = $njson['NickName'];
+		 }else{
+			 $nickname = "";
+		 }
+		 if(isset($njson['ELAAddress']) && $njson['ELAAddress']!=""){
+			 $eladdress = $njson['ELAAddress'];
+		 }else{
+			 $eladdress = "";
+		 }
+		 if(isset($njson['PhoneNumber']) && $njson['PhoneNumber']!=""){
+			 $phonejson = $njson['PhoneNumber'];
+		 }else{
+			 $phonejson = "";
+		 }
 		 if($yn=1){
 			 $data['didid'] = $njson['DID'];
-			 $data['nickname'] = $njson['NickName'];
-			 $data['Elaaddress'] = $njson['ELAAddress'];
-			 $data['PhoneNumber'] = "";
+			 $data['nickname'] = $nickname;
+			 $data['Elaaddress'] = $eladdress;
+			 $data['PhoneNumber'] = $phonejson;
 			 $staydid = M("staydid");
 			 $rs = $staydid->where($where)->save($data);
 		 }
