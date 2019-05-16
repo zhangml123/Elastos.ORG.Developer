@@ -332,21 +332,42 @@ class IndexController extends CommonbaseController {
 	//处理DID回调值
 	public function didcallback(){
 		 $rs = file_get_contents("php://input");
+		 $myfile = fopen($_SERVER['DOCUMENT_ROOT']."/log.txt", "w") or die("Unable to open file!");
+		 fwrite($myfile, $rs."\r\n");
 		 $jsona = json_decode($rs,true);
 		 $njson = json_decode($jsona['Data'],true);
 		 $where['didrandom'] = $_GET['state'];
-		 $didpubkey = $jsona['PublicKey'];
+		 $didpubkey = $njson['PublicKey'];
 		 $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
-		 $parms = "?didpubkey=".$didpubkey."&msg=".$jsona['Data']."&sig=".$jsona['Sign'];
+		 $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
+		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
-		 if($yn=1){
-			 $data['didid'] = $njson['DID'];
-			 $data['nickname'] = $njson['NickName'];
-			 $data['Elaaddress'] = $njson['ELAAddress'];
-			 $data['PhoneNumber'] = "";
+		 fwrite($myfile, "值：".$yn."\r\n");
+		 if(isset($njson['NickName']) && $njson['NickName']!=""){
+			 $nickname = $njson['NickName'];
+		 }else{
+			 $nickname = "";
+		 }
+		 if(isset($njson['ELAAddress']) && $njson['ELAAddress']!=""){
+			 $eladdress = $njson['ELAAddress'];
+		 }else{
+			 $eladdress = "";
+		 }
+		 if(isset($njson['PhoneNumber']) && $njson['PhoneNumber']!=""){
+			 $phonejson = $njson['PhoneNumber'];
+		 }else{
+			 $phonejson = "";
+		 }
 			 $staydid = M("staydid");
+		 if($yn==1){
+			 $data['didid'] = $njson['DID'];
+			 $data['nickname'] = $nickname;
+			 $data['Elaaddress'] = $eladdress;
+			 $data['PhoneNumber'] = $phonejson;
 			 $rs = $staydid->where($where)->save($data);
 		 }
+		 fwrite($myfile, "执行的sql：".($staydid->getlastsql())."\r\n");
+		 fclose($myfile);
 	}
 	public function judgedid(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
