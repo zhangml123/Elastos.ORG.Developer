@@ -28,7 +28,7 @@ class IndexController extends CommonbaseController {
 		$this->assign("isread",$isread);
 		$isreadrs = $this->getnoreadnotifyrs();
 		$this->assign("isreadrs",$isreadrs);
-		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->assign("curhost","http://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
 	//顶部导航
@@ -312,8 +312,8 @@ class IndexController extends CommonbaseController {
 		$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
 		$sign = trim(file_get_contents($url."".$parms));
 		$random =rand(1000,9999);
- 		$ReturnUrl = urlencode("https://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
- 		$callbackurl = urlencode("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
+ 		$ReturnUrl = urlencode("http://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
+ 		$callbackurl = urlencode("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
 		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=developer.elastos.org&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=developer.elastos.org";		
 		//var_dump($qurl);
 	 	$level=3;
@@ -342,8 +342,7 @@ class IndexController extends CommonbaseController {
 		 $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
 		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
-		 fwrite($myfile, "值："+$yn."\r\n");
-		 fclose($myfile);
+		 fwrite($myfile, "值：".$yn."\r\n");
 		 if(isset($njson['NickName']) && $njson['NickName']!=""){
 			 $nickname = $njson['NickName'];
 		 }else{
@@ -359,14 +358,16 @@ class IndexController extends CommonbaseController {
 		 }else{
 			 $phonejson = "";
 		 }
+			 $staydid = M("staydid");
 		 if($yn==1){
 			 $data['didid'] = $njson['DID'];
 			 $data['nickname'] = $nickname;
 			 $data['Elaaddress'] = $eladdress;
 			 $data['PhoneNumber'] = $phonejson;
-			 $staydid = M("staydid");
 			 $rs = $staydid->where($where)->save($data);
 		 }
+		 fwrite($myfile, "执行的sql：".($staydid->getlastsql())."\r\n");
+		 fclose($myfile);
 	}
 	public function judgedid(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
