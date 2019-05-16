@@ -342,8 +342,7 @@ class IndexController extends CommonbaseController {
 		 $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
 		 fwrite($myfile, $url."".$parms."\r\n");
 		 $yn = trim(file_get_contents($url."".$parms));
-		 fwrite($myfile, "值："+$yn."\r\n");
-		 fclose($myfile);
+		 fwrite($myfile, "值：".$yn."\r\n");
 		 if(isset($njson['NickName']) && $njson['NickName']!=""){
 			 $nickname = $njson['NickName'];
 		 }else{
@@ -359,14 +358,16 @@ class IndexController extends CommonbaseController {
 		 }else{
 			 $phonejson = "";
 		 }
+			 $staydid = M("staydid");
 		 if($yn==1){
 			 $data['didid'] = $njson['DID'];
 			 $data['nickname'] = $nickname;
 			 $data['Elaaddress'] = $eladdress;
 			 $data['PhoneNumber'] = $phonejson;
-			 $staydid = M("staydid");
 			 $rs = $staydid->where($where)->save($data);
 		 }
+		 fwrite($myfile, "执行的sql：".($staydid->getlastsql())."\r\n");
+		 fclose($myfile);
 	}
 	public function judgedid(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
