@@ -28,7 +28,7 @@ class IndexController extends CommonbaseController {
 		$this->assign("isread",$isread);
 		$isreadrs = $this->getnoreadnotifyrs();
 		$this->assign("isreadrs",$isreadrs);
-		$this->assign("curhost","http://".$_SERVER['HTTP_HOST']."/");
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
 		$this->display();
 	}
 	//顶部导航
@@ -312,8 +312,8 @@ class IndexController extends CommonbaseController {
 		$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
 		$sign = trim(file_get_contents($url."".$parms));
 		$random =rand(1000,9999);
- 		$ReturnUrl = urlencode("http://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
- 		$callbackurl = urlencode("http://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
+ 		$ReturnUrl = urlencode("https://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
+ 		$callbackurl = urlencode("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
 		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=developer.elastos.org&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=developer.elastos.org";		
 		//var_dump($qurl);
 	 	$level=3;
