@@ -13,6 +13,8 @@ internationalWordsZH.community='开发者社区&nbsp;&nbsp;<img id="imgarrow" sr
 internationalWordsEN.community='Community&nbsp;&nbsp;<img id="imgarrow" src="../../../Public/Home/images/down_arrow.png">';
 //internationalWordsZH.community='开发者社区&nbsp;&nbsp;';
 //internationalWordsEN.community='Community&nbsp;&nbsp;';
+
+
 internationalWordsZH.login='登录';
 internationalWordsEN.login='LOG IN';
 internationalWordsZH.langcn='<img  src="../../../Public/Home/images/lang_cn.svg" style="width:20px;height:16px;">&nbsp;&nbsp;简体中文';
@@ -810,6 +812,28 @@ internationalWordsZH.load_vote_morebtn='加载更多';
 internationalWordsEN.load_vote_morebtn='load more data';
 
 
+internationalWordsZH.add_voting_type_tip='类型';
+internationalWordsEN.add_voting_type_tip='Type';
+internationalWordsZH.add_vote_newidea='新主意';
+internationalWordsEN.add_vote_newidea='New idea';
+internationalWordsZH.add_vote_community='社区';
+internationalWordsEN.add_vote_community='Community';
+internationalWordsZH.add_voting_type_option='选项<br><span style="font-size:12px;color:#aaa;">(仅社区类型)</span>';
+internationalWordsEN.add_voting_type_option='Options<br><span style="font-size:12px;color:#aaa;">(Community Type only)</span>';
+internationalWordsZH.add_vote_singleoption='单选';
+internationalWordsEN.add_vote_singleoption='Singleoption';
+internationalWordsZH.add_vote_multioptions='多选';
+internationalWordsEN.add_vote_multioptions='Multioptions';
+internationalWordsZH.add_voting_title='标题';
+internationalWordsEN.add_voting_title='Title';
+internationalWordsZH.add_voting_desc='描述';
+internationalWordsEN.add_voting_desc='Description';
+internationalWordsZH.add_voting_enddate='结束时间';
+internationalWordsEN.add_voting_enddate='End Date';
+internationalWordsZH.add_voting_repeat='重复<br><span style="font-size:12px;color:#aaa;">(仅限"新主意"的投票)</span>';
+internationalWordsEN.add_voting_repeat='Repeat<br><span style="font-size:12px;color:#aaa;">(for “New Idea” type voting only)</span>';
+internationalWordsZH.add_voting_monthly='每月';
+internationalWordsEN.add_voting_monthly='Monthly';
 
 
 

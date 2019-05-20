@@ -1629,7 +1629,7 @@ class PcenterController extends BaseController {
 		$rslist = $article->where($where)->order($order)->limit("0,10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				if(mb_strlen($rslist[$i]['contents'],"utf-8")>40){
+				if(mb_strlen($rslist[$i]['title'],"utf-8")>40){
 					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,40,'utf-8')."...";
 				}
 			}
@@ -1711,7 +1711,7 @@ class PcenterController extends BaseController {
 		$rslist = $article->where($where)->order($order)->limit($startnum.",10")->select();
 		if($rslist){
 			for($i=0;$i<count($rslist);$i++){
-				if(mb_strlen($rslist[$i]['contents'],"utf-8")>40){
+				if(mb_strlen($rslist[$i]['title'],"utf-8")>40){
 					$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,40,'utf-8')."...";
 				}
 			}
