@@ -15,10 +15,10 @@ internationalWordsEN.community='Community&nbsp;&nbsp;<img id="imgarrow" src="../
 //internationalWordsEN.community='Community&nbsp;&nbsp;';
 internationalWordsZH.login='登录';
 internationalWordsEN.login='LOG IN';
-internationalWordsZH.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;简体中文';
-internationalWordsEN.langcn='<img  src="../../../Public/Home/images/cn.png" style="width:30px;height:20px;">&nbsp;简体中文';
-internationalWordsZH.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;English';
-internationalWordsEN.langen='<img  src="../../../Public/Home/images/en.png" style="width:30px;height:20px;">&nbsp;English';
+internationalWordsZH.langcn='<img  src="../../../Public/Home/images/lang_cn.svg" style="width:20px;height:16px;">&nbsp;&nbsp;简体中文';
+internationalWordsEN.langcn='<img  src="../../../Public/Home/images/lang_cn.svg" style="width:20px;height:16px;">&nbsp;&nbsp;简体中文';
+internationalWordsZH.langen='<img  src="../../../Public/Home/images/lang_en.svg" style="width:20px;height:16px;">&nbsp;&nbsp;English';
+internationalWordsEN.langen='<img  src="../../../Public/Home/images/lang_en.svg" style="width:20px;height:16px;">&nbsp;&nbsp;English';
 internationalWordsZH.pcentersubprofile='我的';
 internationalWordsEN.pcentersubprofile='My Profile';
 internationalWordsZH.pcentergettoken='申请测试币';
@@ -753,3 +753,67 @@ internationalWordsZH.yoruba='约鲁巴语';
 internationalWordsZH.vietnamese='越南语';
 internationalWordsZH.traditional_cn='中文(繁体)';
 internationalWordsZH.chinese_cn='中文(简体)';
+//投票部分
+internationalWordsZH.voting='投票';
+internationalWordsEN.voting='VOTINGS';
+internationalWordsZH.voting_head_title='标题';
+internationalWordsEN.voting_head_title='Title';
+internationalWordsZH.voting_head_type='类型';
+internationalWordsEN.voting_head_type='Type';
+internationalWordsZH.voting_head_status='状态';
+internationalWordsEN.voting_head_status='Status';
+internationalWordsZH.voting_head_createdate='创建时间';
+internationalWordsEN.voting_head_createdate='Create date';
+internationalWordsZH.voting_head_enddate='结束时间';
+internationalWordsEN.voting_head_enddate='End date';
+internationalWordsZH.voting_head_createby='创建者';
+internationalWordsEN.voting_head_createby='Created by';
+internationalWordsZH.voting_head_views='浏览量';
+internationalWordsEN.voting_head_views='Views';
+internationalWordsZH.voting_head_participants='参与人数';
+internationalWordsEN.voting_head_participants='#of Participants';
+
+
+internationalWordsZH.allvoting='全部';
+internationalWordsEN.allvoting='All';
+internationalWordsZH.allvoting_newidea='新主意';
+internationalWordsEN.allvoting_newidea='New Idea';
+internationalWordsZH.allvoting_createdbyme='我创建的';
+internationalWordsEN.allvoting_createdbyme='Created by me';
+internationalWordsZH.addvotingcls='+ 创建投票';
+internationalWordsEN.addvotingcls='+ Create a voting';
+internationalWordsZH.searchvoting='&nbsp;&nbsp;搜索投票';
+internationalWordsEN.searchvoting='&nbsp;&nbsp;Search a Voting';
+internationalWordsZH.vote_detail_enddate='结束日期';
+internationalWordsEN.vote_detail_enddate='End Date';
+internationalWordsZH.vote_rules='规则：';
+internationalWordsEN.vote_rules='Rules:';
+internationalWordsZH.vote_select='选择';
+internationalWordsEN.vote_select='Select';
+internationalWordsZH.vote_cancel='取消';
+internationalWordsEN.vote_cancel='Cancel';
+internationalWordsZH.vote_confirm='确认投票';
+internationalWordsEN.vote_confirm='Confirm Vote';
+internationalWordsZH.votebtn='投票';
+internationalWordsEN.votebtn='Vote';
+internationalWordsZH.votes_from='投票来自于';
+internationalWordsEN.votes_from='votes from';
+internationalWordsZH.voterulestip_head='&nbsp;&nbsp;&nbsp;&nbsp;投票公式：';
+internationalWordsEN.voterulestip_head='&nbsp;&nbsp;&nbsp;&nbsp;Votes Fomula:';
+internationalWordsZH.vote_calculation='合计投票 = (# of ELAs x 50%) + (# of DIDs x 50%)';
+internationalWordsEN.vote_calculation='Total Votes = (# of ELAs x 50%) + (# of DIDs x 50%)';
+internationalWordsZH.vote_calculation_eg_tip='例如：300 ELA 来自于 50 DIDS';
+internationalWordsEN.vote_calculation_eg_tip='e.g. 300 ELA from 50 DIDs ';
+internationalWordsZH.vote_calculation_eg='投票 = 300 x 50% + 50 x 50% = 175';
+internationalWordsEN.vote_calculation_eg='Votes = 300 x 50% + 50 x 50% = 175';
+internationalWordsZH.load_vote_morebtn='加载更多';
+internationalWordsEN.load_vote_morebtn='load more data';
+
+
+
+
+
+
+
+
+

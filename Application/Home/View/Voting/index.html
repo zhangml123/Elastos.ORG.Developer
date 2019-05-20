@@ -43,11 +43,23 @@
 		.voting_head_createby{width:10%;}
 		.voting_head_views{width:10%;}
 		.voting_head_participants{width:13%;}
+
+		.voting_head_titles{width:20%;}
+		.voting_head_types{width:10%;}
+		.voting_head_statuss{width:15%;}
+		.voting_head_createdates{width:11%;}
+		.voting_head_enddates{width:11%;}
+		.voting_head_createbys{width:10%;}
+		.voting_head_viewss{width:10%;}
+		.voting_head_participantss{width:13%;}		
+		
 		.voting_c{width:100%;height:50px;line-height:50px;background-color:#F6F9FD;}
 		.voting_c div{float:left;height:50px;color:#111;text-align:center;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
 		.form-group{width:100%;height:30px;}
-		.form-group div:first-child{float:left;width:30%;height:40px;}
-		.form-group div:last-child{float:left;width:70%;height:40px;}
+		.form-groupf{float:left;width:30%;height:40px;}
+		.form-groupl{float:left;width:70%;height:40px;}
+		.voting_c:hover{background-color:#E9EDF2;cursor:pointer;}
+		.bootstrap-datetimepicker-widget{height:300px;}
 		</style>
 </head>
 <body style="padding-right:0px;">
@@ -62,9 +74,26 @@
 			<button class="forumgo towpartsubbtn" id="searchvotinggobtn">GO</button>
 			<button class="addvotingcls" id="addvotebtn">+ Create a voting</button>
 		</div>
-		<div class="allvoting_createdbyme">Created by me</div>
-		<div class="allvoting_newidea">New Idea</div>
-		<div class="allvoting">All</div>
+		<neq name="logincate" value="">
+			<eq name="yme" value="1">
+				<div class="allvoting_createdbyme" style="width:100px;border-bottom:3px solid #18FFFF;text-align:center;cursor:pointer;">Created by me</div>
+			</eq>
+			<eq name="yme" value="0">
+			<div class="allvoting_createdbyme" style="width:100px;text-align:center;cursor:pointer;">Created by me</div>
+			</eq>
+		</neq>
+		<eq name="newidea" value="1">
+			<div class="allvoting_newidea" style="width:100px;border-bottom:3px solid #18FFFF;text-align:center;cursor:pointer;">New Idea</div>
+		</eq>
+		<eq name="newidea" value="0">
+		<div class="allvoting_newidea" style="width:100px;text-align:center;cursor:pointer;">New Idea</div>
+		</eq>
+		<eq name="allvoting" value="1">
+			<div class="allvoting" style="width:100px;border-bottom:3px solid #18FFFF;text-align:center;cursor:pointer;">All</div>
+		</eq>
+		<eq name="allvoting" value="0">
+		<div class="allvoting" style="width:100px;text-align:center;cursor:pointer;">All</div>
+		</eq>
 	</div>
 	</div>
 	<div style="width:100%;height:610px;margin-top:40px;">
@@ -79,16 +108,24 @@
 			<div class="voting_head_participants">#of Participants</div>
 		</div>
 		<ul id="token-list" style="list-style-type:none;min-height:490px;height:auto;margin:0px;">
-			<li class="voting_c">
-				<div class="voting_head_title"> I am a voting idea ....</div>
-				<div class="voting_head_type">New idea</div>
-				<div class="voting_head_status">Viting in progress</div>
-				<div class="voting_head_createdate">Apr 20,2019</div>
-				<div class="voting_head_enddate">Apr 20,2019</div>
-				<div class="voting_head_createby">Admin</div>
-				<div class="voting_head_views">3000</div>
-				<div class="voting_head_participants">40001</div>
-			</li>
+		
+					<eq name="pcount" value="0">
+						<li class="voting_c">暂无数据</li>
+					</eq>
+					  <volist name="votelist" id="vob">
+						<li class="voting_c" onclick="javascript:window.location.href='{$curhost}index.php/Home/Voting/detail?vid={$vob.id}';">
+							<div class="voting_head_titles">{$vob.title}</div>
+							
+							<div class="voting_head_types">{$vob.typeinstr}</div>
+
+							<div class="voting_head_statuss">{$vob.statusinstr}</div>
+							<div class="voting_head_createdates">{$vob.adddate}</div>
+							<div class="voting_head_enddates">{$vob.enddate}</div>
+							<div class="voting_head_createbys">{$vob.author}</div>
+							<div class="voting_head_viewss">{$vob.views}</div>
+							<div class="voting_head_participantss">{$vob.joinnum}</div>
+						</li>
+				</volist>
 		</ul>
 		<div id="example" style="text-align: center;margin-top:30px;"> <ul id="pageLimit"></ul></div>
 	</div>
@@ -184,6 +221,7 @@
 <include file="Index/resendtip" />
 <include file="Index/didqrcode" />
 <include file="Voting/addvoting" />
+<include file="Forum/addforumsuccful" />
 <style>
 .div_four_f_r .tooltip{
 	width:150px;
@@ -219,6 +257,107 @@
 <script src="{$Think.const.PUBLIC_H}Home/summernote/lang/summernote-zh-CN.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
+
+var curhost = "{$curhost}";
+var counts = "{$pcount}";
+var searchword = "{$searchword}";
+var cate = "{$cate}";
+var sendtime = "{$sendtime}";
+var puplarity = "{$puplarity}";
+var roleid = "{$profileinfo.roleid}";
+if(counts!="0"){
+	$('#pageLimit').bootstrapPaginator({
+		currentPage: 1,
+		totalPages: {$pcount},
+		size:"normal",
+		bootstrapMajorVersion: 3,
+		alignment:"right",
+		numberOfPages:10,
+		itemTexts: function (type, page, current) {
+			switch (type) {
+				case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+				case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+				case "page": return page;
+			}
+		},
+		onPageClicked: function (event, originalEvent, type, page){
+			$.ajax({
+				url:'forumlistjson',
+				type:'POST',
+				data:{'curp':page,puplarity:puplarity,cate:cate,searchword:searchword,sendtime:sendtime},
+				dataType:'JSON',
+				success:function (callback) {
+					$(".forum_list_ul").html("");
+					var htmla = "";
+					for(var i=0;i<callback.length;i++){
+						
+					}
+						$(".forum_list_ul").html(htmla);
+					}
+			})
+		}
+	});	
+}
+$(".allvoting_createdbyme").click(function(){
+	var yme = 1;
+	var newidea="";
+	var allvoting="";
+	if($(".searchvoting").val()!=""){
+		var searchc = $(".searchvoting").val();
+	}else{
+		var searchc = "";
+	}
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc;
+});
+$(".allvoting_newidea").click(function(){
+	var yme = "";
+	var newidea=1;
+	var allvoting="";
+	if($(".searchvoting").val()!=""){
+		var searchc = $(".searchvoting").val();
+	}else{
+		var searchc = "";
+	}
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc;
+});
+$(".allvoting").click(function(){
+	var yme = "";
+	var newidea="";
+	var allvoting=1;
+	if($(".searchvoting").val()!=""){
+		var searchc = $(".searchvoting").val();
+	}else{
+		var searchc = "";
+	}
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc;
+});
+
+
+$("#searchvotinggobtn").click(function(){jumpurl();});
+function jumpurl(){
+	if($(".allvoting_createdbyme").css("border-bottom-color")=="rgb(24, 255, 255)"){
+		var yme = 1;
+	}else{
+		var yme = "";
+	}
+	if($(".allvoting_newidea").css("border-bottom-color")=="rgb(24, 255, 255)"){
+		var newidea = 1;
+	}else{
+		var newidea = "";
+	}
+	if($(".allvoting").css("border-bottom-color")=="rgb(24, 255, 255)"){
+		var allvoting = 1;
+	}else{
+		var allvoting = "";
+	}
+	if($(".searchvoting").val()!=""){
+		var searchword = $(".searchvoting").val();
+	}else{
+		var searchword = "";
+	}
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchword;
+}
+
 $('#datetimepicker1').datetimepicker({
 	format: 'YYYY-MM-DD',
 	locale: moment.locale('en')
@@ -239,18 +378,18 @@ $('.summernote').summernote({
 	disableDragAndDrop:false,
 	minHeight:150,
 	maxHeight:150,
-	placeholder: '当青春远去，愿智慧已足够。',
 	lang: 'zh-CN'
 });
+ $("#votecontents").summernote('code','提交想法 -> 用户投票最多3个  -> 每月选出3个创意 -> 来自创意所有者的POC演示 -> 资金分配');
 }else{
 	$('.summernote').summernote({
 		height: 150,
 		tabsize: 2,
 		disableDragAndDrop:false,
 		minHeight:150,
-		maxHeight:150,
-		placeholder: 'When youth departs, may wisdom prove enouth.'
+		maxHeight:150
 	});
+ $("#votecontents").summernote('code','Submit an idea -> User vote 3 max. -> TOP 3 ideas selected monthly -> POC demo from idea owner -> Funding Distributed');
 }
 </script>
 </body>

@@ -17,8 +17,8 @@
                     <section class="box-login v5-input-txt" id="box-login" style="height:550px;">
                             <ul style="list-style-type:none;">
                                 <li class="form-group">
-									<div class="add_voting_type_tip" style="font-size:12px;color:#000;">Type</div>
-									<div>
+									<div class="add_voting_type_tip form-groupf" style="font-size:12px;color:#000;">Type</div>
+									<div class="form-groupl">
 										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;margin-left:20px;">
 										<input id="vote_newidea" class="styled" type="checkbox">
 										<label for="vote_newidea">
@@ -34,8 +34,8 @@
 									</div>
 								</li>
                                 <li class="form-group">
-									<div class="add_voting_type_tip" style="font-size:12px;color:#000;">Options<br><span style="font-size:12px;color:#aaa;">(Community Type only)</span></div>
-									<div>
+									<div class="add_voting_type_tip  form-groupf" style="font-size:12px;color:#000;">Options<br><span style="font-size:12px;color:#aaa;">(Community Type only)</span></div>
+									<div class="form-groupl">
 										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;margin-left:20px;">
 										<input id="singleoption" class="styled" type="checkbox">
 										<label for="singleoption">
@@ -50,21 +50,21 @@
 										</div>
 									</div>
 								</li>
-                                <li class="form-group">
-									<div class="add_voting_title">Title</div>
-								<div>
-									<input type="text" id="forumtitle" value=""  style="outline:none;padding-left:2%;width:100%;height:30px;border:1px solid #e5e5e5;" />
+                                <li class="form-group ">
+									<div class="add_voting_title form-groupf">Title</div>
+								<div class="form-groupl">
+									<input type="text" id="votetitle" value=""  style="outline:none;padding-left:2%;width:100%;height:30px;border:1px solid #e5e5e5;" />
 								</div>
 								</li>
                                 <li style="width:100%;height:280px;">
-									<div class="add_voting_desc" style="height:280px;float:left;width:30%;">Description</div>
-									<div style="height:280px;float:left;width:70%;">
-										<div class="summernote" id="forumcontents"></div>
+									<div class="add_voting_desc  form-groupf" style="height:280px;float:left;width:30%;">Description</div>
+									<div  class="form-control" style="height:280px;float:left;width:70%;">
+										<div class="summernote" id="votecontents"></div>
 									</div>
 								</li>
                                 <li class="form-group">
-								<div class="add_voting_cate">End date</div>
-								<div class='input-group date' id='datetimepicker1' style="width:200px;">
+								<div class="add_voting_cate form-groupf" >End date</div>
+								<div class='input-group date form-groupl' id='datetimepicker1' style="width:200px;">
 									<input type='text' class="form-control" id="enddate" placeholder="End date" style="background-color:#fff;" />
 									<span class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
@@ -72,8 +72,8 @@
 								</div>
 								</li>
                                 <li class="form-group" style="height:40px;margin-top:40px;">
-									<div class="add_voting_type_tip" style="font-size:12px;font-weight:900;">Repeat<br><span style="font-size:12px;color:#aaa;">(for “New Idea” type voting only)</span></div>
-									<div>
+									<div class="add_voting_type_tip form-groupf" style="font-size:12px;font-weight:900;">Repeat<br><span style="font-size:12px;color:#aaa;">(for “New Idea” type voting only)</span></div>
+									<div class="form-groupl" >
 										<div class="checkbox" style="width:200px;float:left;padding:0px;height:40px;margin:0px;margin-left:20px;">
 										<input id="repeatoption" class="styled" type="checkbox">
 										<label for="repeatoption">
@@ -118,6 +118,29 @@ var options = {
 <script src="{$Think.const.PUBLIC_H}Home/js/login_common.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/pcorm.js"></script>
 <script>
+
+ 
+$("#vote_newidea").on('change', function() {
+  if($(this).prop("checked")){
+	  $("#vote_community").prop("checked", false);
+   }
+})
+$("#vote_community").on('change', function() {
+  if($(this).prop("checked")){
+	  $("#vote_newidea").prop("checked", false);
+   }
+})
+$("#singleoption").on('change', function() {
+  if($(this).prop("checked")){
+	  $("#multioptions").prop("checked", false);
+   }
+})
+$("#multioptions").on('change', function() {
+  if($(this).prop("checked")){
+	  $("#singleoption").prop("checked", false);
+   }
+})
+ 
   jigsaw.init({
     el: document.getElementById('captcha'),
     onSuccess: function() {
@@ -125,7 +148,7 @@ var options = {
 		//if(rs=="1"){
 			//$("#addforum").modal("hide");
 			$("#addforumsuccful").modal("show");
-			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.href="index";},2500);
+			setTimeout(function(){$("#addforumsuccful").modal("hide");window.location.href=curhost+"index.php/Home/Voting/index.html";},2500);
 		//}else{
 			//$("#addforum").modal("hide");
 		//	$("#addforumerror").modal("show");
@@ -136,20 +159,35 @@ var options = {
     onRefresh: function(){console.log("重新刷新");}
   })
 function savedata(){
-	var forumtitle=$("#forumtitle").val();
-	var forumcontents=$('#forumcontents').summernote('code');
-	var forumcate=$("#forumcates").val();
-	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+	var votetitle=$("#votetitle").val();
+	var votecontents=$('#votecontents').summernote('code');
+	var votecate = "";
+	var voteoption = "";
+	if($("#vote_newidea").prop("checked")){
+		votecate = "1";
+	}
+	if($("#vote_community").prop("checked")){
+		votecate = "2";
+    }
+	if($("#singleoption").prop("checked")){
+		voteoption = "1";
+	}
+	if($("#multioptions").prop("checked")){
+		voteoption = "2";
+    }
+	var enddate = $("#enddate").val();
+	var repeatoption = "0";
+	if($("#repeatoption").prop("checked")){
+		repeatoption = "1";
+    }
+	if(votetitle=="" || votetitle=="" || votecate=="" || voteoption=="" || enddate==""){
 		$("#addforumtip").modal("show")
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
 	}
-	if ($('#isnewidea').prop("checked")){
-		isnewidea = 1;
-	}else{
-		isnewidea = 0;
-	}
-	$.post('addforum',{forumtitle:forumtitle,forumcontents:forumcontents,forumcate:forumcate,isnewidea:isnewidea},function(data){
+	$("#forum_c").hide();
+	$("#slider_img").show();
+	$.post('Voting/addvote',{votetitle:votetitle,votecontents:votecontents,votecate:votecate,voteoption:voteoption,enddate:enddate,repeatoption:repeatoption},function(data){
 		if(data==1){
 			//setTimeout(function(){$("#addforum").modal("hide");window.location.href="index";},2500);
 			return 1;
@@ -159,18 +197,31 @@ function savedata(){
 	});
 }
 $("#saveforumbtn").click(function(){
-	var forumtitle=$("#forumtitle").val();
-	var forumcontents=$('#forumcontents').summernote('code');
-	var forumcate=$("#forumcates").val();
-	if(forumtitle=="" || forumcontents=="" || forumcate==""){
+	var votetitle=$("#votetitle").val();
+	var votecontents=$('#votecontents').summernote('code');
+	var votecate = "";
+	var voteoption = "";
+	if($("#vote_newidea").prop("checked")){
+		votecate = "1";
+	}
+	if($("#vote_community").prop("checked")){
+		votecate = "2";
+    }
+	if($("#singleoption").prop("checked")){
+		voteoption = "1";
+	}
+	if($("#multioptions").prop("checked")){
+		voteoption = "2";
+    }
+	var enddate = $("#enddate").val();
+	var repeatoption = "0";
+	if($("#repeatoption").prop("checked")){
+		repeatoption = "1";
+    }
+	if(votetitle=="" || votetitle=="" || votecate=="" || voteoption=="" || enddate==""){
 		$("#addforumtip").modal("show")
 		setTimeout(function(){$("#addforumtip").modal("hide");},2500);
 		return false;
-	}
-	if ($('#isnewidea').prop("checked")){
-		isnewidea = 1;
-	}else{
-		isnewidea = 0;
 	}
 	$("#forum_c").hide();
 	$("#slider_img").show();

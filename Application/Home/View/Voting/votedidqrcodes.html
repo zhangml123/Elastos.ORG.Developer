@@ -1,0 +1,55 @@
+<div class="modal fade" id="votedidqrcodes" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+	<div style="display:table; width:100%; height:100%;">
+	<div style="vertical-align:middle; display:table-cell;">
+	<div class="modal-dialog modal-sm" style="background-color:#F6F9FD;width:420px;border-radius:10px;">
+        <div class="modal-content" style="border: none;border-radius:10px;">
+            <div class="col-right" style="background-color:#F6F9FD;border-radius:5px;width:470px;">
+                <div class="modal-header" style="padding-top:30px;padding-bottom:15px;border:0px;">
+                   <button type="button" id="wcqrcode_close" style="outline:none;font-size:34px;margin-top:-10px;font-weight:300;font-family:'宋体';" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+               </div>
+                <div class="modal-body">
+					<div id="didscanrss" class="loginscanqrcodet loginscanqrcode" style="width:100%;height:40px;line-height:20px;text-align:center;background-color:#F6F9FD;">Scan to vote</div>
+					<iframe src="" id="votedidqrcode" style="width:290px;height:290px;border:0px;margin-left:75px;margin-top:5px;"></iframe>
+					<div class="vote_bottom_instr" style="width:100%;height:30px;line-height:30px;font-size:12px;text-align:center;">Open your delephant wallet app,scan the code to vote</div>
+					<input type="hidden" value="{$logincate}" id="loginstatuss"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="{$Think.const.PUBLIC_H}Home/js/jquery-3.3.1.min.js"></script>
+<script>
+$(document).ready(function(){
+	if($("#votedidqrcode").attr("src")==""){
+		var wcurl = internationalWords.hosturl+'/index.php/Home/Voting/showdidreq';
+		$("#votedidqrcode").attr("src",wcurl);
+	}
+		//if($("#ploginstatus").val()==""){
+		var paws = setInterval(getwcrssw,"2000");
+	//}
+	function getwcrssw(){
+		$.post(
+			internationalWords.hosturl+'/index.php/Home/Voting/addvotenum',
+			{forumid:window.localStorage.voteforum,votingsid:curid},
+			function(data){
+				if(data==1){
+					clearInterval(paws);
+					if(sessionStorage.getItem('internationalWords')==1){
+						$("#didscanrss").html("投票成功");
+					}else{
+						$("#didscanrss").html("You have voted successfully.");
+					}
+					setTimeout(function(){$("#votedidqrcodes").modal("hide"); window.location.reload();},1500);
+				}else{
+					//clearInterval(paws);
+					//$("#pdidqrcodeModal").modal("hide");
+					//$("#scandidfail").modal("show")
+					//setTimeout(function(){$("#scandidfail").modal("hide");},3000);
+				}
+			}
+		);
+	}
+});
+</script>

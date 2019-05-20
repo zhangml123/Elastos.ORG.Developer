@@ -10,12 +10,12 @@ if(sessionStorage.getItem('internationalWords')!=null && sessionStorage.getItem(
 INKEY0?INKEY=INKEY0:INKEY0=1;
 if(INKEY==1){
     internationalWords=internationalWordsZH;
-	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17.5px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/cn.png' style='width:30px;height:17.5px;'>&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/lang_cn.svg' style='width:22px;height:16px;'>&nbsp;&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/lang_cn.svg' style='width:22px;height:16px;'>&nbsp;&nbsp;简体中文&nbsp;&nbsp;<img id='imgarrow' src='../../../Public/Home/images/down_arrow.png'>";
 }else{
     internationalWords=internationalWordsEN;
-	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17.5px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
-	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/en.png' style='width:30px;height:17.5px;'>&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlang").innerHTML = "<img  src='../../../Public/Home/images/lang_en.svg' style='width:22px;height:16px;'>&nbsp;&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
+	document.getElementById("setlangs").innerHTML = "<img  src='../../../Public/Home/images/lang_en.svg' style='width:22px;height:16px;'>&nbsp;&nbsp;English&nbsp;&nbsp;<img id='imgarrow'  src='../../../Public/Home/images/down_arrow.png'>";
 }
 function change(num){
     if(num==1){
@@ -375,6 +375,33 @@ function guojihua(){
 	$(".vietnamese").html(internationalWords.vietnamese);
 	$(".traditional_cn").html(internationalWords.traditional_cn);
 	$(".chinese_cn").html(internationalWords.chinese_cn);
+	$(".voting_head_title").html(internationalWords.voting_head_title);
+	$(".voting_head_type").html(internationalWords.voting_head_type);
+	$(".voting_head_status").html(internationalWords.voting_head_status);
+	$(".voting_head_createdate").html(internationalWords.voting_head_createdate);
+	$(".voting_head_enddate").html(internationalWords.voting_head_enddate);
+	$(".voting_head_createby").html(internationalWords.voting_head_createby);
+	$(".voting_head_createby").html(internationalWords.voting_head_createby);
+	$(".voting_head_views").html(internationalWords.voting_head_views);
+	$(".voting_head_participants").html(internationalWords.voting_head_participants);
+	$(".voting").html(internationalWords.voting);
+	$(".allvoting").html(internationalWords.allvoting);
+	$(".allvoting_newidea").html(internationalWords.allvoting_newidea);
+	$(".allvoting_createdbyme").html(internationalWords.allvoting_createdbyme);
+	$(".addvotingcls").html(internationalWords.addvotingcls);
+	$(".searchvoting").attr("placeholder",internationalWords.allvoting_createdbyme);
+	$(".vote_detail_enddate").html(internationalWords.vote_detail_enddate);
+	$(".vote_rules").html(internationalWords.vote_rules);
+	$(".vote_select").html(internationalWords.vote_select);
+	$(".vote_cancel").html(internationalWords.vote_cancel);
+	$(".vote_confirm").html(internationalWords.vote_confirm);
+	$(".votebtn").html(internationalWords.votebtn);
+	$(".votes_from").html(internationalWords.votes_from);
+	$(".voterulestip_head").html(internationalWords.voterulestip_head);
+	$(".vote_calculation").html(internationalWords.vote_calculation);
+	$(".vote_calculation_eg_tip").html(internationalWords.vote_calculation_eg_tip);
+	$(".vote_calculation_eg").html(internationalWords.vote_calculation_eg);
+	$("#load_vote_morebtn").html(internationalWords.load_vote_morebtn);
 	
 }
 guojihua();

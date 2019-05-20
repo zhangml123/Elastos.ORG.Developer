@@ -60,7 +60,7 @@ class DocumentationController extends CommonbaseController {
 		}else{
 			//var_dump($_SESSION ['eladevp']['lang']);
 			 if($_SESSION ['eladevp']['lang']=="en"){
-				$doc = "EN/1.Before you start/1.Contribute and earn ELA.md";
+				$doc = "EN/1. Introduction/1. Introduction.md";
 			}else{
 				$doc = "CN/1.开始之前/1.做贡献赢取ELA.md";
 			}
