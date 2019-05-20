@@ -270,12 +270,16 @@
 			$("#second_o").html("0");
 			$("#second_t").html("0");
 		}else{
-			//console.log(difftime);
 			var rest_day = parseInt(difftime/86400);
 			var rest_hour = parseInt((difftime%86400)/3600);
 			var rest_mint = parseInt(((difftime%86400)%3600)/60);
 			var rest_senond = parseInt((((difftime%86400)%3600)%60));
-			if(String(rest_day).length==2){
+			console.log(rest_day);
+			if(String(rest_day).length==3){
+				$("#day_o").html(String(rest_day).substr(0,1));
+				$("#day_t").html(String(rest_day).substr(1,1));
+				$('.daylist span').fadeTo(200,0.7);
+			}else if(String(rest_day).length==2){
 				$("#day_o").html(String(rest_day).substr(0,1));
 				$("#day_t").html(String(rest_day).substr(1,1));
 				$('.daylist span').fadeTo(200,0.7);

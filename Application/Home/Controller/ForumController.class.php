@@ -157,6 +157,7 @@ class ForumController extends Controller {
 			$this->assign("abuseyn",$abuseyn);
 			$this->addforumviewnum($articleinfo['id']);
 		}
+		$this->assign("voteno",$this->voteno($articleinfo['id']));
 		$isread = $this->getnoreadnotify();
 		$this->assign("isread",$isread);
 		$this->assign("articleinfo",$articleinfo);
@@ -1376,6 +1377,20 @@ class ForumController extends Controller {
 	  }else{
 		  echo "";
 	  }
+  }
+  //查看当前主题的投票排名
+  public function voteno($forumid){
+	  $j = 0;
+	  $article = M("article");
+	  $rs = $article->order("votenum desc")->select();
+	  if($rs){
+		 for($i=0;$i<count($rs);$i++){
+			 if($rs[$i]['id']==$forumid){
+				 $j = $i+1;
+			 }
+		 }
+	  }
+	  return $j;
   }
 }
 ?>

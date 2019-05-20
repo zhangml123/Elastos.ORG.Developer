@@ -403,6 +403,21 @@ function guojihua(){
 	$(".vote_calculation_eg").html(internationalWords.vote_calculation_eg);
 	$("#load_vote_morebtn").html(internationalWords.load_vote_morebtn);
 	
+	$(".add_voting_type_tip").html(internationalWords.add_voting_type_tip);
+	$(".add_vote_newidea").html(internationalWords.add_vote_newidea);
+	$(".add_vote_community").html(internationalWords.add_vote_community);
+	$(".add_voting_type_option").html(internationalWords.add_voting_type_option);
+	$(".add_vote_singleoption").html(internationalWords.add_vote_singleoption);
+	$(".add_vote_multioptions").html(internationalWords.add_vote_multioptions);
+	$(".add_voting_title").html(internationalWords.add_voting_title);
+	$(".add_voting_desc").html(internationalWords.add_voting_desc);
+	$(".add_voting_enddate").html(internationalWords.add_voting_enddate);
+	$(".add_voting_repeat").html(internationalWords.add_voting_repeat);
+	$(".add_voting_monthly").html(internationalWords.add_voting_monthly);
+	$("#enddate").attr("placeholder",internationalWords.add_voting_enddate);
+	
+
+	
 }
 guojihua();
 
