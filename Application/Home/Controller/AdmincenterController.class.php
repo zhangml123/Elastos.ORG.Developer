@@ -79,6 +79,7 @@ class AdmincenterController extends BaseController {
 		$where['id'] = $_POST['cateid'];
 		$data['catename'] = $_POST['catename'];
 		$data['catenameen'] = $_POST['catenameen'];
+		$data['sort'] = $_POST['sortnum'];
 		$category = M("category");
 		$rs = $category->where($where)->save($data);
 		if($rs!==false){
@@ -242,7 +243,242 @@ class AdmincenterController extends BaseController {
 		}
 		
 	}
-	
-	
-	
+	/**
+		以下是活动的管理
+	**/
+	public function eventshow(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	//新增活动界面
+	public function addeventshow(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	//新增活动功能
+	public function addevent(){
+		$events = M("events");
+		$data['title'] = $_POST['title'];
+		$data['cate'] = $_POST['cate'];
+		$data['starttime'] = strtotime($_POST['starttime']);
+		$data['endtime'] = strtotime($_POST['endtime']);
+		$data['whereplace'] = $_POST['whereplace'];
+		$data['onlineurl'] = $_POST['onlineurl'];
+		$data['ticketcate'] = $_POST['ticketcate'];
+		$data['ticketprice'] = $_POST['ticketprice'];
+		$data['howto'] = $_POST['howto'];
+		$data['remark'] = $_POST['remark'];
+		$data['create_notice'] = $_POST['create_notice'];
+		$data['sendmail'] = $_POST['sendmail'];
+		$data['draft'] = $_POST['draft'];
+		$data['author'] = $_SESSION ['eladevp']['userid'];
+		$data['addtime'] =time();
+		$rs = $events->add($data);
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	//编辑活动界面
+	public function editeventshow(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("eventinfo",$this->eventinfo($_GET['eid']));
+		$this->assign("isread",$isread);
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	//编辑活动功能
+	public function editevent(){
+		$events = M("events");
+		$where['id'] = $_POST['eid'];
+		$data['title'] = $_POST['title'];
+		$data['cate'] = $_POST['cate'];
+		$data['starttime'] = strtotime($_POST['starttime']);
+		$data['endtime'] = strtotime($_POST['endtime']);
+		$data['whereplace'] = $_POST['whereplace'];
+		$data['onlineurl'] = $_POST['onlineurl'];
+		$data['ticketcate'] = $_POST['ticketcate'];
+		$data['ticketprice'] = $_POST['ticketprice'];
+		$data['howto'] = $_POST['howto'];
+		$data['remark'] = $_POST['remark'];
+		$data['create_notice'] = $_POST['create_notice'];
+		$data['sendmail'] = $_POST['sendmail'];
+		$data['draft'] = 0;
+		$data['author'] = $_SESSION ['eladevp']['userid'];
+		$data['addtime'] =time();
+		$rs = $events->where($where)->save($data);
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	//指定活动的基本信息
+	public function eventinfo($eid){
+		$events = M("events");
+		$where['id'] = $eid;
+		$rs = $events->where($where)->find();
+		if($rs){
+			return $rs;
+		}else{
+			return "";
+		}
+	}
+	/*
+		以下是管理员账户管理
+	*/
+	public function adminlistshow(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$where['subucate'] = 1;
+		$order = "id desc";
+		$adminlist = $this->adminlist($where,$order);
+		$isread = $this->getnoreadnotify();
+		$this->assign("adminlist",$adminlist);
+		$this->assign("pcount",$this->getadmincount($where));
+		$this->assign("isread",$isread);
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+		
+	}
+	//获取管理员列表
+	public function adminlist($where,$order){
+		$user = M("user");
+		$rslist = $user->where($where)->order($order)->limit("0,10")->select();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				if(mb_strlen($rslist[$i]['nickname'],"utf-8")>10){
+					$rslist[$i]['nickname'] = mb_substr($rslist[$i]['nickname'],0,10,'utf-8')."...";
+				}
+			}
+		}
+		$count = $user->where($where)->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		return $rslist;
+	}
+	//指定条件下的管理员总数
+	public function getadmincount($where){
+		$user = M("user");
+		$count = $user->where($where)->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		return $pcount;
+	}
+	//获取论坛内容列表
+	public function adminlistjson(){
+		$where['subucate'] = 1;
+		$order = "id desc";
+		if(isset($_POST['searchword']) && trim($_POST['searchword'],"")!=""){
+			$where['title'] = array("like","%".$_POST['searchword']."%");
+		}
+		$curp = $_POST['curp'];
+		$startnum = ($curp - 1)*10;
+		$user = M("user");
+		$rslist = $user->where($where)->order($order)->limit($startnum.",10")->select();
+		if($rslist){
+			for($i=0;$i<count($rslist);$i++){
+				if(mb_strlen($rslist[$i]['nickname'],"utf-8")>10){
+					$rslist[$i]['nickname'] = mb_substr($rslist[$i]['nickname'],0,10,'utf-8')."...";
+				}
+			}
+		}
+		$count = $user->where($where)->count();
+		if($count!=0){
+			$pcount = ceil($count/10);
+		}else{
+			$pcount = 0;
+		}
+		echo json_encode($rslist);
+	}
+	public function setadmin(){
+		$roleid = $_POST['roleid'];
+		if($roleid=="1"){
+			$setrole = 2;
+		}else{
+			$setrole = 1;
+		}
+		$where['userid'] = $_POST['userid'];
+		$data['roleid'] = $setrole;
+		$user = M("user");
+		$rs = $user->where($where)->save($data);
+		//var_dump($user->getlastsql());
+		if($rs){
+			echo 1;
+		}else{
+			echo 0;
+		}
+	}
+	/*
+		以下是开发者文档同步
+	*/
+	public function devpdocsyn(){
+		if(isset($_SESSION ['eladevp']['logincate']) && $_SESSION ['eladevp']['logincate']!=""){
+			$this->assign("logincate",$_SESSION ['eladevp']['logincate']);
+			$this->assign("userheadimg",$_SESSION ['eladevp']['userheadimg']);
+		}else{
+			$this->assign("logincate","");
+		}
+		$isread = $this->getnoreadnotify();
+		$this->assign("isread",$isread);
+		$this->assign("profileinfo",$this->profileinfo());
+		$this->assign("curhost","https://".$_SERVER['HTTP_HOST']."/");
+		$this->display();
+	}
+	public function sync(){
+		if(is_dir($_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc")){
+			exec("rm -rf ".$_SERVER['DOCUMENT_ROOT']."/Public/Elastos.Developer.Doc && cd ".$_SERVER['DOCUMENT_ROOT']."/Public && git clone https://github.com/elastos/Elastos.Developer.Doc.git",$array, $state);
+			//$state = 0;
+			if($state==0){
+				echo "同步成功！";
+			}else{
+				echo "同步失败！";
+			}
+		}else{
+			exec("cd ".$_SERVER['DOCUMENT_ROOT']."/Public && git clone https://github.com/elastos/Elastos.Developer.Doc.git",$array, $state);
+			//$state = 0;
+			if($state==0){
+				echo "同步成功！";
+			}else{
+				echo "同步失败！";
+			}
+		}
+	}
 }

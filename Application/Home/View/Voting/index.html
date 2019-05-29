@@ -34,27 +34,29 @@
 		.forumgo{outline:none;height:35px;width:50px;border:1px solid #173045;float:left;border-bottom-right-radius:20px;border-top-right-radius:20px;color:#18FFFF;background-color:#173045;text-align:center;}
 		.addvotingcls{margin-left:20px;outline:none;float:right;width:140px;border:1px solid #173045;color:#18FFFF;background-color:#173045;text-align:center;border-radius:20px;height:35px;}
 		.voting_head{width:100%;height:50px;line-height:50px;background-color:#173045;}
-		.voting_head div{float:left;height:50px;color:#fff;text-align:center;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
-		.voting_head_title{width:20%;}
-		.voting_head_type{width:10%;}
-		.voting_head_status{width:15%;}
-		.voting_head_createdate{width:11%;}
-		.voting_head_enddate{width:11%;}
-		.voting_head_createby{width:10%;}
-		.voting_head_views{width:10%;}
-		.voting_head_participants{width:13%;}
+		.voting_head div{float:left;height:50px;color:#fff;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
+		.voting_head_title{width:20%;text-align:center;}
+		.voting_head_type{width:10%;text-align:center;}
+		.voting_head_status{width:15%;text-align:center;}
+		.voting_head_createdate{width:11%;text-align:center;}
+		.voting_head_enddate{width:11%;cursor:pointer;text-align:center;}
+		.down_curdate{background-image:url('{$Think.const.PUBLIC_H}Home/images/icon-sort-down.png');background-size: 20px;background-repeat: no-repeat;background-position-x: 93px;background-position-y: 15px;}
+		.up_curdate{background-image:url('{$Think.const.PUBLIC_H}Home/images/icon-sort-up.png');background-size: 20px;background-repeat: no-repeat;background-position-x: 93px;background-position-y: 15px;}
+		.voting_head_createby{width:10%;text-align:center;}
+		.voting_head_views{width:10%;text-align:center;}
+		.voting_head_participants{width:13%;text-align:center;}
 
-		.voting_head_titles{width:20%;}
-		.voting_head_types{width:10%;}
-		.voting_head_statuss{width:15%;}
-		.voting_head_createdates{width:11%;}
-		.voting_head_enddates{width:11%;}
-		.voting_head_createbys{width:10%;}
-		.voting_head_viewss{width:10%;}
-		.voting_head_participantss{width:13%;}		
+		.voting_head_titles{width:20%;text-align:left;padding-left:2%;padding-right:2%;}
+		.voting_head_types{width:10%;text-align:center;}
+		.voting_head_statuss{width:15%;text-align:center;}
+		.voting_head_createdates{width:11%;text-align:center;}
+		.voting_head_enddates{width:11%;text-align:center;}
+		.voting_head_createbys{width:10%;text-align:center;}
+		.voting_head_viewss{width:10%;text-align:center;}
+		.voting_head_participantss{width:13%;text-align:center;}		
 		
 		.voting_c{width:100%;height:50px;line-height:50px;background-color:#F6F9FD;}
-		.voting_c div{float:left;height:50px;color:#111;text-align:center;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
+		.voting_c div{float:left;height:50px;color:#111;line-height:50px;font-size:12px;font-family: Synthese;font-weight:900;}
 		.form-group{width:100%;height:30px;}
 		.form-groupf{float:left;width:30%;height:40px;}
 		.form-groupl{float:left;width:70%;height:40px;}
@@ -102,7 +104,12 @@
 			<div class="voting_head_type">Type</div>
 			<div class="voting_head_status">Status</div>
 			<div class="voting_head_createdate">Create date</div>
-			<div class="voting_head_enddate">End date</div>
+			<eq name="endtime" value="1">
+			<div class="voting_head_enddate up_curdate" curd="">End date</div>
+			</eq>
+			<eq name="endtime" value="">
+			<div class="voting_head_enddate down_curdate"  curd="1">End date</div>
+			</eq>
 			<div class="voting_head_createby">Created by</div>
 			<div class="voting_head_views">Views</div>
 			<div class="voting_head_participants">#of Participants</div>
@@ -110,10 +117,15 @@
 		<ul id="token-list" style="list-style-type:none;min-height:490px;height:auto;margin:0px;">
 		
 					<eq name="pcount" value="0">
-						<li class="voting_c">暂无数据</li>
+						<li class="voting_c voting_on_data">No data</li>
 					</eq>
 					  <volist name="votelist" id="vob">
+						<eq name="vob.type" value="1">
 						<li class="voting_c" onclick="javascript:window.location.href='{$curhost}index.php/Home/Voting/detail?vid={$vob.id}';">
+						</eq>
+						<neq name="vob.type" value="1">
+						<li class="voting_c">
+						</neq>
 							<div class="voting_head_titles">{$vob.title}</div>
 							
 							<div class="voting_head_types">{$vob.typeinstr}</div>
@@ -121,7 +133,7 @@
 							<div class="voting_head_statuss">{$vob.statusinstr}</div>
 							<div class="voting_head_createdates">{$vob.adddate}</div>
 							<div class="voting_head_enddates">{$vob.enddate}</div>
-							<div class="voting_head_createbys">{$vob.author}</div>
+							<div class="voting_head_createbys" title="{$vob.allnickname}">{$vob.nickname}</div>
 							<div class="voting_head_viewss">{$vob.views}</div>
 							<div class="voting_head_participantss">{$vob.joinnum}</div>
 						</li>
@@ -307,7 +319,8 @@ $(".allvoting_createdbyme").click(function(){
 	}else{
 		var searchc = "";
 	}
-	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc;
+	var endtime = $(".voting_head_enddate").attr("curd");
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc+"&endtime="+endtime;
 });
 $(".allvoting_newidea").click(function(){
 	var yme = "";
@@ -318,7 +331,8 @@ $(".allvoting_newidea").click(function(){
 	}else{
 		var searchc = "";
 	}
-	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc;
+	var endtime = $(".voting_head_enddate").attr("curd");
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc+"&endtime="+endtime;
 });
 $(".allvoting").click(function(){
 	var yme = "";
@@ -329,11 +343,41 @@ $(".allvoting").click(function(){
 	}else{
 		var searchc = "";
 	}
-	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc;
+	var endtime = $(".voting_head_enddate").attr("curd");
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchc+"&endtime="+endtime;
 });
 
 
-$("#searchvotinggobtn").click(function(){jumpurl();});
+$(".voting_head_enddate").click(function(){jumpurl();});
+$("#searchvotinggobtn").click(function(){
+	if($(".allvoting_createdbyme").css("border-bottom-color")=="rgb(24, 255, 255)"){
+		var yme = 1;
+	}else{
+		var yme = "";
+	}
+	if($(".allvoting_newidea").css("border-bottom-color")=="rgb(24, 255, 255)"){
+		var newidea = 1;
+	}else{
+		var newidea = "";
+	}
+	if($(".allvoting").css("border-bottom-color")=="rgb(24, 255, 255)"){
+		var allvoting = 1;
+	}else{
+		var allvoting = "";
+	}
+	if($(".searchvoting").val()!=""){
+		var searchword = $(".searchvoting").val();
+	}else{
+		var searchword = "";
+	}
+	if($(".voting_head_enddate").attr("curd")==""){
+		var endtime = "1";
+	}else{
+		var endtime = "";
+	}
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchword+"&endtime="+endtime;	
+
+});
 function jumpurl(){
 	if($(".allvoting_createdbyme").css("border-bottom-color")=="rgb(24, 255, 255)"){
 		var yme = 1;
@@ -355,7 +399,8 @@ function jumpurl(){
 	}else{
 		var searchword = "";
 	}
-	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchword;
+	var endtime = $(".voting_head_enddate").attr("curd");
+	window.location.href = "index.html?yme="+yme+"&newidea="+newidea+"&allvoting="+allvoting+"&searchword="+searchword+"&endtime="+endtime;
 }
 
 $('#datetimepicker1').datetimepicker({
@@ -391,5 +436,6 @@ $('.summernote').summernote({
 	});
  $("#votecontents").summernote('code','Submit an idea -> User vote 3 max. -> TOP 3 ideas selected monthly -> POC demo from idea owner -> Funding Distributed');
 }
+
 </script>
 </body>

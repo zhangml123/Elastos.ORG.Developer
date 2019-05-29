@@ -127,8 +127,6 @@ internationalWordsEN.docpagecommentsubloadmore='load more';
 internationalWordsZH.resultnumfound='条结果';
 internationalWordsEN.resultnumfound='results found';
 
-
-
 /*
 	登录注册相关页面
 */
@@ -481,6 +479,11 @@ internationalWordsZH.followtrans='以下来自谷歌自动翻译：';
 internationalWordsEN.followtrans='The following is from Google Translate:';
 internationalWordsZH.eqthree='已置顶三个';
 internationalWordsEN.eqthree='Has been topped three.';
+internationalWordsZH.forum_tip='论坛';
+internationalWordsEN.forum_tip='Forum';
+
+internationalWordsZH.forum_guide='<span class="votes_from">&nbsp;&nbsp;指南&nbsp;</span><svg width="13" height="13" class="forumguide_tip" style="cursor:pointer;" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.49992 0C2.91013 0 0 2.91012 0 6.49992C0 10.09 2.91013 13 6.49992 13C10.0905 13 13 10.0899 13 6.49992C13 2.9098 10.0905 0 6.49992 0ZM7.04961 10.7953H5.88184V9.62729H7.04961V10.7953ZM8.90083 5.58839C8.73025 5.89609 8.39558 6.27045 7.89826 6.71082C7.56423 7.00663 7.34587 7.22547 7.24336 7.36575C7.14006 7.50635 7.06452 7.66759 7.01486 7.85008C6.96535 8.03226 6.93678 8.32886 6.92948 8.73877L5.94484 8.73908C5.94087 8.60245 5.93928 8.49946 5.93928 8.43106C5.93928 8.02877 5.99625 7.68108 6.11019 7.38876C6.1935 7.16834 6.32822 6.94601 6.51452 6.72209C6.65115 6.55864 6.89759 6.32012 7.25209 6.00702C7.60723 5.69408 7.83875 5.44445 7.94412 5.25799C8.05091 5.07216 8.10391 4.86871 8.10391 4.6486C8.10391 4.24981 7.9484 3.89925 7.63722 3.59742C7.32572 3.29574 6.94329 3.14467 6.49215 3.14467C6.05512 3.14467 5.69078 3.28146 5.39833 3.55457C5.10603 3.82832 4.9137 4.25536 4.82245 4.8365L3.76942 4.71113C3.86352 3.9329 4.14645 3.33653 4.61442 2.9225C5.08349 2.50878 5.70364 2.30169 6.47437 2.30169C7.29081 2.30169 7.9419 2.52402 8.42811 2.96836C8.91448 3.4127 9.15727 3.94988 9.15727 4.58037C9.15727 4.94457 9.07205 5.28084 8.90083 5.58839Z" fill="#173045"/></svg>';
+internationalWordsEN.forum_guide='<span class="votes_from">&nbsp;&nbsp;guide&nbsp;</span><svg width="13" height="13" class="forumguide_tip" style="cursor:pointer;" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.49992 0C2.91013 0 0 2.91012 0 6.49992C0 10.09 2.91013 13 6.49992 13C10.0905 13 13 10.0899 13 6.49992C13 2.9098 10.0905 0 6.49992 0ZM7.04961 10.7953H5.88184V9.62729H7.04961V10.7953ZM8.90083 5.58839C8.73025 5.89609 8.39558 6.27045 7.89826 6.71082C7.56423 7.00663 7.34587 7.22547 7.24336 7.36575C7.14006 7.50635 7.06452 7.66759 7.01486 7.85008C6.96535 8.03226 6.93678 8.32886 6.92948 8.73877L5.94484 8.73908C5.94087 8.60245 5.93928 8.49946 5.93928 8.43106C5.93928 8.02877 5.99625 7.68108 6.11019 7.38876C6.1935 7.16834 6.32822 6.94601 6.51452 6.72209C6.65115 6.55864 6.89759 6.32012 7.25209 6.00702C7.60723 5.69408 7.83875 5.44445 7.94412 5.25799C8.05091 5.07216 8.10391 4.86871 8.10391 4.6486C8.10391 4.24981 7.9484 3.89925 7.63722 3.59742C7.32572 3.29574 6.94329 3.14467 6.49215 3.14467C6.05512 3.14467 5.69078 3.28146 5.39833 3.55457C5.10603 3.82832 4.9137 4.25536 4.82245 4.8365L3.76942 4.71113C3.86352 3.9329 4.14645 3.33653 4.61442 2.9225C5.08349 2.50878 5.70364 2.30169 6.47437 2.30169C7.29081 2.30169 7.9419 2.52402 8.42811 2.96836C8.91448 3.4127 9.15727 3.94988 9.15727 4.58037C9.15727 4.94457 9.07205 5.28084 8.90083 5.58839Z" fill="#173045"/></svg>';
 
 
 
@@ -784,8 +787,8 @@ internationalWordsZH.allvoting_createdbyme='我创建的';
 internationalWordsEN.allvoting_createdbyme='Created by me';
 internationalWordsZH.addvotingcls='+ 创建投票';
 internationalWordsEN.addvotingcls='+ Create a voting';
-internationalWordsZH.searchvoting='&nbsp;&nbsp;搜索投票';
-internationalWordsEN.searchvoting='&nbsp;&nbsp;Search a Voting';
+internationalWordsZH.searchvoting=' 搜索投票';
+internationalWordsEN.searchvoting=' Search a Voting';
 internationalWordsZH.vote_detail_enddate='结束日期';
 internationalWordsEN.vote_detail_enddate='End Date';
 internationalWordsZH.vote_rules='规则：';
@@ -811,6 +814,8 @@ internationalWordsEN.vote_calculation_eg='Votes = 300 x 50% + 50 x 50% = 175';
 internationalWordsZH.load_vote_morebtn='加载更多';
 internationalWordsEN.load_vote_morebtn='load more data';
 
+internationalWordsZH.new_voting_tilte='新投票';
+internationalWordsEN.new_voting_tilte='New Voting';
 
 internationalWordsZH.add_voting_type_tip='类型';
 internationalWordsEN.add_voting_type_tip='Type';
@@ -834,10 +839,41 @@ internationalWordsZH.add_voting_repeat='重复<br><span style="font-size:12px;co
 internationalWordsEN.add_voting_repeat='Repeat<br><span style="font-size:12px;color:#aaa;">(for “New Idea” type voting only)</span>';
 internationalWordsZH.add_voting_monthly='每月';
 internationalWordsEN.add_voting_monthly='Monthly';
-
-
-
-
-
+internationalWordsZH.savevotebtn='保存并发布';
+internationalWordsEN.savevotebtn='Save and Launch';
+internationalWordsZH.voting_on_data='暂无数据';
+internationalWordsEN.voting_on_data='No data';
+internationalWordsZH.voting_tip='投票';
+internationalWordsEN.voting_tip='Vote';
+internationalWordsZH.novotetip='投票已关闭';
+internationalWordsEN.novotetip='Voting is closed';
+internationalWordsZH.multiplevotetip='选择投票不能超过三个';
+internationalWordsEN.multiplevotetip='Can not choose more than three';
+//管理员账号管理
+internationalWordsZH.devpdocsyn='开发者文档同步';
+internationalWordsEN.devpdocsyn='Developer document synchronization';
+internationalWordsZH.adminlisttip='管理员账户管理';
+internationalWordsEN.adminlisttip='Administrator account management';
+internationalWordsZH.admin_account='账户';
+internationalWordsEN.admin_account='Account';
+internationalWordsZH.admin_nickname='昵称';
+internationalWordsEN.admin_nickname='Nickname';
+internationalWordsZH.admin_role='角色';
+internationalWordsEN.admin_role='Role';
+internationalWordsZH.admin_op='操作';
+internationalWordsEN.admin_op='Operating';
+internationalWordsZH.admin_c='管理员';
+internationalWordsEN.admin_c='Administrator';
+internationalWordsZH.not_admin_c='非管理员';
+internationalWordsEN.not_admin_c='Not administrator';
+internationalWordsZH.unsetadmin='取消管理员';
+internationalWordsEN.unsetadmin='Unset administrator';
+internationalWordsZH.resetadmin='设置管理员';
+internationalWordsEN.resetadmin='Set administrator';
+//文档同步
+internationalWordsZH.waite_syn='等待同步...';
+internationalWordsEN.waite_syn='Waiting for synchronization...';
+internationalWordsZH.scynbtn='同步';
+internationalWordsEN.scynbtn='synchronization';
 
 

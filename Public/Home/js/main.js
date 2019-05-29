@@ -389,7 +389,7 @@ function guojihua(){
 	$(".allvoting_newidea").html(internationalWords.allvoting_newidea);
 	$(".allvoting_createdbyme").html(internationalWords.allvoting_createdbyme);
 	$(".addvotingcls").html(internationalWords.addvotingcls);
-	$(".searchvoting").attr("placeholder",internationalWords.allvoting_createdbyme);
+	$(".searchvoting").attr("placeholder",internationalWords.searchvoting);
 	$(".vote_detail_enddate").html(internationalWords.vote_detail_enddate);
 	$(".vote_rules").html(internationalWords.vote_rules);
 	$(".vote_select").html(internationalWords.vote_select);
@@ -415,6 +415,27 @@ function guojihua(){
 	$(".add_voting_repeat").html(internationalWords.add_voting_repeat);
 	$(".add_voting_monthly").html(internationalWords.add_voting_monthly);
 	$("#enddate").attr("placeholder",internationalWords.add_voting_enddate);
+	$(".add_voting_tip").html(internationalWords.new_voting_tilte);
+	$("#savevotebtn").html(internationalWords.savevotebtn);
+	$(".voting_on_data").html(internationalWords.voting_on_data);
+	$(".nav_voting_t").html(internationalWords.voting_tip);
+	$(".forum_tip").html(internationalWords.forum_tip);
+	$(".forum_guide").html(internationalWords.forum_guide);
+	$(".novotetip").html(internationalWords.novotetip);
+	$(".multiplevotetip").html(internationalWords.multiplevotetip);
+	$(".adminlisttip").html(internationalWords.adminlisttip);
+	$(".devpdocsyn").html(internationalWords.devpdocsyn);
+	$(".admin_account").html(internationalWords.admin_account);
+	$(".admin_nickname").html(internationalWords.admin_nickname);
+	$(".admin_role").html(internationalWords.admin_role);
+	$(".admin_op").html(internationalWords.admin_op);
+	$(".admin_c").html(internationalWords.admin_c);
+	$(".not_admin_c").html(internationalWords.not_admin_c);
+	$(".unsetadmin").html(internationalWords.unsetadmin);
+	$(".resetadmin").html(internationalWords.resetadmin);
+	$(".waite_syn").html(internationalWords.waite_syn);
+	$("#scynbtn").html(internationalWords.scynbtn);
+	
 	
 
 	

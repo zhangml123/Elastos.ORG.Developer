@@ -308,15 +308,15 @@ class IndexController extends CommonbaseController {
 		$this->adddid($state);
 		$payaddress="";
 		$amount="0";
-		$url ="http://203.189.235.252:8080/trucks/signdid.jsp";
-		$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
-		$sign = trim(file_get_contents($url."".$parms));
+		//$url ="http://203.189.235.252:8080/trucks/signdid.jsp";
+		//$parms = "?didprvkey=".$didprvkey."&msg=".$appid;
+		//$sign = trim(file_get_contents($url."".$parms));
+		$RequestInfo = "Nickname,ELAAddress, BTCAddress,BCHAddress,ETHAddress,IOEXAddress,Email,PhoneNumber,ChineseIDCard";
 		$random =rand(1000,9999);
  		$ReturnUrl = urlencode("https://".$_SERVER['HTTP_HOST']."/a.php?ida=1");
  		$callbackurl = urlencode("https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didcallback?state=".$state);
-		$qurl = "elaphant://identity?CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Description=developer.elastos.org&AppID=".$appid."&PublicKey=".$didpubkey."&Signature=".$sign."&DID=".$did."&RandomNumber=".$random."&AppName=developer.elastos.org";		
-		//var_dump($qurl);
-	 	$level=3;
+		$qurl = "elaphant://identity?AppName=developer.elastos.org&AppID=".$appid."&Description=developer.elastos.org&RandomNumber=".$random."&DID=".$did."&PublicKey=".$didpubkey."&RequestInfo=".urlencode($RequestInfo)."&CallbackUrl=".$callbackurl."&ReturnUrl=".$ReturnUrl."&Target=browser";		
+		$level=3;
         $size=2;
         $errorCorrectionLevel =intval($level) ;//容错级别
         $matrixPointSize = intval($size);//生成图片大小
@@ -332,15 +332,19 @@ class IndexController extends CommonbaseController {
 	//处理DID回调值
 	public function didcallback(){
 		 $rs = file_get_contents("php://input");
+		 $myfile = fopen($_SERVER['DOCUMENT_ROOT']."/newfile524.txt", "w") or die("Unable to open file!");
+		 fwrite($myfile, $rs."||".$_GET['state']);
 		 $jsona = json_decode($rs,true);
 		 $njson = json_decode($jsona['Data'],true);
 		 $where['didrandom'] = $_GET['state'];
 		 $didpubkey = $njson['PublicKey'];
-		 $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
-		 $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
-		 $yn = trim(file_get_contents($url."".$parms));
-		 if(isset($njson['NickName']) && $njson['NickName']!=""){
-			 $nickname = $njson['NickName'];
+		// $url ="http://203.189.235.252:8080/trucks/verifydid.jsp";
+		// $parms = "?didpubkey=".$didpubkey."&msg=".urlencode($jsona['Data'])."&sig=".$jsona['Sign'];
+		 $url ="https://".$_SERVER['HTTP_HOST']."/index.php/Home/Index/didverify";
+		 $parms = "?publickey=".$didpubkey."&str=".urlencode($jsona['Data'])."&sign=".$jsona['Sign'];
+		 $yn = explode("|||",file_get_contents($url."".$parms));
+		 if(isset($njson['Nickname']) && $njson['Nickname']!=""){
+			 $nickname = $njson['Nickname'];
 		 }else{
 			 $nickname = "";
 		 }
@@ -349,19 +353,31 @@ class IndexController extends CommonbaseController {
 		 }else{
 			 $eladdress = "";
 		 }
+		 if(isset($njson['Email']) && $njson['Email']!=""){
+			 $Email = $njson['Email'];
+		 }else{
+			 $Email = "";
+		 }
 		 if(isset($njson['PhoneNumber']) && $njson['PhoneNumber']!=""){
 			 $phonejson = $njson['PhoneNumber'];
 		 }else{
 			 $phonejson = "";
 		 }
-			 $staydid = M("staydid");
-		 if($yn==1){
+		 fwrite($myfile, json_encode($njson));
+		 fwrite($myfile, "----------".$url."".$parms);
+		 
+		 fwrite($myfile, "||||||||||||||".$yn[1]);
+		 $staydid = M("staydid");
+		 if($yn[1]=="1"){
 			 $data['didid'] = $njson['DID'];
 			 $data['nickname'] = $nickname;
 			 $data['Elaaddress'] = $eladdress;
 			 $data['PhoneNumber'] = $phonejson;
+			 $data['email'] = $Email;
+			 fwrite($myfile, json_encode($data));
 			 $rs = $staydid->where($where)->save($data);
 		 }
+		 fclose($myfile);
 	}
 	public function judgedid(){
 		 $wherea['didrandom'] = $_SESSION['eladevp']['didstaterand'];
@@ -370,6 +386,7 @@ class IndexController extends CommonbaseController {
 		 //删除超过一个小时的
 		 $wherec['addtime'] = array("elt",time()-1800);
 		 $rsa = $staydid->where($wherec)->delete();
+				$user = M("user");
 		 if($staydidinfo['didid']!=""){
 			 //判断关联表有无信息，如果有关联，则找出User表信息，标明登录类型，如果没有登录信息，则构建User新信息，并构建关联
 			 $rsa = $this->getuserrelation("","","","",$staydidinfo['didid']);
@@ -378,8 +395,20 @@ class IndexController extends CommonbaseController {
 				 //找出User表的信息
 				 //$wherea['userid'] = $rsa['mainuid'];
 				 $uinfo = $this->userinfo($rsa['mainuser']);
-				 //var_dump($uinfo);
+				 
 				 if($uinfo!="0"){
+					if($uinfo['email']==""){
+						$data['email'] = $staydidinfo['email'];
+					}
+					if($uinfo['nickname']==""){
+						$data['nickname'] = $staydidinfo['nickname'];
+					}
+					if($uinfo['mobile']==""){
+						$data['mobile'] = $staydidinfo['PhoneNumber'];
+					}
+					$data['elaaddress'] = $staydidinfo['Elaaddress'];
+					$wherek['userid'] = $uinfo['userid'];
+					$rsb = $user->where($wherek)->save($data);
 					$_SESSION['eladevp']['userid'] = $uinfo['userid'];
 					$_SESSION['eladevp']['logincate'] = $uinfo['subucate'];
 					$_SESSION['eladevp']['userheadimg'] = $uinfo['headimg'];
@@ -395,6 +424,9 @@ class IndexController extends CommonbaseController {
 				$data['addtime'] = time();
 				$data['didid'] = $staydidinfo['didid'];
 				$data['nickname'] = $staydidinfo['nickname'];
+				$data['email'] = $staydidinfo['email'];
+				$data['mobile'] = $staydidinfo['PhoneNumber'];
+				$data['elaaddress'] = $staydidinfo['Elaaddress'];
 				$data['firstname'] = $staydidinfo['nickname'];
 				$data['roleid'] = 2;
 				$data['subucate'] = 5;
@@ -402,7 +434,6 @@ class IndexController extends CommonbaseController {
 				$dataa['mainuser'] = $userid;
 				$dataa['didid'] = $staydidinfo['didid'];
 				$dataa['ustatus'] = 5;
-				$user = M("user");
 				$userrelation = M("userrelation");
 				$rsb = $user->add($data);
 				if($rsb){
@@ -861,5 +892,21 @@ class IndexController extends CommonbaseController {
 		 }else{
 			 echo "删除失败！";
 		 }
+	}
+	//DID验证签名
+	public function didverify(){
+		if($_SERVER['HTTP_REFERER']=="http://".$_SERVER["HTTP_HOST"]."/index.php/Home/Index/didcallback"){
+			$this->assign("publickey",$_GET['publickey']);
+			$this->assign("str",$_GET['str']);
+			$this->assign("sign",$_GET['sign']);
+			$this->assign("curhost","http://".$_SERVER['HTTP_HOST']."/");
+			$this->display();
+		}else{
+			$myfile = fopen($_SERVER['DOCUMENT_ROOT']."/newfile524s.txt", "w") or die("Unable to open file!");
+		 
+			fwrite($myfile, "hhh".$_SERVER['HTTP_REFERER']);
+			fclose($myfile);
+			echo "|||".$_SERVER['HTTP_REFERER']."|||";
+		}
 	}
 }

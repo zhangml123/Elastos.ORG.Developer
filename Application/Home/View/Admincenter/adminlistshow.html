@@ -22,14 +22,13 @@
 <style>
 .doc_menu_l_li_subm{background-color:#173045;color:#fff;}
 .doc_menu_l_li_subm_no {
-background-color:#fff;color:#333;
+background-color:#fff;color:#333;font-family: Synthese;
     width: 95%;
     padding-left: 5%;
     min-height: 30px;
     line-height: 30px;
     font-size: 12px;
     cursor: pointer;
-	font-family: Synthese;
 }
 .doc_menu_l_ul{background-color:#fff;font-family: Synthese;}
 #pageLimit li a{border:0px;border-radius:14px;margin-left:8px;}
@@ -48,55 +47,40 @@ background-color:#fff;color:#333;
 				<div style="height:500px;overflow: auto;" class="div_one_line hidden-sm hidden-xs" id="doc_menu_out_l">
 					<ul class="doc_menu_l_ul">
 							<li class="doc_menu_l_li_subm_no devpdocsyn" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/devpdocsyn.html';">开发者文档同步</li>
-							<li class="doc_menu_l_li_subm_no adminlisttip" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/adminlistshow.html';">管理员账户管理</li>
+							<li class="doc_menu_l_li_subm adminlisttip" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/adminlistshow.html';">管理员账户管理</li>
 							<li class="doc_menu_l_li_subm_no notications" onclick="javascript:window.location.href='{$curhost}index.php/Home/Pcenter/notifylist.html';">Notifications</li>
-							<li class="doc_menu_l_li_subm forum_cate" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumcatelist.html';">Forumcategory</li>
+							<li class="doc_menu_l_li_subm_no forum_cate" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumcatelist.html';">Forumcategory</li>
 							<li class="doc_menu_l_li_subm_no nav_forum" onclick="javascript:window.location.href='{$curhost}index.php/Home/Admincenter/forumlist.html';">Forum</li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-md-9">
 				<div style="width:95%;margin-left:5%;height:700px;">
-					<div  style="width:100%;height:80px;line-height:80px;font-size:30px;margin-bottom:10px;margin-top:40px;">
-						<div style="float:left;height:40px;width:80%;">
-							<div style="float:left;width:50%;height:40px;font-size:12px;line-height:40px;">中文类名:<input type="text" id="catename" style="height:40px;width:185px;font-size:12px;color:#333;"  placeholder="" /></div>
-							<div style="float:left;width:50%;height:40px;font-size:12px;line-height:40px;">English category name:<input type="text" id="catenameen" style="height:40px;width:120px;font-size:12px;color:#333;"   placeholder="" /></div>
-						</div>
-						<div style="float:left;width:20%;">
-						<button class="addforumcate" id="addforumcatebtn" style="float:right;height:30px;width:70px;font-size:12px;text-align:center;line-height:30px;background-color:#173045;color:#fff;border:0px;">新增分类</button>
-						</div>
-					</div>
-						<div style="width:100%;height:45px;">
-								<div style="float:left;color:#173045;width:5%;text-align:left;line-height:45px;text-align:center;" class="number">编号</div>
-								<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;text-align:center;">中文类名</div>
-								<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;text-align:center;">English category</div>
-								<div style="float:left;color:#173045;width:15%;text-align:left;line-height:45px;text-align:center;" class="sort_title">排序</div>
-								<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;text-align:center;" class="operator_title">操作</div>
-						</div>
 						<div style="width:100%;height:610px;">
-							<ul id="token-list" style="list-style-type:none;margin:0px;height:450px;">
-								<volist name="forumcatelist" id="vob" key="k">
-								<li style="border-bottom:1px solid #e5e5e5;height:55px;">
-									<div style="float:left;color:#173045;width:5%;text-align:left;line-height:45px;text-align:center;">{$k}</div>
+							<ul id="admin-list" style="list-style-type:none;margin:0px;height:450px;">
+								<li>
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;text-align:center;font-weight:900;" class="admin_account">账户</div>
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;text-align:center;font-weight:900;" class="admin_nickname">昵称</div>
+									<div style="text-align:center;float:left;color:#173045;width:25%;text-align:left;line-height:45px;font-weight:900;" class="admin_role">角色</div>
+									<div style="text-align:center;float:left;color:#173045;width:25%;text-align:left;line-height:45px;font-weight:900;" class="admin_op">操作</div>
+								</li>
+								<volist name="adminlist" id="vob">
+								<li>
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">{$vob.userid}</div>
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">{$vob.nickname}</div>
+									<eq name="vob.roleid" value="1">
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;" class="admin_c">管理员</div>
+									</eq>
+									<neq name="vob.roleid" value="1">
+									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;" class="not_admin_c">非管理员</div>
+									</neq>
 									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">
-										<input type="text" class="catename" value="{$vob.catename}" style="width:90%;height:30px;margin-top:7px;line-height:30px;"  />
-									</div>
-									<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">
-										<input type="text" class="catenameen" value="{$vob.catenameen}" style="width:90%;height:30px;margin-top:7px;line-height:30px;" />
-									</div>
-									<div style="float:left;color:#173045;width:15%;text-align:left;line-height:45px;">
-										<input type="text" class="sortnum" value="{$vob.sort}" style="float:left;width:50%;height:30px;margin-left:25%;margin-top:7px;line-height:30px;" />
-										<button style="display:none;float:left;width:45%;height:30px;line-height:30px;margin-top:7px" cateid="{$vob.id}" class="savesortbtn">保存</button>
-									</div>
-									<div style="float:left;color:#173045;width:30%;text-align:left;line-height:45px;">
-										<button class="editbtn" cateid="{$vob.id}" style="display:none;outline:none;width:70px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">编辑</button>
-										<button class="savebtn" cateid="{$vob.id}" style="outline:none;margin-left:10px;width:70px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">保存</button>
-										<eq name="vob.status" value="1">
-										<button class="showorhide catehide" cateid="{$vob.id}" status="0" style="outline:none;margin-right:10px;width:60px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;background-color:#173045;color:#fff;">隐藏</button>
+										<eq name="vob.roleid" value="1">
+											<a href="javascript:void(0);" class="setadmin unsetadmin" curid="{$vob.userid}" curroleid="{$vob.roleid}">取消管理员</a>
 										</eq>
-										<eq name="vob.status" value="0">
-										<button class="showorhide cateshow" cateid="{$vob.id}" status="1"  style="outline:none;margin-right:10px;width:60px;height:30px;border:0px;text-align:center;line-height:30px;float:right;margin-top:7px;">显示</button>
-										</eq>
+										<neq name="vob.roleid" value="1">
+											<a href="javascript:void(0);" class="setadmin resetadmin" curid="{$vob.userid}" curroleid="{$vob.roleid}">设置管理员</a>
+										</neq>
 									</div>
 								</li>
 								</volist>
@@ -189,8 +173,6 @@ background-color:#fff;color:#333;
 <include file="Pcenter/applytip" />
 <include file="Index/loginoutscuff" />
 <include file="Index/loginoutfail" />
-<include file="Admincenter/catetip" />
-<include file="Admincenter/tipsuccful" />
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -199,70 +181,94 @@ background-color:#fff;color:#333;
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-dialog.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap-paginator.min.js"></script>
 <script>
-function succful_popup(){
-  $("#forumcatesufful").modal("show");
-  setTimeout(function(){$("#forumcatesufful").modal("hide");window.location.reload()},3000)
-}
-function forum_cate_tip_popup(){
-  $("#forumcatetip").modal("show");
-  setTimeout(function(){$("#forumcatetip").modal("hide");},3000)
-}
-$(".editbtn").click(function(){
-	$(this).parent("div").parent("li").find(".catename").removeAttr("disabled");
-	$(this).parent("div").parent("li").find(".catenameen").removeAttr("disabled");
-	$(this).hide();
-	$(this).parent("div").find(".savebtn").show();
-});
-$(".savebtn").click(function(){
-	//$(this).parent("div").parent("li").find(".catename").attr("disabled","disabled");
-	//$(this).parent("div").parent("li").find(".catenameen").attr("disabled","disabled");
-	var cateid = $(this).attr("cateid");
-	var catename = $(this).parent("div").parent("li").find(".catename").val();
-	var catenameen = $(this).parent("div").parent("li").find(".catenameen").val();
-	var sortnum = $(this).parent("div").parent("li").find(".sortnum").val();
-	if(catename=="" || catenameen=="" || sortnum==""){
-		forum_cate_tip_popup();
-		return false;
+$('#pageLimit').bootstrapPaginator({
+    currentPage: 1,
+    totalPages: {$pcount},
+    size:"normal",
+    bootstrapMajorVersion: 3,
+    alignment:"right",
+    numberOfPages:5,
+    itemTexts: function (type, page, current) {
+        switch (type) {
+			case "prev": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 5.17647V0L0.000476837 11.0003L10 22V16.1765L5.00024 10.6761L10 5.17647Z" fill="#18FFFF"/><path d="M10 16.1765L5.00024 10.6762L10 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+			case "next": return '<svg width="10" height="18" viewBox="0 0 10 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.17647V0L10 11.0003L0 22V16.1765L5 10.6761L0 5.17647Z" fill="#18FFFF"/><path d="M0 16.1765L5 10.6762L0 5.17651V16.1765Z" fill="#2B3C55"/></svg>';
+			case "page": return page;
+        }
+    },
+	onPageClicked: function (event, originalEvent, type, page){
+		$.ajax({
+			url:'adminlistjson',
+			type:'POST',
+			data:{'curp':page,abuse:abuse},
+			dataType:'JSON',
+			success:function (callback) {
+					
+					if(sessionStorage.getItem('internationalWords')==1){
+						$("#admin-list").html('<li><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">账户</div><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">昵称</div><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">角色</div><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">操作</div></li>');
+					}else{
+						$("#admin-list").html('<li><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">Account</div><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">Nickname</div><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">Role</div><div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">Operating</div></li>');
+					}
+					for(var i=0;i<callback.length;i++){
+							var htmla = '<li>'
+									+'<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">{$vob.userid}</div>'
+									+'<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">{$vob.nickname}</div>'
+									+'<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">{$vob.roleid}</div>'
+									+'<div style="float:left;color:#173045;width:25%;text-align:left;line-height:45px;">';
+									if(sessionStorage.getItem('internationalWords')==1){
+										if(callback[i]['roleid']==1){
+											htmla = htmla+'<a href="javascript:void(0);" class="setadmin" curid="{$vob.userid}" curroleid="'+ callback[i]['roleid'] +'">取消管理员</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);" class="setadmin" curid="{$vob.userid}" curroleid="'+ callback[i]['roleid'] +'">设置管理员</a>';
+										}
+									}else{
+										if(callback[i]['roleid']==1){
+											htmla = htmla+'<a href="javascript:void(0);" class="setadmin" curid="{$vob.userid}" curroleid="'+ callback[i]['roleid'] +'">Unset administrator</a>';
+										}else{
+											htmla = htmla+'<a href="javascript:void(0);" class="setadmin" curid="{$vob.userid}" curroleid="'+ callback[i]['roleid'] +'">Set administrator</a>';
+										}
+
+									}
+									htmla = htmla+'</div></li>';
+						$("#admin-list").append(htmla);
+					}
+				}
+		})
 	}
-	//$(this).hide();
-	//$(this).parent("div").find(".editbtn").show();
-	$.post("editforumcate",{cateid:cateid,catename:catename,catenameen:catenameen,sortnum:sortnum},function(data){
-		if(data==1){
-			succful_popup();
+});
+$(document).on("click",".setadmin",function(){
+	var curid = $(this).attr("curid");
+	var roleid = $(this).attr("curroleid");
+	var obja = $(this);
+	
+	if(sessionStorage.getItem('internationalWords')==1){
+		if(roleid=="1"){
+			nowroleid = "2";
+			ism ="非管理员";
+			adminyn ="设置管理员";
+		}else{
+			nowroleid = "1";
+			ism ="管理员";
+			adminyn ="取消管理员";
 		}
-	});
-});
-$("#addforumcatebtn").click(function(){
-	var catename = $("#catename").val();
-	var catenameen = $("#catenameen").val();
-	if(catename=="" || catenameen==""){
-		forum_cate_tip_popup();
-		return false;
+	}else{
+		if(roleid=="1"){
+			nowroleid = "2";
+			ism ="Not administrator";
+			adminyn ="Set administrator";
+		}else{
+			nowroleid = "1";
+			ism ="Administrator";
+			adminyn ="Unset administrator";
+		}
 	}
-	$.post("addforumcate",{catename:catename,catenameen:catenameen},function(data){
-		if(data==1){
-			succful_popup();
+	$.post("setadmin",{userid:curid,roleid:roleid},function(data){
+		if(data=="1"){
+			obja.parent("div").prev("div").html(ism);
+			obja.attr("curroleid",nowroleid);
+			obja.html(adminyn);
 		}
 	});
 })
-$(".savesortbtn").click(function(){
-	var cateid = $(this).attr("cateid");
-	var sortnum = $(this).prev(".sortnum").val();
-	$.post("editforumcatesort",{cateid:cateid,sortnum:sortnum},function(data){
-		if(data==1){
-			succful_popup();
-		}
-	});
-});
-$(".showorhide").click(function(){
-	var cateid = $(this).attr("cateid");
-	var status =$(this).attr("status");
-	$.post("editforumcatestatus",{cateid:cateid,status:status},function(data){
-		if(data==1){
-			succful_popup();
-		}
-	});
-});
 </script>
 </body>
 </html>
