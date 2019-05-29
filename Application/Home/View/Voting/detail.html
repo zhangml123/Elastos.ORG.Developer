@@ -40,6 +40,7 @@
 .vote_choose{background:url({$Think.const.PUBLIC_H}Home/images/no_bg.png);background-size: 30px;background-repeat: no-repeat;}
 .no_vote_choose{background:url({$Think.const.PUBLIC_H}Home/images/vote_bg_gray.png);background-size: 30px;background-repeat: no-repeat;}
 *{outline:none;}
+.votebtn_no{color:#fff;float:right;width:60px;height:30px;background-color:#A7B2BC;border:0px;border-radius:20px;margin-top:10px;}
 </style>
 </head>
 <body>
@@ -48,7 +49,7 @@
 	<div class="div_one_line hidden-sm hidden-xs" style="height:75px;">&nbsp;</div>
 	<div class="container breadcrumb_menu div_one_line hidden-sm hidden-xs">
 		<ul class="breadcrumb">
-		<li><a href="{$curhost}index.php/Home/Votig/index.html" class="forumtip nav_voting_t">Vote</a></li>
+		<li><a href="{$curhost}index.php/Home/Voting/index.html" class="forumtip nav_voting_t">Vote</a></li>
 		<li class="active forumtitle">{$votedetail.title}</li>
 		</ul>
 	</div>		
@@ -65,7 +66,45 @@
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div style="height:40px;line-height:40px;width:95%;margin-left:5%;font-size:14px;"><span style="background-color:#008383;color:#fff;padding-top:5px;padding-bottom:5px;padding-left:10px;padding-right:10px;">&nbsp;&nbsp;{$votedetail.statusinstr}&nbsp;&nbsp;</span></div>
+				<div style="height:40px;line-height:40px;width:95%;margin-left:5%;font-size:14px;">
+					<eq name="curlang" value="cn">
+						<eq name="votedetail.status" value="1">
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_left_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">投票进行中</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_mid_gray.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">投票关闭</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_right_gray.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">获胜者选择</div>
+						</eq>
+						<eq name="votedetail.status" value="2">
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_left_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">投票进行中</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_mid_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">投票关闭</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_right_gray.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">获胜者选择</div>
+						</eq>
+						<eq name="votedetail.status" value="3">
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_left_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">投票进行中</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_mid_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">投票关闭</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_right_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">获胜者选择</div>
+						</eq>
+					</eq>
+					<neq name="curlang" value="cn">
+						<eq name="votedetail.status" value="1">
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_left_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;">&nbsp;&nbsp;Voting In Progress</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_mid_gray.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">Voting Closed</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_right_gray.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">Winner Selected</div>
+						</eq>
+						<eq name="votedetail.status" value="2">
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_left_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;">&nbsp;&nbsp;Voting In Progress</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_mid_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">Voting Closed</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_right_gray.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">Winner Selected</div>
+						</eq>
+						<eq name="votedetail.status" value="3">
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_left_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;">&nbsp;&nbsp;Voting In Progress</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_mid_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">Voting Closed</div>
+							<div style="font-size:12px;float:left;width:130px;height:21px;line-height:21px;background-image:url('{$Think.const.PUBLIC_H}Home/images/voting_top_cion_right_green.png');background-repeat:no-repeat;color:#fff;background-size:120px;text-align:center;">Winner Selected</div>
+						</eq>
+					</neq>
+				<!--
+				<span style="background-color:#008383;color:#fff;padding-top:5px;padding-bottom:5px;padding-left:10px;padding-right:10px;">&nbsp;&nbsp;{$votedetail.statusinstr}&nbsp;&nbsp;</span>
+				-->
+				</div>
 					<div class="doc_content_t div_one_line hidden-sm hidden-xs" style="width:95%;padding-left:5%;min-height:40px;height:auto;overflow:hidden;">
 						<span id="curdocname" style="font-size:24px;min-height:40px;height:auto;width:100%;">{$votedetail.title}</span>
 					</div>
@@ -129,7 +168,13 @@
 											<div class="vote_des">&nbsp;&nbsp;&nbsp;{$voa.elasum}ELA <span class="votes_from">votes from</span> {$voa.didsum} DIDs <svg width="13" height="13" class="votefomula" style="cursor:pointer;" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.49992 0C2.91013 0 0 2.91012 0 6.49992C0 10.09 2.91013 13 6.49992 13C10.0905 13 13 10.0899 13 6.49992C13 2.9098 10.0905 0 6.49992 0ZM7.04961 10.7953H5.88184V9.62729H7.04961V10.7953ZM8.90083 5.58839C8.73025 5.89609 8.39558 6.27045 7.89826 6.71082C7.56423 7.00663 7.34587 7.22547 7.24336 7.36575C7.14006 7.50635 7.06452 7.66759 7.01486 7.85008C6.96535 8.03226 6.93678 8.32886 6.92948 8.73877L5.94484 8.73908C5.94087 8.60245 5.93928 8.49946 5.93928 8.43106C5.93928 8.02877 5.99625 7.68108 6.11019 7.38876C6.1935 7.16834 6.32822 6.94601 6.51452 6.72209C6.65115 6.55864 6.89759 6.32012 7.25209 6.00702C7.60723 5.69408 7.83875 5.44445 7.94412 5.25799C8.05091 5.07216 8.10391 4.86871 8.10391 4.6486C8.10391 4.24981 7.9484 3.89925 7.63722 3.59742C7.32572 3.29574 6.94329 3.14467 6.49215 3.14467C6.05512 3.14467 5.69078 3.28146 5.39833 3.55457C5.10603 3.82832 4.9137 4.25536 4.82245 4.8365L3.76942 4.71113C3.86352 3.9329 4.14645 3.33653 4.61442 2.9225C5.08349 2.50878 5.70364 2.30169 6.47437 2.30169C7.29081 2.30169 7.9419 2.52402 8.42811 2.96836C8.91448 3.4127 9.15727 3.94988 9.15727 4.58037C9.15727 4.94457 9.07205 5.28084 8.90083 5.58839Z" fill="#173045"/>
 </svg></div>
-											<button class="votebtn" curid="{$voa.id}">Vote</button>
+											
+											<eq name="votedetail.status" value="1">
+												<button class="votebtn" curid="{$voa.id}">Vote</button>
+											</eq>
+											<neq name="votedetail.status" value="1">
+												<button class="votebtn" style="color:#fff;background-color:#A7B2BC;">Vote</button>
+											</neq>
 										</div>
 										<div class="forum_vote_t" onclick="javascript:window.location.href='{$curhost}index.php/Home/Forum/forumdetail?forumid={$voa.id}';">{$voa.title}</div>
 									</div>
@@ -244,6 +289,8 @@
 <include file="Index/didqrcode" />
 <include file="Voting/votedidqrcodes" />
 <include file="Voting/voterulestip" />
+<include file="Voting/novotetip" />
+<include file="Voting/multiplevotetip" />
 <script src="{$Think.const.PUBLIC_H}Home/js/bootstrap.min.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/international.js"></script>
 <script src="{$Think.const.PUBLIC_H}Home/js/main.js"></script>
@@ -254,6 +301,7 @@
 	var curhost = "{$curhost}";
 	var difftime = '{$diffend}';
 	var curid = '{$votedetail.id}';
+	var votestatus = '{$votedetail.status}';
 	var curtim = setInterval(difftimes,1000);
 	window.localStorage.voteforumstartnum = "{$chooselistcount}";
 	//获取有多少天
@@ -318,12 +366,17 @@
 		}
 	}
 	$(".vote_select").click(function(){
-		$(this).hide();
-		$(".vote_cancel").show();
-		$(".vote_confirm").show();
-		$(".vote_select_check").show();
-		$(".vote_list_forum_t").css("border-left","1px solid #C1C3C5");
-		$(".vote_list_forum_t").css("width","90%");
+		if(votestatus=="1"){
+			$(this).hide();
+			$(".vote_cancel").show();
+			$(".vote_confirm").show();
+			$(".vote_select_check").show();
+			$(".vote_list_forum_t").css("border-left","1px solid #C1C3C5");
+			$(".vote_list_forum_t").css("width","90%");
+		}else{
+			$("#novotetip").modal("show")
+			setTimeout(function(){$("#novotetip").modal("hide");},3000);
+		}
 	})
 	$(".vote_cancel").click(function(){
 		$(this).hide();
@@ -356,7 +409,8 @@
 	$(".vote_select_check span").click(function(){
 		//console.log($("[choose='y']").length);
 		if($("[choose='y']").length==3 && $(this).attr("choose")=="n"){
-			alert("已经选择了三个");
+			$("#multiplevotetip").modal("show")
+			setTimeout(function(){$("#multiplevotetip").modal("hide");},3000);
 		}else{
 			if($(this).attr("choose")=="y"){
 				$(this).attr("choose","n");
@@ -368,8 +422,13 @@
 		}
 	});
 	$(document).on("click",".votebtn",function(){
-		window.localStorage.voteforum = $(this).attr("curid");
-		$("#votedidqrcodes").modal("show");
+		if(votestatus=="1"){
+			window.localStorage.voteforum = $(this).attr("curid");
+			$("#votedidqrcodes").modal("show");
+		}else{
+			$("#novotetip").modal("show")
+			setTimeout(function(){$("#novotetip").modal("hide");},3000);
+		}
 	});
 	$(document).on("click",".votefomula",function(){
 		$("#voterulestip").modal("show");
@@ -389,8 +448,13 @@
 					var curli = $(".vote_select_check").length;
 					var htmla = '<li><div class="vote_select_check" curid="'+ data[m]['id'] +'"><span choose="n" class="checkvote" curid="'+ data[m]['id'] +'"></span></div>'
 							+'<div class="vote_list_forum_t"><div style="width:95%;height:50px;padding-left:5%;"><div class="no_vote no_vote_choose">'+(curli+1)+'</div>'
-							+'<div class="vote_des">&nbsp;&nbsp;&nbsp;'+ data[m]['elasum'] +' ELA <span class="votes_from">votes from</span> '+ data[m]['didsum'] +' DIDs <svg width="13" height="13" class="votefomula" style="cursor:pointer;" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.49992 0C2.91013 0 0 2.91012 0 6.49992C0 10.09 2.91013 13 6.49992 13C10.0905 13 13 10.0899 13 6.49992C13 2.9098 10.0905 0 6.49992 0ZM7.04961 10.7953H5.88184V9.62729H7.04961V10.7953ZM8.90083 5.58839C8.73025 5.89609 8.39558 6.27045 7.89826 6.71082C7.56423 7.00663 7.34587 7.22547 7.24336 7.36575C7.14006 7.50635 7.06452 7.66759 7.01486 7.85008C6.96535 8.03226 6.93678 8.32886 6.92948 8.73877L5.94484 8.73908C5.94087 8.60245 5.93928 8.49946 5.93928 8.43106C5.93928 8.02877 5.99625 7.68108 6.11019 7.38876C6.1935 7.16834 6.32822 6.94601 6.51452 6.72209C6.65115 6.55864 6.89759 6.32012 7.25209 6.00702C7.60723 5.69408 7.83875 5.44445 7.94412 5.25799C8.05091 5.07216 8.10391 4.86871 8.10391 4.6486C8.10391 4.24981 7.9484 3.89925 7.63722 3.59742C7.32572 3.29574 6.94329 3.14467 6.49215 3.14467C6.05512 3.14467 5.69078 3.28146 5.39833 3.55457C5.10603 3.82832 4.9137 4.25536 4.82245 4.8365L3.76942 4.71113C3.86352 3.9329 4.14645 3.33653 4.61442 2.9225C5.08349 2.50878 5.70364 2.30169 6.47437 2.30169C7.29081 2.30169 7.9419 2.52402 8.42811 2.96836C8.91448 3.4127 9.15727 3.94988 9.15727 4.58037C9.15727 4.94457 9.07205 5.28084 8.90083 5.58839Z" fill="#173045"/></svg></div>'
-							+'<button class="votebtn" curid="'+ data[m]['id'] +'">Vote</button></div><div class="forum_vote_t" onclick="javascript:window.location.href='+curhost+'\'index.php/Home/Forum/forumdetail?forumid='+ data[m]['id'] +'\';">'+ data[m]['title'] +'</div></div></li>';
+							+'<div class="vote_des">&nbsp;&nbsp;&nbsp;'+ data[m]['elasum'] +' ELA <span class="votes_from">votes from</span> '+ data[m]['didsum'] +' DIDs <svg width="13" height="13" class="votefomula" style="cursor:pointer;" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.49992 0C2.91013 0 0 2.91012 0 6.49992C0 10.09 2.91013 13 6.49992 13C10.0905 13 13 10.0899 13 6.49992C13 2.9098 10.0905 0 6.49992 0ZM7.04961 10.7953H5.88184V9.62729H7.04961V10.7953ZM8.90083 5.58839C8.73025 5.89609 8.39558 6.27045 7.89826 6.71082C7.56423 7.00663 7.34587 7.22547 7.24336 7.36575C7.14006 7.50635 7.06452 7.66759 7.01486 7.85008C6.96535 8.03226 6.93678 8.32886 6.92948 8.73877L5.94484 8.73908C5.94087 8.60245 5.93928 8.49946 5.93928 8.43106C5.93928 8.02877 5.99625 7.68108 6.11019 7.38876C6.1935 7.16834 6.32822 6.94601 6.51452 6.72209C6.65115 6.55864 6.89759 6.32012 7.25209 6.00702C7.60723 5.69408 7.83875 5.44445 7.94412 5.25799C8.05091 5.07216 8.10391 4.86871 8.10391 4.6486C8.10391 4.24981 7.9484 3.89925 7.63722 3.59742C7.32572 3.29574 6.94329 3.14467 6.49215 3.14467C6.05512 3.14467 5.69078 3.28146 5.39833 3.55457C5.10603 3.82832 4.9137 4.25536 4.82245 4.8365L3.76942 4.71113C3.86352 3.9329 4.14645 3.33653 4.61442 2.9225C5.08349 2.50878 5.70364 2.30169 6.47437 2.30169C7.29081 2.30169 7.9419 2.52402 8.42811 2.96836C8.91448 3.4127 9.15727 3.94988 9.15727 4.58037C9.15727 4.94457 9.07205 5.28084 8.90083 5.58839Z" fill="#173045"/></svg></div>';
+							if(votestatus=="1"){
+								htmla = htmla +'<button class="votebtn" curid="'+ data[m]['id'] +'">Vote</button>';
+							}else{
+								htmla = htmla +'<button class="votebtn" style="color:#fff;background-color:#A7B2BC;">Vote</button>';
+							}
+							htmla = htmla +'</div><div class="forum_vote_t" onclick="javascript:window.location.href='+curhost+'\'index.php/Home/Forum/forumdetail?forumid='+ data[m]['id'] +'\';">'+ data[m]['title'] +'</div></div></li>';
 				
 					$("#forumvotelists").append(htmla);
 				}

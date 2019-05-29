@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<script src="{$Think.const.PUBLIC_H}Home/js/md5.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/did.js"></script>
+<script src="{$Think.const.PUBLIC_H}Home/js/elastos-wallet-api-min.js"></script>
+<div id="res"></div>
+<script>
+var sign="{$sign}";
+var str = '{$str}';
+var pubkey = "{$publickey}";
+//var ret = verify('{"BCHAddress":"","BTCAddress":"1C3T7JvdTXdFbVe3gPjuEDPbYNUMWDH5bK","ChineseIDCard":{"IDNumber":"","RealName":""},"DID":"iVDef1MsJVD1sdifynEhggzaqvu8a9gHxE","ELAAddress":"EehJ4Frbitk9sf8yznVdBR5AyGr2CeCm5r","ETHAddress":"0xEfEe373EbE7E0A532A5F5b87801d69A54ECD0A62","Email":"602986973@qq.com","Nickname":"明","PhoneNumber":{"CountryCode":"86","PhoneNumber":"18931156185"},"PublicKey":"0244060eec8ceb4787e4430fa4cc142120a4243e20bc6457e346ca27d47f569b95","RandomNumber":"4021","Timestamp":0}', '86e5b75fe7e2ede5bcbf3ae780fe33f0a3875cca0c59171159aadb4cc38316073edff3de1578a7fef978524c40099cacbfdb0e6099f0921d56ef6cfa96c01df2', '0244060eec8ceb4787e4430fa4cc142120a4243e20bc6457e346ca27d47f569b95')
+var ret = verify(str,sign,pubkey);
+if(ret){
+document.getElementById("res").innerHTML="|||1|||";
+}else{
+document.getElementById("res").innerHTML="|||0|||";
+}
+</script>
+</body>
+</html>

@@ -15,7 +15,18 @@ class VotingController extends Controller {
 		}else{
 			$this->assign("langs",2);
 		}
-		$order = "createtime desc,";
+		if(isset($_GET['endtime']) && $_GET['endtime']!=""){
+			if($_GET['endtime']==1){
+				$order = "endtime asc,";
+				$this->assign("endtime","1");
+			}else{
+				$order = "endtime desc,";
+				$this->assign("endtime","");
+			}
+		}else{
+			$order = "endtime desc,";
+			$this->assign("endtime","");
+		}
 		if(isset($_GET['searchword']) && trim($_GET['searchword'],"")!=""){
 			$where['title'] = array("like","%".$_GET['searchword']."%");
 			$this->assign("searchword",$_GET['searchword']);
@@ -79,15 +90,9 @@ class VotingController extends Controller {
 				if($votedetail['status']==1){
 					$votedetail['statusinstr'] = "投票进行中";
 				}else if($votedetail['status']==2){
-					$votedetail['statusinstr'] = "获胜选择";
+					$votedetail['statusinstr'] = "投票关闭";
 				}else if($votedetail['status']==3){
-					$votedetail['statusinstr'] = "POC演示准备";
-				}else if($votedetail['status']==4){
-					$votedetail['statusinstr'] = "接受POC演示";
-				}else if($votedetail['status']==5){
-					$votedetail['statusinstr'] = "奖励已收到";
-				}else if($votedetail['status']==6){
-					$votedetail['statusinstr'] = "结束";
+					$votedetail['statusinstr'] = "获胜者选择";
 				}
 			}else{
 				$votedetail['adddate'] = date("M d,Y",$rslist[$i]['createtime']);
@@ -100,18 +105,13 @@ class VotingController extends Controller {
 				if($votedetail['status']==1){
 					$votedetail['statusinstr'] = "Voting In Progress";
 				}else if($votedetail['status']==2){
-					$votedetail['statusinstr'] = "Winer Selected";
+					$votedetail['statusinstr'] = "Voting Closed";
 				}else if($votedetail['status']==3){
-					$votedetail['statusinstr'] = "POC Demo Prep";
-				}else if($votedetail['status']==4){
-					$votedetail['statusinstr'] = "POC Demo Accepted";
-				}else if($votedetail['status']==5){
-					$votedetail['statusinstr'] = "Reward Received";
-				}else if($votedetail['status']==6){
-					$votedetail['statusinstr'] = "Closed";
+					$votedetail['statusinstr'] = "Winner Selected";
 				}
 			}
 			$this->assign("votedetail",$votedetail);
+			$this->voteviews($_GET['vid']);
 		}else{
 			$this->assign("votedetail","");
 		}
@@ -136,6 +136,14 @@ class VotingController extends Controller {
 			return 0;
 		}
 	}
+	//指定投票信息自增1
+	public function voteviews($votingsid){
+		$where['id'] =$votingsid;
+		$votings = M("votings");
+		$rsa = $votings->where($where)->setInc("views");
+		
+	}
+	
 	//指定条件下的投票DID总数
 	public function voteelasum($votingsid,$forumid){
 		$where['votingsid'] = $votingsid;
@@ -187,8 +195,8 @@ class VotingController extends Controller {
 					if(strlen(strip_tags($rslist[$i]['contents']))>110){
 						$rslist[$i]['contents'] = mb_substr(strip_tags($rslist[$i]['contents']),0,105,"utf-8")."...";
 					}
-					if(strlen($rslist[$i]['title'])>6){
-						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,6,"utf-8")."...";
+					if(strlen($rslist[$i]['title'])>10){
+						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,10,"utf-8")."...";
 					}
 					$rslist[$i]['adddate'] = date("Y年m月d日",$rslist[$i]['createtime']);
 					$rslist[$i]['enddate'] = date("Y年m月d日",$rslist[$i]['endtime']);
@@ -200,15 +208,9 @@ class VotingController extends Controller {
 					if($rslist[$i]['status']==1){
 						$rslist[$i]['statusinstr'] = "投票进行中";
 					}else if($rslist[$i]['status']==2){
-						$rslist[$i]['statusinstr'] = "获胜选择";
+						$rslist[$i]['statusinstr'] = "投票关闭";
 					}else if($rslist[$i]['status']==3){
-						$rslist[$i]['statusinstr'] = "POC演示准备";
-					}else if($rslist[$i]['status']==4){
-						$rslist[$i]['statusinstr'] = "接受POC演示";
-					}else if($rslist[$i]['status']==5){
-						$rslist[$i]['statusinstr'] = "奖励已收到";
-					}else if($rslist[$i]['status']==6){
-						$rslist[$i]['statusinstr'] = "结束";
+						$rslist[$i]['statusinstr'] = "获胜者选择";
 					}
 					$wherea['userid'] = $rslist[$i]['author'];
 					$cuinfo = $this->userinfo($wherea);
@@ -249,11 +251,11 @@ class VotingController extends Controller {
 							}
 						}else{
 							//$rslist[$i]['nickname'] = $cuinfo['nickname'];
-							if(strlen($cuinfo['userid'])>11){
+							if(strlen($cuinfo['nickname'])>11){
+								$rslist[$i]['allnickname'] = $cuinfo['nickname'];
 								$rslist[$i]['nickname'] = substr($cuinfo['nickname'],0,12)."...";
 							}
 						}
-					
 				}
 			}else{
 				for($i=0;$i<count($rslist);$i++){
@@ -270,20 +272,14 @@ class VotingController extends Controller {
 					if($rslist[$i]['status']==1){
 						$rslist[$i]['statusinstr'] = "Voting In Progress";
 					}else if($rslist[$i]['status']==2){
-						$rslist[$i]['statusinstr'] = "Winer Selected";
+						$rslist[$i]['statusinstr'] = "Voting Closed";
 					}else if($rslist[$i]['status']==3){
-						$rslist[$i]['statusinstr'] = "POC Demo Prep";
-					}else if($rslist[$i]['status']==4){
-						$rslist[$i]['statusinstr'] = "POC Demo Accepted";
-					}else if($rslist[$i]['status']==5){
-						$rslist[$i]['statusinstr'] = "Reward Received";
-					}else if($rslist[$i]['status']==6){
-						$rslist[$i]['statusinstr'] = "Closed";
+						$rslist[$i]['statusinstr'] = "Winner Selected";
 					}
 					$wherea['userid'] = $rslist[$i]['author'];
 					$cuinfo = $this->userinfo($wherea);
-					if(strlen($rslist[$i]['title'])>6){
-						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,6,"utf-8")."...";
+					if(strlen($rslist[$i]['title'])>10){
+						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,10,"utf-8")."...";
 					}
 					/* if(strlen($rslist[$i]['contents'])>110){
 						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,105,"utf-8")."...";
@@ -364,22 +360,16 @@ class VotingController extends Controller {
 					$rslist[$i]['enddate'] = date("Y年m月d日",$rslist[$i]['endtime']);
 					
 					if($rslist[$i]['type']==1){
-					$rslist[$i]['typeinstr'] = "新主意";
+						$rslist[$i]['typeinstr'] = "新主意";
 					}else{
 						$rslist[$i]['typeinstr'] = "社区";
 					}
 					if($rslist[$i]['status']==1){
 						$rslist[$i]['statusinstr'] = "投票进行中";
 					}else if($rslist[$i]['status']==2){
-						$rslist[$i]['statusinstr'] = "获胜选择";
+						$rslist[$i]['statusinstr'] = "投票关闭";
 					}else if($rslist[$i]['status']==3){
-						$rslist[$i]['statusinstr'] = "POC演示准备";
-					}else if($rslist[$i]['status']==4){
-						$rslist[$i]['statusinstr'] = "接受POC演示";
-					}else if($rslist[$i]['status']==5){
-						$rslist[$i]['statusinstr'] = "奖励已收到";
-					}else if($rslist[$i]['status']==6){
-						$rslist[$i]['statusinstr'] = "结束";
+						$rslist[$i]['statusinstr'] = "获胜者选择";
 					}
 					$wherea['userid'] = $rslist[$i]['author'];
 					$cuinfo = $this->userinfo($wherea);
@@ -441,15 +431,9 @@ class VotingController extends Controller {
 					if($rslist[$i]['status']==1){
 						$rslist[$i]['statusinstr'] = "Voting In Progress";
 					}else if($rslist[$i]['status']==2){
-						$rslist[$i]['statusinstr'] = "Winer Selected";
+						$rslist[$i]['statusinstr'] = "Voting Closed";
 					}else if($rslist[$i]['status']==3){
-						$rslist[$i]['statusinstr'] = "POC Demo Prep";
-					}else if($rslist[$i]['status']==4){
-						$rslist[$i]['statusinstr'] = "POC Demo Accepted";
-					}else if($rslist[$i]['status']==5){
-						$rslist[$i]['statusinstr'] = "Reward Received";
-					}else if($rslist[$i]['status']==6){
-						$rslist[$i]['statusinstr'] = "Closed";
+						$rslist[$i]['statusinstr'] = "Winner Selected";
 					}
 					$cuinfo = $this->userinfo($wherea);
 					if(strlen($rslist[$i]['title'])>6){
