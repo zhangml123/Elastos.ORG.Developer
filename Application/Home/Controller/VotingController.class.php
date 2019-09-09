@@ -195,9 +195,9 @@ class VotingController extends Controller {
 					if(strlen(strip_tags($rslist[$i]['contents']))>110){
 						$rslist[$i]['contents'] = mb_substr(strip_tags($rslist[$i]['contents']),0,105,"utf-8")."...";
 					}
-					if(strlen($rslist[$i]['title'])>10){
+					/*if(strlen($rslist[$i]['title'])>10){
 						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,10,"utf-8")."...";
-					}
+					}*/
 					$rslist[$i]['adddate'] = date("Y年m月d日",$rslist[$i]['createtime']);
 					$rslist[$i]['enddate'] = date("Y年m月d日",$rslist[$i]['endtime']);
 					if($rslist[$i]['type']==1){
@@ -278,9 +278,9 @@ class VotingController extends Controller {
 					}
 					$wherea['userid'] = $rslist[$i]['author'];
 					$cuinfo = $this->userinfo($wherea);
-					if(strlen($rslist[$i]['title'])>10){
+					/*if(strlen($rslist[$i]['title'])>10){
 						$rslist[$i]['title'] = mb_substr($rslist[$i]['title'],0,10,"utf-8")."...";
-					}
+					}*/
 					/* if(strlen($rslist[$i]['contents'])>110){
 						$rslist[$i]['contents'] = mb_substr($rslist[$i]['contents'],0,105,"utf-8")."...";
 					} */
